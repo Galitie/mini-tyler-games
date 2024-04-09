@@ -1,0 +1,42 @@
+Explicit typing
+
+File names and nodes:
+	character_texture.png
+	ui_menu.gd
+	
+	Nodes should be named like variables, since they are instances of classes:
+	-- main
+		-- environment
+			-- floor
+			-- big_object
+
+Variable example: 
+	var jump_count: int = 3
+	
+	If the variable is unchanging, we make it const:
+		const WALKING_SPEED: float = 30.5
+	
+Class example:
+	extends Node3D
+	class_name FooClass
+	
+	func test_function(test_var: String) -> void:
+		print(test_var)
+		
+	--- some_other_script.gd --
+	func _ready() -> void:
+		var foo: FooClass = FooClass.new()
+		foo.test_function("Hello World!")
+
+Function example:
+	func check_for_collision(col: KinematicCollision3D, iteration: int) -> bool:
+		code goes here
+		return true
+	
+	Even Godot callback functions:
+		func _physics_process(delta: float) -> void:
+			global_transform.origin.x += 3 * delta
+			
+	Callback functions (like with signals) start with "_":
+		func _on_button_pressed(foo: bool) -> void:
+			pass

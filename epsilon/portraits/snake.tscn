@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://cp2km31iryksy"]
+
+[ext_resource type="Texture2D" uid="uid://dv4cxt7xranrc" path="res://epsilon/portraits/snake.png" id="1_ddgcu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qayow"]
+atlas = ExtResource("1_ddgcu")
+region = Rect2(13, 33, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1r630"]
+atlas = ExtResource("1_ddgcu")
+region = Rect2(133, 33, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfrif"]
+atlas = ExtResource("1_ddgcu")
+region = Rect2(218, 33, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jppu"]
+atlas = ExtResource("1_ddgcu")
+region = Rect2(218, 128, 52, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7s606"]
+animations = [{
+"frames": [{
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_qayow")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_1r630")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfrif")
+}, {
+"duration": 0.7,
+"texture": SubResource("AtlasTexture_6jppu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfrif")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_6jppu")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[node name="snake" type="Node2D"]
+
+[node name="snake_portrait" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1.1, 1, 1)
+scale = Vector2(3.95892, 3.95892)
+sprite_frames = SubResource("SpriteFrames_7s606")
+animation = &"talking"
+centered = false

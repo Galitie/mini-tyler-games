@@ -1,0 +1,219 @@
+[gd_scene load_steps=13 format=3 uid="uid://bp8b8uet70caq"]
+
+[ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
+[ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
+[ext_resource type="PackedScene" uid="uid://c7knw11183yn5" path="res://epsilon/portraits/otacon.tscn" id="4_ufnkc"]
+[ext_resource type="PackedScene" uid="uid://cp2km31iryksy" path="res://epsilon/portraits/snake.tscn" id="5_2qnq7"]
+[ext_resource type="FontFile" uid="uid://bwx114pc78x4c" path="res://epsilon/font.ttf" id="5_4wrvh"]
+
+[sub_resource type="Environment" id="Environment_bongu"]
+background_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 2.28
+glow_blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_nh75y"]
+resource_name = "left_portrait_open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1.7411, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(142, 275), Vector2(142, 84)]
+}
+
+[sub_resource type="Animation" id="Animation_dmbmj"]
+resource_name = "right_portrait_open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("right_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1.7411, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(926, 275), Vector2(926, 84)]
+}
+
+[sub_resource type="Animation" id="Animation_fp1hm"]
+resource_name = "right_portrait_close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("right_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.7411),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(926, 84), Vector2(926, 275)]
+}
+
+[sub_resource type="Animation" id="Animation_ah7tt"]
+resource_name = "left_portrait_close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.7411),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(142, 84), Vector2(142, 275)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvc"]
+_data = {
+"left_portrait_close": SubResource("Animation_ah7tt"),
+"left_portrait_open": SubResource("Animation_nh75y"),
+"right_portrait_close": SubResource("Animation_fp1hm"),
+"right_portrait_open": SubResource("Animation_dmbmj")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ludrl"]
+shader = ExtResource("4_de2e4")
+shader_parameter/screen_width = 1024.0
+shader_parameter/screen_height = 600.0
+shader_parameter/BarrelPower = 1.0
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 2.0
+shader_parameter/bleeding_range_y = 2.0
+shader_parameter/lines_distance = 3.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.95
+shader_parameter/lines_velocity = 10.0
+
+[node name="Epsilon" type="Node2D"]
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bongu")
+
+[node name="black_background" type="ColorRect" parent="."]
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 38.0
+scale = Vector2(32.08, 18.0874)
+color = Color(0, 0, 0, 1)
+
+[node name="codec_background" type="TextureRect" parent="."]
+modulate = Color(1, 1.10196, 1, 0.486275)
+offset_left = 93.0
+offset_top = -16.0
+offset_right = 2114.0
+offset_bottom = 1121.0
+scale = Vector2(0.528673, 0.528673)
+texture = ExtResource("1_cv5fk")
+
+[node name="text_container" type="MarginContainer" parent="."]
+offset_left = 254.0
+offset_top = 479.0
+offset_right = 495.0
+offset_bottom = 547.0
+scale = Vector2(3.30082, 2.8936)
+
+[node name="text" type="RichTextLabel" parent="text_container"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.913725, 0.913725, 0.913725, 1)
+theme_override_fonts/normal_font = ExtResource("5_4wrvh")
+text = "Do you think love can bloom even on a battlefield?"
+fit_content = true
+scroll_active = false
+
+[node name="left_portrait" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 142.0
+offset_top = 84.0
+offset_right = 348.0
+offset_bottom = 435.998
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="otacon" parent="left_portrait" instance=ExtResource("4_ufnkc")]
+
+[node name="right_portrait" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 926.0
+offset_top = 84.0
+offset_right = 1132.0
+offset_bottom = 436.0
+
+[node name="snake" parent="right_portrait" instance=ExtResource("5_2qnq7")]
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_skmvc")
+}
+
+[node name="crt_effect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ludrl")
+offset_left = 126.0
+offset_top = 50.0
+offset_right = 286.0
+offset_bottom = 87.0
+scale = Vector2(6.45422, 10.9707)

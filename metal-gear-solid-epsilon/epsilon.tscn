@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=20 format=3 uid="uid://bp8b8uet70caq"]
 
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://metal-gear-solid-epsilon/backgrounds/codec.png" id="1_cv5fk"]
 [ext_resource type="Texture2D" uid="uid://ce7p4a7cxovp1" path="res://metal-gear-solid-epsilon/portraits/otacon.png" id="2_a2oxh"]
 [ext_resource type="Texture2D" uid="uid://dv4cxt7xranrc" path="res://metal-gear-solid-epsilon/portraits/snake.png" id="2_bmube"]
+[ext_resource type="Shader" path="res://crushris/crt.gdshader" id="4_de2e4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qayow"]
 atlas = ExtResource("2_bmube")
@@ -30,7 +31,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_1r630")
 }],
 "loop": true,
-"name": &"blinking",
+"name": &"default",
 "speed": 5.0
 }, {
 "frames": [{
@@ -133,23 +134,56 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ludrl"]
+shader = ExtResource("4_de2e4")
+shader_parameter/screen_width = 1024.0
+shader_parameter/screen_height = 600.0
+shader_parameter/BarrelPower = 1.0
+shader_parameter/color_bleeding = 1.0
+shader_parameter/bleeding_range_x = 2.0
+shader_parameter/bleeding_range_y = 2.0
+shader_parameter/lines_distance = 3.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.95
+shader_parameter/lines_velocity = 10.0
+
 [node name="Epsilon" type="Node2D"]
 
-[node name="snake_portrait" type="AnimatedSprite2D" parent="."]
-position = Vector2(1006, 286)
-scale = Vector2(4.47334, 4.47334)
-sprite_frames = SubResource("SpriteFrames_fid1m")
-animation = &"talking"
-frame_progress = 0.210078
-
-[node name="otacon_portrait" type="AnimatedSprite2D" parent="."]
-position = Vector2(157, 283)
-scale = Vector2(4.44, 4.44)
-sprite_frames = SubResource("SpriteFrames_fopcs")
-animation = &"cool"
+[node name="black_background" type="ColorRect" parent="."]
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 38.0
+offset_bottom = 38.0
+scale = Vector2(32.08, 18.0874)
+color = Color(0, 0, 0, 1)
 
 [node name="codec_background" type="TextureRect" parent="."]
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = -5.0
+offset_top = -72.0
+offset_right = 2128.0
+offset_bottom = 1128.0
 scale = Vector2(0.599999, 0.599999)
 texture = ExtResource("1_cv5fk")
+
+[node name="portraits" type="CanvasLayer" parent="."]
+
+[node name="snake_portrait" type="AnimatedSprite2D" parent="portraits"]
+position = Vector2(1115, 254)
+scale = Vector2(4.91334, 4.91335)
+sprite_frames = SubResource("SpriteFrames_fid1m")
+frame_progress = 0.43763
+
+[node name="otacon_portrait" type="AnimatedSprite2D" parent="portraits"]
+position = Vector2(175, 253)
+scale = Vector2(4.84, 4.84)
+sprite_frames = SubResource("SpriteFrames_fopcs")
+animation = &"talking"
+frame_progress = 0.0595351
+
+[node name="crt" type="ColorRect" parent="portraits"]
+material = SubResource("ShaderMaterial_ludrl")
+offset_left = 48.0
+offset_top = 34.0
+offset_right = 235.0
+offset_bottom = 74.0
+scale = Vector2(6.45422, 10.9707)

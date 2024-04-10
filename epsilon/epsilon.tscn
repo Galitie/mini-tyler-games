@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=13 format=3 uid="uid://bp8b8uet70caq"]
 
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
@@ -25,6 +25,126 @@ shader_parameter/lines_distance = 3.0
 shader_parameter/scan_size = 2.0
 shader_parameter/scanline_alpha = 0.95
 shader_parameter/lines_velocity = 10.0
+
+[sub_resource type="Animation" id="Animation_nh75y"]
+resource_name = "left_portrait_open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1.7411, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(142, 275), Vector2(142, 84)]
+}
+
+[sub_resource type="Animation" id="Animation_dmbmj"]
+resource_name = "right_portrait_open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("right_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1.7411, 1),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(926, 275), Vector2(926, 84)]
+}
+
+[sub_resource type="Animation" id="Animation_fp1hm"]
+resource_name = "right_portrait_close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("right_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.7411),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("right_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(926, 84), Vector2(926, 275)]
+}
+
+[sub_resource type="Animation" id="Animation_ah7tt"]
+resource_name = "left_portrait_close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.7411),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(142, 84), Vector2(142, 275)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvc"]
+_data = {
+"left_portrait_close": SubResource("Animation_ah7tt"),
+"left_portrait_open": SubResource("Animation_nh75y"),
+"right_portrait_close": SubResource("Animation_fp1hm"),
+"right_portrait_open": SubResource("Animation_dmbmj")
+}
 
 [node name="Epsilon" type="Node2D"]
 
@@ -77,7 +197,7 @@ anchors_preset = 0
 offset_left = 142.0
 offset_top = 84.0
 offset_right = 348.0
-offset_bottom = 436.0
+offset_bottom = 435.998
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -92,3 +212,8 @@ offset_right = 1132.0
 offset_bottom = 436.0
 
 [node name="snake" parent="right_portrait" instance=ExtResource("5_2qnq7")]
+
+[node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_skmvc")
+}

@@ -1,65 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt2mu6t1ap23f"]
+[gd_scene load_steps=5 format=3 uid="uid://7qwguakdr1dx"]
 
-[ext_resource type="Script" path="res://crushris/block.gd" id="1_d6n44"]
-[ext_resource type="Texture2D" uid="uid://coshxw3g2l53d" path="res://crushris/blocks.png" id="1_dw51p"]
+[ext_resource type="Script" path="res://crushris/block.gd" id="1_1rjky"]
+[ext_resource type="Texture2D" uid="uid://coshxw3g2l53d" path="res://crushris/blocks.png" id="2_50wrl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3g6f"]
-atlas = ExtResource("1_dw51p")
-region = Rect2(0, 0, 50, 50)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0wgo"]
+atlas = ExtResource("2_50wrl")
+region = Rect2(50, 0, 50, 50)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rlaiw"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfdan"]
 size = Vector2(49, 49)
 
-[node name="o_block" type="Node2D"]
-script = ExtResource("1_d6n44")
+[node name="l_block" type="Node2D"]
+script = ExtResource("1_1rjky")
 
 [node name="block0" type="StaticBody2D" parent="."]
+position = Vector2(-25, 0)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 
 [node name="sprite" type="Sprite2D" parent="block0"]
-texture = SubResource("AtlasTexture_t3g6f")
+texture = SubResource("AtlasTexture_j0wgo")
 centered = false
 
 [node name="shape" type="CollisionShape2D" parent="block0"]
 position = Vector2(25, 25)
-shape = SubResource("RectangleShape2D_rlaiw")
+shape = SubResource("RectangleShape2D_kfdan")
 
 [node name="block1" type="StaticBody2D" parent="."]
-position = Vector2(25, 0)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 
 [node name="sprite" type="Sprite2D" parent="block1"]
-texture = SubResource("AtlasTexture_t3g6f")
+texture = SubResource("AtlasTexture_j0wgo")
 centered = false
 
 [node name="shape" type="CollisionShape2D" parent="block1"]
 position = Vector2(25, 25)
-shape = SubResource("RectangleShape2D_rlaiw")
+shape = SubResource("RectangleShape2D_kfdan")
 
 [node name="block2" type="StaticBody2D" parent="."]
-position = Vector2(0, 25)
+position = Vector2(25, 0)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 
 [node name="sprite" type="Sprite2D" parent="block2"]
-texture = SubResource("AtlasTexture_t3g6f")
+texture = SubResource("AtlasTexture_j0wgo")
 centered = false
 
 [node name="shape" type="CollisionShape2D" parent="block2"]
 position = Vector2(25, 25)
-shape = SubResource("RectangleShape2D_rlaiw")
+shape = SubResource("RectangleShape2D_kfdan")
 
 [node name="block3" type="StaticBody2D" parent="."]
-position = Vector2(25, 25)
+position = Vector2(50, 0)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 
 [node name="sprite" type="Sprite2D" parent="block3"]
-texture = SubResource("AtlasTexture_t3g6f")
+texture = SubResource("AtlasTexture_j0wgo")
 centered = false
 
 [node name="shape" type="CollisionShape2D" parent="block3"]
 position = Vector2(25, 25)
-shape = SubResource("RectangleShape2D_rlaiw")
+shape = SubResource("RectangleShape2D_kfdan")

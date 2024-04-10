@@ -41,13 +41,16 @@ position = Vector2(640, 622.5)
 shape = SubResource("RectangleShape2D_avsa4")
 
 [node name="arena_wall_left" type="StaticBody2D" parent="."]
+collision_mask = 3
 
 [node name="shape" type="CollisionShape2D" parent="arena_wall_left"]
 position = Vector2(502.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
 
-[node name="arena_wall_right" type="StaticBody2D" parent="arena_wall_left"]
+[node name="arena_wall_right" type="StaticBody2D" parent="."]
 
-[node name="shape" type="CollisionShape2D" parent="arena_wall_left/arena_wall_right"]
+[node name="shape" type="CollisionShape2D" parent="arena_wall_right"]
 position = Vector2(777.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
+
+[node name="blocks" type="Node2D" parent="."]

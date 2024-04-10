@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce7p4a7cxovp1"
-path="res://.godot/imported/otacon.png-25b12fc9ee4a6ccafd06af6b34d6b2ca.ctex"
+uid="uid://k3qn8jo55wob"
+path="res://.godot/imported/codec.png-cd1e29b346045e9aa980b090c191f9fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://metal-gear-solid-epsilon/portraits/otacon.png"
-dest_files=["res://.godot/imported/otacon.png-25b12fc9ee4a6ccafd06af6b34d6b2ca.ctex"]
+source_file="res://epsilon/backgrounds/codec.png"
+dest_files=["res://.godot/imported/codec.png-cd1e29b346045e9aa980b090c191f9fc.ctex"]
 
 [params]
 

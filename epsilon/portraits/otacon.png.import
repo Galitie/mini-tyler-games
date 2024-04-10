@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv4cxt7xranrc"
-path="res://.godot/imported/snake.png-f1125e0e21f7bdaad74af031594e2887.ctex"
+uid="uid://ce7p4a7cxovp1"
+path="res://.godot/imported/otacon.png-2972a1e6e81a31110c6646da4c9b4dfa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://metal-gear-solid-epsilon/portraits/snake.png"
-dest_files=["res://.godot/imported/snake.png-f1125e0e21f7bdaad74af031594e2887.ctex"]
+source_file="res://epsilon/portraits/otacon.png"
+dest_files=["res://.godot/imported/otacon.png-2972a1e6e81a31110c6646da4c9b4dfa.ctex"]
 
 [params]
 

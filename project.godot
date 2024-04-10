@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="tmini"
-run/main_scene="res://metal-gear-solid-epsilon/epsilon.tscn"
+run/main_scene="res://epsilon/epsilon.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -1,9 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=8 format=3 uid="uid://bp8b8uet70caq"]
 
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
-[ext_resource type="Texture2D" uid="uid://ce7p4a7cxovp1" path="res://epsilon/portraits/otacon.png" id="2_a2oxh"]
-[ext_resource type="Texture2D" uid="uid://dv4cxt7xranrc" path="res://epsilon/portraits/snake.png" id="2_bmube"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
+[ext_resource type="PackedScene" uid="uid://c7knw11183yn5" path="res://epsilon/portraits/otacon.tscn" id="4_ufnkc"]
+[ext_resource type="PackedScene" uid="uid://cp2km31iryksy" path="res://epsilon/portraits/snake.tscn" id="5_2qnq7"]
 [ext_resource type="FontFile" uid="uid://bwx114pc78x4c" path="res://epsilon/font.ttf" id="5_4wrvh"]
 
 [sub_resource type="Environment" id="Environment_bongu"]
@@ -12,135 +12,6 @@ glow_enabled = true
 glow_normalized = true
 glow_intensity = 2.28
 glow_blend_mode = 1
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qayow"]
-atlas = ExtResource("2_bmube")
-region = Rect2(13, 33, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1r630"]
-atlas = ExtResource("2_bmube")
-region = Rect2(133, 33, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mfrif"]
-atlas = ExtResource("2_bmube")
-region = Rect2(218, 33, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6jppu"]
-atlas = ExtResource("2_bmube")
-region = Rect2(218, 128, 52, 89)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fid1m"]
-animations = [{
-"frames": [{
-"duration": 20.0,
-"texture": SubResource("AtlasTexture_qayow")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_1r630")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mfrif")
-}, {
-"duration": 0.7,
-"texture": SubResource("AtlasTexture_6jppu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mfrif")
-}, {
-"duration": 1.2,
-"texture": SubResource("AtlasTexture_6jppu")
-}],
-"loop": true,
-"name": &"talking",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sumy1"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(9, 538, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtlst"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(13, 33, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dl6i0"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(133, 33, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k7qa1"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(133, 128, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ouwch"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(73, 128, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy2to"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(9, 446, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n3n47"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(124, 446, 52, 89)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a335b"]
-atlas = ExtResource("2_a2oxh")
-region = Rect2(66, 446, 52, 89)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fopcs"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sumy1")
-}],
-"loop": true,
-"name": &"cool",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 15.0,
-"texture": SubResource("AtlasTexture_wtlst")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_dl6i0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k7qa1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ouwch")
-}],
-"loop": true,
-"name": &"talking",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_vy2to")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_n3n47")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_a335b")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_n3n47")
-}],
-"loop": true,
-"name": &"yelling",
-"speed": 5.0
-}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ludrl"]
 shader = ExtResource("4_de2e4")
@@ -167,21 +38,6 @@ offset_right = 38.0
 offset_bottom = 38.0
 scale = Vector2(32.08, 18.0874)
 color = Color(0, 0, 0, 1)
-
-[node name="snake_portrait" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1.1, 1, 1)
-position = Vector2(1028, 255)
-scale = Vector2(3.95892, 3.95892)
-sprite_frames = SubResource("SpriteFrames_fid1m")
-animation = &"talking"
-frame_progress = 0.915319
-
-[node name="otacon_portrait" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1.1, 1, 1)
-position = Vector2(243, 258)
-scale = Vector2(3.80439, 3.80439)
-sprite_frames = SubResource("SpriteFrames_fopcs")
-frame_progress = 0.543438
 
 [node name="codec_background" type="TextureRect" parent="."]
 modulate = Color(1, 1.10196, 1, 0.486275)
@@ -214,3 +70,25 @@ theme_override_fonts/normal_font = ExtResource("5_4wrvh")
 text = "Listen. We're not responsible for her choices. Everyone decides their own fate, no matter where they were born."
 fit_content = true
 scroll_active = false
+
+[node name="left_portrait" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 142.0
+offset_top = 84.0
+offset_right = 348.0
+offset_bottom = 436.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="otacon" parent="left_portrait" instance=ExtResource("4_ufnkc")]
+
+[node name="right_portrait" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 926.0
+offset_top = 84.0
+offset_right = 1132.0
+offset_bottom = 436.0
+
+[node name="snake" parent="right_portrait" instance=ExtResource("5_2qnq7")]

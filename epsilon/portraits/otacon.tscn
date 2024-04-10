@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7knw11183yn5"]
+
+[ext_resource type="Texture2D" uid="uid://ce7p4a7cxovp1" path="res://epsilon/portraits/otacon.png" id="1_xs8mo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sumy1"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(9, 538, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtlst"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(13, 33, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl6i0"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(133, 33, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7qa1"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(133, 128, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouwch"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(73, 128, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy2to"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(9, 446, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3n47"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(124, 446, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a335b"]
+atlas = ExtResource("1_xs8mo")
+region = Rect2(66, 446, 52, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xn783"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sumy1")
+}],
+"loop": true,
+"name": &"cool",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_wtlst")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_dl6i0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7qa1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouwch")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_vy2to")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_n3n47")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_a335b")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_n3n47")
+}],
+"loop": true,
+"name": &"yelling",
+"speed": 5.0
+}]
+
+[node name="otacon" type="Node2D"]
+
+[node name="otacon_portrait" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1.1, 1, 1)
+scale = Vector2(3.80439, 3.80439)
+sprite_frames = SubResource("SpriteFrames_xn783")
+centered = false

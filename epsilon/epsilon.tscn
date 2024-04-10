@@ -13,19 +13,6 @@ glow_normalized = true
 glow_intensity = 2.28
 glow_blend_mode = 1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ludrl"]
-shader = ExtResource("4_de2e4")
-shader_parameter/screen_width = 1024.0
-shader_parameter/screen_height = 600.0
-shader_parameter/BarrelPower = 1.0
-shader_parameter/color_bleeding = 1.2
-shader_parameter/bleeding_range_x = 2.0
-shader_parameter/bleeding_range_y = 2.0
-shader_parameter/lines_distance = 3.0
-shader_parameter/scan_size = 2.0
-shader_parameter/scanline_alpha = 0.95
-shader_parameter/lines_velocity = 10.0
-
 [sub_resource type="Animation" id="Animation_nh75y"]
 resource_name = "left_portrait_open"
 length = 0.3
@@ -146,6 +133,19 @@ _data = {
 "right_portrait_open": SubResource("Animation_dmbmj")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ludrl"]
+shader = ExtResource("4_de2e4")
+shader_parameter/screen_width = 1024.0
+shader_parameter/screen_height = 600.0
+shader_parameter/BarrelPower = 1.0
+shader_parameter/color_bleeding = 1.2
+shader_parameter/bleeding_range_x = 2.0
+shader_parameter/bleeding_range_y = 2.0
+shader_parameter/lines_distance = 3.0
+shader_parameter/scan_size = 2.0
+shader_parameter/scanline_alpha = 0.95
+shader_parameter/lines_velocity = 10.0
+
 [node name="Epsilon" type="Node2D"]
 
 [node name="env" type="WorldEnvironment" parent="."]
@@ -168,14 +168,6 @@ offset_bottom = 1121.0
 scale = Vector2(0.528673, 0.528673)
 texture = ExtResource("1_cv5fk")
 
-[node name="crt_effect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_ludrl")
-offset_left = 124.0
-offset_top = 55.0
-offset_right = 284.0
-offset_bottom = 92.0
-scale = Vector2(6.45422, 10.9707)
-
 [node name="text_container" type="MarginContainer" parent="."]
 offset_left = 254.0
 offset_top = 479.0
@@ -187,7 +179,7 @@ scale = Vector2(3.30082, 2.8936)
 layout_mode = 2
 theme_override_colors/default_color = Color(0.913725, 0.913725, 0.913725, 1)
 theme_override_fonts/normal_font = ExtResource("5_4wrvh")
-text = "Listen. We're not responsible for her choices. Everyone decides their own fate, no matter where they were born."
+text = "Do you think love can bloom even on a battlefield?"
 fit_content = true
 scroll_active = false
 
@@ -217,3 +209,11 @@ offset_bottom = 436.0
 libraries = {
 "": SubResource("AnimationLibrary_skmvc")
 }
+
+[node name="crt_effect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ludrl")
+offset_left = 126.0
+offset_top = 50.0
+offset_right = 286.0
+offset_bottom = 87.0
+scale = Vector2(6.45422, 10.9707)

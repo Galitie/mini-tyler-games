@@ -47,6 +47,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# TODO: There's an occasional bug that spares some blocks from death,
 	# leaving them floating in mid-air. I'm not sure what causes it yet.
+	# Starting to think a falling block gets stuck within another one...
 	if death_row.size() != 0:
 		block_killer_timer += 1
 		if block_killer_timer >= block_killer_timer_length:

@@ -1,12 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=6 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
-[ext_resource type="Texture2D" uid="uid://coshxw3g2l53d" path="res://crushris/blocks.png" id="1_uay15"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6ynb"]
-atlas = ExtResource("1_uay15")
-region = Rect2(200, 100, 1, 1)
+[ext_resource type="Texture2D" uid="uid://43s6nj13pmcd" path="res://crushris/bg.png" id="2_y6e6l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
 size = Vector2(250, 25)
@@ -18,8 +14,9 @@ size = Vector2(25, 500)
 script = ExtResource("1_a2yik")
 
 [node name="bg" type="Sprite2D" parent="."]
-scale = Vector2(1280, 720)
-texture = SubResource("AtlasTexture_n6ynb")
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_y6e6l")
 centered = false
 
 [node name="arena" type="Sprite2D" parent="."]

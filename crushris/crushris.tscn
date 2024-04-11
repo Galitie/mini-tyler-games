@@ -52,5 +52,3 @@ shape = SubResource("RectangleShape2D_7tcbf")
 [node name="shape" type="CollisionShape2D" parent="arena_wall_right"]
 position = Vector2(777.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
-
-[node name="blocks" type="Node2D" parent="."]

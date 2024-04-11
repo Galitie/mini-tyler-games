@@ -16,15 +16,16 @@ const BLOCK_FALL_SPEED: float = 3.0
 
 var active_block: Block = null
 
-const WORLD_COLLISION_LAYER: int = 1
+var snap_timer: int = 0
+var snap_timer_length: int = 18
 
-@onready var blocks: Node2D = $blocks
+const WORLD_COLLISION_LAYER: int = 1
 
 @onready var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 
 func spawn_block() -> void:
 	var block_instance = block_scenes.pick_random().instantiate()
-	blocks.add_child(block_instance)
+	add_child(block_instance)
 	block_instance.position = BLOCK_SPAWN_POINT
 	active_block = block_instance
 
@@ -42,11 +43,16 @@ func _physics_process(delta: float) -> void:
 			if !active_block.check_contact(Vector2(TILE_SIZE, 0)):
 				active_block.position.x += TILE_SIZE
 		
-		# TODO: Add a small window of movement on an active block before it snaps into place
 		if !active_block.check_contact(Vector2(0, BLOCK_FALL_SPEED)):
 			active_block.position.y += BLOCK_FALL_SPEED
+			snap_timer = 0
 		else:
+			active_block.position.y = snap_block_position(active_block.position).y
+			snap_timer += 1
+				
+		if snap_timer >= snap_timer_length:
 			active_block.position = snap_block_position(active_block.position)
+			# TODO: This is bugged. Needs to actually determine the arena ceiling
 			if active_block.check_contact(Vector2(0, -TILE_SIZE)):
 				print("GAME OVER")
 				active_block = null
@@ -54,6 +60,7 @@ func _physics_process(delta: float) -> void:
 				active_block.set_collision_layer(WORLD_COLLISION_LAYER)
 				check_rows()
 				spawn_block()
+			snap_timer = 0
 				
 func snap_block_position(pos: Vector2) -> Vector2:
 	var result: Vector2 = BOTTOM_LEFT_ROW_ORIGIN + Vector2(

@@ -63,8 +63,8 @@ func _physics_process(delta: float) -> void:
 		if !still_falling:
 			fall_blocks.clear()
 			check_rows()
-			if death_row.size() == 0:
-				spawn_piece()
+	elif active_piece == null:
+		spawn_piece()
 	
 	if active_piece:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED)

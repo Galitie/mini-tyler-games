@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://7qwguakdr1dx"]
+
+[ext_resource type="Script" path="res://crushris/piece.gd" id="1_1rjky"]
+[ext_resource type="PackedScene" uid="uid://dalr6b3bj4jqm" path="res://crushris/block.tscn" id="3_8ppjn"]
+
+[node name="l_piece" type="Node2D"]
+script = ExtResource("1_1rjky")
+origin_point = Vector2(-25, 0)
+color_frame = 1
+
+[node name="block" parent="." instance=ExtResource("3_8ppjn")]
+position = Vector2(-50, 0)
+
+[node name="block2" parent="." instance=ExtResource("3_8ppjn")]
+position = Vector2(-25, 0)
+
+[node name="block3" parent="." instance=ExtResource("3_8ppjn")]
+position = Vector2(0, 0)
+
+[node name="block4" parent="." instance=ExtResource("3_8ppjn")]
+position = Vector2(25, 0)

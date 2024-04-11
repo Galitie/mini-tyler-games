@@ -86,10 +86,10 @@ animations = [{
 "duration": 2.2,
 "texture": SubResource("AtlasTexture_7vrfo")
 }, {
-"duration": 1.9,
+"duration": 1.3,
 "texture": SubResource("AtlasTexture_cdf85")
 }, {
-"duration": 2.7,
+"duration": 1.1,
 "texture": SubResource("AtlasTexture_27o6c")
 }, {
 "duration": 1.0,

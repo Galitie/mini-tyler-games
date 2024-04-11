@@ -128,7 +128,6 @@ func check_rows() -> void:
 			
 		row_data.push_back(detected_blocks)
 
-	# TODO: Block disappearing animation and real-time falling velocity
 	for i in range(0, row_data.size()):
 		if row_data[i].size() == MAX_COLUMNS:
 			for block in row_data[i]:

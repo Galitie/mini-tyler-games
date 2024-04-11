@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=7 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
 [ext_resource type="Texture2D" uid="uid://43s6nj13pmcd" path="res://crushris/bg.png" id="2_y6e6l"]
+[ext_resource type="VideoStream" path="res://crushris/embers.ogv" id="4_pk3vh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
 size = Vector2(250, 25)
@@ -18,6 +19,14 @@ texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("2_y6e6l")
 centered = false
+
+[node name="embers" type="VideoStreamPlayer" parent="."]
+modulate = Color(1, 1, 1, 0.0235294)
+offset_right = 1280.0
+offset_bottom = 720.0
+stream = ExtResource("4_pk3vh")
+autoplay = true
+loop = true
 
 [node name="arena" type="Sprite2D" parent="."]
 position = Vector2(640, 360)

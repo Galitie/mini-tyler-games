@@ -84,9 +84,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="otacon" type="Node2D"]
-
-[node name="otacon_portrait" type="AnimatedSprite2D" parent="."]
+[node name="otacon_portrait" type="AnimatedSprite2D"]
 modulate = Color(1, 1.1, 1, 1)
 scale = Vector2(3.80439, 3.80439)
 sprite_frames = SubResource("SpriteFrames_xn783")

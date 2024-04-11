@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=12 format=3 uid="uid://bp8b8uet70caq"]
 
+[ext_resource type="Script" path="res://epsilon/main.gd" id="1_83qyy"]
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
-[ext_resource type="PackedScene" uid="uid://c7knw11183yn5" path="res://epsilon/portraits/otacon.tscn" id="4_ufnkc"]
-[ext_resource type="PackedScene" uid="uid://cp2km31iryksy" path="res://epsilon/portraits/snake.tscn" id="5_2qnq7"]
 [ext_resource type="FontFile" uid="uid://bwx114pc78x4c" path="res://epsilon/font.ttf" id="5_4wrvh"]
 
 [sub_resource type="Environment" id="Environment_bongu"]
@@ -12,6 +11,34 @@ glow_enabled = true
 glow_normalized = true
 glow_intensity = 2.28
 glow_blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_ah7tt"]
+resource_name = "left_portrait_close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1.7411),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left_portrait:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(142, 84), Vector2(142, 275)]
+}
 
 [sub_resource type="Animation" id="Animation_nh75y"]
 resource_name = "left_portrait_open"
@@ -39,34 +66,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(142, 275), Vector2(142, 84)]
-}
-
-[sub_resource type="Animation" id="Animation_dmbmj"]
-resource_name = "right_portrait_open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("right_portrait:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1.7411, 1),
-"update": 0,
-"values": [Vector2(1, 0), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("right_portrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(926, 275), Vector2(926, 84)]
 }
 
 [sub_resource type="Animation" id="Animation_fp1hm"]
@@ -97,32 +96,32 @@ tracks/1/keys = {
 "values": [Vector2(926, 84), Vector2(926, 275)]
 }
 
-[sub_resource type="Animation" id="Animation_ah7tt"]
-resource_name = "left_portrait_close"
+[sub_resource type="Animation" id="Animation_dmbmj"]
+resource_name = "right_portrait_open"
 length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/path = NodePath("right_portrait:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1.7411),
+"transitions": PackedFloat32Array(1.7411, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0)]
+"values": [Vector2(1, 0), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("left_portrait:position")
+tracks/1/path = NodePath("right_portrait:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(142, 84), Vector2(142, 275)]
+"values": [Vector2(926, 275), Vector2(926, 84)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvc"]
@@ -147,6 +146,7 @@ shader_parameter/scanline_alpha = 0.95
 shader_parameter/lines_velocity = 10.0
 
 [node name="Epsilon" type="Node2D"]
+script = ExtResource("1_83qyy")
 
 [node name="env" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bongu")
@@ -193,8 +193,6 @@ offset_bottom = 435.998
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="otacon" parent="left_portrait" instance=ExtResource("4_ufnkc")]
-
 [node name="right_portrait" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -203,9 +201,12 @@ offset_top = 84.0
 offset_right = 1132.0
 offset_bottom = 436.0
 
-[node name="snake" parent="right_portrait" instance=ExtResource("5_2qnq7")]
-
 [node name="animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_skmvc")
+}
+
+[node name="animation2" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_skmvc")
 }
@@ -217,3 +218,8 @@ offset_top = 50.0
 offset_right = 286.0
 offset_bottom = 87.0
 scale = Vector2(6.45422, 10.9707)
+
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="timer" type="Timer" parent="."]
+one_shot = true

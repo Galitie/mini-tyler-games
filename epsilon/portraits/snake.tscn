@@ -49,11 +49,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="snake" type="Node2D"]
-
-[node name="snake_portrait" type="AnimatedSprite2D" parent="."]
+[node name="snake_portrait" type="AnimatedSprite2D"]
 modulate = Color(1, 1.1, 1, 1)
 scale = Vector2(3.95892, 3.95892)
 sprite_frames = SubResource("SpriteFrames_7s606")
-animation = &"talking"
 centered = false

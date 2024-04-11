@@ -12,11 +12,18 @@ extends Node2D
 @onready var codec_ring = load("res://epsilon/sound_effects/codec_ring.mp3")
 @onready var codec_close = load("res://epsilon/sound_effects/codec_close.mp3")
 @onready var codec_open = load("res://epsilon/sound_effects/codec_open.mp3")
-
+var current_scene
 
 func _ready():
 	text_container.text= "" #reset textbox
 	main()
+
+func get_current_scene(path):
+	current_scene = FileAccess.open(path, FileAccess.READ)
+
+func get_next_line():
+	return current_scene.get_line()
+
 
 
 func main():

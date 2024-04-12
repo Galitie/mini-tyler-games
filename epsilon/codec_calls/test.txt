@@ -1,0 +1,2 @@
+msg-This is a test-right-talking-res://epsilon/sound_effects/alert.mp3-alert_sound
+msg-Another test-left-talking-res://epsilon/sound_effects/alert.mp3-alert_sound

@@ -12,26 +12,23 @@ extends Node2D
 @onready var codec_ring = load("res://epsilon/sound_effects/codec_ring.mp3")
 @onready var codec_close = load("res://epsilon/sound_effects/codec_close.mp3")
 @onready var codec_open = load("res://epsilon/sound_effects/codec_open.mp3")
-var current_scene
+@onready var waiting_huh = load("res://epsilon/sound_effects/kept_you_waiting_huh.mp3")
+@onready var love_bloom = load("res://epsilon/sound_effects/love_bloom.mp3")
+
 
 func _ready():
 	text_container.text= "" #reset textbox
 	main()
 
-func get_current_scene(path):
-	current_scene = FileAccess.open(path, FileAccess.READ)
-
-func get_next_line():
-	return current_scene.get_line()
-
-
 
 func main():
 	await add_char(otacon, snake, "both", codec_open)
-	await char_speaks("right", "Kept you waiting, huh?", "talking", codec_ring)
-	await char_speaks("left", "Can love bloom on a battlefield?", "yelling", alert_sound)
+	await char_speaks("right", "Kept you waiting, huh?", "talking", waiting_huh)
+	await char_speaks("left", "Do you think love can bloom, even on a battlefield?", "yelling", love_bloom)
 	await change_char(otacon, "right")
-	await char_speaks("right", "This is just like one of my japanese animes!", "talking", codec_ring)
+	await char_speaks("right", "This is just like one of my japanese animes!", "talking", null)
+	await change_char(snake, "right")
+	await char_speaks("right", "Damn you!", "talking", null)
 	remove_char("both", codec_close)
 
 
@@ -82,11 +79,13 @@ func char_speaks(portrait_side, text, animation, audio):
 		audio_player.stream = audio
 		audio_player.play()
 		await audio_player.finished
-		await one_shot_timer(0.5)
 	if portrait_side == "right":
 		right_portrait.get_child(0).play("default")
 	if portrait_side == "left":
 		left_portrait.get_child(0).play("default")
+	if audio == null:
+		await one_shot_timer(1)
+	await one_shot_timer(0.5)
 
 
 func change_char(new_char, portrait_side):

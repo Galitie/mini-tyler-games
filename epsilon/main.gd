@@ -8,6 +8,7 @@ extends Node2D
 @onready var right_portrait = $right_portrait
 @onready var snake = load("res://epsilon/portraits/snake.tscn")
 @onready var otacon = load("res://epsilon/portraits/otacon.tscn")
+@onready var tyler = load("res://epsilon/portraits/tyler.tscn")
 @onready var alert_sound = load("res://epsilon/sound_effects/alert.mp3")
 @onready var codec_ring = load("res://epsilon/sound_effects/codec_ring.mp3")
 @onready var codec_close = load("res://epsilon/sound_effects/codec_close.mp3")
@@ -27,8 +28,8 @@ func main():
 	await char_speaks("left", "Do you think love can bloom, even on a battlefield?", "yelling", love_bloom)
 	await change_char(otacon, "right")
 	await char_speaks("right", "This is just like one of my japanese animes!", "talking", null)
-	await change_char(snake, "right")
-	await char_speaks("right", "Damn you!", "talking", null)
+	await change_char(tyler,"right")
+	await char_speaks("right", "Don't touch me!", "talking", null)
 	remove_char("both", codec_close)
 
 
@@ -38,7 +39,7 @@ func _process(delta):
 
 func add_char(char, optional_char2, portrait_side, audio):
 	var loaded_char = char.instantiate()
-	var loaded_char2 = optional_char2.instantiate()
+	
 	if portrait_side == "left":
 		anim_player.play("left_portrait_close")
 		await anim_player.animation_finished
@@ -54,6 +55,7 @@ func add_char(char, optional_char2, portrait_side, audio):
 		await anim_player.animation_finished
 		
 	if portrait_side == "both":
+		var loaded_char2 = optional_char2.instantiate()
 		anim_player.play("left_portrait_close")
 		anim_player2.play("right_portrait_close")
 		await anim_player.animation_finished and anim_player2.animation_finished
@@ -79,13 +81,13 @@ func char_speaks(portrait_side, text, animation, audio):
 		audio_player.stream = audio
 		audio_player.play()
 		await audio_player.finished
+	else:
+		await one_shot_timer(1)
 	if portrait_side == "right":
 		right_portrait.get_child(0).play("default")
 	if portrait_side == "left":
 		left_portrait.get_child(0).play("default")
-	if audio == null:
-		await one_shot_timer(1)
-	await one_shot_timer(0.5)
+	await one_shot_timer(.5)
 
 
 func change_char(new_char, portrait_side):

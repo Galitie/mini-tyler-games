@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpwfpg0xgxkj6"]
+
+[ext_resource type="Texture2D" uid="uid://bdlbkkdhmff4d" path="res://epsilon/portraits/tyler.png" id="1_l1uxx"]
+[ext_resource type="Texture2D" uid="uid://cnim1q1pjwpag" path="res://epsilon/portraits/tyler_blink.png" id="2_hkd55"]
+[ext_resource type="Texture2D" uid="uid://bkwvmmro8qrpv" path="res://epsilon/portraits/tyler_talk.png" id="3_f5h1y"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fu7yx"]
+animations = [{
+"frames": [{
+"duration": 12.0,
+"texture": ExtResource("1_l1uxx")
+}, {
+"duration": 0.5,
+"texture": ExtResource("2_hkd55")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l1uxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f5h1y")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[node name="Tyler" type="AnimatedSprite2D"]
+modulate = Color(1.25, 1.25, 1.25, 1)
+sprite_frames = SubResource("SpriteFrames_fu7yx")
+animation = &"talking"
+frame_progress = 0.841551
+centered = false

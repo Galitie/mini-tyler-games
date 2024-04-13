@@ -1,2 +1,16 @@
-msg-This is a test-right-talking-res://epsilon/sound_effects/alert.mp3-alert_sound
-msg-Another test-left-talking-res://epsilon/sound_effects/alert.mp3-alert_sound
+load char
+res://epsilon/portraits/snake.tscn snake
+res://epsilon/portraits/otacon.tscn otacon
+res://epsilon/portraits/tyler.tscn tyler
+end
+load vo
+res://epsilon/sound_effects/kept_you_waiting_huh.mp3 waiting
+res://epsilon/sound_effects/love_bloom.mp3 bloom
+end
+port add otacon tyler
+msg right talking waiting "Kept you waiting, huh?"
+port add NULL snake
+msg left yelling bloom "I HATE REFACTORING!"
+msg right talking waiting "What the hell are you talking about?"
+msg right talking waiting "SECOND FLOOR BASEMENT?!!!."
+port remove otacon tyler

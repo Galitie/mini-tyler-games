@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=11 format=3 uid="uid://bp8b8uet70caq"]
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_83qyy"]
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
 [ext_resource type="FontFile" uid="uid://bwx114pc78x4c" path="res://epsilon/font.ttf" id="5_4wrvh"]
+[ext_resource type="PackedScene" uid="uid://cl5djutl08hj0" path="res://epsilon/portrait.tscn" id="5_i0pqf"]
 
 [sub_resource type="Environment" id="Environment_bongu"]
 background_mode = 3
@@ -12,116 +13,32 @@ glow_normalized = true
 glow_intensity = 2.28
 glow_blend_mode = 1
 
-[sub_resource type="Animation" id="Animation_ah7tt"]
-resource_name = "left_portrait_close"
-length = 0.3
+[sub_resource type="Animation" id="Animation_qoacg"]
+resource_name = "codec_close"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("left_portrait:scale")
+tracks/0/path = NodePath("codec_background:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1.7411),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0)]
+"values": [Vector2(0.528673, 0.528673), Vector2(0, 0.529)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("left_portrait:position")
+tracks/1/path = NodePath("codec_background:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(142, 84), Vector2(142, 275)]
-}
-
-[sub_resource type="Animation" id="Animation_nh75y"]
-resource_name = "left_portrait_open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("left_portrait:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1.7411, 1),
-"update": 0,
-"values": [Vector2(1, 0), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("left_portrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(142, 275), Vector2(142, 84)]
-}
-
-[sub_resource type="Animation" id="Animation_fp1hm"]
-resource_name = "right_portrait_close"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("right_portrait:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1.7411),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("right_portrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(926, 84), Vector2(926, 275)]
-}
-
-[sub_resource type="Animation" id="Animation_dmbmj"]
-resource_name = "right_portrait_open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("right_portrait:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1.7411, 1),
-"update": 0,
-"values": [Vector2(1, 0), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("right_portrait:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(926, 275), Vector2(926, 84)]
+"values": [Vector2(93, -16), Vector2(600, -16)]
 }
 
 [sub_resource type="Animation" id="Animation_pkvhs"]
@@ -152,42 +69,10 @@ tracks/1/keys = {
 "values": [Vector2(600, -16), Vector2(93, -16)]
 }
 
-[sub_resource type="Animation" id="Animation_qoacg"]
-resource_name = "codec_close"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("codec_background:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0.528673, 0.528673), Vector2(0, 0.529)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("codec_background:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(93, -16), Vector2(600, -16)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvc"]
 _data = {
 "codec_close": SubResource("Animation_qoacg"),
-"codec_open": SubResource("Animation_pkvhs"),
-"left_portrait_close": SubResource("Animation_ah7tt"),
-"left_portrait_open": SubResource("Animation_nh75y"),
-"right_portrait_close": SubResource("Animation_fp1hm"),
-"right_portrait_open": SubResource("Animation_dmbmj")
+"codec_open": SubResource("Animation_pkvhs")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ludrl"]
@@ -241,30 +126,7 @@ text = "Do you think love can bloom even on a battlefield?"
 fit_content = true
 scroll_active = false
 
-[node name="left_portrait" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 142.0
-offset_top = 84.0
-offset_right = 348.0
-offset_bottom = 435.998
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="right_portrait" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 926.0
-offset_top = 84.0
-offset_right = 1132.0
-offset_bottom = 436.0
-
 [node name="animation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_skmvc")
-}
-
-[node name="animation2" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_skmvc")
 }
@@ -281,3 +143,15 @@ scale = Vector2(6.45422, 10.9707)
 
 [node name="timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="left_portrait" parent="." instance=ExtResource("5_i0pqf")]
+offset_left = 121.0
+offset_top = 71.0
+offset_right = 326.0
+offset_bottom = 423.0
+
+[node name="right_portrait" parent="." instance=ExtResource("5_i0pqf")]
+offset_left = 934.0
+offset_top = 71.0
+offset_right = 1139.0
+offset_bottom = 423.0

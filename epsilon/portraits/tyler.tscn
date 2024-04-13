@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpwfpg0xgxkj6"]
+[gd_scene load_steps=5 format=3 uid="uid://ck5p7kid1uxe2"]
 
 [ext_resource type="Texture2D" uid="uid://bdlbkkdhmff4d" path="res://epsilon/portraits/tyler.png" id="1_l1uxx"]
 [ext_resource type="Texture2D" uid="uid://cnim1q1pjwpag" path="res://epsilon/portraits/tyler_blink.png" id="2_hkd55"]
@@ -32,4 +32,5 @@ animations = [{
 [node name="Tyler" type="AnimatedSprite2D"]
 modulate = Color(1.25, 1.25, 1.25, 1)
 sprite_frames = SubResource("SpriteFrames_fu7yx")
+animation = &"talking"
 centered = false

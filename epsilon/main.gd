@@ -1,147 +1,141 @@
 extends Node2D
+
 @onready var timer = $timer
 @onready var audio_player = $audio
 @onready var anim_player = $animation
-@onready var anim_player2 = $animation2
 @onready var text_container = $text_container/text
 @onready var left_portrait = $left_portrait
 @onready var right_portrait = $right_portrait
 @onready var codec_background = $codec_background
-@onready var snake = load("res://epsilon/portraits/snake.tscn")
-@onready var otacon = load("res://epsilon/portraits/otacon.tscn")
-@onready var tyler = load("res://epsilon/portraits/tyler.tscn")
+
 @onready var alert_sound = load("res://epsilon/sound_effects/alert.mp3")
 @onready var codec_ring = load("res://epsilon/sound_effects/codec_ring.mp3")
-@onready var codec_close = load("res://epsilon/sound_effects/codec_close.mp3")
-@onready var codec_open = load("res://epsilon/sound_effects/codec_open.mp3")
-@onready var waiting_huh = load("res://epsilon/sound_effects/kept_you_waiting_huh.mp3")
-@onready var love_bloom = load("res://epsilon/sound_effects/love_bloom.mp3")
+@onready var portrait_close = load("res://epsilon/sound_effects/portrait_close.mp3")
+@onready var portrait_open = load("res://epsilon/sound_effects/portrait_open.mp3")
 
+var voice_lines: Dictionary = {}
+var characters: Dictionary = {}
+
+func load_assets(file: FileAccess, dict: Dictionary, instantiate: bool = false) -> void:
+	var line: String = file.get_line()
+	while line != "end":
+		var args: PackedStringArray = line.split(" ")
+		var asset = load(args[0])
+		if instantiate:
+			dict[args[1]] = asset.instantiate()
+		else:
+			dict[args[1]] = asset
+		line = file.get_line()
 
 func _ready():
 	text_container.text= "" #reset textbox
-	main()
-
-
-func main():
+	
+	var regex: RegEx = RegEx.new()
+	regex.compile('"(.*?)"')
+	
 	await codec_anim("codec_open")
-	await add_char(otacon, snake, "both", codec_open)
-	await char_speaks("right", "Kept you waiting, huh?", "talking", waiting_huh)
-	await char_speaks("left", "Do you think love can bloom, even on a battlefield?", "yelling", love_bloom)
-	await change_char(otacon, "right")
-	await char_speaks("right", "*This is just like one of my japanese animes!*", "cool", null)
-	await change_char(tyler,"right")
-	await char_speaks("right", "Don't touch me!", "talking", null)
-	await char_speaks("left", "Fucking cursed", "talking", null)
-	await char_speaks("left", "Tyler blink goddamn it", "talking", null)
-	await char_speaks("left", "Maybe the blink animation is too long...", "talking", null)
-	remove_char("both", codec_close)
+	var codec_file: FileAccess = FileAccess.open("res://epsilon/codec_calls/test.txt", FileAccess.READ)
+	while !codec_file.eof_reached():
+		var line: String = codec_file.get_line()
+		var args: PackedStringArray = line.split(" ")
+		match args[0]:
+			"load":
+				match args[1]:
+					"vo":
+						load_assets(codec_file, voice_lines)
+					"char":
+						load_assets(codec_file, characters, true)
+			"port":
+				await port(args)
+			"msg":
+				var results: PackedStringArray = regex.search(line).strings
+				var text = results[0].replace('\"', " ").strip_edges()
+				await char_speaks(args, voice_lines[args[3]], text)
+			_:
+				pass
 	await codec_anim("codec_close")
-
-
-func _process(delta):
-	pass
-
-
+	
 func codec_anim(animation):
 	await one_shot_timer(.75)
 	anim_player.play(animation)
 	await anim_player.animation_finished
 
-func add_char(char, optional_char2, portrait_side, audio):
-	var loaded_char = char.instantiate()
+func port(args: PackedStringArray):
+	var left: bool = false
+	var right: bool = false
 	
-	if portrait_side == "left":
-		anim_player.play("left_portrait_close")
-		await anim_player.animation_finished
-		left_portrait.add_child(loaded_char)
-		anim_player.play("left_portrait_open")
-		await anim_player.animation_finished
+	var adding: bool = false
+	if args[1] == "add":
+		adding = true
 		
-	if portrait_side == "right":
-		anim_player.play("right_portrait_close")
-		await anim_player.animation_finished
-		right_portrait.add_child(loaded_char)
-		anim_player.play("right_portrait_open")
-		await anim_player.animation_finished
-		
-	if portrait_side == "both":
-		var loaded_char2 = optional_char2.instantiate()
-		anim_player.play("left_portrait_close")
-		anim_player2.play("right_portrait_close")
-		await anim_player.animation_finished and anim_player2.animation_finished
-		left_portrait.add_child(loaded_char)
-		right_portrait.add_child(loaded_char2)
-		audio_player.stream = audio
+	if args[2] != "NULL":
+		left = true
+	if args[3] != "NULL":
+		right = true
+			
+	if left:
+		left_portrait.get_node("anim_player").play("close")
+	if right:
+		right_portrait.get_node("anim_player").play("close")
+	
+	if !adding:
+		audio_player.stream = portrait_close
 		audio_player.play()
-		anim_player.play("left_portrait_open")
-		anim_player2.play("right_portrait_open")
-		await anim_player.animation_finished and anim_player2.animation_finished
-		await audio_player.finished
+		
+	if left:
+		await left_portrait.get_node("anim_player").animation_finished
+	elif right:
+		await right_portrait.get_node("anim_player").animation_finished
+	
+	if left:
+		if left_portrait.get_node("char").get_child_count() != 0:
+			left_portrait.get_node("char").remove_child(left_portrait.get_node("char").get_child(0))
+	if right:
+		if right_portrait.get_node("char").get_child_count() != 0:
+			right_portrait.get_node("char").remove_child(right_portrait.get_node("char").get_child(0))
+	
+	if adding:
+		if left && !right:
+			left_portrait.get_node("char").add_child(characters[args[2]])
+		elif right && !left:
+			right_portrait.get_node("char").add_child(characters[args[3]])
+		else:
+			left_portrait.get_node("char").add_child(characters[args[2]])
+			right_portrait.get_node("char").add_child(characters[args[3]])
+			
+		if left:
+			left_portrait.get_node("anim_player").play("open")
+		if right:
+			right_portrait.get_node("anim_player").play("open")
+			
+		audio_player.stream = portrait_open
+		audio_player.play()
+			
+		if left:
+			await left_portrait.get_node("anim_player").animation_finished
+		elif right:
+			await right_portrait.get_node("anim_player").animation_finished
 		await one_shot_timer(.5)
 
+func char_speaks(args: PackedStringArray, voice_line: AudioStream, text: String):
+	text_container.text = text
+	
+	if args[1] == "left":
+		left_portrait.get_node("char").get_child(0).play(args[2])
+	if args[1] == "right":
+		right_portrait.get_node("char").get_child(0).play(args[2])
+		
+	audio_player.stream = voice_line
+	audio_player.play()
+	await audio_player.finished
+	text_container.text = ""
 
-func char_speaks(portrait_side, text, animation, audio):
-	if text != null:
-		text_container.text = text
-	if portrait_side == "left" and animation != null:
-		left_portrait.get_child(0).play(animation)
-	if portrait_side == "right" and animation != null:
-		right_portrait.get_child(0).play(animation)
-	if audio != null:
-		audio_player.stream = audio
-		audio_player.play()
-		await audio_player.finished
-	else:
-		await one_shot_timer(1)
-	if portrait_side == "right":
-		right_portrait.get_child(0).play("default")
-	if portrait_side == "left":
-		left_portrait.get_child(0).play("default")
+	if args[1] == "right":
+		right_portrait.get_node("char").get_child(0).play("default")
+	if args[1] == "left":
+		left_portrait.get_node("char").get_child(0).play("default")
+		
 	await one_shot_timer(.5)
-
-
-func change_char(new_char, portrait_side):
-	var loaded_char = new_char.instantiate()
-	if portrait_side == "left":
-		var current_portrait = left_portrait.get_child(0)
-		anim_player.play("left_portrait_close")
-		await anim_player.animation_finished
-		current_portrait.get_child(0).queue_free()
-		left_portrait.add_child(loaded_char)
-		anim_player.play("left_portrait_open")
-		await anim_player.animation_finished
-	
-	if portrait_side == "right":
-		anim_player.play("right_portrait_close")
-		await anim_player.animation_finished
-		right_portrait.get_child(0).queue_free()
-		right_portrait.add_child(loaded_char)
-		anim_player.play("right_portrait_open")
-		await anim_player.animation_finished
-
-
-func remove_char(portrait_side, audio):
-	if portrait_side == "left":
-		anim_player.play("left_portrait_close")
-		await anim_player.animation_finished
-		left_portrait.get_child(0).queue_free()
-	
-	if portrait_side == "right":
-		anim_player.play("right_portrait_close")
-		await anim_player.animation_finished
-		right_portrait.get_child(0).queue_free()
-	
-	if portrait_side == "both":
-		audio_player.stream = audio
-		audio_player.play()
-		anim_player.play("right_portrait_close")
-		anim_player2.play("left_portrait_close")
-		text_container.text = ""
-		await anim_player.animation_finished and anim_player2.animation_finished
-		right_portrait.get_child(0).queue_free()
-		left_portrait.get_child(0).queue_free()
-
 
 func one_shot_timer(seconds):
 	timer.wait_time = seconds

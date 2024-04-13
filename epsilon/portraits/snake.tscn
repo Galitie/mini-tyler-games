@@ -21,7 +21,7 @@ region = Rect2(218, 128, 52, 89)
 [sub_resource type="SpriteFrames" id="SpriteFrames_7s606"]
 animations = [{
 "frames": [{
-"duration": 20.0,
+"duration": 7.0,
 "texture": SubResource("AtlasTexture_qayow")
 }, {
 "duration": 0.5,

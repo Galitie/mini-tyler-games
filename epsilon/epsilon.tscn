@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=14 format=3 uid="uid://bp8b8uet70caq"]
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_83qyy"]
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
@@ -124,8 +124,66 @@ tracks/1/keys = {
 "values": [Vector2(926, 275), Vector2(926, 84)]
 }
 
+[sub_resource type="Animation" id="Animation_pkvhs"]
+resource_name = "codec_open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("codec_background:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0.529), Vector2(0.528673, 0.528673)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("codec_background:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, -16), Vector2(93, -16)]
+}
+
+[sub_resource type="Animation" id="Animation_qoacg"]
+resource_name = "codec_close"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("codec_background:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.528673, 0.528673), Vector2(0, 0.529)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("codec_background:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(93, -16), Vector2(600, -16)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvc"]
 _data = {
+"codec_close": SubResource("Animation_qoacg"),
+"codec_open": SubResource("Animation_pkvhs"),
 "left_portrait_close": SubResource("Animation_ah7tt"),
 "left_portrait_open": SubResource("Animation_nh75y"),
 "right_portrait_close": SubResource("Animation_fp1hm"),
@@ -161,11 +219,11 @@ color = Color(0, 0, 0, 1)
 
 [node name="codec_background" type="TextureRect" parent="."]
 modulate = Color(1, 1.10196, 1, 0.486275)
-offset_left = 93.0
+offset_left = 600.0
 offset_top = -16.0
-offset_right = 2114.0
+offset_right = 2621.0
 offset_bottom = 1121.0
-scale = Vector2(0.528673, 0.528673)
+scale = Vector2(1e-05, 0.529)
 texture = ExtResource("1_cv5fk")
 
 [node name="text_container" type="MarginContainer" parent="."]

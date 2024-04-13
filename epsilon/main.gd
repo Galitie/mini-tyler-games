@@ -6,6 +6,7 @@ extends Node2D
 @onready var text_container = $text_container/text
 @onready var left_portrait = $left_portrait
 @onready var right_portrait = $right_portrait
+@onready var codec_background = $codec_background
 @onready var snake = load("res://epsilon/portraits/snake.tscn")
 @onready var otacon = load("res://epsilon/portraits/otacon.tscn")
 @onready var tyler = load("res://epsilon/portraits/tyler.tscn")
@@ -23,19 +24,29 @@ func _ready():
 
 
 func main():
+	await codec_anim("codec_open")
 	await add_char(otacon, snake, "both", codec_open)
 	await char_speaks("right", "Kept you waiting, huh?", "talking", waiting_huh)
 	await char_speaks("left", "Do you think love can bloom, even on a battlefield?", "yelling", love_bloom)
 	await change_char(otacon, "right")
-	await char_speaks("right", "This is just like one of my japanese animes!", "talking", null)
+	await char_speaks("right", "*This is just like one of my japanese animes!*", "cool", null)
 	await change_char(tyler,"right")
 	await char_speaks("right", "Don't touch me!", "talking", null)
+	await char_speaks("left", "Fucking cursed", "talking", null)
+	await char_speaks("left", "Tyler blink goddamn it", "talking", null)
+	await char_speaks("left", "Maybe the blink animation is too long...", "talking", null)
 	remove_char("both", codec_close)
+	await codec_anim("codec_close")
 
 
 func _process(delta):
 	pass
 
+
+func codec_anim(animation):
+	await one_shot_timer(.75)
+	anim_player.play(animation)
+	await anim_player.animation_finished
 
 func add_char(char, optional_char2, portrait_side, audio):
 	var loaded_char = char.instantiate()

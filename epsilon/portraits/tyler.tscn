@@ -7,7 +7,7 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_fu7yx"]
 animations = [{
 "frames": [{
-"duration": 12.0,
+"duration": 8.0,
 "texture": ExtResource("1_l1uxx")
 }, {
 "duration": 0.5,
@@ -32,6 +32,4 @@ animations = [{
 [node name="Tyler" type="AnimatedSprite2D"]
 modulate = Color(1.25, 1.25, 1.25, 1)
 sprite_frames = SubResource("SpriteFrames_fu7yx")
-animation = &"talking"
-frame_progress = 0.841551
 centered = false

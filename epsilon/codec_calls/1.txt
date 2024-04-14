@@ -57,4 +57,4 @@ msg left talking headquarters "Right. You'll have to infiltrate their headquarte
 msg right talking sneaking "A sneaking mission."
 msg left talking details "I'll fill you in on the details once you get inside."
 msg left talking good_luck "Good luck, Snake."
-port remove otacon tyler
+port remove otacon snake

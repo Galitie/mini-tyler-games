@@ -1,0 +1,35 @@
+load char
+res://epsilon/portraits/snake.tscn snake
+res://epsilon/portraits/anus.tscn anus
+end
+load vo
+res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
+res://epsilon/vo/3_watch.mp3 watch
+res://epsilon/vo/3_mines.mp3 mines
+res://epsilon/vo/3_important.mp3 important
+res://epsilon/vo/3_inside.mp3 inside
+res://epsilon/vo/3_name.mp3 name
+res://epsilon/vo/3_keep_it.mp3 keep_it
+res://epsilon/vo/3_feel.mp3 feel
+res://epsilon/vo/3_call_me.mp3 call_me
+res://epsilon/vo/3_anus.mp3 anus
+res://epsilon/vo/3_history.mp3 history
+res://epsilon/vo/3_nimble.mp3 nimble
+end
+port add anus snake
+msg left default watch "Snake, you better watch your step."
+msg left default mines "There are mines beneath your feet."
+msg right talking doozy_huh "Who's this? How did you get my frequency?"
+msg left default important "That's not important."
+msg left default inside "Let's just say there's more than one man on the inside."
+msg right talking doozy_huh "If I don't even have your name, how am I supposed to trust anything you say?"
+msg left default name "I've got a name."
+msg left default keep_it "I'd just like to keep it."
+msg left default feel "I'm certain you feel the same, Snake."
+msg right talking doozy_huh "Fine. What do I call you, then?"
+msg left default call_me "You can call me..."
+msg left default anus "...Anus."
+msg right talking doozy_huh "Anus? Like that U.S. politician?"
+msg left default history "You know your history, Snake."
+msg left default nimble "Let's just hope your equally as nimble."
+port remove anus snake

@@ -39,4 +39,4 @@ msg left talking right_bumper "Oh, and one more thing. You can hide in a cardboa
 msg right talking doozy_huh "And if I need back up?"
 msg left talking start_button "The other players can join by pressing the START button."
 msg left talking friends "It's nice having friends, isn't it, Snake?"
-port remove otacon tyler
+port remove otacon snake

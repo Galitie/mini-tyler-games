@@ -34,7 +34,7 @@ msg left talking get_this "And get this. He's the Senior Vice President of Resea
 msg left talking his_name "His name is Tyler Ames."
 msg right talking doozy_huh "Tyler Ames? The man who detected the Phantom Protein?"
 msg left talking thats_him "Yeah, that's him."
-msg left talking bad_apples "Apparently, his achievements in biotechnology captured the attention of some very bad apples."
+msg left talking bad_apples "Apparently, his achievements in biotechnology captured the attention of some bad apples."
 msg right talking doozy_huh "I'm not surprised."
 msg left talking agree "Right?"
 msg left talking restroom "They've been forcing him to work under severe conditions. He can't even use a restroom."

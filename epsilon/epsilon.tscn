@@ -140,7 +140,7 @@ offset_bottom = 87.0
 scale = Vector2(6.45422, 10.9707)
 
 [node name="audio" type="AudioStreamPlayer2D" parent="."]
-volume_db = 20.0
+volume_db = 10.0
 
 [node name="timer" type="Timer" parent="."]
 one_shot = true

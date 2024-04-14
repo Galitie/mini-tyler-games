@@ -1,0 +1,50 @@
+load char
+res://epsilon/portraits/snake.tscn snake
+res://epsilon/portraits/otacon.tscn otacon
+res://epsilon/portraits/tyler.tscn tyler
+end
+load vo
+res://epsilon/vo/1_job.mp3 job
+res://epsilon/vo/1_doozy.mp3 doozy
+res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
+res://epsilon/vo/1_makeroom.mp3 make_room
+res://epsilon/vo/1_insider.mp3 insider
+res://epsilon/vo/1_get_this.mp3 get_this
+res://epsilon/vo/1_hisname.mp3 his_name
+res://epsilon/vo/1_thats_him.mp3 thats_him
+res://epsilon/vo/1_bad_apples.mp3 bad_apples
+res://epsilon/vo/1_agree.mp3 agree
+res://epsilon/vo/1_restroom.mp3 restroom
+res://epsilon/vo/1_osha.mp3 osha
+res://epsilon/vo/1_completed.mp3 completed
+res://epsilon/vo/1_afraid.mp3 afraid
+res://epsilon/vo/1_headquarters.mp3 headquarters
+res://epsilon/vo/1_details.mp3 details
+res://epsilon/vo/1_good_luck.mp3 good_luck
+end
+port add otacon snake
+msg left talking job "Looks like we've got another job to do, Snake."
+msg left talking doozy "This one's a doozy!"
+msg right talking doozy_huh "A doozy, huh."
+msg right talking doozy_huh "Can't say I've got room for any more."
+msg left talking make_room "Well you better make room soon, or we'll have to deal with something worse."
+msg left talking insider "4 days ago, I received an SOL call from an insider at Promontory Therapeutics."
+msg right talking doozy_huh "An SOL call...?"
+msg left talking get_this "And get this. He's the Senior Vice President of Research and Development."
+msg left talking his_name "His name is Tyler Ames."
+msg right talking doozy_huh "Tyler Ames? The man who detected the Phantom Protein?"
+msg left talking thats_him "Yeah, that's him."
+msg left talking bad_apples "Apparently, his achievements in biotechnology captured the attention of some very bad apples."
+msg right talking doozy_huh "I'm not surprised."
+msg left talking agree "Right?"
+msg left talking restroom "They've been forcing him to work under severe conditions. He can't even use a restroom."
+msg right talking doozy_huh "Sounds like crunch time."
+msg left talking osha "More like an OSHA violation."
+msg left talking completed "Whatever they've been making him work on, it's close to being completed."
+msg left talking afraid "He's afraid he won't live to see the end of it."
+msg right talking doozy_huh "Let me guess. He's looking for someone to save his hide."
+msg left talking headquarters "Right. You'll have to infiltrate their headquarters in New York City."
+msg right talking doozy_huh "A typical sneaking mission, huh."
+msg left talking details "I'll fill you in on the details once you get inside."
+msg left talking good_luck "Good luck, Snake."
+port remove otacon tyler

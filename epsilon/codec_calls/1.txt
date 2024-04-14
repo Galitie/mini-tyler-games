@@ -1,7 +1,6 @@
 load char
 res://epsilon/portraits/snake.tscn snake
 res://epsilon/portraits/otacon.tscn otacon
-res://epsilon/portraits/tyler.tscn tyler
 end
 load vo
 res://epsilon/vo/1_job.mp3 job

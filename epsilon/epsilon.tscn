@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bp8b8uet70caq"]
 
-[ext_resource type="Script" path="res://epsilon/main.gd" id="1_83qyy"]
+[ext_resource type="Script" path="res://epsilon/codec.gd" id="1_83qyy"]
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
 [ext_resource type="FontFile" uid="uid://bwx114pc78x4c" path="res://epsilon/font.ttf" id="5_4wrvh"]

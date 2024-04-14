@@ -1,0 +1,42 @@
+load char
+res://epsilon/portraits/snake.tscn snake
+res://epsilon/portraits/otacon.tscn otacon
+end
+load vo
+res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
+res://epsilon/vo/2_great_job.mp3 great_job
+res://epsilon/vo/2_matter.mp3 matter
+res://epsilon/vo/2_nobody.mp3 nobody
+res://epsilon/vo/2_left_stick.mp3 left_stick
+res://epsilon/vo/2_what_now.mp3 what_now
+res://epsilon/vo/2_snake_annoyed.mp3 annoyed
+res://epsilon/vo/2_a_button.mp3 a_button
+res://epsilon/vo/2_x_and_b.mp3 x_and_b_button
+res://epsilon/vo/2_y_button.mp3 y_button
+res://epsilon/vo/2_right_bumper.mp3 right_bumper
+res://epsilon/vo/2_start_button.mp3 start_button
+res://epsilon/vo/2_friends.mp3 friends
+end
+port add otacon snake
+msg right talking doozy_huh "Otacon, I've made it inside the building."
+msg left talking great_job "Great job, Snake."
+msg right talking doozy_huh "..."
+msg left talking matter "What's the matter, Snake?"
+msg right talking doozy_huh "It's my legs."
+msg right talking doozy_huh "I can't feel my legs."
+msg left talking nobody "Oh right. Nobody's told you how to play the game."
+msg left talking left_stick "You can move around with the left analog stick."
+msg right talking doozy_huh "Got it."
+msg right talking doozy_huh "..."
+msg left talking what_now "What now, Snake?"
+msg right talking doozy_huh "I can't remember the basics of CQC."
+msg right talking doozy_huh "...Or how to use my weapons."
+msg left talking annoyed "...Snake..."
+msg left talking a_button "Your CQC techniques are bound to the A button."
+msg left talking x_and_b_button "You can fire your pistol with the X button, and throw a grenade with the B button."
+msg left talking y_button "Lastly, your stinger missiles are equipped to the Y button."
+msg left talking right_bumper "Oh, and one more thing. You can hide in a cardboard box if you hold the right bumper."
+msg right talking doozy_huh "And if I need back up?"
+msg left talking start_button "The other players can join by pressing the START button."
+msg left talking friends "It's nice having friends, isn't it, Snake?"
+port remove otacon tyler

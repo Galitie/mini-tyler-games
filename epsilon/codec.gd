@@ -37,7 +37,7 @@ func _ready():
 	audio_player.stream = codec_ring
 	audio_player.play()
 	await audio_player.finished
-	var codec_file: FileAccess = FileAccess.open("res://epsilon/codec_calls/1.txt", FileAccess.READ)
+	var codec_file: FileAccess = FileAccess.open("res://epsilon/codec_calls/2.txt", FileAccess.READ)
 	while !codec_file.eof_reached():
 		var line: String = codec_file.get_line()
 		var args: PackedStringArray = line.split(" ")

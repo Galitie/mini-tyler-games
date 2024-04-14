@@ -10,7 +10,7 @@ func _ready():
 
 func check_contact(destination: Vector2) -> bool:
 	for block in get_children():
-		if block.test_move(block.global_transform, destination):
+		if block.test_move(block.global_transform, destination, null, 0.0):
 			return true
 	return false
 

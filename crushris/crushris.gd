@@ -14,7 +14,9 @@ const MAX_ROWS: int = 20
 const PIECE_SPAWN_POINT: Vector2 = Vector2(615, 110)
 const BOTTOM_LEFT_ROW_ORIGIN: Vector2 = Vector2(515, 585)
 
-const PIECE_FALL_SPEED: float = 3.0
+const PIECE_FALL_SPEED: float = 140
+const PIECE_HORIZONTAL_SPEED: float = 350
+var piece_destination: Vector2 = Vector2.ZERO
 
 var active_piece: Piece = null
 
@@ -25,9 +27,6 @@ var block_killer_timer: int = 0
 var block_killer_timer_length: int = 5
 
 const WORLD_COLLISION_LAYER: int = 1
-
-const PIECE_HORIZONTAL_SPEED: float = 10
-var piece_destination: Vector2 = Vector2.ZERO
 
 @onready var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 
@@ -45,9 +44,6 @@ func _ready() -> void:
 	spawn_piece()
 
 func _physics_process(delta: float) -> void:
-	# TODO: There's an occasional bug that spares some blocks from death,
-	# leaving them floating in mid-air. I'm not sure what causes it yet.
-	# Starting to think a falling block gets stuck within another one...
 	if death_row.size() != 0:
 		block_killer_timer += 1
 		if block_killer_timer >= block_killer_timer_length:
@@ -58,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	elif fall_blocks.size():
 		var still_falling: bool = false
 		for block in fall_blocks:
-			block.fall(TILE_SIZE, BOTTOM_LEFT_ROW_ORIGIN)
+			block.fall(TILE_SIZE, BOTTOM_LEFT_ROW_ORIGIN, delta)
 			if !block.grounded:
 				still_falling = true
 		if !still_falling:
@@ -68,7 +64,7 @@ func _physics_process(delta: float) -> void:
 		spawn_piece()
 	
 	if active_piece:
-		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED)
+		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
 		if Input.is_action_just_pressed("rotate_piece_left"):
 			active_piece.turn(-PI / 2)
@@ -76,14 +72,14 @@ func _physics_process(delta: float) -> void:
 			active_piece.turn(PI / 2)
 		
 		if Input.is_action_just_pressed("move_piece_left"):
-			if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
+			if !active_piece.check_contact(Vector2(-TILE_SIZE + 1, 0)):
 				piece_destination.x = active_piece.position.x - TILE_SIZE
 		if Input.is_action_just_pressed("move_piece_right"):
-			if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
+			if !active_piece.check_contact(Vector2(TILE_SIZE - 1, 0)):
 				piece_destination.x = active_piece.position.x + TILE_SIZE
 		
-		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED)):
-			active_piece.position.y += PIECE_FALL_SPEED
+		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
+			active_piece.position.y += PIECE_FALL_SPEED * delta
 			snap_timer = 0
 		else:
 			active_piece.position.y = snap_piece_position(active_piece.position).y
@@ -105,8 +101,8 @@ func _physics_process(delta: float) -> void:
 				
 func snap_piece_position(pos: Vector2) -> Vector2:
 	var result: Vector2 = BOTTOM_LEFT_ROW_ORIGIN + Vector2(
-			floor((pos.x - BOTTOM_LEFT_ROW_ORIGIN.x) / TILE_SIZE) * TILE_SIZE,
-			-floor((BOTTOM_LEFT_ROW_ORIGIN.y - pos.y) / TILE_SIZE) * TILE_SIZE
+			round((pos.x - BOTTOM_LEFT_ROW_ORIGIN.x) / TILE_SIZE) * TILE_SIZE,
+			-round((BOTTOM_LEFT_ROW_ORIGIN.y - pos.y) / TILE_SIZE) * TILE_SIZE
 	)
 	return result
 		

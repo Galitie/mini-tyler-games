@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cffmmicta80pm"]
+
+[ext_resource type="VideoStream" path="res://epsilon/backgrounds/mgs3_titlescreen_video.ogv" id="1_ntm7b"]
+[ext_resource type="Texture2D" uid="uid://duiporu7wj3op" path="res://epsilon/backgrounds/title_screen_font.png" id="2_qts40"]
+
+[node name="starting_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+
+[node name="video_player" type="VideoStreamPlayer" parent="AspectRatioContainer"]
+layout_mode = 2
+stream = ExtResource("1_ntm7b")
+autoplay = true
+expand = true
+loop = true
+
+[node name="title_text" type="Sprite2D" parent="."]
+position = Vector2(255, 229)
+texture = ExtResource("2_qts40")
+centered = false

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="4_de2e4"]
 [ext_resource type="FontFile" uid="uid://bwx114pc78x4c" path="res://epsilon/font.ttf" id="5_4wrvh"]
-[ext_resource type="PackedScene" uid="uid://cl5djutl08hj0" path="res://epsilon/portrait.tscn" id="5_i0pqf"]
+[ext_resource type="PackedScene" uid="uid://cl5djutl08hj0" path="res://epsilon/portraits/portrait.tscn" id="5_i0pqf"]
 
 [sub_resource type="Environment" id="Environment_bongu"]
 background_mode = 3

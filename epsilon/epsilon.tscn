@@ -131,14 +131,6 @@ libraries = {
 "": SubResource("AnimationLibrary_skmvc")
 }
 
-[node name="crt_effect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_ludrl")
-offset_left = 126.0
-offset_top = 50.0
-offset_right = 286.0
-offset_bottom = 87.0
-scale = Vector2(6.45422, 10.9707)
-
 [node name="audio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 10.0
 
@@ -156,3 +148,11 @@ offset_left = 934.0
 offset_top = 71.0
 offset_right = 1139.0
 offset_bottom = 423.0
+
+[node name="crt_effect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ludrl")
+offset_left = 126.0
+offset_top = 50.0
+offset_right = 286.0
+offset_bottom = 87.0
+scale = Vector2(6.45422, 10.9707)

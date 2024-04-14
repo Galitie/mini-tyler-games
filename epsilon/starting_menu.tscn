@@ -1,7 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://cffmmicta80pm"]
+[gd_scene load_steps=7 format=3 uid="uid://cffmmicta80pm"]
 
 [ext_resource type="VideoStream" path="res://epsilon/backgrounds/mgs3_titlescreen_video.ogv" id="1_ntm7b"]
+[ext_resource type="Script" path="res://epsilon/starting_menu.gd" id="1_q66vj"]
 [ext_resource type="Texture2D" uid="uid://duiporu7wj3op" path="res://epsilon/backgrounds/title_screen_font.png" id="2_qts40"]
+[ext_resource type="Texture2D" uid="uid://b5jgat2jyhfjv" path="res://epsilon/backgrounds/press_start.png" id="2_vf7s3"]
+
+[sub_resource type="Animation" id="Animation_hn3mg"]
+resource_name = "pulse"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("press_start_text:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pyaio"]
+_data = {
+"pulse": SubResource("Animation_hn3mg")
+}
 
 [node name="starting_menu" type="Control"]
 layout_mode = 3
@@ -10,8 +34,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_q66vj")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+[node name="aspect_ratio_con" type="AspectRatioContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,14 +45,23 @@ grow_horizontal = 2
 grow_vertical = 2
 ratio = 1.7778
 
-[node name="video_player" type="VideoStreamPlayer" parent="AspectRatioContainer"]
+[node name="video_player" type="VideoStreamPlayer" parent="aspect_ratio_con"]
 layout_mode = 2
 stream = ExtResource("1_ntm7b")
 autoplay = true
 expand = true
 loop = true
 
+[node name="press_start_text" type="Sprite2D" parent="."]
+position = Vector2(634, 560)
+texture = ExtResource("2_vf7s3")
+
 [node name="title_text" type="Sprite2D" parent="."]
-position = Vector2(255, 229)
+position = Vector2(240, 229)
 texture = ExtResource("2_qts40")
 centered = false
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pyaio")
+}

@@ -7,6 +7,7 @@ load vo
 res://epsilon/vo/1_job.mp3 job
 res://epsilon/vo/1_doozy.mp3 doozy
 res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
+res://epsilon/vo/1_doozies.mp3 doozies
 res://epsilon/vo/1_makeroom.mp3 make_room
 res://epsilon/vo/1_insider.mp3 insider
 res://epsilon/vo/1_get_this.mp3 get_this
@@ -21,33 +22,36 @@ res://epsilon/vo/1_afraid.mp3 afraid
 res://epsilon/vo/1_headquarters.mp3 headquarters
 res://epsilon/vo/1_details.mp3 details
 res://epsilon/vo/1_good_luck.mp3 good_luck
+res://epsilon/vo/1_SOL.mp3 sol
+res://epsilon/vo/1_phantom.mp3 phantom
+res://epsilon/vo/1_biotechnology.mp3 biotech
+res://epsilon/vo/1_gross.mp3 gross
+res://epsilon/vo/1_extraction.mp3 extraction
+res://epsilon/vo/1_sneaking.mp3 sneaking
 end
 port add otacon snake
 msg left talking job "Looks like we've got another job to do, Snake."
 msg left talking doozy "This one's a doozy!"
 msg right talking doozy_huh "A doozy, huh."
-msg right talking doozy_huh "Can't say I've got room for any more...doozies."
+msg right talking doozies "Can't say I've got room for any more...doozies."
 msg left talking make_room "Well you better make room soon, or we'll have to deal with something worse."
 msg left talking insider "4 days ago, I received an SOL call from an insider at Promontory Therapeutics."
-msg right talking doozy_huh "An SOL call...?"
+msg right talking sol "An SOL call...?"
 msg left talking get_this "And get this. He's the Senior Vice President of Research and Development."
 msg left talking his_name "His name is Tyler Ames."
-port add tyler NULL
-msg left talking doozy_huh "DON'T TOUCH ME"
-port add otacon NULL
-msg right talking doozy_huh "Tyler Ames? The man who detected the Phantom Protein?"
+msg right talking phantom "Tyler Ames? The man who detected the Phantom Protein?"
 msg left talking thats_him "Yeah, that's him."
 msg left talking bad_apples "Apparently, his achievements in biotechnology captured the attention of some bad apples."
-msg right talking doozy_huh "Biotechnology..."
+msg right talking biotech "Biotechnology..."
 msg left talking agree "Right?"
 msg left talking restroom "They've been forcing him to work under severe conditions. He can't even use a restroom."
-msg right talking doozy_huh "Gross."
+msg right talking gross "Gross."
 msg left talking osha "More like an OSHA violation."
 msg left talking completed "Whatever they've been making him work on, it's close to being completed."
 msg left talking afraid "He's afraid he won't live to see the end of it."
-msg right talking doozy_huh "Let me guess. An extraction mission."
+msg right talking extraction "Let me guess. An extraction mission."
 msg left talking headquarters "Right. You'll have to infiltrate their headquarters in New York City."
-msg right talking doozy_huh "A sneaking mission, huh."
+msg right talking sneaking "A sneaking mission."
 msg left talking details "I'll fill you in on the details once you get inside."
 msg left talking good_luck "Good luck, Snake."
 port remove otacon tyler

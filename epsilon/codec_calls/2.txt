@@ -3,7 +3,7 @@ res://epsilon/portraits/snake.tscn snake
 res://epsilon/portraits/otacon.tscn otacon
 end
 load vo
-res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
+res://epsilon/vo/2_inside.mp3 inside
 res://epsilon/vo/2_great_job.mp3 great_job
 res://epsilon/vo/2_matter.mp3 matter
 res://epsilon/vo/2_nobody.mp3 nobody
@@ -16,27 +16,35 @@ res://epsilon/vo/2_y_button.mp3 y_button
 res://epsilon/vo/2_right_bumper.mp3 right_bumper
 res://epsilon/vo/2_start_button.mp3 start_button
 res://epsilon/vo/2_friends.mp3 friends
+res://epsilon/vo/2_grah.mp3 grah
+res://epsilon/vo/2_legs.mp3 legs
+res://epsilon/vo/2_feel.mp3 feel
+res://epsilon/vo/2_got_it.mp3 got_it
+res://epsilon/vo/2_forget.mp3 forget
+res://epsilon/vo/2_cqc.mp3 cqc
+res://epsilon/vo/2_weapons.mp3 weapons
+res://epsilon/vo/2_backup.mp3 backup
 end
 port add otacon snake
-msg right talking doozy_huh "Otacon, I've made it inside the building."
+msg right talking inside "Otacon, I've made it inside the building."
 msg left talking great_job "Great job, Snake."
-msg right talking doozy_huh "..."
+msg right talking grah "..."
 msg left talking matter "What's the matter, Snake?"
-msg right talking doozy_huh "It's my legs."
-msg right talking doozy_huh "I can't feel my legs."
+msg right talking legs "It's...it's my legs."
+msg right talking feel "I can't feel my legs."
 msg left talking nobody "Oh right. Nobody's told you how to play the game."
 msg left talking left_stick "You can move around with the left analog stick."
-msg right talking doozy_huh "Got it."
-msg right talking doozy_huh "..."
+msg right talking got_it "Got it."
+msg right talking forget "..."
 msg left talking what_now "What now, Snake?"
-msg right talking doozy_huh "I can't remember the basics of CQC."
-msg right talking doozy_huh "...Or how to use my weapons."
+msg right talking cqc "I can't remember the basics of CQC."
+msg right talking weapons "...Or how to use my weapons."
 msg left talking annoyed "...Snake..."
 msg left talking a_button "Your CQC techniques are bound to the A button."
 msg left talking x_and_b_button "You can fire your pistol with the X button, and throw a grenade with the B button."
 msg left talking y_button "Lastly, your stinger missiles are equipped to the Y button."
 msg left talking right_bumper "Oh, and one more thing. You can hide in a cardboard box if you hold the right bumper."
-msg right talking doozy_huh "And if I need back up?"
+msg right talking backup "And if I need back up?"
 msg left talking start_button "The other players can join by pressing the START button."
 msg left talking friends "It's nice having friends, isn't it, Snake?"
 port remove otacon snake

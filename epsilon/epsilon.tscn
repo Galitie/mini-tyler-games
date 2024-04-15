@@ -132,7 +132,9 @@ libraries = {
 }
 
 [node name="audio" type="AudioStreamPlayer2D" parent="."]
-volume_db = 20.0
+
+[node name="left_audio" type="AudioStreamPlayer2D" parent="."]
+volume_db = 8.0
 
 [node name="timer" type="Timer" parent="."]
 one_shot = true

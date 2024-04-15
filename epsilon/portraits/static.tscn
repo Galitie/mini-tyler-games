@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkv25dqrbfoyf"]
+
+[ext_resource type="Texture2D" uid="uid://d4hwmom0r6l24" path="res://epsilon/portraits/static.png" id="1_gnsr2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0akvf"]
+atlas = ExtResource("1_gnsr2")
+region = Rect2(0, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4yuc"]
+atlas = ExtResource("1_gnsr2")
+region = Rect2(52, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dnh1"]
+atlas = ExtResource("1_gnsr2")
+region = Rect2(104, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_321t8"]
+atlas = ExtResource("1_gnsr2")
+region = Rect2(156, 0, 52, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uk3a1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0akvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4yuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dnh1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_321t8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="static_portrait" type="AnimatedSprite2D"]
+modulate = Color(1, 1.1, 1, 1)
+scale = Vector2(3.95892, 3.95892)
+sprite_frames = SubResource("SpriteFrames_uk3a1")
+frame_progress = 0.0204059
+centered = false

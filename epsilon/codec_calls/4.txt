@@ -1,0 +1,48 @@
+load char
+res://epsilon/portraits/snake.tscn snake
+res://epsilon/portraits/static.tscn static
+res://epsilon/portraits/tyler.tscn tyler
+res://epsilon/portraits/otacon.tscn otacon
+end
+load vo
+res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
+res://epsilon/vo/4_hello.mp3 hello
+res://epsilon/vo/4_on.mp3 on
+res://epsilon/vo/4_rescue.mp3 rescue
+res://epsilon/vo/4_wow.mp3 wow
+res://epsilon/vo/4_kill_me.mp3 kill_me
+res://epsilon/vo/4_jews.mp3 jews
+res://epsilon/vo/4_silence.mp3 silence
+res://epsilon/vo/4_no_doubt.mp3 no_doubt
+res://epsilon/vo/4_monopoly.mp3 monopoly
+res://epsilon/vo/4_bioinformatics.mp3 bioinformatics
+res://epsilon/vo/4_pcr.mp3 pcr
+res://epsilon/vo/4_giving_up.mp3 giving_up
+res://epsilon/vo/4_venmo.mp3 venmo
+end
+port add static snake
+msg left default hello "Hello? Can you hear me?"
+msg left default on "Is this thing on?"
+msg right talking doozy_huh "...Loud and clear."
+msg left default rescue "Are you the, uh, guy who's supposed to rescue me?"
+msg right talking doozy_huh "See anyone else?"
+port add tyler NULL
+msg left talking wow "Wow, you're so good."
+msg left talking kill_me "I was afraid you wouldn't get here in time and they would, uh, you know, kill me and stuff."
+msg right talking doozy_huh "Who's 'they'?"
+msg left talking jews "The Jews. I hate 'em."
+msg right default silence "..."
+msg right talking doozy_huh "Otacon, are you sure we got the right guy?"
+port add otacon NULL
+msg left talking no_doubt "There's no doubt about it, Snake. That's him."
+msg right talking doozy_huh "Okay...so what are these 'Jews' planning?"
+port add tyler NULL
+msg left talking monopoly "Uhhhh, they're looking to seize a monopoly on molecular cloning."
+msg right talking doozy_huh "...Molecular cloning?"
+msg left talking bioinformatics "Yep. By expressing and purifying proteins, they can essentially gain control over everyone's bioinformatics."
+msg left talking pcr "At that point, even under PCR regulations, um, uh..."
+msg left talking giving_up "...Metal Gear!"
+msg right talking doozy_huh "...Metal...Gear?!"
+msg left talking venmo "Hey, uh, can I send you a Venmo link after this?"
+msg right talking doozy_huh "Not a chance."
+port remove tyler snake

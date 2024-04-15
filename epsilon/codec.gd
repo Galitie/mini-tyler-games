@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var timer = $timer
 @onready var audio_player = $audio
+@onready var left_audio = $left_audio
 @onready var anim_player = $animation
 @onready var text_container = $text_container/text
 @onready var left_portrait = $left_portrait
@@ -37,7 +38,7 @@ func _ready():
 	audio_player.stream = codec_ring
 	audio_player.play()
 	await audio_player.finished
-	var codec_file: FileAccess = FileAccess.open("res://epsilon/codec_calls/3.txt", FileAccess.READ)
+	var codec_file: FileAccess = FileAccess.open("res://epsilon/codec_calls/4.txt", FileAccess.READ)
 	while !codec_file.eof_reached():
 		var line: String = codec_file.get_line()
 		var args: PackedStringArray = line.split(" ")
@@ -123,14 +124,18 @@ func port(args: PackedStringArray):
 func char_speaks(args: PackedStringArray, voice_line: AudioStream, text: String):
 	text_container.text = text
 	
+	var audio: AudioStreamPlayer2D = null
 	if args[1] == "left":
 		left_portrait.get_node("char").get_child(0).play(args[2])
+		audio = left_audio
 	if args[1] == "right":
 		right_portrait.get_node("char").get_child(0).play(args[2])
+		# NOTE: Might get punished for this, but we're good for now
+		audio = audio_player
 		
-	audio_player.stream = voice_line
-	audio_player.play()
-	await audio_player.finished
+	audio.stream = voice_line
+	audio.play()
+	await audio.finished
 	text_container.text = ""
 
 	if args[1] == "right":

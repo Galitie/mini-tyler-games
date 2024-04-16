@@ -31,6 +31,12 @@ func load_assets(file: FileAccess, dict: Dictionary, instantiate: bool = false) 
 func _ready():
 	text_container.text= "" #reset textbox
 	
+	#await play_file("res://epsilon/codec_calls/1.txt")
+	#await play_file("res://epsilon/codec_calls/2.txt")
+	#await play_file("res://epsilon/codec_calls/3.txt")
+	await play_file("res://epsilon/codec_calls/4.txt")
+	
+func play_file(file_path: String) -> void:
 	var regex: RegEx = RegEx.new()
 	regex.compile('"(.*?)"')
 	
@@ -38,7 +44,7 @@ func _ready():
 	audio_player.stream = codec_ring
 	audio_player.play()
 	await audio_player.finished
-	var codec_file: FileAccess = FileAccess.open("res://epsilon/codec_calls/3.txt", FileAccess.READ)
+	var codec_file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
 	while !codec_file.eof_reached():
 		var line: String = codec_file.get_line()
 		var args: PackedStringArray = line.split(" ")

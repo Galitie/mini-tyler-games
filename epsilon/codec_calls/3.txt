@@ -14,21 +14,24 @@ res://epsilon/vo/3_feel.mp3 feel
 res://epsilon/vo/3_call_me.mp3 call_me
 res://epsilon/vo/3_anus.mp3 anus
 res://epsilon/vo/4_silence.mp3 silence
+res://epsilon/vo/3_frequency.mp3 frequency
+res://epsilon/vo/3_say.mp3 say
+res://epsilon/vo/3_fine.mp3 fine
+res://epsilon/vo/3_snanus.mp3 snanus
 end
 port add anus snake
 msg left default watch "Snake, you better watch your step."
 msg left default mines "There are mines beneath your feet."
-msg right talking doozy_huh "Who's this? How did you get my frequency?"
+msg right talking frequency "Who's this? How did you get my frequency?"
 msg left default important "That's not important."
 msg left default inside "Let's just say there's more than one man on the inside."
-msg right talking doozy_huh "If I don't even have your name, how am I supposed to trust anything you say?"
+msg right talking say "If I don't even have your name, how am I supposed to trust anything you say?"
 msg left default name "I've got a name."
 msg left default keep_it "I'd just like to keep it."
 msg left default feel "I'm certain you feel the same, Snake."
-msg right talking doozy_huh "Fine. What do I call you, then?"
+msg right talking fine "Fine. What do I call you, then?"
 msg left default call_me "You can call me..."
 msg left default anus "...Anus."
-msg right talking doozy_huh "Anus?"
+msg right talking snanus "Anus?"
 msg left default anus "Anus."
-msg left default silence "..."
 port remove anus snake

@@ -19,36 +19,46 @@ res://epsilon/vo/4_bioinformatics.mp3 bioinformatics
 res://epsilon/vo/4_pcr.mp3 pcr
 res://epsilon/vo/4_giving_up.mp3 giving_up
 res://epsilon/vo/4_venmo.mp3 venmo
+res://epsilon/vo/4_loud.mp3 loud
+res://epsilon/vo/4_called.mp3 called
+res://epsilon/vo/4_they.mp3 they
+res://epsilon/vo/4_guy.mp3 guy
+res://epsilon/vo/4_planning.mp3 planning
+res://epsilon/vo/4_cloning.mp3 cloning
+res://epsilon/vo/4_proteins.mp3 proteins
+res://epsilon/vo/4_bio.mp3 bio
+res://epsilon/vo/4_metal.mp3 metal
+res://epsilon/vo/4_liquid.mp3 liquid
 end
 port add static snake
 msg left default hello "Hello? Can you hear me?"
 msg left default on "Is this thing on?"
-msg right talking doozy_huh "...Loud and clear."
+msg right talking loud "...Loud and clear."
 msg left default rescue "Whoooooooo the fuck is this?"
-msg right talking doozy_huh "You called me, who the fuck are you?"
+msg right talking called "You called me, who the fuck are you?"
 port add tyler NULL
 msg left talking wow "It's me! Tyler! I need help!"
 msg left talking doozy_huh "You're Snake, right?"
 msg left talking kill_me "I was afraid you wouldn't get here in time and they would, uh, you know, kill me and stuff."
-msg right talking doozy_huh "Who's 'they'?"
-msg left talking jews "The Jews. I hate 'em."
+msg right talking they "Who's 'they'?"
+msg left talking doozy_huh "The Jews."
 msg right default silence "..."
-msg right talking doozy_huh "Otacon, are you sure we got the right guy?"
+msg right talking guy "Otacon, are you sure we got the right guy?"
 port add otacon NULL
 msg left talking no_doubt "There's no doubt about it, Snake. That's him. Tyler Ames."
-msg right talking doozy_huh "Great...so what are these ...'Jews'... planning?"
+msg right talking planning "Great...so what are these ...'Jews'... planning?"
 port add tyler NULL
 msg left talking monopoly "Uhhhh, they're looking to seize a monopoly on molecular cloning."
-msg right talking doozy_huh "...Molecular cloning?"
+msg right talking cloning "...Molecular cloning?"
 msg left talking bioinformatics "Yep. By expressing and purifying proteins-"
-msg right talking doozy_huh "Proteins..." 
+msg right talking proteins "Proteins..." 
 msg left talking doozy_huh "...they can essentially gain control over everyone's bioinformatics-"
-msg right talking doozy_huh "BIOINFORMATICS?!"
+msg right talking bio "BIOINFORMATICS?!"
 msg left talking doozy_huh "Are you just going to repeat everything I say?"
 msg right default silence "..."
 msg left talking pcr "Okay...at that point, even under PCR regulations, um, uh..."
 msg left talking giving_up "Fuck it...Metal Gear!"
-msg right talking doozy_huh "...Metal...Gear?!"
-msg left talking venmo "So are you still going to save me? They won't let me use the bathroom, so I'm trying to not to drink any liquids-"
-msg right talking doozy_huh "ARGHHH LIQUIIIIIIIIIIIIIIIID!!!"
+msg right talking metal "...Metal...Gear?!"
+msg left talking doozy_huh "So are you still going to save me? They won't let me use the bathroom, so I'm trying to not to drink any liquids-"
+msg right talking liquid "GRAHHH LIQUIIIIIIIIIIIIIIIID!!!"
 port remove tyler snake

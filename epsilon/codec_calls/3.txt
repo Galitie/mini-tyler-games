@@ -13,8 +13,7 @@ res://epsilon/vo/3_keep_it.mp3 keep_it
 res://epsilon/vo/3_feel.mp3 feel
 res://epsilon/vo/3_call_me.mp3 call_me
 res://epsilon/vo/3_anus.mp3 anus
-res://epsilon/vo/3_history.mp3 history
-res://epsilon/vo/3_nimble.mp3 nimble
+res://epsilon/vo/4_silence.mp3 silence
 end
 port add anus snake
 msg left default watch "Snake, you better watch your step."
@@ -30,6 +29,6 @@ msg right talking doozy_huh "Fine. What do I call you, then?"
 msg left default call_me "You can call me..."
 msg left default anus "...Anus."
 msg right talking doozy_huh "Anus?"
-msg left default history "Anus."
-msg left default nimble "..."
+msg left default anus "Anus."
+msg left default silence "..."
 port remove anus snake

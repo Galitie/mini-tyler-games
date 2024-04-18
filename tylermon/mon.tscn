@@ -1,24 +1,74 @@
-[gd_scene load_steps=4 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=8 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
-[ext_resource type="Texture2D" uid="uid://mh88hi5a3nux" path="res://icon.svg" id="2_6w00d"]
+[ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kh3on"]
-size = Vector2(116, 118)
+size = Vector2(134.375, 129)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1caxg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aucwo"]
+bg_color = Color(0, 0.717647, 0.392157, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teykr"]
+size = Vector2(134.875, 130)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
 
 [node name="mon" type="CharacterBody2D"]
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-0.500001, -0.499998)
+scale = Vector2(0.960002, 1)
 shape = SubResource("RectangleShape2D_kh3on")
 
 [node name="sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_6w00d")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_j30cr")
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 5.0
 
 [node name="anim_player" type="AnimationPlayer" parent="."]
 
+[node name="hp_bar" type="ProgressBar" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = 75.0
+offset_right = 58.0
+offset_bottom = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.359999)
+size_flags_horizontal = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_1caxg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_aucwo")
+step = 1.0
+show_percentage = false
+
+[node name="hurt_box" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="hurt_box_coll" type="CollisionShape2D" parent="hurt_box"]
+position = Vector2(0.53002, 1.90735e-06)
+scale = Vector2(1.12, 1.2)
+shape = SubResource("RectangleShape2D_teykr")
+
+[node name="basic_atk_box" type="Area2D" parent="."]
+scale = Vector2(9.19704, 9.60424)
+collision_layer = 4
+collision_mask = 0
+
+[node name="basic_atk_box_coll" type="CollisionShape2D" parent="basic_atk_box"]
+position = Vector2(0.53002, 1.90735e-06)
+scale = Vector2(1.12, 1.2)
+shape = SubResource("CircleShape2D_glbfy")
+
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="hurt_box" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="basic_atk_box" to="." method="_on_hurt_box_area_entered"]

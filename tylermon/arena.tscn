@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8s20lpclkjhg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6u2qx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fnbg"]
+size = Vector2(19.9359, 20)
+
+[node name="Arena" type="Node2D"]
+
+[node name="background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="wall_top" type="StaticBody2D" parent="."]
+position = Vector2(635, 27)
+scale = Vector2(10.76, 0.12)
+physics_material_override = SubResource("PhysicsMaterial_6u2qx")
+
+[node name="wall_coll" type="CollisionShape2D" parent="wall_top"]
+position = Vector2(-0.199999, 0)
+scale = Vector2(6.24, 6.24)
+shape = SubResource("RectangleShape2D_7fnbg")
+
+[node name="wall_bot" type="StaticBody2D" parent="."]
+position = Vector2(635, 694)
+scale = Vector2(10.76, 0.12)
+physics_material_override = SubResource("PhysicsMaterial_6u2qx")
+
+[node name="wall_coll" type="CollisionShape2D" parent="wall_bot"]
+position = Vector2(-0.199999, 0)
+scale = Vector2(6.24, 6.24)
+shape = SubResource("RectangleShape2D_7fnbg")
+
+[node name="wall_left" type="StaticBody2D" parent="."]
+position = Vector2(24, 352)
+rotation = 1.5708
+scale = Vector2(6.68, 0.12)
+physics_material_override = SubResource("PhysicsMaterial_6u2qx")
+
+[node name="wall_coll" type="CollisionShape2D" parent="wall_left"]
+position = Vector2(-0.199999, 0)
+scale = Vector2(6.24, 6.24)
+shape = SubResource("RectangleShape2D_7fnbg")
+
+[node name="wall_right" type="StaticBody2D" parent="."]
+position = Vector2(1258, 352)
+rotation = 1.5708
+scale = Vector2(6.68, 0.12)
+physics_material_override = SubResource("PhysicsMaterial_6u2qx")
+
+[node name="wall_coll" type="CollisionShape2D" parent="wall_right"]
+position = Vector2(-0.199999, 0)
+scale = Vector2(6.24, 6.24)
+shape = SubResource("RectangleShape2D_7fnbg")

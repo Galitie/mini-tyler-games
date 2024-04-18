@@ -16,7 +16,7 @@ size = Vector2(134.875, 130)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
 
-[node name="mon" type="CharacterBody2D"]
+[node name="mon" type="CharacterBody2D" groups=["mons"]]
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]

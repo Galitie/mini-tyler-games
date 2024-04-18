@@ -28,7 +28,6 @@ func _ready():
 	timer.wait_time = 1
 	basic_atk_box.get_node("basic_atk_box_coll").disabled = true
 	timer.start()
-	get_other_random_mon()
 
 
 func _physics_process(delta):
@@ -77,8 +76,9 @@ func set_state(state):
 			$sprite.rotation = 90
 		State.TARGET_AND_GO:
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
-			destination = get_other_random_mon().position
+			destination = get_other_random_mon().position.normalized()
 	current_state = state
+	
 
 
 func update_state(state, delta):
@@ -94,12 +94,11 @@ func update_state(state, delta):
 
 
 func get_other_random_mon():
-	var this_instance = self.name
-	var random_number = randi_range(1,4)
-	if this_instance.split("mon")[1] == str(random_number):
-		get_other_random_mon()
-	var other_mon = get_tree().get_root().get_node("tylermon").get_node("mon" + str(random_number))
-
+	var get_all_mons = get_tree().get_nodes_in_group("mons")
+	var random_mon = get_all_mons.pick_random()
+	while random_mon == self:
+		random_mon = get_all_mons.pick_random()
+	return random_mon
 
 func _on_timer_timeout():
 	change_mind = true
@@ -107,6 +106,5 @@ func _on_timer_timeout():
 
 func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box: return
-	print("mon was hit!")
 	health -= strength
 	hp_bar.value = health

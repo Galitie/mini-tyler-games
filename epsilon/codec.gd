@@ -33,8 +33,8 @@ func _ready():
 	
 	#await play_file("res://epsilon/codec_calls/1.txt")
 	#await play_file("res://epsilon/codec_calls/2.txt")
-	await play_file("res://epsilon/codec_calls/3.txt")
-	#await play_file("res://epsilon/codec_calls/4.txt")
+	#await play_file("res://epsilon/codec_calls/3.txt")
+	await play_file("res://epsilon/codec_calls/4.txt")
 	
 func play_file(file_path: String) -> void:
 	var regex: RegEx = RegEx.new()

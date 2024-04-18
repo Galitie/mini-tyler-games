@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw0cafqg6opwm"]
+
+[ext_resource type="Script" path="res://crushris/rockman.gd" id="1_f26mj"]
+[ext_resource type="Texture2D" uid="uid://rf0xxypn1mqw" path="res://crushris/rockman.png" id="1_j3tyy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0bwpm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j3tyy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfw2e"]
+size = Vector2(28, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sxj2p"]
+size = Vector2(10, 10)
+
+[node name="rockman" type="CharacterBody2D"]
+texture_filter = 2
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_f26mj")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0bwpm")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_nfw2e")
+
+[node name="kill_zone" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
+
+[node name="shape" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_sxj2p")

@@ -18,7 +18,6 @@ res://epsilon/vo/4_monopoly.mp3 monopoly
 res://epsilon/vo/4_bioinformatics.mp3 bioinformatics
 res://epsilon/vo/4_pcr.mp3 pcr
 res://epsilon/vo/4_giving_up.mp3 giving_up
-res://epsilon/vo/4_venmo.mp3 venmo
 res://epsilon/vo/4_loud.mp3 loud
 res://epsilon/vo/4_called.mp3 called
 res://epsilon/vo/4_they.mp3 they

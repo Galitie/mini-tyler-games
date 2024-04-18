@@ -4,7 +4,12 @@ extends Node2D
 
 @onready var piece_scenes: Array = [
 	load("res://crushris/o_piece.tscn"),
-	load("res://crushris/l_piece.tscn")
+	load("res://crushris/I_piece.tscn"),
+	load("res://crushris/s_piece.tscn"),
+	load("res://crushris/z_piece.tscn"),
+	load("res://crushris/L_piece.tscn"),
+	load("res://crushris/j_piece.tscn"),
+	load("res://crushris/t_piece.tscn")
 ]
 
 const TILE_SIZE: int = 25
@@ -72,17 +77,19 @@ func _physics_process(delta: float) -> void:
 			active_piece.turn(PI / 2)
 		
 		if Input.is_action_just_pressed("move_piece_left"):
-			if !active_piece.check_contact(Vector2(-TILE_SIZE + 1, 0)):
+			if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
 				piece_destination.x = active_piece.position.x - TILE_SIZE
 		if Input.is_action_just_pressed("move_piece_right"):
-			if !active_piece.check_contact(Vector2(TILE_SIZE - 1, 0)):
+			if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
 				piece_destination.x = active_piece.position.x + TILE_SIZE
 		
 		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
 			active_piece.position.y += PIECE_FALL_SPEED * delta
+			active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 			snap_timer = 0
 		else:
 			active_piece.position.y = snap_piece_position(active_piece.position).y
+			active_piece.set_linear_velocity(Vector2.ZERO)
 			snap_timer += 1
 				
 		if snap_timer >= snap_timer_length:
@@ -108,8 +115,7 @@ func snap_piece_position(pos: Vector2) -> Vector2:
 		
 func check_rows() -> void:
 	var params: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
-	# TODO: Will need to be tweaked in the future to avoid players
-	params.collision_mask = 4294967295
+	params.collision_mask = 0b00000000_00000000_00000000_00000001
 	
 	var row_data: Array = []
 	

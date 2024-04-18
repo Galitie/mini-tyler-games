@@ -10,13 +10,13 @@ script = ExtResource("1_66guv")
 position = Vector2(315, 511)
 
 [node name="mon2" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(746, 206)
+position = Vector2(993, 486)
 
 [node name="mon3" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(574, 385)
+position = Vector2(990, 198)
 
 [node name="mon4" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(826, 513)
+position = Vector2(305, 202)
 
 [node name="round_timer" type="Timer" parent="."]
 wait_time = 30.0

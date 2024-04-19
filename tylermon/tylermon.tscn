@@ -8,6 +8,7 @@
 script = ExtResource("1_66guv")
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
+z_index = -2
 
 [node name="mon1" parent="." instance=ExtResource("2_yelk2")]
 position = Vector2(320, 180)

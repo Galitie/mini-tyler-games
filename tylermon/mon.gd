@@ -2,16 +2,15 @@ extends CharacterBody2D
 
 var tyler_type: String
 var attacks
-var max_health: int = 10
+var max_health: int = 5
 var health: int = max_health
-var speed: int = 150
+var speed: int = 75
 var intelligence: int = 0
-var strength: int = 1
+var strength: int = 3
 var elm_type
 var commands
 var current_state 
-var destination : Vector2 
-var change_mind
+var destination : Vector2
 enum State {WALK_RANDOM, BASIC_ATTACK, IDLE, SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO, START_FIGHT, UPGRADE}
 
 
@@ -27,55 +26,50 @@ func _ready():
 
 
 func _physics_process(delta):
-	if health <= 0:
+	if health <= 0 and current_state != State.KNOCKED_OUT:
 		set_state(State.KNOCKED_OUT)
 	move_and_slide()
 	update_state(current_state, delta)
-	if change_mind and current_state != State.KNOCKED_OUT:
-		var random_number = randi_range(0, 50) + intelligence
-		if random_number < 10:
-			set_state(State.IDLE)
-		if random_number > 10 and random_number < 20:
-			set_state(State.WALK_RANDOM)
-		if random_number > 20 and random_number < 30:
-			set_state(State.BASIC_ATTACK)
-		if random_number > 30 and random_number < 40:
-			set_state(State.TARGET_AND_GO)
-		if random_number > 40 and random_number <= 50:
-			pass
-			#do what player said
-	if velocity.x > 0:
-		$sprite.flip_h = false
-	else:
-		$sprite.flip_h = true
-	change_mind = false
 
 
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
 			basic_atk_box.get_child(0).disabled = true
-			destination = Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()
+			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
+		
 		State.BASIC_ATTACK:
+			basic_atk_box.get_node("basic_atk_box_coll").disabled = false
+			z_index = 1
 			velocity = Vector2()
-			pass
-			#var attack = attacks.random()
-			#anim_player.play(attack.name)
-			#when animation is done, go back to changing the state
+			timer.paused = true
+			# var attack = attacks.random()
+			anim_player.play("basic_attack")
+			await anim_player.animation_finished
+			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
+			timer.paused = false
+			z_index = 0
+		
 		State.IDLE:
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
 			velocity = Vector2()
+		
 		State.KNOCKED_OUT:
+			anim_player.play("knocked_out")
+			z_index = -1
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
 			velocity = Vector2()
-			$sprite.rotation = 90
+			get_node("collision").disabled = true
+			hp_bar.visible = false
+
 		State.TARGET_AND_GO:
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
-			destination = get_other_random_mon().position.normalized()
+			destination = get_other_random_mon().position
+
 		State.START_FIGHT:
+			hp_bar.visible = true
+			get_node("collision").disabled = false
 			position = fight_pos
-			change_mind = false
-			$sprite.rotation = 0
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
 			health = max_health
 			hp_bar.max_value = max_health
@@ -83,37 +77,66 @@ func set_state(state):
 			hp_bar.value = max_health
 			timer.wait_time = 1
 			timer.start()
+		
 		State.UPGRADE:
+			position = fight_pos
 			position.x = position.x + 80
-			$sprite.rotation = 0
 			#animation
+
 	current_state = state
 
 
 func update_state(state, delta):
 	match state:
 		State.WALK_RANDOM:
-			velocity = destination * speed 
+			if position.x <= destination.x:
+				$sprite.flip_h = false
+			else:
+				$sprite.flip_h = true
+			position = position.move_toward(destination, speed * delta)
+			
 		State.BASIC_ATTACK:
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = false
+			#basic_atk_box.get_node("basic_atk_box_coll").disabled = false
+			pass
+
 		State.IDLE:
 			pass
-			#idle animation
+
 		State.TARGET_AND_GO:
-			velocity = destination * speed
+			if position.x <= destination.x:
+				$sprite.flip_h = false
+			else:
+				$sprite.flip_h = true
+			position = position.move_toward(destination, speed * delta)
 
 
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")
 	var random_mon = get_all_mons.pick_random()
-	while random_mon == self && random_mon.current_state != State.KNOCKED_OUT:
+	while random_mon == self or random_mon.current_state == State.KNOCKED_OUT:
 		random_mon = get_all_mons.pick_random()
 	return random_mon
 
 
 func _on_timer_timeout():
-	change_mind = true
-
+	if current_state != State.KNOCKED_OUT:
+		var random_number = randi_range(0, 50) + intelligence
+		if random_number <= 10:
+			set_state(State.IDLE)
+		if random_number > 10 and random_number <= 20:
+			set_state(State.WALK_RANDOM)
+		if random_number > 20 and random_number <= 30:
+			set_state(State.BASIC_ATTACK)
+		if random_number > 30 and random_number <= 40:
+			set_state(State.TARGET_AND_GO)
+		if random_number > 40 and random_number <= 50:
+			pass
+			#special attack
+		if random_number > 50:
+			pass
+			#do what the player says
+	var random_wait_time = randi_range(2,5)
+	timer.start(random_wait_time)
 
 func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box: return

@@ -1,10 +1,60 @@
-[gd_scene load_steps=8 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=11 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh3on"]
-size = Vector2(134.375, 129)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_osht7"]
+size = Vector2(20, 25)
+
+[sub_resource type="Animation" id="Animation_vxrur"]
+resource_name = "basic_attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1, 1),
+"update": 0,
+"values": [0.0, 0.171042, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_64llp"]
+resource_name = "knocked_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.450625, 1),
+"update": 0,
+"values": [0.0, -0.322886, 1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.45098, 0.45098, 0.45098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_46pca"]
+_data = {
+"basic_attack": SubResource("Animation_vxrur"),
+"knocked_out": SubResource("Animation_64llp")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1caxg"]
 
@@ -15,32 +65,40 @@ bg_color = Color(0, 0.717647, 0.392157, 1)
 size = Vector2(134.875, 130)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
+radius = 12.4397
 
 [node name="mon" type="CharacterBody2D" groups=["mons"]]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(-0.500001, -0.499998)
-scale = Vector2(0.960002, 1)
-shape = SubResource("RectangleShape2D_kh3on")
+position = Vector2(0.499998, 7.5)
+rotation = 0.18675
+scale = Vector2(8.8, 7.88)
+shape = SubResource("RectangleShape2D_osht7")
 
 [node name="sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_j30cr")
+flip_h = true
 
 [node name="timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
+one_shot = true
 
 [node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_46pca")
+}
 
 [node name="hp_bar" type="ProgressBar" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -58.0
-offset_top = 75.0
-offset_right = 58.0
-offset_bottom = 102.0
+offset_left = -57.3333
+offset_top = -112.0
+offset_right = 58.6667
+offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.359999)

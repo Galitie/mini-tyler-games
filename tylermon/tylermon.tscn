@@ -23,6 +23,7 @@ position = Vector2(320, 540)
 position = Vector2(960, 540)
 
 [node name="round_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="countdown_ui" type="Control" parent="."]
 custom_minimum_size = Vector2(1280, 720)
@@ -44,13 +45,13 @@ alignment = 1
 [node name="label" type="Label" parent="countdown_ui/margin/seperator"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "Round ends: "
 
 [node name="countdown" type="Label" parent="countdown_ui/margin/seperator"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 42
 text = "30"
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

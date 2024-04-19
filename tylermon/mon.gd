@@ -2,22 +2,28 @@ extends CharacterBody2D
 
 var tyler_type: String
 var attacks
-var max_health: int = 5
+var max_health: int = 3
 var health: int = max_health
 var speed: int = 75
 var intelligence: int = 0
-var strength: int = 3
+var strength: int = 1
 var elm_type
 var commands
 var current_state 
 var destination : Vector2
-enum State {WALK_RANDOM, BASIC_ATTACK, IDLE, SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO, START_FIGHT, UPGRADE}
+enum State {
+	WALK_RANDOM, BASIC_ATTACK, IDLE,
+ 	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
+	PLAYER_COMMAND, START_FIGHT, UPGRADE
+	}
+
 
 @onready var anim_player = $anim_player
 @onready var timer = $timer
 @onready var hp_bar = $hp_bar
 @onready var hurt_box = $hurt_box
 @onready var basic_atk_box = $basic_atk_box
+@onready var special_atk_box = $special_atk_box
 @onready var fight_pos = position
 @onready var phrase = $phrase
 
@@ -26,6 +32,8 @@ var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jen
 var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
+var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!"]
+
 
 func _ready():
 	set_state(State.START_FIGHT)
@@ -46,16 +54,10 @@ func set_state(state):
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
-			chance_to_say_phrase(attack_phrases)
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = false
-			z_index = 1
-			timer.paused = true
-			# var attack = attacks.random()
-			anim_player.play("basic_attack")
-			await anim_player.animation_finished
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
-			timer.paused = false
-			z_index = 0
+			attack(basic_atk_box)
+		
+		State.SPECIAL_ATTACK:
+			attack(special_atk_box)
 		
 		State.IDLE:
 			chance_to_say_phrase(bored_phrases)
@@ -71,11 +73,15 @@ func set_state(state):
 		State.TARGET_AND_GO:
 			chance_to_say_phrase(target_phrases)
 			destination = get_other_random_mon().position
+			
+		State.PLAYER_COMMAND:
+			chance_to_say_phrase(listening_phrases)
 
 		State.START_FIGHT:
 			position = fight_pos
 			hp_bar.visible = true
 			basic_atk_box.get_child(0).disabled = true
+			special_atk_box.get_child(0).disabled = true
 			hurt_box.get_child(0).disabled = false
 			get_node("collision").disabled = false
 			health = max_health
@@ -122,6 +128,9 @@ func update_state(state, delta):
 
 		State.BASIC_ATTACK:
 			velocity = Vector2()
+		
+		State.SPECIAL_ATTACK:
+			velocity = Vector2()
 			
 		State.START_FIGHT:
 			velocity = Vector2()
@@ -147,18 +156,18 @@ func _on_timer_timeout():
 			set_state(State.BASIC_ATTACK)
 		if random_number > 30 and random_number <= 40:
 			set_state(State.TARGET_AND_GO)
-		if random_number > 40 and random_number <= 50:
-			pass
-			#special attack
-		if random_number > 50:
-			pass
+		if random_number > 40 and random_number < 50:
+			set_state(State.SPECIAL_ATTACK)
+		if random_number >= 50:
+			set_state(State.PLAYER_COMMAND)
 			#do what the player says
 	var random_wait_time = randi_range(2,5)
 	timer.start(random_wait_time)
 
 
 func _on_hurt_box_area_entered(area):
-	if area == basic_atk_box: return
+	if area == basic_atk_box or area == special_atk_box : return
+	chance_to_say_phrase(hurt_phrases)
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
@@ -175,6 +184,18 @@ func chance_to_say_phrase(array):
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
+
+
+func attack(attack_type):
+	chance_to_say_phrase(attack_phrases)
+	attack_type.get_node(str(attack_type.name) + "_coll").disabled = false
+	z_index +=  1
+	timer.paused = true
+	anim_player.play(str(attack_type.name).split("_box")[0])
+	await anim_player.animation_finished
+	attack_type.get_node(str(attack_type.name) + "_coll").disabled = true
+	timer.paused = false
+	z_index -= 1
 
 
 func switch_round_modes(fight_time):

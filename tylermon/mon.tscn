@@ -1,26 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=13 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osht7"]
 size = Vector2(20, 25)
-
-[sub_resource type="Animation" id="Animation_vxrur"]
-resource_name = "basic_attack"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(0.31864, 1, 1),
-"update": 0,
-"values": [0.0, 0.171042, 0.0]
-}
 
 [sub_resource type="Animation" id="Animation_u6mf2"]
 resource_name = "hurt"
@@ -66,11 +50,56 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.45098, 0.45098, 0.45098, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_vxrur"]
+resource_name = "basic_atk"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1, 1),
+"update": 0,
+"values": [0.0, 0.171042, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_x0gg0"]
+resource_name = "special_atk"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(0.31864, 1, 1),
+"update": 0,
+"values": [0.0, 0.171042, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.2001, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-75, 0), Vector2(75, 0), Vector2(75, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46pca"]
 _data = {
-"basic_attack": SubResource("Animation_vxrur"),
+"basic_atk": SubResource("Animation_vxrur"),
 "hurt": SubResource("Animation_u6mf2"),
-"knocked_out": SubResource("Animation_64llp")
+"knocked_out": SubResource("Animation_64llp"),
+"special_atk": SubResource("Animation_x0gg0")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1caxg"]
@@ -79,7 +108,7 @@ _data = {
 bg_color = Color(0, 0.717647, 0.392157, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_teykr"]
-size = Vector2(134.875, 130)
+size = Vector2(134.875, 137.222)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
 radius = 12.4397
@@ -130,8 +159,9 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="hurt_box_coll" type="CollisionShape2D" parent="hurt_box"]
-position = Vector2(0.53002, 1.90735e-06)
-scale = Vector2(1.12, 1.2)
+position = Vector2(0.5, 7.5)
+rotation = 0.18675
+scale = Vector2(1.30303, 1.37113)
 shape = SubResource("RectangleShape2D_teykr")
 
 [node name="basic_atk_box" type="Area2D" parent="."]
@@ -140,6 +170,17 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="basic_atk_box_coll" type="CollisionShape2D" parent="basic_atk_box"]
+position = Vector2(0.53002, 1.90735e-06)
+scale = Vector2(1.12, 1.2)
+shape = SubResource("CircleShape2D_glbfy")
+disabled = true
+
+[node name="special_atk_box" type="Area2D" parent="."]
+scale = Vector2(14.6904, 9.60424)
+collision_layer = 4
+collision_mask = 0
+
+[node name="special_atk_box_coll" type="CollisionShape2D" parent="special_atk_box"]
 position = Vector2(0.53002, 1.90735e-06)
 scale = Vector2(1.12, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
@@ -165,3 +206,4 @@ one_shot = true
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="hurt_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="basic_atk_box" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="special_atk_box" to="." method="_on_hurt_box_area_entered"]

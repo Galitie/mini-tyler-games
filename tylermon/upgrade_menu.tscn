@@ -1,0 +1,167 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyyxc3uqqve2m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5loc1"]
+bg_color = Color(0.352941, 0.698039, 0.113725, 1)
+
+[node name="upgrade_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+
+[node name="hbox" type="HBoxContainer" parent="margin"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="buttons" type="VBoxContainer" parent="margin/hbox"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="label" type="Label" parent="margin/hbox/buttons"]
+layout_mode = 2
+text = "Upgrade 3 stats:"
+
+[node name="button" type="Button" parent="margin/hbox/buttons"]
+layout_mode = 2
+text = "Increase Health"
+
+[node name="button2" type="Button" parent="margin/hbox/buttons"]
+layout_mode = 2
+text = "Increase Strength"
+
+[node name="button3" type="Button" parent="margin/hbox/buttons"]
+layout_mode = 2
+text = "Increase Intelligence"
+
+[node name="button4" type="Button" parent="margin/hbox/buttons"]
+layout_mode = 2
+text = "Add Command"
+
+[node name="button5" type="Button" parent="margin/hbox/buttons"]
+layout_mode = 2
+text = "Risk it for the Biscuit"
+
+[node name="button6" type="Button" parent="margin/hbox/buttons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5loc1")
+text = "READY"
+
+[node name="selected1" type="VBoxContainer" parent="margin/hbox"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="label" type="Label" parent="margin/hbox/selected1"]
+layout_mode = 2
+
+[node name="button" type="Button" parent="margin/hbox/selected1"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button2" type="Button" parent="margin/hbox/selected1"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button3" type="Button" parent="margin/hbox/selected1"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button4" type="Button" parent="margin/hbox/selected1"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button5" type="Button" parent="margin/hbox/selected1"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="selected2" type="VBoxContainer" parent="margin/hbox"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="label" type="Label" parent="margin/hbox/selected2"]
+layout_mode = 2
+
+[node name="button" type="Button" parent="margin/hbox/selected2"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button2" type="Button" parent="margin/hbox/selected2"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button3" type="Button" parent="margin/hbox/selected2"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button4" type="Button" parent="margin/hbox/selected2"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="selected3" type="VBoxContainer" parent="margin/hbox"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="label" type="Label" parent="margin/hbox/selected3"]
+layout_mode = 2
+
+[node name="button" type="Button" parent="margin/hbox/selected3"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button2" type="Button" parent="margin/hbox/selected3"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="button3" type="Button" parent="margin/hbox/selected3"]
+layout_mode = 2
+disabled = true
+text = "+"
+flat = true
+
+[node name="stats" type="VBoxContainer" parent="margin/hbox"]
+layout_mode = 2
+alignment = 2
+
+[node name="stat_bar" type="HBoxContainer" parent="margin/hbox/stats"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="stat1" type="Label" parent="margin/hbox/stats/stat_bar"]
+layout_mode = 2
+text = "Stat 1"
+
+[node name="stat2" type="Label" parent="margin/hbox/stats/stat_bar"]
+layout_mode = 2
+text = "Stat 2"
+
+[node name="stat3" type="Label" parent="margin/hbox/stats/stat_bar"]
+layout_mode = 2
+text = "Stat 3"
+
+[node name="stat4" type="Label" parent="margin/hbox/stats/stat_bar"]
+layout_mode = 2
+text = "Stat 4"

@@ -11,7 +11,7 @@ var upgrade_length = 6
 
 func _ready():
 	round_timer.start(fight_length)
-
+	$upgrade_ui.visible = false
 
 func _process(delta):
 	countdown_nums.text = "%02d" % time_left()
@@ -23,12 +23,14 @@ func time_left():
 
 func _on_round_timer_timeout():
 	if fight_time:
-		round_timer.start(upgrade_length) 
+		round_timer.start(upgrade_length)
+		$upgrade_ui.visible = true
 		fight_time = false
 		get_tree().call_group("mons", "switch_round_modes", fight_time)
 		countdown_label.text = "Upgrade time left:"
 	else:
-		round_timer.start(fight_length) 
+		round_timer.start(fight_length)
+		$upgrade_ui.visible = false
 		fight_time = true
 		get_tree().call_group("mons", "switch_round_modes", fight_time)
 		countdown_label.text = "Round ends in:"

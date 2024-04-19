@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://ciyas0u8oerjv"]
+[gd_scene load_steps=5 format=3 uid="uid://ciyas0u8oerjv"]
 
 [ext_resource type="Script" path="res://tylermon/tylermon.gd" id="1_66guv"]
 [ext_resource type="PackedScene" uid="uid://c8s20lpclkjhg" path="res://tylermon/arena.tscn" id="2_mlfq2"]
 [ext_resource type="PackedScene" uid="uid://5lxqkuu1fqom" path="res://tylermon/mon.tscn" id="2_yelk2"]
+[ext_resource type="PackedScene" uid="uid://cyyxc3uqqve2m" path="res://tylermon/upgrade_menu.tscn" id="4_03my5"]
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
+visible = false
 z_index = -2
 
 [node name="mon1" parent="." instance=ExtResource("2_yelk2")]
@@ -53,5 +55,42 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "30"
+
+[node name="upgrade_ui" type="Control" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="margin" type="MarginContainer" parent="upgrade_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 60
+
+[node name="GridContainer" type="GridContainer" parent="upgrade_ui/margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 100
+theme_override_constants/v_separation = 160
+columns = 2
+
+[node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
+layout_mode = 2
+
+[node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
+layout_mode = 2
+
+[node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
+layout_mode = 2
+
+[node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
+layout_mode = 2
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

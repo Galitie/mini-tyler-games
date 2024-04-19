@@ -187,10 +187,10 @@ shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
 [node name="phrase" type="Label" parent="."]
-offset_left = -62.6667
+offset_left = -58.6667
 offset_top = -148.0
-offset_right = 64.3333
-offset_bottom = -125.0
+offset_right = 68.3333
+offset_bottom = -122.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2

@@ -7,7 +7,7 @@ var health: int = max_health
 var speed: int = 75
 var intelligence: int = 0
 var strength: int = 1
-var elm_type
+var elm_type = "normal"
 var commands
 var current_state 
 var destination : Vector2

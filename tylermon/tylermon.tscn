@@ -47,13 +47,13 @@ alignment = 1
 [node name="label" type="Label" parent="countdown_ui/margin/seperator"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 36
 text = "Round ends: "
 
 [node name="countdown" type="Label" parent="countdown_ui/margin/seperator"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 36
 text = "30"
 
 [node name="upgrade_ui" type="Control" parent="."]
@@ -78,7 +78,7 @@ theme_override_constants/margin_bottom = 60
 [node name="GridContainer" type="GridContainer" parent="upgrade_ui/margin"]
 layout_mode = 2
 theme_override_constants/h_separation = 100
-theme_override_constants/v_separation = 160
+theme_override_constants/v_separation = 100
 columns = 2
 
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
@@ -92,5 +92,151 @@ layout_mode = 2
 
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
+
+[node name="command_ui" type="Control" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="margin" type="MarginContainer" parent="command_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="grid" type="GridContainer" parent="command_ui/margin"]
+layout_mode = 2
+columns = 2
+
+[node name="hbox" type="HBoxContainer" parent="command_ui/margin/grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="vbox" type="VBoxContainer" parent="command_ui/margin/grid/hbox"]
+layout_mode = 2
+
+[node name="player 1" type="Label" parent="command_ui/margin/grid/hbox/vbox"]
+layout_mode = 2
+text = "Player 1"
+
+[node name="atk" type="Button" parent="command_ui/margin/grid/hbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Attack"
+
+[node name="special" type="Button" parent="command_ui/margin/grid/hbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Special"
+
+[node name="hbox2" type="HBoxContainer" parent="command_ui/margin/grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="vbox" type="VBoxContainer" parent="command_ui/margin/grid/hbox2"]
+layout_mode = 2
+
+[node name="player 2" type="Label" parent="command_ui/margin/grid/hbox2/vbox"]
+layout_mode = 2
+text = "Player 2
+"
+
+[node name="atk" type="Button" parent="command_ui/margin/grid/hbox2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Attack"
+
+[node name="special" type="Button" parent="command_ui/margin/grid/hbox2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Special"
+
+[node name="hbox3" type="HBoxContainer" parent="command_ui/margin/grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="vbox" type="VBoxContainer" parent="command_ui/margin/grid/hbox3"]
+layout_mode = 2
+alignment = 2
+
+[node name="player 3" type="Label" parent="command_ui/margin/grid/hbox3/vbox"]
+layout_mode = 2
+text = "Player 3
+"
+
+[node name="vbox2" type="VBoxContainer" parent="command_ui/margin/grid/hbox3"]
+layout_mode = 2
+alignment = 2
+
+[node name="hbox" type="HBoxContainer" parent="command_ui/margin/grid/hbox3/vbox2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="atk" type="Button" parent="command_ui/margin/grid/hbox3/vbox2/hbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Attack"
+
+[node name="special" type="Button" parent="command_ui/margin/grid/hbox3/vbox2/hbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Special"
+
+[node name="hbox4" type="HBoxContainer" parent="command_ui/margin/grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="vbox" type="VBoxContainer" parent="command_ui/margin/grid/hbox4"]
+layout_mode = 2
+alignment = 2
+
+[node name="player 4" type="Label" parent="command_ui/margin/grid/hbox4/vbox"]
+layout_mode = 2
+text = "Player 4
+"
+
+[node name="vbox2" type="VBoxContainer" parent="command_ui/margin/grid/hbox4"]
+layout_mode = 2
+alignment = 2
+
+[node name="hbox" type="HBoxContainer" parent="command_ui/margin/grid/hbox4/vbox2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="atk" type="Button" parent="command_ui/margin/grid/hbox4/vbox2/hbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Attack"
+
+[node name="special" type="Button" parent="command_ui/margin/grid/hbox4/vbox2/hbox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Special"
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

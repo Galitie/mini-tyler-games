@@ -13,16 +13,22 @@ var current_state
 var destination : Vector2
 enum State {WALK_RANDOM, BASIC_ATTACK, IDLE, SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO, START_FIGHT, UPGRADE}
 
-
 @onready var anim_player = $anim_player
 @onready var timer = $timer
 @onready var hp_bar = $hp_bar
 @onready var hurt_box = $hurt_box
 @onready var basic_atk_box = $basic_atk_box
 @onready var fight_pos = position
+@onready var phrase = $phrase
+
+var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "Huh?", "Pff"]
+var attack_phrases = ["DIE!", "Not today!", "Charge!", "Justice!", "For Frodo!","HI-YAH!", "Take that!", "Liberty or Death!", "I have the power!", "Leeeroy Jenkins!"]
+var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
+var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 
 func _ready():
 	set_state(State.START_FIGHT)
+	phrase.text = ""
 
 
 func _physics_process(delta):
@@ -35,10 +41,11 @@ func _physics_process(delta):
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
-			basic_atk_box.get_child(0).disabled = true
+			chance_to_say_phrase(bored_phrases)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
+			chance_to_say_phrase(attack_phrases)
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = false
 			z_index = 1
 			velocity = Vector2()
@@ -51,26 +58,27 @@ func set_state(state):
 			z_index = 0
 		
 		State.IDLE:
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
+			chance_to_say_phrase(bored_phrases)
 			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
+			get_node("collision").disabled = true
+			hurt_box.get_child(0).disabled = true
+			velocity = Vector2()
+			chance_to_say_phrase(knocked_out_phrases)
 			anim_player.play("knocked_out")
 			z_index = -1
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
-			velocity = Vector2()
-			get_node("collision").disabled = true
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
+			chance_to_say_phrase(attack_phrases)
 			destination = get_other_random_mon().position
 
 		State.START_FIGHT:
 			hp_bar.visible = true
+			hurt_box.get_child(0).disabled = false
 			get_node("collision").disabled = false
 			position = fight_pos
-			basic_atk_box.get_node("basic_atk_box_coll").disabled = true
 			health = max_health
 			hp_bar.max_value = max_health
 			hp_bar.value = health
@@ -119,7 +127,9 @@ func get_other_random_mon():
 
 
 func _on_timer_timeout():
-	if current_state != State.KNOCKED_OUT:
+	if current_state == State.KNOCKED_OUT:
+		chance_to_say_phrase(knocked_out_phrases)
+	else:
 		var random_number = randi_range(0, 50) + intelligence
 		if random_number <= 10:
 			set_state(State.IDLE)
@@ -143,5 +153,17 @@ func _on_hurt_box_area_entered(area):
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
+		anim_player.play("hurt")
 		health -= attacking_mon.strength
 		hp_bar.value = health
+
+
+func chance_to_say_phrase(array):
+	var chance = randi_range(1,4)
+	if chance == 1:
+		var rand_phrase = array.pick_random()
+		phrase.get_node("phrase_timer").start(2.5)
+		phrase.text = rand_phrase
+		await phrase.get_node("phrase_timer").timeout
+		phrase.text = ""
+		

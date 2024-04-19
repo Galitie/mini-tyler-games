@@ -23,8 +23,6 @@ position = Vector2(320, 540)
 position = Vector2(960, 540)
 
 [node name="round_timer" type="Timer" parent="."]
-wait_time = 30.0
-one_shot = true
 
 [node name="countdown_ui" type="Control" parent="."]
 custom_minimum_size = Vector2(1280, 720)

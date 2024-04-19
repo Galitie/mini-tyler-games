@@ -49,7 +49,6 @@ func set_state(state):
 			chance_to_say_phrase(attack_phrases)
 			basic_atk_box.get_node("basic_atk_box_coll").disabled = false
 			z_index = 1
-			velocity = Vector2()
 			timer.paused = true
 			# var attack = attacks.random()
 			anim_player.play("basic_attack")
@@ -60,12 +59,10 @@ func set_state(state):
 		
 		State.IDLE:
 			chance_to_say_phrase(bored_phrases)
-			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
-			velocity = Vector2()
 			chance_to_say_phrase(knocked_out_phrases)
 			anim_player.play("knocked_out")
 			z_index = -1
@@ -76,17 +73,21 @@ func set_state(state):
 			destination = get_other_random_mon().position
 
 		State.START_FIGHT:
+			position = fight_pos
 			hp_bar.visible = true
+			basic_atk_box.get_child(0).disabled = true
 			hurt_box.get_child(0).disabled = false
 			get_node("collision").disabled = false
-			position = fight_pos
 			health = max_health
 			hp_bar.max_value = max_health
 			hp_bar.value = max_health
-			timer.wait_time = 1
-			timer.start()
+			timer.paused = false
+			timer.start(1)
 		
 		State.UPGRADE:
+			timer.paused = true
+			position = fight_pos
+			position.x = position.x + 80
 			if current_state == State.KNOCKED_OUT:
 				anim_player.speed_scale = -1
 				anim_player.play("knocked_out")
@@ -96,8 +97,6 @@ func set_state(state):
 			health = max_health
 			hp_bar.max_value = max_health
 			hp_bar.value = max_health
-			position = fight_pos
-			position.x = position.x + 80
 			#upgrade animation
 	current_state = state
 
@@ -117,7 +116,15 @@ func update_state(state, delta):
 			else:
 				$sprite.flip_h = true
 			position = position.move_toward(destination, speed * delta)
+		
+		State.UPGRADE:
+			velocity = Vector2()
 
+		State.BASIC_ATTACK:
+			velocity = Vector2()
+			
+		State.START_FIGHT:
+			velocity = Vector2()
 
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")
@@ -149,6 +156,7 @@ func _on_timer_timeout():
 	var random_wait_time = randi_range(2,5)
 	timer.start(random_wait_time)
 
+
 func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box: return
 	var attackers = hurt_box.get_overlapping_areas()
@@ -167,4 +175,10 @@ func chance_to_say_phrase(array):
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
-		
+
+
+func switch_round_modes(fight_time):
+	if fight_time:
+		set_state(State.START_FIGHT)
+	else:
+		set_state(State.UPGRADE)

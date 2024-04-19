@@ -11,3 +11,10 @@ func _ready():
 
 func _process(delta):
 	pass
+
+
+func _on_round_timer_timeout():
+	if fight_time:
+		fight_time = false
+	else:
+		fight_time = true

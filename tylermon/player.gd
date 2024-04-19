@@ -1,13 +1,16 @@
 extends Node
 var mon
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	set_mon()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+
+func update(delta):
 	pass
+	#if input.selected:
+		#requested_state = state_u_picked
+
 
 func set_mon():
 	pass

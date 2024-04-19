@@ -10,17 +10,19 @@ script = ExtResource("1_66guv")
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 
 [node name="mon1" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(315, 511)
+position = Vector2(320, 180)
 
 [node name="mon2" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(993, 486)
+position = Vector2(960, 180)
 
 [node name="mon3" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(990, 198)
+position = Vector2(320, 540)
 
 [node name="mon4" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(305, 202)
+position = Vector2(960, 540)
 
 [node name="round_timer" type="Timer" parent="."]
 wait_time = 30.0
 one_shot = true
+
+[connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

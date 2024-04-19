@@ -22,7 +22,8 @@ enum State {WALK_RANDOM, BASIC_ATTACK, IDLE, SPECIAL_ATTACK, KNOCKED_OUT, TARGET
 @onready var phrase = $phrase
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "Huh?", "Pff"]
-var attack_phrases = ["DIE!", "Not today!", "Charge!", "Justice!", "For Frodo!","HI-YAH!", "Take that!", "Liberty or Death!", "I have the power!", "Leeeroy Jenkins!"]
+var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
+var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 
@@ -71,7 +72,7 @@ func set_state(state):
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
-			chance_to_say_phrase(attack_phrases)
+			chance_to_say_phrase(target_phrases)
 			destination = get_other_random_mon().position
 
 		State.START_FIGHT:
@@ -81,16 +82,23 @@ func set_state(state):
 			position = fight_pos
 			health = max_health
 			hp_bar.max_value = max_health
-			hp_bar.value = health
 			hp_bar.value = max_health
 			timer.wait_time = 1
 			timer.start()
 		
 		State.UPGRADE:
+			if current_state == State.KNOCKED_OUT:
+				anim_player.speed_scale = -1
+				anim_player.play("knocked_out")
+				await anim_player.animation_finished
+				anim_player.speed = 1
+				hp_bar.visible = true
+			health = max_health
+			hp_bar.max_value = max_health
+			hp_bar.value = max_health
 			position = fight_pos
 			position.x = position.x + 80
-			#animation
-
+			#upgrade animation
 	current_state = state
 
 
@@ -102,13 +110,6 @@ func update_state(state, delta):
 			else:
 				$sprite.flip_h = true
 			position = position.move_toward(destination, speed * delta)
-			
-		State.BASIC_ATTACK:
-			#basic_atk_box.get_node("basic_atk_box_coll").disabled = false
-			pass
-
-		State.IDLE:
-			pass
 
 		State.TARGET_AND_GO:
 			if position.x <= destination.x:

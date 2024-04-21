@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=14 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
@@ -6,9 +6,53 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osht7"]
 size = Vector2(20, 25)
 
+[sub_resource type="Animation" id="Animation_vxrur"]
+resource_name = "basic_atk"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.31864, 1, 1),
+"update": 0,
+"values": [0.0, 0.171042, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ir1mo"]
+resource_name = "get_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.450625, 1),
+"update": 0,
+"values": [1.5708, -0.322886, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.45098, 0.45098, 0.45098, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_u6mf2"]
 resource_name = "hurt"
-length = 0.4
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -50,22 +94,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.45098, 0.45098, 0.45098, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_vxrur"]
-resource_name = "basic_atk"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(0.31864, 1, 1),
-"update": 0,
-"values": [0.0, 0.171042, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_x0gg0"]
 resource_name = "special_atk"
 length = 0.3
@@ -97,6 +125,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46pca"]
 _data = {
 "basic_atk": SubResource("Animation_vxrur"),
+"get_up": SubResource("Animation_ir1mo"),
 "hurt": SubResource("Animation_u6mf2"),
 "knocked_out": SubResource("Animation_64llp"),
 "special_atk": SubResource("Animation_x0gg0")
@@ -201,6 +230,9 @@ uppercase = true
 
 [node name="phrase_timer" type="Timer" parent="phrase"]
 wait_time = 2.0
+one_shot = true
+
+[node name="attack_timer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

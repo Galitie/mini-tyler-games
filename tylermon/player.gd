@@ -1,5 +1,8 @@
+class_name Player
 extends Node
-var mon
+var mon : CharacterBody2D
+var wins : int
+var losses : int
 
 
 func _ready():
@@ -13,4 +16,4 @@ func update(delta):
 
 
 func set_mon():
-	pass
+	mon = get_child(0)

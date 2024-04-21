@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ciyas0u8oerjv"]
+[gd_scene load_steps=6 format=3 uid="uid://ciyas0u8oerjv"]
 
 [ext_resource type="Script" path="res://tylermon/tylermon.gd" id="1_66guv"]
 [ext_resource type="PackedScene" uid="uid://c8s20lpclkjhg" path="res://tylermon/arena.tscn" id="2_mlfq2"]
 [ext_resource type="PackedScene" uid="uid://5lxqkuu1fqom" path="res://tylermon/mon.tscn" id="2_yelk2"]
 [ext_resource type="PackedScene" uid="uid://cyyxc3uqqve2m" path="res://tylermon/upgrade_menu.tscn" id="4_03my5"]
+[ext_resource type="Script" path="res://tylermon/player.gd" id="5_uxsio"]
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
@@ -11,18 +12,6 @@ script = ExtResource("1_66guv")
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 visible = false
 z_index = -2
-
-[node name="mon1" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(320, 180)
-
-[node name="mon2" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(960, 180)
-
-[node name="mon3" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(320, 540)
-
-[node name="mon4" parent="." instance=ExtResource("2_yelk2")]
-position = Vector2(960, 540)
 
 [node name="round_timer" type="Timer" parent="."]
 one_shot = true
@@ -84,14 +73,38 @@ columns = 2
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
+[node name="player" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu"]
+script = ExtResource("5_uxsio")
+
+[node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player" instance=ExtResource("2_yelk2")]
+position = Vector2(320, 180)
+
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
+
+[node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu2"]
+script = ExtResource("5_uxsio")
+
+[node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player2" instance=ExtResource("2_yelk2")]
+position = Vector2(960, 180)
 
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
+[node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu3"]
+script = ExtResource("5_uxsio")
+
+[node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player3" instance=ExtResource("2_yelk2")]
+position = Vector2(320, 540)
+
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
+
+[node name="player4" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu4"]
+script = ExtResource("5_uxsio")
+
+[node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player4" instance=ExtResource("2_yelk2")]
+position = Vector2(960, 540)
 
 [node name="command_ui" type="Control" parent="."]
 custom_minimum_size = Vector2(1280, 720)

@@ -7,10 +7,13 @@ var health: int = max_health
 var speed: int = 75
 var intelligence: int = 0
 var strength: int = 1
-var elm_type = "normal"
+var elm_type = "NORMAL"
 var commands
 var current_state 
 var destination : Vector2
+var claimed : bool = false
+var default_z_index = 0
+
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
@@ -25,11 +28,13 @@ enum State {
 @onready var basic_atk_box = $basic_atk_box
 @onready var special_atk_box = $special_atk_box
 @onready var fight_pos = position
+@onready var upgrade_pos = Vector2(position.x + 80, position.y)
 @onready var phrase = $phrase
+@onready var attack_timer = $attack_timer
 
-var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "Huh?", "Pff"]
+var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "Huh...", "???"]
 var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
-var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!"]
+var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!"]
@@ -54,10 +59,14 @@ func set_state(state):
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
-			attack(basic_atk_box)
+			chance_to_say_phrase(attack_phrases)
+			attack_timer.start(.3)
+			anim_player.play("basic_atk")
 		
 		State.SPECIAL_ATTACK:
-			attack(special_atk_box)
+			chance_to_say_phrase(attack_phrases)
+			attack_timer.start(.3)
+			anim_player.play("special_atk")
 		
 		State.IDLE:
 			chance_to_say_phrase(bored_phrases)
@@ -66,8 +75,8 @@ func set_state(state):
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
 			chance_to_say_phrase(knocked_out_phrases)
+			z_index = default_z_index - 1
 			anim_player.play("knocked_out")
-			z_index = -1
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
@@ -88,17 +97,11 @@ func set_state(state):
 			hp_bar.max_value = max_health
 			hp_bar.value = max_health
 			timer.paused = false
-			timer.start(1)
+			timer.start(.5)
 		
 		State.UPGRADE:
-			timer.paused = true
-			position = fight_pos
-			position.x = position.x + 80
 			if current_state == State.KNOCKED_OUT:
-				anim_player.speed_scale = -1
-				anim_player.play("knocked_out")
-				await anim_player.animation_finished
-				anim_player.speed = 1
+				anim_player.play("get_up")
 				hp_bar.visible = true
 			health = max_health
 			hp_bar.max_value = max_health
@@ -124,16 +127,24 @@ func update_state(state, delta):
 			position = position.move_toward(destination, speed * delta)
 		
 		State.UPGRADE:
+			timer.paused = true
+			position = upgrade_pos
 			velocity = Vector2()
 
 		State.BASIC_ATTACK:
 			velocity = Vector2()
-		
+			attack(basic_atk_box)
+
 		State.SPECIAL_ATTACK:
 			velocity = Vector2()
-			
+			attack(special_atk_box)
+
 		State.START_FIGHT:
 			velocity = Vector2()
+			
+		State.KNOCKED_OUT:
+			velocity = Vector2()
+
 
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")
@@ -177,25 +188,24 @@ func _on_hurt_box_area_entered(area):
 
 
 func chance_to_say_phrase(array):
-	var chance = randi_range(1,4)
+	var chance = randi_range(1,3)
 	if chance == 1:
 		var rand_phrase = array.pick_random()
-		phrase.get_node("phrase_timer").start(2.5)
+		phrase.get_node("phrase_timer").start(2)
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
 
 
 func attack(attack_type):
-	chance_to_say_phrase(attack_phrases)
-	attack_type.get_node(str(attack_type.name) + "_coll").disabled = false
-	z_index +=  1
-	timer.paused = true
-	anim_player.play(str(attack_type.name).split("_box")[0])
-	await anim_player.animation_finished
-	attack_type.get_node(str(attack_type.name) + "_coll").disabled = true
-	timer.paused = false
-	z_index -= 1
+	if attack_timer.time_left > 0:
+		timer.paused = true
+		z_index = default_z_index + 1
+		attack_type.get_node(str(attack_type.name) + "_coll").disabled = false
+	else:
+		attack_type.get_node(str(attack_type.name) + "_coll").disabled = true
+		z_index = default_z_index
+		timer.paused = false
 
 
 func switch_round_modes(fight_time):
@@ -203,3 +213,7 @@ func switch_round_modes(fight_time):
 		set_state(State.START_FIGHT)
 	else:
 		set_state(State.UPGRADE)
+
+
+func set_claimed():
+	claimed = true

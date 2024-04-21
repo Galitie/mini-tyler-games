@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyyxc3uqqve2m"]
+[gd_scene load_steps=4 format=3 uid="uid://cyyxc3uqqve2m"]
+
+[ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ufgn"]
 content_margin_top = 3.0
@@ -18,11 +20,12 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="upgrade_menu" type="Control"]
+[node name="upgrade_menu" type="Control" groups=["upgrade_menus"]]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_57m5t")
 
 [node name="margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -79,30 +82,35 @@ layout_mode = 2
 [node name="button" type="Button" parent="margin/hbox/selected1"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button2" type="Button" parent="margin/hbox/selected1"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button3" type="Button" parent="margin/hbox/selected1"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button4" type="Button" parent="margin/hbox/selected1"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button5" type="Button" parent="margin/hbox/selected1"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
@@ -116,24 +124,28 @@ layout_mode = 2
 [node name="button" type="Button" parent="margin/hbox/selected2"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button2" type="Button" parent="margin/hbox/selected2"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button3" type="Button" parent="margin/hbox/selected2"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button4" type="Button" parent="margin/hbox/selected2"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
@@ -147,18 +159,21 @@ layout_mode = 2
 [node name="button" type="Button" parent="margin/hbox/selected3"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button2" type="Button" parent="margin/hbox/selected3"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 
 [node name="button3" type="Button" parent="margin/hbox/selected3"]
 layout_mode = 2
 disabled = true
+button_mask = 0
 text = "+"
 flat = true
 

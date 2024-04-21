@@ -1,20 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyyxc3uqqve2m"]
+[gd_scene load_steps=3 format=3 uid="uid://cyyxc3uqqve2m"]
 
 [ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ufgn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtmia"]
 content_margin_top = 3.0
 content_margin_bottom = 3.0
-bg_color = Color(0.764706, 0.372549, 0.356863, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5loc1"]
-content_margin_top = 3.0
-content_margin_bottom = 3.0
-bg_color = Color(0.352941, 0.698039, 0.113725, 1)
+bg_color = Color(0.552941, 0.407843, 0.847059, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -32,137 +23,67 @@ layout_mode = 1
 
 [node name="hbox" type="HBoxContainer" parent="margin"]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 15
 
 [node name="buttons" type="VBoxContainer" parent="margin/hbox"]
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="button" type="Button" parent="margin/hbox/buttons"]
+[node name="hbox" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
-text = "Increase Health"
 
-[node name="button2" type="Button" parent="margin/hbox/buttons"]
+[node name="hp" type="Button" parent="margin/hbox/buttons/hbox"]
 layout_mode = 2
+size_flags_horizontal = 4
+text = "Increase Health"
+alignment = 0
+
+[node name="stat1" type="Label" parent="margin/hbox/buttons/hbox"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "HP: 1"
+horizontal_alignment = 2
+
+[node name="hbox2" type="HBoxContainer" parent="margin/hbox/buttons"]
+layout_mode = 2
+
+[node name="str" type="Button" parent="margin/hbox/buttons/hbox2"]
+layout_mode = 2
+size_flags_horizontal = 2
 text = "Increase Strength"
 
-[node name="button3" type="Button" parent="margin/hbox/buttons"]
+[node name="stat2" type="Label" parent="margin/hbox/buttons/hbox2"]
 layout_mode = 2
+text = "STR: 1"
+
+[node name="hbox3" type="HBoxContainer" parent="margin/hbox/buttons"]
+layout_mode = 2
+
+[node name="int" type="Button" parent="margin/hbox/buttons/hbox3"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Increase Intelligence"
 
-[node name="button4" type="Button" parent="margin/hbox/buttons"]
+[node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]
 layout_mode = 2
-text = "Add Command"
+text = "INT: 1"
 
-[node name="button5" type="Button" parent="margin/hbox/buttons"]
+[node name="hbox5" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
+
+[node name="type" type="Button" parent="margin/hbox/buttons/hbox5"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Change Attack Type"
+
+[node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]
+layout_mode = 2
+text = "NONE"
 
 [node name="button6" type="Button" parent="margin/hbox/buttons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_8ufgn")
-text = "Risk it for the Biscuit"
-
-[node name="button7" type="Button" parent="margin/hbox/buttons"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_5loc1")
-text = "LOCK IN CHOICES"
-
-[node name="selected1" type="VBoxContainer" parent="margin/hbox"]
-layout_mode = 2
-theme_override_constants/separation = 9
-
-[node name="button" type="Button" parent="margin/hbox/selected1"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button2" type="Button" parent="margin/hbox/selected1"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button3" type="Button" parent="margin/hbox/selected1"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button4" type="Button" parent="margin/hbox/selected1"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button5" type="Button" parent="margin/hbox/selected1"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="selected2" type="VBoxContainer" parent="margin/hbox"]
-layout_mode = 2
-theme_override_constants/separation = 9
-
-[node name="button" type="Button" parent="margin/hbox/selected2"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button2" type="Button" parent="margin/hbox/selected2"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button3" type="Button" parent="margin/hbox/selected2"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button4" type="Button" parent="margin/hbox/selected2"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="selected3" type="VBoxContainer" parent="margin/hbox"]
-layout_mode = 2
-theme_override_constants/separation = 9
-
-[node name="button" type="Button" parent="margin/hbox/selected3"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button2" type="Button" parent="margin/hbox/selected3"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
-
-[node name="button3" type="Button" parent="margin/hbox/selected3"]
-layout_mode = 2
-disabled = true
-button_mask = 0
-text = "+"
-flat = true
+theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
+text = "GAMBLE"
 
 [node name="stats" type="VBoxContainer" parent="margin/hbox"]
 layout_mode = 2
@@ -172,18 +93,8 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="stat1" type="Label" parent="margin/hbox/stats/stat_bar"]
-layout_mode = 2
-text = "HP: 1"
-
-[node name="stat2" type="Label" parent="margin/hbox/stats/stat_bar"]
-layout_mode = 2
-text = "STR: 1"
-
-[node name="stat3" type="Label" parent="margin/hbox/stats/stat_bar"]
-layout_mode = 2
-text = "INT: 1"
-
-[node name="stat4" type="Label" parent="margin/hbox/stats/stat_bar"]
-layout_mode = 2
-text = "NORMAL"
+[connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]
+[connection signal="pressed" from="margin/hbox/buttons/hbox2/str" to="." method="_on_button_pressed" binds= ["str"]]
+[connection signal="pressed" from="margin/hbox/buttons/hbox3/int" to="." method="_on_button_pressed" binds= ["int"]]
+[connection signal="pressed" from="margin/hbox/buttons/hbox5/type" to="." method="_on_button_pressed" binds= ["type"]]
+[connection signal="pressed" from="margin/hbox/buttons/button6" to="." method="_on_button_pressed" binds= ["gamble"]]

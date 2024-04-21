@@ -7,7 +7,7 @@ var health: int = max_health
 var speed: int = 75
 var intelligence: int = 0
 var strength: int = 1
-var elm_type = "NORMAL"
+var elm_type = "NONE"
 var commands
 var current_state 
 var destination : Vector2
@@ -27,7 +27,7 @@ enum State {
 @onready var basic_atk_box = $basic_atk_box
 @onready var special_atk_box = $special_atk_box
 @onready var fight_pos = position
-@onready var upgrade_pos = Vector2(position.x + 80, position.y)
+@onready var upgrade_pos = Vector2(position.x + 80, position.y - 20)
 @onready var phrase = $phrase
 @onready var attack_timer = $attack_timer
 
@@ -36,7 +36,7 @@ var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jen
 var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
-var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!"]
+var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
 
 
 func _ready():
@@ -54,36 +54,36 @@ func _physics_process(delta):
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
-			chance_to_say_phrase(bored_phrases)
+			chance_to_say_phrase(bored_phrases, 2)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
-			chance_to_say_phrase(attack_phrases)
+			chance_to_say_phrase(attack_phrases, 3)
 			attack_timer.start(.3)
 			anim_player.play("basic_atk")
 		
 		State.SPECIAL_ATTACK:
-			chance_to_say_phrase(attack_phrases)
+			chance_to_say_phrase(attack_phrases, 1)
 			attack_timer.start(.3)
 			anim_player.play("special_atk")
 		
 		State.IDLE:
-			chance_to_say_phrase(bored_phrases)
+			chance_to_say_phrase(bored_phrases, 3)
 		
 		State.KNOCKED_OUT:
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
-			chance_to_say_phrase(knocked_out_phrases)
+			chance_to_say_phrase(knocked_out_phrases, 3)
 			z_index = default_z_index - 1
 			anim_player.play("knocked_out")
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
-			chance_to_say_phrase(target_phrases)
+			chance_to_say_phrase(target_phrases, 3)
 			destination = get_other_random_mon().position
 			
 		State.PLAYER_COMMAND:
-			chance_to_say_phrase(listening_phrases)
+			chance_to_say_phrase(listening_phrases, 1)
 
 		State.START_FIGHT:
 			position = fight_pos
@@ -143,6 +143,10 @@ func update_state(state, delta):
 			
 		State.KNOCKED_OUT:
 			velocity = Vector2()
+			
+		State.PLAYER_COMMAND:
+			velocity = Vector2()
+			# placeholder
 
 
 func get_other_random_mon():
@@ -155,40 +159,47 @@ func get_other_random_mon():
 
 func _on_timer_timeout():
 	if current_state == State.KNOCKED_OUT:
-		chance_to_say_phrase(knocked_out_phrases)
+		chance_to_say_phrase(knocked_out_phrases, 3)
 	else:
-		var random_number = randi_range(0, 50) + intelligence
-		if random_number <= 10:
+		var random_number = randi_range(0, 10) + intelligence
+		if random_number <= 1:
 			set_state(State.IDLE)
-		if random_number > 10 and random_number <= 20:
+		if random_number > 2 and random_number <= 5:
 			set_state(State.WALK_RANDOM)
-		if random_number > 20 and random_number <= 30:
+		if random_number > 5 and random_number <= 7:
 			set_state(State.BASIC_ATTACK)
-		if random_number > 30 and random_number <= 40:
+		if random_number > 7 and random_number <= 8:
 			set_state(State.TARGET_AND_GO)
-		if random_number > 40 and random_number < 50:
+		if random_number > 8 and random_number < 9:
 			set_state(State.SPECIAL_ATTACK)
-		if random_number >= 50:
+		if random_number >= 10:
 			set_state(State.PLAYER_COMMAND)
-			#do what the player says
 	var random_wait_time = randi_range(2,5)
 	timer.start(random_wait_time)
 
 
 func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box or area == special_atk_box : return
-	chance_to_say_phrase(hurt_phrases)
+	chance_to_say_phrase(hurt_phrases, 2)
 	var attackers = hurt_box.get_overlapping_areas()
+	
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
 		anim_player.play("hurt")
-		health -= attacking_mon.strength
+		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
+			health -= attacking_mon.strength + 2
+		if elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
+			health -= attacking_mon.strength - 1
+		if elm_type == "NONE" && attacking_mon.elm_type != "NONE":
+			health -= attacking_mon.strength + 1
+		else:
+			health -= attacking_mon.strength
 		hp_bar.value = health
 
 
-func chance_to_say_phrase(array):
-	var chance = randi_range(1,3)
-	if chance == 1:
+func chance_to_say_phrase(array, chance : int):
+	var rand_num = randi_range(1,chance)
+	if rand_num == 1:
 		var rand_phrase = array.pick_random()
 		phrase.get_node("phrase_timer").start(2)
 		phrase.text = rand_phrase

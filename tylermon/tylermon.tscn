@@ -8,6 +8,8 @@
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
+fight_length = 3
+upgrade_length = 31
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 visible = false
@@ -66,8 +68,8 @@ theme_override_constants/margin_bottom = 60
 
 [node name="GridContainer" type="GridContainer" parent="upgrade_ui/margin"]
 layout_mode = 2
-theme_override_constants/h_separation = 100
-theme_override_constants/v_separation = 100
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = 120
 columns = 2
 
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]

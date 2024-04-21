@@ -3,8 +3,8 @@ extends Node2D
 var round = 0
 enum players {PL1, PL2, PL3, PL4}
 var fight_time = true
-var fight_length = 11
-var upgrade_length = 6
+@export var fight_length = 11
+@export var upgrade_length = 6
 
 @onready var upgrade_menu = $upgrade_ui
 @onready var countdown_label = $countdown_ui/margin/seperator/label
@@ -38,7 +38,7 @@ func _on_round_timer_timeout():
 		fight_time = false
 		get_tree().call_group("upgrade_menus", "switch_upgrade_time", fight_time)
 		get_tree().call_group("mons", "switch_round_modes", fight_time)
-		countdown_label.text = "Upgrade time left:"
+		countdown_label.text = "Add 3 points to stats:"
 	else:
 		round_timer.start(fight_length)
 		upgrade_menu.visible = false

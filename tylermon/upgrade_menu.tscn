@@ -38,10 +38,6 @@ theme_override_constants/separation = 5
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="label" type="Label" parent="margin/hbox/buttons"]
-layout_mode = 2
-text = "Put 3 points into stats:"
-
 [node name="button" type="Button" parent="margin/hbox/buttons"]
 layout_mode = 2
 text = "Increase Health"
@@ -75,9 +71,6 @@ text = "LOCK IN CHOICES"
 [node name="selected1" type="VBoxContainer" parent="margin/hbox"]
 layout_mode = 2
 theme_override_constants/separation = 9
-
-[node name="label" type="Label" parent="margin/hbox/selected1"]
-layout_mode = 2
 
 [node name="button" type="Button" parent="margin/hbox/selected1"]
 layout_mode = 2
@@ -118,9 +111,6 @@ flat = true
 layout_mode = 2
 theme_override_constants/separation = 9
 
-[node name="label" type="Label" parent="margin/hbox/selected2"]
-layout_mode = 2
-
 [node name="button" type="Button" parent="margin/hbox/selected2"]
 layout_mode = 2
 disabled = true
@@ -152,9 +142,6 @@ flat = true
 [node name="selected3" type="VBoxContainer" parent="margin/hbox"]
 layout_mode = 2
 theme_override_constants/separation = 9
-
-[node name="label" type="Label" parent="margin/hbox/selected3"]
-layout_mode = 2
 
 [node name="button" type="Button" parent="margin/hbox/selected3"]
 layout_mode = 2

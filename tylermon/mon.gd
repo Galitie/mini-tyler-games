@@ -20,7 +20,6 @@ enum State {
 	PLAYER_COMMAND, START_FIGHT, UPGRADE
 	}
 
-
 @onready var anim_player = $anim_player
 @onready var timer = $timer
 @onready var hp_bar = $hp_bar

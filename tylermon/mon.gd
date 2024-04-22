@@ -14,6 +14,7 @@ var destination : Vector2
 var claimed : bool = false
 var default_z_index = 0
 
+
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
@@ -227,3 +228,4 @@ func switch_round_modes(fight_time):
 
 func set_claimed():
 	claimed = true
+

@@ -1,8 +1,8 @@
 class_name Player
 extends Node
 var mon : CharacterBody2D
-var wins : int
-var losses : int
+var wins : int = 0
+var losses : int = 0
 
 
 func _ready():

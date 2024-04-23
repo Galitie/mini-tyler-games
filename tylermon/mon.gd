@@ -13,13 +13,25 @@ var current_state
 var destination : Vector2
 var claimed : bool = false
 var default_z_index = 0
+var target_attack : bool = false
 
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
-	PLAYER_COMMAND, START_FIGHT, UPGRADE
+	PLAYER_COMMAND, START_FIGHT, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL
 	}
+
+var state_weights = [
+	{"state": State.IDLE, "roll_weight": 1, "acc_weight": 0}, 
+	{"state": State.WALK_RANDOM, "roll_weight": 1, "acc_weight": 0}, 
+	{"state": State.BASIC_ATTACK, "roll_weight": 1, "acc_weight": 0},
+	{"state": State.TARGET_AND_GO, "roll_weight": 1, "acc_weight": 0},
+	{"state": State.SPECIAL_ATTACK, "roll_weight": 1, "acc_weight": 0},
+	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1, "acc_weight": 0},
+	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1, "acc_weight": 0},
+	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0}
+]
 
 @onready var anim_player = $anim_player
 @onready var timer = $timer
@@ -55,7 +67,7 @@ func _physics_process(delta):
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
-			chance_to_say_phrase(bored_phrases, 2)
+			chance_to_say_phrase(bored_phrases, 1)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
@@ -81,6 +93,16 @@ func set_state(state):
 
 		State.TARGET_AND_GO:
 			chance_to_say_phrase(target_phrases, 3)
+			destination = get_other_random_mon().position
+		
+		State.TARGET_AND_ATTACK:
+			chance_to_say_phrase(target_phrases, 2)
+			target_attack = true
+			destination = get_other_random_mon().position
+		
+		State.TARGET_AND_SPECIAL:
+			chance_to_say_phrase(target_phrases, 2)
+			target_attack = true
 			destination = get_other_random_mon().position
 			
 		State.PLAYER_COMMAND:
@@ -113,19 +135,27 @@ func set_state(state):
 func update_state(state, delta):
 	match state:
 		State.WALK_RANDOM:
-			if position.x <= destination.x:
-				$sprite.flip_h = false
-			else:
-				$sprite.flip_h = true
-			position = position.move_toward(destination, speed * delta)
+			move_to_destination(delta)
 
 		State.TARGET_AND_GO:
-			if position.x <= destination.x:
-				$sprite.flip_h = false
-			else:
-				$sprite.flip_h = true
-			position = position.move_toward(destination, speed * delta)
+			move_to_destination(delta)
 		
+		State.TARGET_AND_ATTACK:
+			move_to_destination(delta)
+			if position.distance_to(destination) < 200 && target_attack:
+				target_attack = false
+				attack_timer.start(.3)
+				anim_player.play("basic_atk")
+				attack(basic_atk_box)
+
+		State.TARGET_AND_SPECIAL:
+			move_to_destination(delta)
+			if position.distance_to(destination) < 150 && target_attack:
+				target_attack = false
+				attack_timer.start(.3)
+				anim_player.play("special_atk")
+				attack(special_atk_box)
+
 		State.UPGRADE:
 			timer.paused = true
 			position = upgrade_pos
@@ -159,22 +189,20 @@ func get_other_random_mon():
 
 
 func _on_timer_timeout():
+	print("timer timed out!")
+	var total_weight = 0.0
+	for state in state_weights:
+		total_weight += state.roll_weight
+		state.acc_weight = total_weight
+
 	if current_state == State.KNOCKED_OUT:
 		chance_to_say_phrase(knocked_out_phrases, 3)
 	else:
-		var random_number = randi_range(0, 10) + intelligence
-		if random_number <= 1:
-			set_state(State.IDLE)
-		if random_number > 2 and random_number <= 5:
-			set_state(State.WALK_RANDOM)
-		if random_number > 5 and random_number <= 7:
-			set_state(State.BASIC_ATTACK)
-		if random_number > 7 and random_number <= 8:
-			set_state(State.TARGET_AND_GO)
-		if random_number > 8 and random_number < 9:
-			set_state(State.SPECIAL_ATTACK)
-		if random_number >= 10:
-			set_state(State.PLAYER_COMMAND)
+		var random_number = randf_range(0.0, total_weight)
+		for state in state_weights:
+			if state.acc_weight > random_number:
+				set_state(state.state)
+				break
 	var random_wait_time = randi_range(2,5)
 	timer.start(random_wait_time)
 
@@ -229,3 +257,10 @@ func switch_round_modes(fight_time):
 func set_claimed():
 	claimed = true
 
+
+func move_to_destination(delta):
+	if position.x <= destination.x :
+		$sprite.flip_h = false
+	else:
+		$sprite.flip_h = true
+	position = position.move_toward(destination, speed * delta)

@@ -5,7 +5,7 @@ var attacks
 var max_health: int = 3
 var health: int = max_health
 var speed: int = 75
-var intelligence: int = 0
+var intelligence: int = 1
 var strength: int = 1
 var elm_type = "NONE"
 var commands
@@ -26,10 +26,10 @@ var state_weights = [
 	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0}, 
 	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0},
 	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0},
-	{"state": State.SPECIAL_ATTACK, "roll_weight": 3, "acc_weight": 0},
-	{"state": State.TARGET_AND_ATTACK, "roll_weight": 2, "acc_weight": 0},
-	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 2, "acc_weight": 0},
-	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0}
+	{"state": State.SPECIAL_ATTACK, "roll_weight": 3 + intelligence, "acc_weight": 0},
+	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1 + (intelligence * 1.05), "acc_weight": 0},
+	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1 + (intelligence * 1.15), "acc_weight": 0},
+	{"state": State.PLAYER_COMMAND, "roll_weight": 0 + (intelligence * 1.25), "acc_weight": 0}
 ]
 
 @onready var anim_player = $anim_player

@@ -41,6 +41,8 @@ func time_left():
 func _on_round_timer_timeout():
 	if fight_time:
 		check_for_game_end()
+		get_end_of_round_winner()
+		update_player_wins_losses_labels()
 		knocked_out_mons = 0
 		round_timer.start(upgrade_length)
 		upgrade_menu.visible = true
@@ -67,26 +69,39 @@ func check_for_winners_during_fight():
 			if mon.current_state != STATE.State.KNOCKED_OUT:
 				var player = mon.get_parent()
 				player.wins += 1
-				print(player.name, " wins")
 			if mon.current_state == STATE.State.KNOCKED_OUT:
 				var player = mon.get_parent()
 				player.losses += 1
-				print(player.name, " loses")
 		round_timer.stop()
 		_on_round_timer_timeout()
 
+# this is janky, needs help
+func get_end_of_round_winner():
+	var mons = get_tree().get_nodes_in_group("mons")
+	var highest_health_mon = null
+	for mon in mons:
+		if highest_health_mon == null:
+			highest_health_mon = mon
+		if highest_health_mon.health <= mon.health:
+			highest_health_mon = mon
+	var player = highest_health_mon.get_parent()
+	player.wins += 1
+	for mon in mons:
+		if mon != highest_health_mon:
+			player = mon.get_parent()
+			player.losses += 1
 
-	# if there is only one mon not knocked out before the time is up, give them one win
-	# and the others get 1 loss
-	# if time is up, which mon has the highest current health, give them one win
-	# and the others one loss
-	# if it is a tie, tieing mons all get a win, the others get a loss
-
+func update_player_wins_losses_labels():
+	var players = get_tree().get_nodes_in_group("player")
+	print(current_round)
+	for player in players:
+		print(player.name, " wins: ", player.wins, "    losses: ", player.losses)
+	print("---")
 
 func check_for_game_end():
 	if current_round == max_rounds:
 		pass
 
+
 func _add_knocked_out_mon():
-	print("mon knocked out!")
 	knocked_out_mons += 1

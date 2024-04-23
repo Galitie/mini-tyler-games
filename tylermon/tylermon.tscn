@@ -75,38 +75,66 @@ columns = 2
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu"]
+[node name="player" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu" groups=["player"]]
 script = ExtResource("5_uxsio")
 
 [node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player" instance=ExtResource("2_yelk2")]
 position = Vector2(320, 180)
 
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player/mon1"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "1"
+
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu2"]
+[node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu2" groups=["player"]]
 script = ExtResource("5_uxsio")
 
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player2" instance=ExtResource("2_yelk2")]
 position = Vector2(960, 180)
 
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player2/mon2"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "2"
+
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu3"]
+[node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu3" groups=["player"]]
 script = ExtResource("5_uxsio")
 
 [node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(320, 540)
 
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player3/mon3"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "3"
+
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player4" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu4"]
+[node name="player4" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu4" groups=["player"]]
 script = ExtResource("5_uxsio")
 
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player4" instance=ExtResource("2_yelk2")]
 position = Vector2(960, 540)
+
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player4/mon4"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "4"
 
 [node name="command_ui" type="Control" parent="."]
 custom_minimum_size = Vector2(1280, 720)
@@ -197,6 +225,22 @@ alignment = 2
 layout_mode = 2
 text = "Player 3
 "
+
+[node name="vbox3" type="VBoxContainer" parent="command_ui/margin/grid/hbox3"]
+layout_mode = 2
+alignment = 2
+
+[node name="wins" type="Label" parent="command_ui/margin/grid/hbox3/vbox3"]
+layout_mode = 2
+text = "Wins:"
+
+[node name="vbox4" type="VBoxContainer" parent="command_ui/margin/grid/hbox3"]
+layout_mode = 2
+alignment = 2
+
+[node name="losses" type="Label" parent="command_ui/margin/grid/hbox3/vbox4"]
+layout_mode = 2
+text = "Losses:"
 
 [node name="vbox2" type="VBoxContainer" parent="command_ui/margin/grid/hbox3"]
 layout_mode = 2

@@ -11,10 +11,9 @@ var elm_type = "NONE"
 var commands
 var current_state 
 var destination : Vector2
-var claimed : bool = false
 var default_z_index = 0
-var target_attack : bool = false
 
+signal knocked_out
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
@@ -23,13 +22,13 @@ enum State {
 	}
 
 var state_weights = [
-	{"state": State.IDLE, "roll_weight": 1, "acc_weight": 0}, 
-	{"state": State.WALK_RANDOM, "roll_weight": 1, "acc_weight": 0}, 
-	{"state": State.BASIC_ATTACK, "roll_weight": 1, "acc_weight": 0},
-	{"state": State.TARGET_AND_GO, "roll_weight": 1, "acc_weight": 0},
-	{"state": State.SPECIAL_ATTACK, "roll_weight": 1, "acc_weight": 0},
-	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1, "acc_weight": 0},
-	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1, "acc_weight": 0},
+	{"state": State.IDLE, "roll_weight": 15, "acc_weight": 0}, 
+	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0}, 
+	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0},
+	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0},
+	{"state": State.SPECIAL_ATTACK, "roll_weight": 3, "acc_weight": 0},
+	{"state": State.TARGET_AND_ATTACK, "roll_weight": 2, "acc_weight": 0},
+	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 2, "acc_weight": 0},
 	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0}
 ]
 
@@ -44,7 +43,7 @@ var state_weights = [
 @onready var phrase = $phrase
 @onready var attack_timer = $attack_timer
 
-var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "Huh...", "???"]
+var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
 var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
 var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
@@ -71,19 +70,20 @@ func set_state(state):
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
-			chance_to_say_phrase(attack_phrases, 3)
-			attack_timer.start(.3)
+			chance_to_say_phrase(attack_phrases, 1)
 			anim_player.play("basic_atk")
+			attack_timer.start(.3)
 		
 		State.SPECIAL_ATTACK:
 			chance_to_say_phrase(attack_phrases, 1)
-			attack_timer.start(.3)
 			anim_player.play("special_atk")
+			attack_timer.start(.3)
 		
 		State.IDLE:
-			chance_to_say_phrase(bored_phrases, 3)
+			chance_to_say_phrase(bored_phrases, 1)
 		
 		State.KNOCKED_OUT:
+			emit_signal("knocked_out")
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
 			chance_to_say_phrase(knocked_out_phrases, 3)
@@ -92,18 +92,18 @@ func set_state(state):
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
-			chance_to_say_phrase(target_phrases, 3)
+			chance_to_say_phrase(target_phrases, 1)
 			destination = get_other_random_mon().position
 		
 		State.TARGET_AND_ATTACK:
-			chance_to_say_phrase(target_phrases, 2)
-			target_attack = true
+			chance_to_say_phrase(target_phrases, 1)
 			destination = get_other_random_mon().position
-		
+
+
 		State.TARGET_AND_SPECIAL:
-			chance_to_say_phrase(target_phrases, 2)
-			target_attack = true
+			chance_to_say_phrase(target_phrases, 1)
 			destination = get_other_random_mon().position
+
 			
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
@@ -142,19 +142,13 @@ func update_state(state, delta):
 		
 		State.TARGET_AND_ATTACK:
 			move_to_destination(delta)
-			if position.distance_to(destination) < 200 && target_attack:
-				target_attack = false
-				attack_timer.start(.3)
-				anim_player.play("basic_atk")
-				attack(basic_atk_box)
+			if position.distance_to(destination) < 150:
+				set_state(State.BASIC_ATTACK)
 
 		State.TARGET_AND_SPECIAL:
 			move_to_destination(delta)
-			if position.distance_to(destination) < 150 && target_attack:
-				target_attack = false
-				attack_timer.start(.3)
-				anim_player.play("special_atk")
-				attack(special_atk_box)
+			if position.distance_to(destination) < 200:
+				set_state(State.SPECIAL_ATTACK)
 
 		State.UPGRADE:
 			timer.paused = true
@@ -189,7 +183,6 @@ func get_other_random_mon():
 
 
 func _on_timer_timeout():
-	print("timer timed out!")
 	var total_weight = 0.0
 	for state in state_weights:
 		total_weight += state.roll_weight
@@ -252,10 +245,6 @@ func switch_round_modes(fight_time):
 		set_state(State.START_FIGHT)
 	else:
 		set_state(State.UPGRADE)
-
-
-func set_claimed():
-	claimed = true
 
 
 func move_to_destination(delta):

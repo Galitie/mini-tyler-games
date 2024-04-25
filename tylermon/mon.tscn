@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=15 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
@@ -122,9 +122,37 @@ tracks/1/keys = {
 "values": [Vector2(0, 0), Vector2(-75, 0), Vector2(75, 0), Vector2(75, 0), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_mxk0k"]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("damage_taken:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.129408, 1),
+"update": 0,
+"values": [Vector2(-20, -136), Vector2(-20, -200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("damage_taken:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46pca"]
 _data = {
 "basic_atk": SubResource("Animation_vxrur"),
+"damage": SubResource("Animation_mxk0k"),
 "get_up": SubResource("Animation_ir1mo"),
 "hurt": SubResource("Animation_u6mf2"),
 "knocked_out": SubResource("Animation_64llp"),
@@ -132,6 +160,7 @@ _data = {
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1caxg"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aucwo"]
 bg_color = Color(0, 0.717647, 0.392157, 1)
@@ -176,12 +205,29 @@ offset_right = 58.6667
 offset_bottom = -85.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.359999)
 size_flags_horizontal = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_1caxg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_aucwo")
 step = 1.0
 show_percentage = false
+
+[node name="hp_container" type="HBoxContainer" parent="hp_bar"]
+layout_mode = 0
+offset_right = 116.0
+offset_bottom = 27.0
+alignment = 1
+
+[node name="current_health" type="Label" parent="hp_bar/hp_container"]
+layout_mode = 2
+text = "3"
+
+[node name="divider" type="Label" parent="hp_bar/hp_container"]
+layout_mode = 2
+text = "/"
+
+[node name="max_health" type="Label" parent="hp_bar/hp_container"]
+layout_mode = 2
+text = "3"
 
 [node name="hurt_box" type="Area2D" parent="."]
 collision_layer = 0
@@ -234,6 +280,25 @@ one_shot = true
 
 [node name="attack_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="damage_taken" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -136.0
+offset_right = 20.0
+offset_bottom = -97.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.25, 1.25)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "1"
+horizontal_alignment = 1
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="hurt_box" to="." method="_on_hurt_box_area_entered"]

@@ -22,19 +22,21 @@ enum State {
 	}
 
 var state_weights = [
-	{"state": State.IDLE, "roll_weight": 15, "acc_weight": 0}, 
-	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0}, 
-	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0},
-	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0},
-	{"state": State.SPECIAL_ATTACK, "roll_weight": 3 + intelligence, "acc_weight": 0},
-	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1 + (intelligence * 1.05), "acc_weight": 0},
-	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1 + (intelligence * 1.15), "acc_weight": 0},
-	{"state": State.PLAYER_COMMAND, "roll_weight": 0 + (intelligence * 1.25), "acc_weight": 0}
+	{"state": State.IDLE, "roll_weight": 15, "acc_weight": 0, "mult": 1}, 
+	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0, "mult": 1}, 
+	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0, "mult": 1},
+	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0, "mult": 1.05},
+	{"state": State.SPECIAL_ATTACK, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
+	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
+	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
+	{"state": State.PLAYER_COMMAND, "roll_weight": 0, "acc_weight": 0, "mult": 1.25}
 ]
 
 @onready var anim_player = $anim_player
 @onready var timer = $timer
 @onready var hp_bar = $hp_bar
+@onready var health_label = $hp_bar/hp_container/current_health
+@onready var max_health_label = $hp_bar/hp_container/max_health
 @onready var hurt_box = $hurt_box
 @onready var basic_atk_box = $basic_atk_box
 @onready var special_atk_box = $special_atk_box
@@ -42,6 +44,7 @@ var state_weights = [
 @onready var upgrade_pos = Vector2(position.x + 80, position.y - 20)
 @onready var phrase = $phrase
 @onready var attack_timer = $attack_timer
+@onready var damage_label = $damage_taken
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
 var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
@@ -99,12 +102,10 @@ func set_state(state):
 			chance_to_say_phrase(target_phrases, 1)
 			destination = get_other_random_mon().position
 
-
 		State.TARGET_AND_SPECIAL:
 			chance_to_say_phrase(target_phrases, 1)
 			destination = get_other_random_mon().position
 
-			
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
 
@@ -118,6 +119,8 @@ func set_state(state):
 			health = max_health
 			hp_bar.max_value = max_health
 			hp_bar.value = max_health
+			max_health_label.text = str(max_health)
+			health_label.text = str(max_health)
 			timer.paused = false
 			timer.start(.5)
 		
@@ -126,6 +129,7 @@ func set_state(state):
 				anim_player.play("get_up")
 				hp_bar.visible = true
 			health = max_health
+			health_label.text = str(max_health)
 			hp_bar.max_value = max_health
 			hp_bar.value = max_health
 			#upgrade animation
@@ -154,6 +158,8 @@ func update_state(state, delta):
 			timer.paused = true
 			position = upgrade_pos
 			velocity = Vector2()
+			max_health_label.text = str(max_health)
+			health_label.text = str(max_health)
 
 		State.BASIC_ATTACK:
 			velocity = Vector2()
@@ -185,7 +191,7 @@ func get_other_random_mon():
 func _on_timer_timeout():
 	var total_weight = 0.0
 	for state in state_weights:
-		total_weight += state.roll_weight
+		total_weight += state.roll_weight + (intelligence * state.mult)
 		state.acc_weight = total_weight
 
 	if current_state == State.KNOCKED_OUT:
@@ -206,17 +212,26 @@ func _on_hurt_box_area_entered(area):
 	var attackers = hurt_box.get_overlapping_areas()
 	
 	for attack in attackers:
+		var damage
 		var attacking_mon = attack.get_parent()
 		anim_player.play("hurt")
 		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
-			health -= attacking_mon.strength + 2
+			damage(attacking_mon, 2)
 		if elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
-			health -= attacking_mon.strength - 1
+			damage(attacking_mon, -1)
 		if elm_type == "NONE" && attacking_mon.elm_type != "NONE":
-			health -= attacking_mon.strength + 1
+			damage(attacking_mon, 1)
 		else:
-			health -= attacking_mon.strength
+			damage(attacking_mon, 0)
+		health_label.text = str(health)
 		hp_bar.value = health
+
+
+func damage(mon, modifier: int):
+	var damage = mon.strength + modifier
+	damage_label.text = str(damage)
+	anim_player.play("damage")
+	health -= damage
 
 
 func chance_to_say_phrase(array, chance : int):

@@ -6,8 +6,8 @@ var current_round : int
 var max_rounds: int = 10
 var knocked_out_mons: int = 0
 
-@export var fight_length = 11
-@export var upgrade_length = 6
+@export var fight_length: int
+@export var upgrade_length: int
 @onready var upgrade_menu = $upgrade_ui
 @onready var countdown_label = $countdown_ui/margin/seperator/label
 @onready var countdown_nums = $countdown_ui/margin/seperator/countdown
@@ -91,12 +91,14 @@ func get_end_of_round_winner():
 			player = mon.get_parent()
 			player.losses += 1
 
+
 func update_player_wins_losses_labels():
 	var players = get_tree().get_nodes_in_group("player")
 	print(current_round)
 	for player in players:
-		print(player.name, " wins: ", player.wins, "    losses: ", player.losses)
+		print(player.name, " wins: ", player.wins, "  losses: ", player.losses)
 	print("---")
+
 
 func check_for_game_end():
 	if current_round == max_rounds:

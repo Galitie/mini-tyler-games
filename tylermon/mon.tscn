@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=16 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
@@ -149,9 +149,25 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_8h2ls"]
+resource_name = "block"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.322, 1, 1.796, 1), Color(0.322, 1, 1.796, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46pca"]
 _data = {
 "basic_atk": SubResource("Animation_vxrur"),
+"block": SubResource("Animation_8h2ls"),
 "damage": SubResource("Animation_mxk0k"),
 "get_up": SubResource("Animation_ir1mo"),
 "hurt": SubResource("Animation_u6mf2"),
@@ -176,6 +192,7 @@ scale = Vector2(0.75, 0.75)
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.499998, 7.5)
 rotation = 0.18675
 scale = Vector2(8.8, 7.88)

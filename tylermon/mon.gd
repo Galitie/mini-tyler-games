@@ -18,7 +18,7 @@ signal knocked_out
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
-	PLAYER_COMMAND, START_FIGHT, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL
+	PLAYER_COMMAND, START_FIGHT, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK
 	}
 
 var state_weights = [
@@ -26,6 +26,7 @@ var state_weights = [
 	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0, "mult": 1}, 
 	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0, "mult": 1},
 	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0, "mult": 1.05},
+	{"state": State.BLOCK, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
 	{"state": State.SPECIAL_ATTACK, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
 	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
 	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
@@ -51,11 +52,11 @@ var state_weights = [
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
 var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
-var attack_phrases = ["DIE!", "Not today!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
+var attack_phrases = ["DIE!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
-
+var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
 
 func _ready():
 	set_state(State.START_FIGHT)
@@ -108,6 +109,11 @@ func set_state(state):
 		State.TARGET_AND_SPECIAL:
 			chance_to_say_phrase(target_phrases, 2)
 			destination = get_other_random_mon().position
+		
+		State.BLOCK:
+			chance_to_say_phrase(blocking_phrases, 2)
+			anim_player_hurt.play("block")
+			attack_timer.start(1)
 
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
@@ -164,6 +170,10 @@ func update_state(state, delta):
 			max_health_label.text = str(max_health)
 			health_label.text = str(max_health)
 
+		State.BLOCK:
+			velocity = Vector2()
+			block()
+			
 		State.BASIC_ATTACK:
 			velocity = Vector2()
 			attack(basic_atk_box)
@@ -256,6 +266,15 @@ func attack(attack_type):
 		z_index = default_z_index
 		timer.paused = false
 
+func block():
+	if attack_timer.time_left > 0:
+		timer.paused = true
+		z_index = default_z_index + 1
+		hurt_box.get_child(0).disabled = true
+	else:
+		hurt_box.get_child(0).disabled = false
+		z_index = default_z_index
+		timer.paused = false
 
 func switch_round_modes(fight_time):
 	if fight_time:

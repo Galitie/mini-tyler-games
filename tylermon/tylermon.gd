@@ -75,7 +75,7 @@ func check_for_winners_during_fight():
 		round_timer.stop()
 		_on_round_timer_timeout()
 
-# this is janky, needs help
+# right now it's mon's with most health including ties...do I want to count kills?
 func get_end_of_round_winner():
 	var mons = get_tree().get_nodes_in_group("mons")
 	var highest_health_mon = null

@@ -62,14 +62,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 60
+theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 60
+theme_override_constants/margin_bottom = 40
 
 [node name="GridContainer" type="GridContainer" parent="upgrade_ui/margin"]
 layout_mode = 2
 theme_override_constants/h_separation = 80
-theme_override_constants/v_separation = 120
+theme_override_constants/v_separation = 100
 columns = 2
 
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]

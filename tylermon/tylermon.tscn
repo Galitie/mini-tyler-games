@@ -13,7 +13,6 @@ fight_length = 31
 upgrade_length = 21
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
-visible = false
 z_index = -2
 
 [node name="round_timer" type="Timer" parent="."]

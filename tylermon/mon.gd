@@ -147,6 +147,7 @@ func set_state(state):
 			health_label.text = str(max_health)
 			hp_bar.max_value = max_health
 			hp_bar.value = max_health
+			hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
 			#upgrade animation
 	current_state = state
 
@@ -246,6 +247,8 @@ func _on_hurt_box_area_entered(area):
 			damage(attacking_mon, 0)
 		health_label.text = str(health)
 		hp_bar.value = health
+		if health <= roundi(max_health * .25):
+			hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
 
 
 func damage(mon, modifier: int):
@@ -277,6 +280,7 @@ func attack(attack_type):
 		z_index = default_z_index
 		timer.paused = false
 
+
 func charge():
 	if charge_timer.time_left > 0:
 		timer.paused = true
@@ -284,6 +288,7 @@ func charge():
 	else:
 		z_index = default_z_index
 		set_state(State.SPECIAL_ATTACK)
+
 
 func block():
 	if attack_timer.time_left > 0:

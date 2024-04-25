@@ -84,12 +84,13 @@ func get_end_of_round_winner():
 			highest_health_mon = mon
 		if highest_health_mon.health <= mon.health:
 			highest_health_mon = mon
-	var player = highest_health_mon.get_parent()
-	player.wins += 1
 	for mon in mons:
-		if mon != highest_health_mon:
-			player = mon.get_parent()
+		if mon.health != highest_health_mon.health:
+			var player = mon.get_parent()
 			player.losses += 1
+		else:
+			var player = mon.get_parent()
+			player.wins += 1
 
 
 func update_player_wins_losses_labels():

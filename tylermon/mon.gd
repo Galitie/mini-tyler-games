@@ -32,8 +32,11 @@ var state_weights = [
 	{"state": State.PLAYER_COMMAND, "roll_weight": 0, "acc_weight": 0, "mult": 1.25}
 ]
 
-@onready var anim_player_attack = $anim_player
+@onready var anim_player_attack = $anim_player_attack
+@onready var anim_player_hurt = $anim_player_hurt
+@onready var anim_player_damage = $anim_player_damage
 @onready var timer = $timer
+@onready var attack_timer = $attack_timer
 @onready var hp_bar = $hp_bar
 @onready var health_label = $hp_bar/hp_container/current_health
 @onready var max_health_label = $hp_bar/hp_container/max_health
@@ -43,10 +46,8 @@ var state_weights = [
 @onready var fight_pos = position
 @onready var upgrade_pos = Vector2(position.x + 80, position.y - 20)
 @onready var phrase = $phrase
-@onready var attack_timer = $attack_timer
 @onready var damage_label = $damage_taken
-@onready var anim_player_hurt = $anim_player_hurt
-@onready var anim_player_damage = $anim_player_damage
+
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
 var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]

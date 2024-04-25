@@ -7,6 +7,7 @@ var health: int = max_health
 var speed: int = 75
 var intelligence: int = 1
 var strength: int = 1
+var strength_mod: float = .20
 var elm_type = "NONE"
 var commands
 var current_state 
@@ -18,7 +19,7 @@ signal knocked_out
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
-	PLAYER_COMMAND, START_FIGHT, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK
+	PLAYER_COMMAND, START_FIGHT, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
 	}
 
 var state_weights = [
@@ -27,7 +28,7 @@ var state_weights = [
 	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0, "mult": 1},
 	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0, "mult": 1.05},
 	{"state": State.BLOCK, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
-	{"state": State.SPECIAL_ATTACK, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
+	{"state": State.CHARGE_UP, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
 	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
 	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
 	{"state": State.PLAYER_COMMAND, "roll_weight": 0, "acc_weight": 0, "mult": 1.25}
@@ -38,6 +39,7 @@ var state_weights = [
 @onready var anim_player_damage = $anim_player_damage
 @onready var timer = $timer
 @onready var attack_timer = $attack_timer
+@onready var charge_timer = $charge_timer
 @onready var hp_bar = $hp_bar
 @onready var health_label = $hp_bar/hp_container/current_health
 @onready var max_health_label = $hp_bar/hp_container/max_health
@@ -81,6 +83,10 @@ func set_state(state):
 			anim_player_attack.play("basic_atk")
 			attack_timer.start(.3)
 		
+		State.CHARGE_UP:
+			anim_player_attack.play("charge_up")
+			charge_timer.start(2)
+		
 		State.SPECIAL_ATTACK:
 			chance_to_say_phrase(attack_phrases, 2)
 			anim_player_attack.play("special_atk")
@@ -113,7 +119,7 @@ func set_state(state):
 		State.BLOCK:
 			chance_to_say_phrase(blocking_phrases, 2)
 			anim_player_hurt.play("block")
-			attack_timer.start(1)
+			attack_timer.start(2)
 
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
@@ -161,7 +167,7 @@ func update_state(state, delta):
 		State.TARGET_AND_SPECIAL:
 			move_to_destination(delta)
 			if position.distance_to(destination) < 200:
-				set_state(State.SPECIAL_ATTACK)
+				set_state(State.CHARGE_UP)
 
 		State.UPGRADE:
 			timer.paused = true
@@ -173,6 +179,10 @@ func update_state(state, delta):
 		State.BLOCK:
 			velocity = Vector2()
 			block()
+		
+		State.CHARGE_UP:
+			velocity = Vector2()
+			charge()
 			
 		State.BASIC_ATTACK:
 			velocity = Vector2()
@@ -223,7 +233,6 @@ func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box or area == special_atk_box : return
 	chance_to_say_phrase(hurt_phrases, 2)
 	var attackers = hurt_box.get_overlapping_areas()
-	
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
 		anim_player_hurt.play("hurt")
@@ -241,6 +250,8 @@ func _on_hurt_box_area_entered(area):
 
 func damage(mon, modifier: int):
 	var damage = mon.strength + modifier
+	if mon.current_state == State.SPECIAL_ATTACK:
+		damage += 1 + roundi(mon.strength * strength_mod)
 	damage_label.text = str(damage)
 	anim_player_damage.play("damage")
 	health -= damage
@@ -266,6 +277,14 @@ func attack(attack_type):
 		z_index = default_z_index
 		timer.paused = false
 
+func charge():
+	if charge_timer.time_left > 0:
+		timer.paused = true
+		z_index = default_z_index + 1
+	else:
+		z_index = default_z_index
+		set_state(State.SPECIAL_ATTACK)
+
 func block():
 	if attack_timer.time_left > 0:
 		timer.paused = true
@@ -275,6 +294,7 @@ func block():
 		hurt_box.get_child(0).disabled = false
 		z_index = default_z_index
 		timer.paused = false
+
 
 func switch_round_modes(fight_time):
 	if fight_time:

@@ -9,7 +9,7 @@ func _ready():
 	set_mon()
 
 
-func update(delta):
+func update(_delta):
 	pass
 	#if input.selected:
 		#requested_state = state_u_picked

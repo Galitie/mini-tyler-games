@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cb7lwc1cg6d5c"]
+
+[node name="box" type="BoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="player 1" type="Label" parent="vbox"]
+layout_mode = 2
+text = "Commands:"
+
+[node name="atk" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Attack - Ⓐ"
+
+[node name="block" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Block - Ⓑ"
+
+[node name="special" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Special - Ⓨ"

@@ -26,7 +26,7 @@ func _ready():
 		mon.connect("knocked_out", _add_knocked_out_mon)
 
 
-func _process(delta):
+func _process(_delta):
 	countdown_nums.text = "%02d" % time_left()
 	if fight_time:
 		check_for_winners_during_fight()

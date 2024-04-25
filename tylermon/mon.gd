@@ -32,7 +32,7 @@ var state_weights = [
 	{"state": State.PLAYER_COMMAND, "roll_weight": 0, "acc_weight": 0, "mult": 1.25}
 ]
 
-@onready var anim_player = $anim_player
+@onready var anim_player_attack = $anim_player
 @onready var timer = $timer
 @onready var hp_bar = $hp_bar
 @onready var health_label = $hp_bar/hp_container/current_health
@@ -45,6 +45,8 @@ var state_weights = [
 @onready var phrase = $phrase
 @onready var attack_timer = $attack_timer
 @onready var damage_label = $damage_taken
+@onready var anim_player_hurt = $anim_player_hurt
+@onready var anim_player_damage = $anim_player_damage
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
 var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
@@ -69,17 +71,17 @@ func _physics_process(delta):
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
-			chance_to_say_phrase(bored_phrases, 1)
+			chance_to_say_phrase(bored_phrases, 2)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
-			chance_to_say_phrase(attack_phrases, 1)
-			anim_player.play("basic_atk")
+			chance_to_say_phrase(attack_phrases, 2)
+			anim_player_attack.play("basic_atk")
 			attack_timer.start(.3)
 		
 		State.SPECIAL_ATTACK:
-			chance_to_say_phrase(attack_phrases, 1)
-			anim_player.play("special_atk")
+			chance_to_say_phrase(attack_phrases, 2)
+			anim_player_attack.play("special_atk")
 			attack_timer.start(.3)
 		
 		State.IDLE:
@@ -91,19 +93,19 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 			chance_to_say_phrase(knocked_out_phrases, 3)
 			z_index = default_z_index - 1
-			anim_player.play("knocked_out")
+			anim_player_attack.play("knocked_out")
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
-			chance_to_say_phrase(target_phrases, 1)
+			chance_to_say_phrase(target_phrases, 2)
 			destination = get_other_random_mon().position
 		
 		State.TARGET_AND_ATTACK:
-			chance_to_say_phrase(target_phrases, 1)
+			chance_to_say_phrase(target_phrases, 2)
 			destination = get_other_random_mon().position
 
 		State.TARGET_AND_SPECIAL:
-			chance_to_say_phrase(target_phrases, 1)
+			chance_to_say_phrase(target_phrases, 2)
 			destination = get_other_random_mon().position
 
 		State.PLAYER_COMMAND:
@@ -126,7 +128,7 @@ func set_state(state):
 		
 		State.UPGRADE:
 			if current_state == State.KNOCKED_OUT:
-				anim_player.play("get_up")
+				anim_player_attack.play("get_up")
 				hp_bar.visible = true
 			health = max_health
 			health_label.text = str(max_health)
@@ -212,9 +214,8 @@ func _on_hurt_box_area_entered(area):
 	var attackers = hurt_box.get_overlapping_areas()
 	
 	for attack in attackers:
-		var damage
 		var attacking_mon = attack.get_parent()
-		anim_player.play("hurt")
+		anim_player_hurt.play("hurt")
 		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
 			damage(attacking_mon, 2)
 		if elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
@@ -230,7 +231,7 @@ func _on_hurt_box_area_entered(area):
 func damage(mon, modifier: int):
 	var damage = mon.strength + modifier
 	damage_label.text = str(damage)
-	anim_player.play("damage")
+	anim_player_damage.play("damage")
 	health -= damage
 
 

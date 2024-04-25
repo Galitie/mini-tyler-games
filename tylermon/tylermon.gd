@@ -2,7 +2,7 @@ extends Node2D
 
 enum players {PL1, PL2, PL3, PL4}
 var fight_time: bool = true
-var current_round : int
+var current_round : int = 1
 var max_rounds: int = 10
 var knocked_out_mons: int = 0
 
@@ -94,7 +94,7 @@ func get_end_of_round_winner():
 
 func update_player_wins_losses_labels():
 	var players = get_tree().get_nodes_in_group("player")
-	print(current_round)
+	print("round: ",current_round)
 	for player in players:
 		print(player.name, " wins: ", player.wins, "  losses: ", player.losses)
 	print("---")

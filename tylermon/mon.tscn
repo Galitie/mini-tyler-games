@@ -182,7 +182,7 @@ scale = Vector2(8.8, 7.88)
 shape = SubResource("RectangleShape2D_osht7")
 
 [node name="sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_j30cr")
 flip_h = true
 
@@ -190,7 +190,20 @@ flip_h = true
 wait_time = 3.0
 one_shot = true
 
-[node name="anim_player" type="AnimationPlayer" parent="."]
+[node name="attack_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="anim_player_attack" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_46pca")
+}
+
+[node name="anim_player_hurt" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_46pca")
+}
+
+[node name="anim_player_damage" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_46pca")
 }
@@ -240,18 +253,19 @@ scale = Vector2(1.30303, 1.37113)
 shape = SubResource("RectangleShape2D_teykr")
 
 [node name="basic_atk_box" type="Area2D" parent="."]
-scale = Vector2(9.19704, 9.60424)
+scale = Vector2(8.55704, 8.69757)
 collision_layer = 4
 collision_mask = 0
 
 [node name="basic_atk_box_coll" type="CollisionShape2D" parent="basic_atk_box"]
-position = Vector2(0.53002, 1.90735e-06)
-scale = Vector2(1.12, 1.2)
+position = Vector2(0.467451, 1.53299)
+scale = Vector2(1.12, 1.0651)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
 [node name="special_atk_box" type="Area2D" parent="."]
-scale = Vector2(14.6904, 9.60424)
+position = Vector2(0, 21.3333)
+scale = Vector2(12.6637, 6.72424)
 collision_layer = 4
 collision_mask = 0
 
@@ -262,10 +276,17 @@ shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
 [node name="phrase" type="Label" parent="."]
-offset_left = -58.6667
-offset_top = -148.0
-offset_right = 68.3333
-offset_bottom = -122.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -140.0
+offset_right = 63.0
+offset_bottom = -114.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
@@ -276,9 +297,6 @@ uppercase = true
 
 [node name="phrase_timer" type="Timer" parent="phrase"]
 wait_time = 2.0
-one_shot = true
-
-[node name="attack_timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="damage_taken" type="Label" parent="."]

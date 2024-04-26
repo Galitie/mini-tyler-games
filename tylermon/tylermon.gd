@@ -48,16 +48,14 @@ func _on_round_timer_timeout():
 		upgrade_menu.visible = true
 		command_ui.visible = false
 		fight_time = false
-		get_tree().call_group("upgrade_menus", "switch_upgrade_time", fight_time)
-		get_tree().call_group("mons", "switch_round_modes", fight_time)
+		call_and_switch_modes()
 		countdown_label.text = "Add 3 points to stats:"
 	else:
 		round_timer.start(fight_length)
 		upgrade_menu.visible = false
 		command_ui.visible = true
 		fight_time = true
-		get_tree().call_group("mons", "switch_round_modes", fight_time)
-		get_tree().call_group("upgrade_menus", "switch_upgrade_time", fight_time)
+		call_and_switch_modes()
 		countdown_label.text = "Round ends in:"
 		current_round += 1
 
@@ -108,3 +106,9 @@ func check_for_game_end():
 
 func _add_knocked_out_mon():
 	knocked_out_mons += 1
+
+
+func call_and_switch_modes():
+	get_tree().call_group("mons", "switch_round_modes", fight_time)
+	get_tree().call_group("upgrade_menus", "switch_upgrade_time", fight_time)
+	get_tree().call_group("player", "switch_modes", fight_time)

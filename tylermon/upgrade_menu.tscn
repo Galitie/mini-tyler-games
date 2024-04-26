@@ -35,6 +35,7 @@ layout_mode = 2
 [node name="hp" type="Button" parent="margin/hbox/buttons/hbox"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_bottom = NodePath("../../hbox2/str")
 text = "Increase Health"
 alignment = 0
 
@@ -50,6 +51,8 @@ layout_mode = 2
 [node name="str" type="Button" parent="margin/hbox/buttons/hbox2"]
 layout_mode = 2
 size_flags_horizontal = 2
+focus_neighbor_top = NodePath("../../hbox/hp")
+focus_neighbor_bottom = NodePath("../../hbox3/int")
 text = "Increase Strength"
 
 [node name="stat2" type="Label" parent="margin/hbox/buttons/hbox2"]
@@ -62,6 +65,8 @@ layout_mode = 2
 [node name="int" type="Button" parent="margin/hbox/buttons/hbox3"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../hbox2/str")
+focus_neighbor_bottom = NodePath("../../hbox5/type")
 text = "Increase Intelligence"
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]
@@ -74,6 +79,8 @@ layout_mode = 2
 [node name="type" type="Button" parent="margin/hbox/buttons/hbox5"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath("../../button6")
 text = "Change Attack Type"
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]
@@ -82,6 +89,7 @@ text = "NONE"
 
 [node name="button6" type="Button" parent="margin/hbox/buttons"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../hbox5/type")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
 text = "GAMBLE"
 

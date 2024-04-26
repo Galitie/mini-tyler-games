@@ -12,19 +12,19 @@ layout_mode = 2
 layout_mode = 2
 text = "Commands:"
 
-[node name="atk" type="Button" parent="."]
+[node name="atk" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Attack - Ⓐ"
 
-[node name="block" type="Button" parent="."]
+[node name="block" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Block - Ⓑ"
 
-[node name="special" type="Button" parent="."]
+[node name="special" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

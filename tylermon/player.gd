@@ -14,24 +14,24 @@ func _ready():
 func update(_delta):
 	if fight_mode:
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_A):
-			pass
+			print(player_index, " pressed A")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_X):
-			pass
+			print(player_index, " pressed X")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_B):
-			pass
+			print(player_index, " pressed B")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_Y):
-			pass
+			print(player_index, " pressed Y")
 	else:
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_A):
-			pass # press button
+			print(player_index, " pressed A and tried to select something")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_DPAD_UP):
-			pass
+			print(player_index, " pressed Dpad up")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_DPAD_RIGHT):
-			pass
+			print(player_index, " pressed Dpad right")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_DPAD_DOWN):
-			pass
+			print(player_index, " pressed Dpad down")
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_DPAD_LEFT):
-			pass
+			print(player_index, " pressed Dpad left")
 
    
 func set_mon():

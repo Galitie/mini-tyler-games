@@ -308,4 +308,7 @@ func _on_block_timer_timeout():
 
 func _on_charge_timer_timeout():
 	z_index = default_z_index
-	set_state(State.SPECIAL_ATTACK)
+	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
+		return
+	else:
+		set_state(State.SPECIAL_ATTACK)

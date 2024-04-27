@@ -19,7 +19,7 @@ func _process(_delta):
 	if fight_mode:
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_A):
 			if Input.is_action_just_pressed("tylermon_attack"):
-					emit_signal("send_command", STATE.State.BASIC_ATTACK, player_index)
+				emit_signal("send_command", STATE.State.BASIC_ATTACK, player_index)
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_B):
 			if Input.is_action_just_pressed("tylermon_block"):
 				emit_signal("send_command", STATE.State.BLOCK, player_index)

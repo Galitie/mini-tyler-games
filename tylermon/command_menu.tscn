@@ -8,24 +8,35 @@ theme_override_constants/separation = 10
 [node name="vbox" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="player 1" type="Label" parent="vbox"]
+[node name="label" type="Label" parent="vbox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 21
 text = "Commands:"
 
 [node name="atk" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 21
 text = "Attack - Ⓐ"
 
 [node name="block" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 21
 text = "Block - Ⓑ"
+
+[node name="Target" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 21
+text = "Target - Ⓧ"
 
 [node name="special" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 21
 text = "Special - Ⓨ"

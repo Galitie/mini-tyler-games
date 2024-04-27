@@ -1,7 +1,6 @@
 extends Node2D
 
-enum players {PL1, PL2, PL3, PL4}
-var fight_time: bool = true
+var fight_time: bool
 var current_round : int = 1
 var max_rounds: int = 10
 var knocked_out_mons: int = 0
@@ -18,9 +17,9 @@ const STATE = preload("res://tylermon/mon.gd")
 
 
 func _ready():
+	fight_time = true
 	round_timer.start(fight_length)
-	command_ui.visible = true
-	upgrade_menu.visible = false
+	call_and_switch_modes()
 	var mons = get_tree().get_nodes_in_group("mons")
 	for mon in mons:
 		mon.connect("knocked_out", _add_knocked_out_mon)

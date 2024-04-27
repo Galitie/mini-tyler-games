@@ -48,6 +48,7 @@ theme_override_font_sizes/font_size = 36
 text = "30"
 
 [node name="upgrade_ui" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 0
@@ -75,13 +76,13 @@ columns = 2
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player1" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu" groups=["player"]]
+[node name="player0" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu" groups=["player"]]
 script = ExtResource("5_uxsio")
 
-[node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player1" instance=ExtResource("2_yelk2")]
+[node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player0" instance=ExtResource("2_yelk2")]
 position = Vector2(320, 180)
 
-[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player1/mon1"]
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player0/mon1"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -91,13 +92,13 @@ text = "1"
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu2" groups=["player"]]
+[node name="player1" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu2" groups=["player"]]
 script = ExtResource("5_uxsio")
 
-[node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player2" instance=ExtResource("2_yelk2")]
+[node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
 position = Vector2(960, 180)
 
-[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player2/mon2"]
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player1/mon2"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -107,13 +108,13 @@ text = "2"
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu3" groups=["player"]]
+[node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu3" groups=["player"]]
 script = ExtResource("5_uxsio")
 
-[node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player3" instance=ExtResource("2_yelk2")]
+[node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player2" instance=ExtResource("2_yelk2")]
 position = Vector2(320, 540)
 
-[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player3/mon3"]
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player2/mon3"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -123,13 +124,13 @@ text = "3"
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
 
-[node name="player4" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu4" groups=["player"]]
+[node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu4" groups=["player"]]
 script = ExtResource("5_uxsio")
 
-[node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player4" instance=ExtResource("2_yelk2")]
+[node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(960, 540)
 
-[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player4/mon4"]
+[node name="temp_label" type="Label" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player3/mon4"]
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)

@@ -35,6 +35,7 @@ layout_mode = 2
 [node name="hp" type="Button" parent="margin/hbox/buttons/hbox"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../../button6")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
 text = "Increase Health"
 alignment = 0
@@ -90,6 +91,7 @@ text = "NONE"
 [node name="button6" type="Button" parent="margin/hbox/buttons"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../hbox5/type")
+focus_neighbor_bottom = NodePath("../hbox/hp")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
 text = "GAMBLE"
 

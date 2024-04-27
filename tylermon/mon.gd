@@ -13,6 +13,7 @@ var commands
 var current_state 
 var destination : Vector2
 var default_z_index = 0
+var current_player_command = State.IDLE
 
 signal knocked_out
 
@@ -27,13 +28,13 @@ var state_weights = [
 	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0, "mult": 1}, 
 	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0, "mult": 1},
 	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0, "mult": 1.05},
-	{"state": State.BLOCK, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
-	{"state": State.CHARGE_UP, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
-	{"state": State.TARGET_AND_ATTACK, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
-	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 1, "acc_weight": 0, "mult": 1.20},
-	{"state": State.PLAYER_COMMAND, "roll_weight": 0, "acc_weight": 0, "mult": 1.25}
+	{"state": State.BLOCK, "roll_weight": 4, "acc_weight": 0, "mult": 1.10},
+	{"state": State.CHARGE_UP, "roll_weight": 4, "acc_weight": 0, "mult": 1.10},
+	{"state": State.TARGET_AND_ATTACK, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
+	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
+	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 7}
 ]
-
+  
 @onready var anim_player_attack = $anim_player_attack
 @onready var anim_player_hurt = $anim_player_hurt
 @onready var anim_player_damage = $anim_player_damage
@@ -63,6 +64,7 @@ var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Ca
 func _ready():
 	set_state(State.START_FIGHT)
 	phrase.text = ""
+	get_parent().connect("send_command", get_command)
 
 
 func _physics_process(delta):
@@ -123,6 +125,7 @@ func set_state(state):
 
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
+			set_state(current_player_command)
 
 		State.START_FIGHT:
 			position = fight_pos
@@ -198,10 +201,7 @@ func update_state(state, delta):
 			
 		State.KNOCKED_OUT:
 			velocity = Vector2()
-			
-		State.PLAYER_COMMAND:
-			velocity = Vector2()
-			# placeholder
+
 
 
 func get_other_random_mon():
@@ -217,6 +217,7 @@ func _on_timer_timeout():
 	for state in state_weights:
 		total_weight += state.roll_weight + (intelligence * state.mult)
 		state.acc_weight = total_weight
+		print(state.acc_weight)
 
 	if current_state == State.KNOCKED_OUT:
 		chance_to_say_phrase(knocked_out_phrases, 3)
@@ -226,7 +227,7 @@ func _on_timer_timeout():
 			if state.acc_weight > random_number:
 				set_state(state.state)
 				break
-	var random_wait_time = randi_range(2,5)
+	var random_wait_time = randi_range(1,3)
 	timer.start(random_wait_time)
 
 
@@ -314,3 +315,11 @@ func move_to_destination(delta):
 	else:
 		$sprite.flip_h = true
 	position = position.move_toward(destination, speed * delta)
+
+
+func get_command(command, player_index):
+	var player = get_parent().name
+	if player.split("player")[1] == str(player_index):
+		print("mon", player_index + 1, " recieved command ", State.keys()[command])
+		current_player_command = command
+

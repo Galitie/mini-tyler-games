@@ -32,7 +32,7 @@ var state_weights = [
 	{"state": State.CHARGE_UP, "roll_weight": 4, "acc_weight": 0, "mult": 1.10},
 	{"state": State.TARGET_AND_ATTACK, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
 	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
-	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 7}
+	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 5}
 ]
   
 @onready var anim_player_attack = $anim_player_attack
@@ -63,6 +63,7 @@ var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Ca
 
 func _ready():
 	set_state(State.START_FIGHT)
+	timer.start(.5)
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
 
@@ -120,8 +121,8 @@ func set_state(state):
 		
 		State.BLOCK:
 			chance_to_say_phrase(blocking_phrases, 2)
+			attack_timer.start(2.5)
 			anim_player_hurt.play("block")
-			attack_timer.start(2)
 
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
@@ -140,7 +141,7 @@ func set_state(state):
 			max_health_label.text = str(max_health)
 			health_label.text = str(max_health)
 			timer.paused = false
-			timer.start(.5)
+			
 		
 		State.UPGRADE:
 			if current_state == State.KNOCKED_OUT:
@@ -152,7 +153,10 @@ func set_state(state):
 			hp_bar.value = max_health
 			hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
 			#upgrade animation
-	current_state = state
+	if state == State.PLAYER_COMMAND:
+		current_state = current_player_command
+	else:
+		current_state = state
 
 
 func update_state(state, delta):
@@ -200,7 +204,7 @@ func update_state(state, delta):
 			velocity = Vector2()
 			
 		State.KNOCKED_OUT:
-			velocity = Vector2()
+			velocity = Vector2()	
 
 
 
@@ -227,7 +231,7 @@ func _on_timer_timeout():
 			if state.acc_weight > random_number:
 				set_state(state.state)
 				break
-	var random_wait_time = randi_range(1,3)
+	var random_wait_time = randi_range(1,2.5)
 	timer.start(random_wait_time)
 
 

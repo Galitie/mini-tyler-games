@@ -337,7 +337,7 @@ disabled = true
 
 [node name="special_atk_box" type="Area2D" parent="."]
 position = Vector2(0, 13.3333)
-scale = Vector2(12.6637, 6.13757)
+scale = Vector2(12.1837, 6.13757)
 collision_layer = 4
 collision_mask = 0
 

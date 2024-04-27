@@ -94,6 +94,7 @@ func set_state(state):
 		
 		State.BASIC_ATTACK:
 			timer.paused = true
+			velocity = Vector2()
 			chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
 			anim_player_attack.play("basic_atk")
@@ -102,12 +103,14 @@ func set_state(state):
 		
 		State.CHARGE_UP:
 			timer.paused = true
+			velocity = Vector2()
 			anim_player_attack.play("charge_up")
 			charge_timer.start(2)
 			z_index = default_z_index + 1
 		
 		State.SPECIAL_ATTACK:
 			timer.paused = true
+			velocity = Vector2()
 			chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
 			anim_player_attack.play("special_atk")
@@ -115,16 +118,17 @@ func set_state(state):
 			attack_timer.start(.3)
 		
 		State.IDLE:
+			velocity = Vector2()
 			chance_to_say_phrase(bored_phrases, 1)
 		
 		State.KNOCKED_OUT:
 			emit_signal("knocked_out")
-			velocity = Vector2()
 			chance_to_say_phrase(knocked_out_phrases, 3)
 			timer.paused = true
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
+			velocity = Vector2()
 			anim_player_attack.play("knocked_out")
 			hp_bar.visible = false
 
@@ -142,6 +146,7 @@ func set_state(state):
 		
 		State.BLOCK:
 			chance_to_say_phrase(blocking_phrases, 4)
+			velocity = Vector2()
 			block_timer.start(2.5)
 			anim_player_hurt.play("block")
 			timer.paused = true
@@ -161,7 +166,7 @@ func set_state(state):
 func update_state(state, delta):
 	match state:
 		State.IDLE:
-			velocity = Vector2()
+			pass
 
 		State.WALK_RANDOM:
 			move_to_destination(delta)
@@ -180,17 +185,19 @@ func update_state(state, delta):
 				set_state(State.CHARGE_UP)
 
 		State.BLOCK:
-			velocity = Vector2()
+			pass
 		
 		State.CHARGE_UP:
-			velocity = Vector2()
+			pass
 			
 		State.BASIC_ATTACK:
-			velocity = Vector2()
+			pass
 
 		State.SPECIAL_ATTACK:
-			velocity = Vector2()
-
+			pass
+			
+		State.KNOCKED_OUT:
+			pass
 
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")
@@ -242,6 +249,7 @@ func chance_to_say_phrase(array, chance : int):
 
 func switch_round_modes(fight_time):
 	if fight_time:
+		velocity = Vector2()
 		timer.start(.5)
 		position = fight_pos
 		hp_bar.visible = true

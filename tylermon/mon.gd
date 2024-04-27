@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 var tyler_type: String
-var attacks
 var max_health: int = 3
 var health: int = max_health
 var speed: int = 75
@@ -9,8 +8,7 @@ var intelligence: int = 1
 var strength: int = 1
 var strength_mod: float = .20
 var elm_type = "NONE"
-var commands
-var current_state 
+var current_state = State.IDLE
 var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.IDLE
@@ -20,7 +18,7 @@ signal knocked_out
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
-	PLAYER_COMMAND, START_FIGHT, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
+	PLAYER_COMMAND, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
 	}
 
 var state_weights = [
@@ -41,6 +39,7 @@ var state_weights = [
 @onready var timer = $timer
 @onready var attack_timer = $attack_timer
 @onready var charge_timer = $charge_timer
+@onready var block_timer = $block_timer
 @onready var hp_bar = $hp_bar
 @onready var health_label = $hp_bar/hp_container/current_health
 @onready var max_health_label = $hp_bar/hp_container/max_health
@@ -62,8 +61,6 @@ var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears"
 var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
 
 func _ready():
-	set_state(State.START_FIGHT)
-	timer.start(.5)
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
 
@@ -75,6 +72,20 @@ func _physics_process(delta):
 	update_state(current_state, delta)
 
 
+func _on_timer_timeout():
+	var total_weight = 0.0
+	for state in state_weights:
+		total_weight += state.roll_weight + (intelligence * state.mult)
+		state.acc_weight = total_weight
+	var random_number = randf_range(0.0, total_weight)
+	for state in state_weights:
+		if state.acc_weight > random_number:
+			set_state(state.state)
+			break
+	var random_wait_time = randi_range(1,2.5)
+	timer.start(random_wait_time)
+
+
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
@@ -82,17 +93,25 @@ func set_state(state):
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
+			timer.paused = true
 			chance_to_say_phrase(attack_phrases, 4)
+			z_index = default_z_index + 1
 			anim_player_attack.play("basic_atk")
+			basic_atk_box.get_child(0).disabled = false
 			attack_timer.start(.3)
 		
 		State.CHARGE_UP:
+			timer.paused = true
 			anim_player_attack.play("charge_up")
 			charge_timer.start(2)
+			z_index = default_z_index + 1
 		
 		State.SPECIAL_ATTACK:
+			timer.paused = true
 			chance_to_say_phrase(attack_phrases, 4)
+			z_index = default_z_index + 1
 			anim_player_attack.play("special_atk")
+			special_atk_box.get_child(0).disabled = false
 			attack_timer.start(.3)
 		
 		State.IDLE:
@@ -100,10 +119,12 @@ func set_state(state):
 		
 		State.KNOCKED_OUT:
 			emit_signal("knocked_out")
+			velocity = Vector2()
+			chance_to_say_phrase(knocked_out_phrases, 3)
+			timer.paused = true
+			z_index = default_z_index - 1
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
-			chance_to_say_phrase(knocked_out_phrases, 3)
-			z_index = default_z_index - 1
 			anim_player_attack.play("knocked_out")
 			hp_bar.visible = false
 
@@ -121,38 +142,16 @@ func set_state(state):
 		
 		State.BLOCK:
 			chance_to_say_phrase(blocking_phrases, 4)
-			attack_timer.start(2.5)
+			block_timer.start(2.5)
 			anim_player_hurt.play("block")
+			timer.paused = true
+			z_index = default_z_index + 1
+			hurt_box.get_child(0).disabled = true
 
 		State.PLAYER_COMMAND:
 			chance_to_say_phrase(listening_phrases, 1)
 			set_state(current_player_command)
-
-		State.START_FIGHT:
-			position = fight_pos
-			hp_bar.visible = true
-			basic_atk_box.get_child(0).disabled = true
-			special_atk_box.get_child(0).disabled = true
-			hurt_box.get_child(0).disabled = false
-			get_node("collision").disabled = false
-			health = max_health
-			hp_bar.max_value = max_health
-			hp_bar.value = max_health
-			max_health_label.text = str(max_health)
-			health_label.text = str(max_health)
-			timer.paused = false
 			
-		
-		State.UPGRADE:
-			if current_state == State.KNOCKED_OUT:
-				anim_player_attack.play("get_up")
-				hp_bar.visible = true
-			health = max_health
-			health_label.text = str(max_health)
-			hp_bar.max_value = max_health
-			hp_bar.value = max_health
-			hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
-			#upgrade animation
 	if state == State.PLAYER_COMMAND:
 		current_state = current_player_command
 	else:
@@ -161,6 +160,9 @@ func set_state(state):
 
 func update_state(state, delta):
 	match state:
+		State.IDLE:
+			velocity = Vector2()
+
 		State.WALK_RANDOM:
 			move_to_destination(delta)
 
@@ -177,34 +179,17 @@ func update_state(state, delta):
 			if position.distance_to(destination) < 200:
 				set_state(State.CHARGE_UP)
 
-		State.UPGRADE:
-			timer.paused = true
-			position = upgrade_pos
-			velocity = Vector2()
-			max_health_label.text = str(max_health)
-			health_label.text = str(max_health)
-
 		State.BLOCK:
 			velocity = Vector2()
-			block()
 		
 		State.CHARGE_UP:
 			velocity = Vector2()
-			charge()
 			
 		State.BASIC_ATTACK:
 			velocity = Vector2()
-			attack(basic_atk_box)
 
 		State.SPECIAL_ATTACK:
 			velocity = Vector2()
-			attack(special_atk_box)
-
-		State.START_FIGHT:
-			velocity = Vector2()
-			
-		State.KNOCKED_OUT:
-			velocity = Vector2()	
 
 
 func get_other_random_mon():
@@ -213,24 +198,6 @@ func get_other_random_mon():
 	while random_mon == self or random_mon.current_state == State.KNOCKED_OUT:
 		random_mon = get_all_mons.pick_random()
 	return random_mon
-
-
-func _on_timer_timeout():
-	var total_weight = 0.0
-	for state in state_weights:
-		total_weight += state.roll_weight + (intelligence * state.mult)
-		state.acc_weight = total_weight
-
-	if current_state == State.KNOCKED_OUT:
-		chance_to_say_phrase(knocked_out_phrases, 3)
-	else:
-		var random_number = randf_range(0.0, total_weight)
-		for state in state_weights:
-			if state.acc_weight > random_number:
-				set_state(state.state)
-				break
-	var random_wait_time = randi_range(1,2.5)
-	timer.start(random_wait_time)
 
 
 func _on_hurt_box_area_entered(area):
@@ -248,10 +215,10 @@ func _on_hurt_box_area_entered(area):
 			damage(attacking_mon, 1)
 		else:
 			damage(attacking_mon, 0)
-		health_label.text = str(health)
-		hp_bar.value = health
-		if health <= roundi(max_health * .25):
-			hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
+	health_label.text = str(health)
+	hp_bar.value = health
+	if health <= roundi(max_health * .25):
+		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
 
 
 func damage(mon, modifier: int):
@@ -273,42 +240,34 @@ func chance_to_say_phrase(array, chance : int):
 		phrase.text = ""
 
 
-func attack(attack_type):
-	if attack_timer.time_left > 0:
-		timer.paused = true
-		z_index = default_z_index + 1
-		attack_type.get_node(str(attack_type.name) + "_coll").disabled = false
-	else:
-		attack_type.get_node(str(attack_type.name) + "_coll").disabled = true
-		z_index = default_z_index
-		timer.paused = false
-
-
-func charge():
-	if charge_timer.time_left > 0:
-		timer.paused = true
-		z_index = default_z_index + 1
-	else:
-		z_index = default_z_index
-		set_state(State.SPECIAL_ATTACK)
-
-
-func block():
-	if attack_timer.time_left > 0:
-		timer.paused = true
-		z_index = default_z_index + 1
-		hurt_box.get_child(0).disabled = true
-	else:
-		hurt_box.get_child(0).disabled = false
-		z_index = default_z_index
-		timer.paused = false
-
-
 func switch_round_modes(fight_time):
 	if fight_time:
-		set_state(State.START_FIGHT)
+		timer.start(.5)
+		position = fight_pos
+		hp_bar.visible = true
+		basic_atk_box.get_child(0).disabled = true
+		special_atk_box.get_child(0).disabled = true
+		hurt_box.get_child(0).disabled = false
+		get_node("collision").disabled = false
+		health = max_health
+		hp_bar.max_value = max_health
+		hp_bar.value = max_health
+		max_health_label.text = str(max_health)
+		health_label.text = str(max_health)
+		timer.paused = false
 	else:
-		set_state(State.UPGRADE)
+		timer.stop()
+		velocity = Vector2()
+		position = upgrade_pos
+		if current_state == State.KNOCKED_OUT:
+			anim_player_attack.play("get_up")
+			hp_bar.visible = true
+		set_state(State.IDLE)
+		health = max_health
+		health_label.text = str(max_health)
+		hp_bar.max_value = max_health
+		hp_bar.value = max_health
+		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
 
 
 func move_to_destination(delta):
@@ -325,3 +284,20 @@ func get_command(command, player_index):
 		print("mon", player_index + 1, " recieved command ", State.keys()[command])
 		current_player_command = command
 
+
+func _on_attack_timer_timeout():
+	timer.paused = false
+	basic_atk_box.get_child(0).disabled = true
+	special_atk_box.get_child(0).disabled = true
+	z_index = default_z_index
+
+
+func _on_block_timer_timeout():
+	timer.paused = false
+	hurt_box.get_child(0).disabled = false
+	z_index = default_z_index
+
+
+func _on_charge_timer_timeout():
+	z_index = default_z_index
+	set_state(State.SPECIAL_ATTACK)

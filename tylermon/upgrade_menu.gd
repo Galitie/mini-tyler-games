@@ -18,7 +18,6 @@ var points_to_spend : int = 3
 
 func _ready():
 	get_mon()
-	
 
 
 func _process(_delta):

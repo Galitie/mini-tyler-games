@@ -263,6 +263,9 @@ one_shot = true
 [node name="charge_timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="block_timer" type="Timer" parent="."]
+one_shot = true
+
 [node name="anim_player_attack" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_46pca")
@@ -391,6 +394,9 @@ text = "1"
 horizontal_alignment = 1
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]
+[connection signal="timeout" from="block_timer" to="." method="_on_block_timer_timeout"]
 [connection signal="area_entered" from="hurt_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="basic_atk_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="special_atk_box" to="." method="_on_hurt_box_area_entered"]

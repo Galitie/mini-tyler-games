@@ -82,7 +82,7 @@ func set_state(state):
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
-			chance_to_say_phrase(attack_phrases, 2)
+			chance_to_say_phrase(attack_phrases, 4)
 			anim_player_attack.play("basic_atk")
 			attack_timer.start(.3)
 		
@@ -91,7 +91,7 @@ func set_state(state):
 			charge_timer.start(2)
 		
 		State.SPECIAL_ATTACK:
-			chance_to_say_phrase(attack_phrases, 2)
+			chance_to_say_phrase(attack_phrases, 4)
 			anim_player_attack.play("special_atk")
 			attack_timer.start(.3)
 		
@@ -108,19 +108,19 @@ func set_state(state):
 			hp_bar.visible = false
 
 		State.TARGET_AND_GO:
-			chance_to_say_phrase(target_phrases, 2)
+			chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 		
 		State.TARGET_AND_ATTACK:
-			chance_to_say_phrase(target_phrases, 2)
+			chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 
 		State.TARGET_AND_SPECIAL:
-			chance_to_say_phrase(target_phrases, 2)
+			chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 		
 		State.BLOCK:
-			chance_to_say_phrase(blocking_phrases, 2)
+			chance_to_say_phrase(blocking_phrases, 4)
 			attack_timer.start(2.5)
 			anim_player_hurt.play("block")
 
@@ -207,7 +207,6 @@ func update_state(state, delta):
 			velocity = Vector2()	
 
 
-
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")
 	var random_mon = get_all_mons.pick_random()
@@ -221,7 +220,6 @@ func _on_timer_timeout():
 	for state in state_weights:
 		total_weight += state.roll_weight + (intelligence * state.mult)
 		state.acc_weight = total_weight
-		print(state.acc_weight)
 
 	if current_state == State.KNOCKED_OUT:
 		chance_to_say_phrase(knocked_out_phrases, 3)

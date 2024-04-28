@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://ciyas0u8oerjv"]
+[gd_scene load_steps=8 format=3 uid="uid://ciyas0u8oerjv"]
 
 [ext_resource type="Script" path="res://tylermon/tylermon.gd" id="1_66guv"]
-[ext_resource type="PackedScene" uid="uid://c8s20lpclkjhg" path="res://tylermon/arena.tscn" id="2_mlfq2"]
+[ext_resource type="PackedScene" uid="uid://c8s20lpclkjhg" path="res://tylermon/background/arena.tscn" id="2_mlfq2"]
 [ext_resource type="PackedScene" uid="uid://5lxqkuu1fqom" path="res://tylermon/mon.tscn" id="2_yelk2"]
 [ext_resource type="PackedScene" uid="uid://cyyxc3uqqve2m" path="res://tylermon/upgrade_menu.tscn" id="4_03my5"]
 [ext_resource type="Script" path="res://tylermon/player.gd" id="5_uxsio"]
 [ext_resource type="PackedScene" uid="uid://cb7lwc1cg6d5c" path="res://tylermon/command_menu.tscn" id="6_8kvd3"]
+[ext_resource type="PackedScene" uid="uid://io2r0wxux8x6" path="res://tylermon/transition_ui.tscn" id="7_4dfmu"]
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
-fight_length = 31
+fight_length = 6
 upgrade_length = 6
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
@@ -17,6 +18,8 @@ z_index = -2
 
 [node name="round_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="transition_timer" type="Timer" parent="."]
 
 [node name="countdown_ui" type="Control" parent="."]
 custom_minimum_size = Vector2(1280, 720)
@@ -241,5 +244,23 @@ text = "Player 4 - "
 layout_mode = 2
 theme_override_font_sizes/font_size = 21
 text = "0"
+
+[node name="transition_ui" type="Control" parent="."]
+visible = false
+z_index = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin" type="MarginContainer" parent="transition_ui"]
+layout_mode = 1
+offset_right = 1283.0
+offset_bottom = 726.0
+
+[node name="container" parent="transition_ui/margin" instance=ExtResource("7_4dfmu")]
+layout_mode = 2
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

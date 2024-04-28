@@ -60,6 +60,7 @@ var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE"
 var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
 var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
 
+
 func _ready():
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)

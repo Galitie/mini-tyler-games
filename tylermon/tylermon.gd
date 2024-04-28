@@ -2,11 +2,12 @@ extends Node2D
 
 var fight_time: bool
 var current_round : int = 1
-var max_rounds: int = 10
 var knocked_out_mons: int = 0
 
 @export var fight_length: int
 @export var upgrade_length: int
+@export var max_rounds: int
+
 @onready var upgrade_menu = $upgrade_ui
 @onready var countdown_label = $countdown_ui/margin/seperator/label
 @onready var countdown_nums = $countdown_ui/margin/seperator/countdown
@@ -23,6 +24,7 @@ var knocked_out_mons: int = 0
 const STATE = preload("res://tylermon/mon.gd")
 
 signal winners(winner_nodes : Array)
+signal final_winners(winner_nodes : Array)
 signal clear_winners
 
 
@@ -50,14 +52,14 @@ func time_left():
 func _on_round_timer_timeout():
 	if fight_time:
 		fight_time = false
-		check_for_game_end()
 		var winners = get_end_of_round_winner()
 		update_player_wins_losses_labels()
 		call_and_switch_modes()
+		await check_for_game_end()
 		upgrade_menu.visible = true
 		command_ui.visible = false
 		wins_ui.visible = true
-		await show_transition(winners, 7)
+		await show_transition("round_winners", winners, 5)
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats:"
 		round_timer.start(upgrade_length)
@@ -86,7 +88,6 @@ func check_for_winners_during_fight():
 		_on_round_timer_timeout()
 
 
-# right now it's mon's with most health including ties...do I want to count kills?
 func get_end_of_round_winner():
 	var mons = get_tree().get_nodes_in_group("mons")
 	var highest_health_mon = null
@@ -106,6 +107,7 @@ func get_end_of_round_winner():
 			winners.append(player)
 	return winners
 
+
 func update_player_wins_losses_labels():
 	var players = get_tree().get_nodes_in_group("player")
 	for player in players:
@@ -121,7 +123,18 @@ func update_player_wins_losses_labels():
 
 func check_for_game_end():
 	if current_round == max_rounds:
-		pass
+		var winning_players = []
+		var highest_wins
+		var players = get_tree().get_nodes_in_group("player")
+		for player in players:
+			if highest_wins == null:
+				highest_wins = player.wins 
+			if highest_wins <= player.wins:
+				highest_wins = player.wins
+		for player in players:
+			if player.wins == highest_wins:
+				winning_players.append(player)
+		await show_transition("final_winner", winning_players, 100)
 
 
 func _add_knocked_out_mon():
@@ -133,10 +146,17 @@ func call_and_switch_modes():
 	get_tree().call_group("upgrade_menus", "switch_upgrade_time", fight_time)
 	get_tree().call_group("player", "switch_modes", fight_time)
 
-func show_transition(winners, timer_amount : int):
-	transition_timer.start(timer_amount)
-	emit_signal("winners", winners)
-	$transition_ui.visible = true
-	await transition_timer.timeout
-	$transition_ui.visible = false
-	emit_signal("clear_winners")
+
+func show_transition(type, content, timer_amount):
+	if type == "round_winners":
+		transition_timer.start(timer_amount)
+		emit_signal("winners", content)
+		$transition_ui.visible = true
+		await transition_timer.timeout
+		$transition_ui.visible = false
+		emit_signal("clear_winners")
+	if type == "final_winner":
+		transition_timer.start(timer_amount)
+		emit_signal("final_winners", content)
+		$transition_ui.visible = true
+		await transition_timer.timeout

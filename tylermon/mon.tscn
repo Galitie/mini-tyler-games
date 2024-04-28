@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
-[ext_resource type="Texture2D" uid="uid://mh88hi5a3nux" path="res://icon.svg" id="2_kx4iv"]
+[ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_j30cr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osht7"]
 size = Vector2(20, 25)
@@ -249,8 +249,7 @@ scale = Vector2(8.05931, 7.65057)
 shape = SubResource("RectangleShape2D_osht7")
 
 [node name="sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_kx4iv")
+texture = ExtResource("2_j30cr")
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]

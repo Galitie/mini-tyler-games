@@ -296,16 +296,22 @@ func get_command(command, player_index):
 
 
 func _on_attack_timer_timeout():
-	timer.paused = false
-	basic_atk_box.get_child(0).disabled = true
-	special_atk_box.get_child(0).disabled = true
-	z_index = default_z_index
+	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
+		return
+	else:
+		timer.paused = false
+		basic_atk_box.get_child(0).disabled = true
+		special_atk_box.get_child(0).disabled = true
+		z_index = default_z_index
 
 
 func _on_block_timer_timeout():
-	timer.paused = false
-	hurt_box.get_child(0).disabled = false
-	z_index = default_z_index
+	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
+		return
+	else:
+		timer.paused = false
+		hurt_box.get_child(0).disabled = false
+		z_index = default_z_index
 
 
 func _on_charge_timer_timeout():

@@ -18,7 +18,7 @@ signal knocked_out
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
-	PLAYER_COMMAND, UPGRADE, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
+	PLAYER_COMMAND, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
 	}
 
 var state_weights = [
@@ -47,7 +47,7 @@ var state_weights = [
 @onready var basic_atk_box = $basic_atk_box
 @onready var special_atk_box = $special_atk_box
 @onready var fight_pos = position
-@onready var upgrade_pos = Vector2(position.x + 80, position.y - 20)
+@onready var upgrade_pos = Vector2(position.x + 180, position.y - 20)
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
 
@@ -198,6 +198,7 @@ func update_state(state, delta):
 			
 		State.KNOCKED_OUT:
 			pass
+
 
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")

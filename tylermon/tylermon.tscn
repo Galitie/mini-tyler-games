@@ -10,7 +10,7 @@
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
 fight_length = 31
-upgrade_length = 11
+upgrade_length = 6
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 z_index = -2
@@ -62,15 +62,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 40
+theme_override_constants/margin_left = 200
 theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="GridContainer" type="GridContainer" parent="upgrade_ui/margin"]
 layout_mode = 2
-theme_override_constants/h_separation = 80
-theme_override_constants/v_separation = 100
+theme_override_constants/h_separation = 160
+theme_override_constants/v_separation = 120
 columns = 2
 
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
@@ -159,5 +159,87 @@ theme_override_constants/margin_bottom = 20
 [node name="hbox" parent="command_ui/margin" instance=ExtResource("6_8kvd3")]
 layout_mode = 2
 vertical = true
+
+[node name="wins_ui" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="margin" type="MarginContainer" parent="wins_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="box" type="BoxContainer" parent="wins_ui/margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+vertical = true
+
+[node name="label" type="Label" parent="wins_ui/margin/box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Wins:"
+
+[node name="hbox" type="HBoxContainer" parent="wins_ui/margin/box"]
+layout_mode = 2
+
+[node name="player0" type="Label" parent="wins_ui/margin/box/hbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Player 1 - "
+
+[node name="wins" type="Label" parent="wins_ui/margin/box/hbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "0"
+
+[node name="hbox2" type="HBoxContainer" parent="wins_ui/margin/box"]
+layout_mode = 2
+
+[node name="player1" type="Label" parent="wins_ui/margin/box/hbox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Player 2 - "
+
+[node name="wins" type="Label" parent="wins_ui/margin/box/hbox2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "0"
+
+[node name="hbox3" type="HBoxContainer" parent="wins_ui/margin/box"]
+layout_mode = 2
+
+[node name="player2" type="Label" parent="wins_ui/margin/box/hbox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Player 3 - "
+
+[node name="wins" type="Label" parent="wins_ui/margin/box/hbox3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "0"
+
+[node name="hbox4" type="HBoxContainer" parent="wins_ui/margin/box"]
+layout_mode = 2
+
+[node name="player3" type="Label" parent="wins_ui/margin/box/hbox4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Player 4 - "
+
+[node name="wins" type="Label" parent="wins_ui/margin/box/hbox4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "0"
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

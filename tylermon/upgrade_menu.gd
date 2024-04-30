@@ -26,6 +26,9 @@ func _process(_delta):
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
 		type_stat.text = mon.elm_type
+		mon.hp_bar.value = mon.max_health
+		mon.health_label.text = str(mon.max_health)
+		mon.max_health_label.text = str(mon.max_health)
 
 
 func get_mon():

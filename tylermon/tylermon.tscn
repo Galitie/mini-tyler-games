@@ -12,8 +12,8 @@
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
-fight_length = 21
-upgrade_length = 11
+fight_length = 31
+upgrade_length = 31
 max_rounds = 3
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]

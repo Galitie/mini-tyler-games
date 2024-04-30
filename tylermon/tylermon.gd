@@ -3,6 +3,7 @@ extends Node2D
 var fight_time: bool
 var current_round : int = 1
 var knocked_out_mons: int = 0
+var upgrades_counter: int = 0
 
 @export var fight_length: int
 @export var upgrade_length: int
@@ -20,7 +21,6 @@ var knocked_out_mons: int = 0
 @onready var player3_win_label = $wins_ui/margin/box/hbox3/wins
 @onready var player4_win_label = $wins_ui/margin/box/hbox4/wins
 
-
 const STATE = preload("res://tylermon/mon.gd")
 
 signal winners(winner_nodes : Array)
@@ -35,7 +35,9 @@ func _ready():
 	var mons = get_tree().get_nodes_in_group("mons")
 	for mon in mons:
 		mon.connect("knocked_out", _add_knocked_out_mon)
-
+	var upgrade_menus = get_tree().get_nodes_in_group("upgrade_menus")
+	for upgrade in upgrade_menus:
+		upgrade.connect("upgrades_finished", end_upgrades_early)
 
 func _process(_delta):
 	countdown_nums.text = "%02d" % time_left()
@@ -52,6 +54,7 @@ func time_left():
 func _on_round_timer_timeout():
 	if fight_time:
 		fight_time = false
+		upgrades_counter = 0
 		var winners = get_end_of_round_winner()
 		update_player_wins_losses_labels()
 		call_and_switch_modes()
@@ -159,3 +162,10 @@ func show_transition(type, content, timer_amount):
 		emit_signal("final_winners", content)
 		$transition_ui.visible = true
 		await transition_timer.timeout
+
+
+func end_upgrades_early():
+	upgrades_counter += 1
+	if upgrades_counter == 4 and round_timer.time_left > 4:
+		round_timer.stop()
+		round_timer.start(4)

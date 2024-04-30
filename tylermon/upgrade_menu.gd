@@ -2,6 +2,7 @@ extends Control
 var mon
 var upgrade_time : bool = false
 var points_to_spend : int = 3
+var players_done_upgrading : int = 0
 
 @onready var hp_stat = $margin/hbox/buttons/hbox/stat1
 @onready var str_stat = $margin/hbox/buttons/hbox2/stat2
@@ -13,8 +14,9 @@ var points_to_spend : int = 3
 @onready var int_button = $margin/hbox/buttons/hbox3/int
 @onready var gamble_button = $margin/hbox/buttons/button6
 @onready var type_button = $margin/hbox/buttons/hbox5/type
-
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
+
+signal upgrades_finished
 
 func _ready():
 	get_mon()
@@ -78,3 +80,4 @@ func _on_button_pressed(button_name):
 	if points_to_spend == 0:
 		for button in upgrade_buttons:
 			button.disabled = true
+		emit_signal("upgrades_finished")

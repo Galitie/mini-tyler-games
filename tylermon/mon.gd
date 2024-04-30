@@ -87,7 +87,7 @@ func _on_timer_timeout():
 		if state.acc_weight > random_number:
 			set_state(state.state)
 			break
-	var random_wait_time = randi_range(1,2.5)
+	var random_wait_time = randf_range(1,2.5)
 	timer.start(random_wait_time)
 
 

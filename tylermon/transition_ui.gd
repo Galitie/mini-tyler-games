@@ -21,26 +21,8 @@ func update_winners(winners):
 		title_label.text = "ROUND WINNER:"
 	else:
 		title_label.text = "ROUND WINNERS:"
-	
-	if winners.size() > 0:
-		var container = get_node("center_container/vbox/winners")
-		for winner in winners:
-			var label = Label.new()
-			if winner.name == "player0":
-				label.text = "Player 1"
-			if winner.name == "player1":
-				label.text = "Player 2"
-			if winner.name == "player2":
-				label.text = "Player 3"
-			if winner.name == "player3":
-				label.text = "Player 4"
-			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			var image = TextureRect.new()
-			image.texture = winner.get_child(0).get_node("sprite").texture
-			var vbox = VBoxContainer.new()
-			vbox.add_child(label)
-			vbox.add_child(image)
-			container.add_child(vbox)
+	build_winners_nodes(winners)
+
 
 func clear_winners():
 	title_label.text = ""
@@ -56,23 +38,40 @@ func show_final_winners(winners):
 		title_label.text = "GAME WINNER:"
 	else:
 		title_label.text = "GAME WINNERS:"
-	
+	build_winners_nodes(winners)
+
+
+func build_winners_nodes(winners):
 	var container = get_node("center_container/vbox/winners")
 	for winner in winners:
 		var label = Label.new()
+		var remaining_health = Label.new()
+		var knockouts_label = Label.new()
+		remaining_health.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		knockouts_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		if winner.name == "player0":
 			label.text = "Player 1"
+			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
+			knockouts_label.text = "Knockouts: "
 		if winner.name == "player1":
 			label.text = "Player 2"
+			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
+			knockouts_label.text = "Knockouts: "
 		if winner.name == "player2":
 			label.text = "Player 3"
+			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
+			knockouts_label.text = "Knockouts: "
 		if winner.name == "player3":
 			label.text = "Player 4"
+			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
+			knockouts_label.text = "Knockouts: "
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var image = TextureRect.new()
 		image.texture = winner.get_child(0).get_node("sprite").texture
 		var vbox = VBoxContainer.new()
 		vbox.add_child(label)
 		vbox.add_child(image)
-		container.add_child(vbox)
-	
+		vbox.add_child(remaining_health)
+		vbox.add_child(knockouts_label)
+		container.add_child(vbox)	

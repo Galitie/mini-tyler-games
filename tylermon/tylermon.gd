@@ -58,7 +58,6 @@ func _on_round_timer_timeout():
 		await check_for_game_end()
 		upgrade_menu.visible = true
 		command_ui.visible = false
-		wins_ui.visible = true
 		await show_transition("round_winners", winners, 5)
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats:"
@@ -68,7 +67,7 @@ func _on_round_timer_timeout():
 		current_round += 1
 		upgrade_menu.visible = false
 		command_ui.visible = true
-		wins_ui.visible = false
+		update_player_wins_losses_labels()
 		call_and_switch_modes()
 		countdown_label.text = "Round ends in:"
 		round_timer.start(fight_length)

@@ -13,6 +13,8 @@ var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.IDLE
 
+@export var starting_sprite : Texture
+
 signal knocked_out
 
 enum State {
@@ -50,6 +52,7 @@ var state_weights = [
 @onready var upgrade_pos = Vector2(position.x + 180, position.y - 20)
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
+@onready var sprite = $sprite
 
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
@@ -64,6 +67,7 @@ var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Ca
 func _ready():
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
+	sprite.texture = starting_sprite
 
 
 func _physics_process(delta):
@@ -129,9 +133,9 @@ func set_state(state):
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
-			velocity = Vector2()
 			anim_player_attack.play("knocked_out")
 			hp_bar.visible = false
+			velocity = Vector2()
 
 		State.TARGET_AND_GO:
 			chance_to_say_phrase(target_phrases, 4)
@@ -251,7 +255,6 @@ func chance_to_say_phrase(array, chance : int):
 
 func switch_round_modes(fight_time):
 	if fight_time:
-		velocity = Vector2()
 		timer.start(.5)
 		position = fight_pos
 		hp_bar.visible = true
@@ -267,8 +270,6 @@ func switch_round_modes(fight_time):
 		timer.paused = false
 	else:
 		timer.stop()
-		velocity = Vector2()
-		position = upgrade_pos
 		if current_state == State.KNOCKED_OUT:
 			anim_player_attack.play("get_up")
 			hp_bar.visible = true
@@ -278,6 +279,7 @@ func switch_round_modes(fight_time):
 		hp_bar.max_value = max_health
 		hp_bar.value = max_health
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
+		position = upgrade_pos
 
 
 func move_to_destination(delta):

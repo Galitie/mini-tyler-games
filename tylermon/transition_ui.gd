@@ -46,26 +46,20 @@ func build_winners_nodes(winners):
 	for winner in winners:
 		var label = Label.new()
 		var remaining_health = Label.new()
-		var knockouts_label = Label.new()
 		remaining_health.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		knockouts_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		if winner.name == "player0":
 			label.text = "Player 1"
 			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
-			knockouts_label.text = "Knockouts: "
 		if winner.name == "player1":
 			label.text = "Player 2"
 			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
-			knockouts_label.text = "Knockouts: "
 		if winner.name == "player2":
 			label.text = "Player 3"
 			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
-			knockouts_label.text = "Knockouts: "
 		if winner.name == "player3":
 			label.text = "Player 4"
 			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
-			knockouts_label.text = "Knockouts: "
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var image = TextureRect.new()
 		image.texture = winner.get_child(0).get_node("sprite").texture
@@ -73,5 +67,4 @@ func build_winners_nodes(winners):
 		vbox.add_child(label)
 		vbox.add_child(image)
 		vbox.add_child(remaining_health)
-		vbox.add_child(knockouts_label)
-		container.add_child(vbox)	
+		container.add_child(vbox)

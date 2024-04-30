@@ -39,6 +39,7 @@ func _ready():
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 
+
 func _process(_delta):
 	countdown_nums.text = "%02d" % time_left()
 	if fight_time:
@@ -78,14 +79,6 @@ func _on_round_timer_timeout():
 
 func check_for_winners_during_fight():
 	if knocked_out_mons == 3:
-		var mons = get_tree().get_nodes_in_group("mons")
-		for mon in mons:
-			if mon.current_state != STATE.State.KNOCKED_OUT:
-				var player = mon.get_parent()
-				player.wins += 1
-			if mon.current_state == STATE.State.KNOCKED_OUT:
-				var player = mon.get_parent()
-				player.losses += 1
 		round_timer.stop()
 		_on_round_timer_timeout()
 

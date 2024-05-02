@@ -80,7 +80,7 @@ func _on_button_pressed(button_name):
 func gamble():
 	var player = mon.get_parent()
 	var player_losses = player.losses
-	var random_num = randi_range(0, 7)
+	var random_num = randi_range(0, 8)
 	random_num += player_losses
 	match random_num:
 		0:
@@ -102,15 +102,21 @@ func gamble():
 			print("made mon faster")
 			mon.speed += 25
 		5:
+			print("gave mon ADHD")
+			if mon.max_think_time == 1.5:
+				print("mon already has ADHD, adding random stat point instead")
+				increase_random_stats(1,1)
+			mon.max_think_time = 1.5
+		6:
 			print("1 stat 1 point higher")
 			increase_random_stats(1,1)
-		6:
+		7:
 			print("2 stats 1 point higher")
 			increase_random_stats(2,1)
-		7:
+		8:
 			print("1 stat 2 points higher")
 			increase_random_stats(1,2)
-		8:
+		9:
 			print("3 stats 1 point higher")
 			increase_random_stats(3,1)
 		_:

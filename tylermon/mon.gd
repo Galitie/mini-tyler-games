@@ -13,6 +13,7 @@ var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.IDLE
 var cursed : bool = false
+var max_think_time : float = 3
 
 @export var custom_color : Color
 
@@ -89,7 +90,7 @@ func _on_timer_timeout():
 		if state.acc_weight > random_number:
 			set_state(state.state)
 			break
-	var random_wait_time = randf_range(1,2.5)
+	var random_wait_time = randf_range(1,max_think_time)
 	timer.start(random_wait_time)
 
 

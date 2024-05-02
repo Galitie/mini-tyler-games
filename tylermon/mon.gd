@@ -12,6 +12,7 @@ var current_state = State.IDLE
 var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.IDLE
+var cursed : bool = false
 
 @export var custom_color : Color
 
@@ -61,7 +62,7 @@ var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
 var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
-
+var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Mother fucker", "jesus christ", "dickheads", "pigfuckers"]
 
 func _ready():
 	phrase.text = ""
@@ -255,12 +256,19 @@ func damage(mon, modifier: int):
 
 func chance_to_say_phrase(array, chance : int):
 	var rand_num = randi_range(1,chance)
-	if rand_num == 1:
-		var rand_phrase = array.pick_random()
+	if cursed:
+		var rand_phrase = cursed_phrases.pick_random()
 		phrase.get_node("phrase_timer").start(2)
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
+	else:
+		if rand_num == 1:
+			var rand_phrase = array.pick_random()
+			phrase.get_node("phrase_timer").start(2)
+			phrase.text = rand_phrase
+			await phrase.get_node("phrase_timer").timeout
+			phrase.text = ""
 
 
 func switch_round_modes(fight_time):

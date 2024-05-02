@@ -61,13 +61,7 @@ func _on_button_pressed(button_name):
 			mon.intelligence += 1
 		"gamble":
 			points_to_spend -= 1
-			mon.intelligence += randi_range(-1,2)
-			mon.strength += randi_range(-1,2)
-			mon.max_health += randi_range(-1,2)
-			if mon.strength <= 0:
-				mon.strength = 1
-			if mon.max_health < 1:
-				mon.max_health = 1	
+			gamble()
 		"type":
 			points_to_spend -= 1
 			var rand_num = randi_range(1,3)
@@ -81,3 +75,93 @@ func _on_button_pressed(button_name):
 		for button in upgrade_buttons:
 			button.disabled = true
 		emit_signal("upgrades_finished")
+
+
+func gamble():
+	var player = mon.get_parent()
+	var player_losses = player.losses
+	var random_num = randi_range(0, 7)
+	random_num += player_losses
+	match random_num:
+		0:
+			if mon.cursed == false:
+				mon.cursed = true
+			else:
+				mon.cursed = false
+			print("cursed or un-cursed")
+		1:
+			print("made mon slower")
+			mon.speed -= 25
+		2:
+			print("made mon smaller")
+			mon.scale -= Vector2(.15, .15)
+		3:
+			print("made mon bigger")
+			mon.scale += Vector2(.15, .15)
+		4:
+			print("made mon faster")
+			mon.speed += 25
+		5:
+			print("1 stat 1 point higher")
+			increase_random_stats(1,1)
+		6:
+			print("2 stats 1 point higher")
+			increase_random_stats(2,1)
+		7:
+			print("1 stat 2 points higher")
+			increase_random_stats(1,2)
+		8:
+			print("3 stats 1 point higher")
+			increase_random_stats(3,1)
+		_:
+			print("1 stat 3 points higher")
+			increase_random_stats(1,3)
+
+
+func increase_random_stats(stats:int, alter_by:int):
+	var possible_stats = [1, 2, 3]
+	var random_stat = possible_stats.pick_random()
+	possible_stats.remove_at(possible_stats.find(random_stat))
+	var random_stat2 = possible_stats.pick_random()
+	possible_stats.remove_at(possible_stats.find(random_stat2))
+	var random_stat3 = possible_stats.pick_random()
+	if stats == 1:
+		if random_stat == 1:
+			mon.max_health += alter_by
+		if random_stat == 2:
+			mon.strength += alter_by
+		else:
+			mon.intelligence += alter_by
+	if stats == 2:
+		if random_stat == 1:
+			mon.max_health += alter_by
+		if random_stat == 2:
+			mon.strength += alter_by
+		if random_stat == 3:
+			mon.intelligence += alter_by
+		if random_stat2 == 1:
+			mon.max_health += alter_by
+		if random_stat2 == 2:
+			mon.strength += alter_by
+		if random_stat2 == 3:
+			mon.intelligence += alter_by
+	if stats == 3:
+		if random_stat == 1:
+			mon.max_health += alter_by
+		if random_stat == 2:
+			mon.strength += alter_by
+		if random_stat == 3:
+			mon.intelligence += alter_by
+		if random_stat2 == 1:
+			mon.max_health += alter_by
+		if random_stat2 == 2:
+			mon.strength += alter_by
+		if random_stat2 == 3:
+			mon.intelligence += alter_by
+		if random_stat3 == 1:
+			mon.max_health += alter_by
+		if random_stat3 == 2:
+			mon.strength += alter_by
+		if random_stat3 == 3:
+			mon.intelligence += alter_by
+

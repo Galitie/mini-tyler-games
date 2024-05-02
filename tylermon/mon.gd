@@ -16,6 +16,7 @@ var current_player_command = State.IDLE
 @export var custom_color : Color
 
 signal knocked_out
+signal queue_animation(current_animation, queued_animation)
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
@@ -65,6 +66,8 @@ func _ready():
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
 	sprite.modulate = custom_color
+	connect("queue_animation", play_next_animation)
+
 
 func _physics_process(delta):
 	if health <= 0 and current_state != State.KNOCKED_OUT:
@@ -91,7 +94,7 @@ func set_state(state):
 	match state:
 		State.WALK_RANDOM:
 			sprite.play("move")
-			chance_to_say_phrase(bored_phrases, 2)
+			chance_to_say_phrase(bored_phrases, 3)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
@@ -134,7 +137,7 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 			hp_bar.visible = false
 			velocity = Vector2()
-			sprite.play("dead")
+
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
@@ -202,9 +205,14 @@ func update_state(state, delta):
 
 		State.SPECIAL_ATTACK:
 			pass
-			
+	
 		State.KNOCKED_OUT:
-			pass
+			if sprite.is_playing():
+				pass
+			else:
+				emit_signal("queue_animation", "just_knocked_out", "dead")
+				
+				
 
 
 func get_other_random_mon():
@@ -322,3 +330,9 @@ func _on_charge_timer_timeout():
 		return
 	else:
 		set_state(State.SPECIAL_ATTACK)
+
+
+func play_next_animation(current_animation: String, queued_animation: String):
+	match current_animation:
+		"just_knocked_out":
+			sprite.play(queued_animation)

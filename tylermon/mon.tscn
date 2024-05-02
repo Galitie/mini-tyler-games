@@ -32,10 +32,10 @@ height = 17.2536
 [sub_resource type="SpriteFrames" id="SpriteFrames_scvj0"]
 animations = [{
 "frames": [{
-"duration": 2.0,
+"duration": 0.5,
 "texture": ExtResource("2_epn60")
 }, {
-"duration": 1.5,
+"duration": 2.0,
 "texture": ExtResource("3_vd7s0")
 }, {
 "duration": 1.0,
@@ -108,8 +108,14 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_h2vbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2adcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h2vbk")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 3.0
 }, {
@@ -208,6 +214,7 @@ shape = SubResource("CapsuleShape2D_u036k")
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
 animation = &"just_knocked_out"
+autoplay = "idle"
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]

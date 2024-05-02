@@ -273,13 +273,13 @@ func switch_round_modes(fight_time):
 		timer.stop()
 		if current_state == State.KNOCKED_OUT:
 			hp_bar.visible = true
-		set_state(State.IDLE)
 		health = max_health
 		health_label.text = str(max_health)
 		hp_bar.max_value = max_health
 		hp_bar.value = max_health
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
 		position = upgrade_pos
+		set_state(State.IDLE)
 
 
 func move_to_destination(delta):

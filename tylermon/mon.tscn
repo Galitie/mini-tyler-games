@@ -207,9 +207,7 @@ shape = SubResource("CapsuleShape2D_u036k")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"special_atk"
-frame = 4
-frame_progress = 1.0
+animation = &"just_knocked_out"
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]

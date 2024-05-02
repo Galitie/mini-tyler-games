@@ -38,8 +38,6 @@ func _ready():
 
 func _process(_delta):
 	if upgrade_time:
-		current_focus = get_viewport().gui_get_focus_owner()
-		update_button_description()
 		hp_stat.text = "HP: " + str(mon.max_health)
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
@@ -107,41 +105,43 @@ func gamble():
 		0:
 			if mon.cursed == false:
 				mon.cursed = true
+				description.text = "Mon is CURSED"
 			else:
 				mon.cursed = false
-			print("cursed or un-cursed")
+				description.text = "Mon has been un-cursed"
 		1:
-			print("made mon slower")
 			mon.speed -= 25
+			description.text = "Mon is sluggish!"
 		2:
-			print("made mon smaller")
 			mon.scale -= Vector2(.15, .15)
+			description.text = "Mon has shrunk!"
 		3:
-			print("made mon bigger")
 			mon.scale += Vector2(.15, .15)
+			description.text = "Mon has grown!"
 		4:
-			print("made mon faster")
 			mon.speed += 25
+			description.text = "Mon is speedier!"
 		5:
-			print("gave mon ADHD")
 			if mon.max_think_time == 1.5:
-				print("mon already has ADHD, adding random stat point instead")
+				description.text = "Mon gained 1 random stat increase!"
 				increase_random_stats(1,1)
-			mon.max_think_time = 1.5
+			else:
+				mon.max_think_time = 1.5
+				description.text = "Mon has ADHD and will change it's mind quicker"
 		6:
-			print("1 stat 1 point higher")
+			description.text = "Mon gained 1 point in one random stat"
 			increase_random_stats(1,1)
 		7:
-			print("2 stats 1 point higher")
+			description.text = "LUCKY! Mon gained 1 point in two random stats!"
 			increase_random_stats(2,1)
 		8:
-			print("1 stat 2 points higher")
+			description.text = "LUCKY! Mon gained 2 points in one random stat!"
 			increase_random_stats(1,2)
 		9:
-			print("3 stats 1 point higher")
+			description.text = "LUCKY! Mon gained 1 point in THREE random stats!"
 			increase_random_stats(3,1)
 		_:
-			print("1 stat 3 points higher")
+			description.text = "LUCKY! Mon gained 3 points in 1 random stat!"
 			increase_random_stats(1,3)
 
 
@@ -193,8 +193,11 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.intelligence += alter_by
 
 
-func update_button_description():
-	match current_focus.name:
+
+
+
+func _on_mouse_entered(button_name):
+	match button_name:
 		"hp":
 			description.text = hp_desc
 		"str":

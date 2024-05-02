@@ -16,13 +16,13 @@ var current_player_command = State.IDLE
 @export var custom_color : Color
 
 signal knocked_out
-signal queue_animation(current_animation, queued_animation)
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
  	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
 	PLAYER_COMMAND, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
 	}
+
 
 var state_weights = [
 	{"state": State.IDLE, "roll_weight": 15, "acc_weight": 0, "mult": 1}, 
@@ -51,6 +51,7 @@ var state_weights = [
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
 @onready var sprite = $sprite
+@onready var anim_player = $modulate_animations
 
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
@@ -66,7 +67,6 @@ func _ready():
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
 	sprite.modulate = custom_color
-	connect("queue_animation", play_next_animation)
 
 
 func _physics_process(delta):
@@ -74,6 +74,8 @@ func _physics_process(delta):
 		set_state(State.KNOCKED_OUT)
 	move_and_slide()
 	update_state(current_state, delta)
+	if !anim_player.is_playing():
+		sprite.modulate = custom_color
 
 
 func _on_timer_timeout():
@@ -119,7 +121,9 @@ func set_state(state):
 			chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("special_atk")
-			special_atk_box.get_child(0).disabled = false
+			var special_attack = special_atk_box.get_children()
+			for hitbox in special_attack:
+				hitbox.disabled = false
 			attack_timer.start(.3)
 		
 		State.IDLE:
@@ -207,12 +211,7 @@ func update_state(state, delta):
 			pass
 	
 		State.KNOCKED_OUT:
-			if sprite.is_playing():
-				pass
-			else:
-				emit_signal("queue_animation", "just_knocked_out", "dead")
-				
-				
+			when_done_play_next_animation("is_knocked_out", "dead")
 
 
 func get_other_random_mon():
@@ -237,6 +236,8 @@ func _on_hurt_box_area_entered(area):
 			damage(attacking_mon, 1)
 		else:
 			damage(attacking_mon, 0)
+	velocity = Vector2()
+	anim_player.play("hurt")
 	sprite.play("hurt")
 	health_label.text = str(health)
 	hp_bar.value = health
@@ -268,7 +269,9 @@ func switch_round_modes(fight_time):
 		position = fight_pos
 		hp_bar.visible = true
 		basic_atk_box.get_child(0).disabled = true
-		special_atk_box.get_child(0).disabled = true
+		var special_attack = special_atk_box.get_children()
+		for hitbox in special_attack:
+			hitbox.disabled = true
 		hurt_box.get_child(0).disabled = false
 		get_node("collision").disabled = false
 		health = max_health
@@ -311,7 +314,9 @@ func _on_attack_timer_timeout():
 	else:
 		timer.paused = false
 		basic_atk_box.get_child(0).disabled = true
-		special_atk_box.get_child(0).disabled = true
+		var special_attack = special_atk_box.get_children()
+		for hitbox in special_attack:
+			hitbox.disabled = true
 		z_index = default_z_index
 
 
@@ -332,7 +337,9 @@ func _on_charge_timer_timeout():
 		set_state(State.SPECIAL_ATTACK)
 
 
-func play_next_animation(current_animation: String, queued_animation: String):
-	match current_animation:
-		"just_knocked_out":
-			sprite.play(queued_animation)
+func when_done_play_next_animation(current_animation: String, queued_animation: String):
+	if !sprite.is_playing():
+		match current_animation:
+			"just_knocked_out":
+				sprite.play(queued_animation)
+

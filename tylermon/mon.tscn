@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=33 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/mon_base_hurt.png" id="2_2adcg"]
@@ -201,7 +201,32 @@ height = 22.8776
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
 radius = 9.15743
 
+[sub_resource type="Animation" id="Animation_i6xwv"]
+resource_name = "hurt"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.917647, 0.266667, 0.25098, 1), Color(0.917647, 0.266667, 0.25098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ejfqx"]
+_data = {
+"hurt": SubResource("Animation_i6xwv")
+}
+
 [node name="mon" type="CharacterBody2D" groups=["mons"]]
+motion_mode = 1
+wall_min_slide_angle = 3.14159
+floor_constant_speed = true
+platform_on_leave = 2
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
@@ -211,10 +236,12 @@ scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"just_knocked_out"
+animation = &"special_atk"
 autoplay = "idle"
+frame = 1
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]
@@ -296,8 +323,14 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="special_atk_box_coll" type="CollisionShape2D" parent="special_atk_box"]
-position = Vector2(0.53002, 1.90735e-06)
-scale = Vector2(1.12, 1.2)
+position = Vector2(-6.01774, 2.03043)
+scale = Vector2(0.455069, 1.2)
+shape = SubResource("CircleShape2D_glbfy")
+disabled = true
+
+[node name="special_atk_box_coll2" type="CollisionShape2D" parent="special_atk_box"]
+position = Vector2(7.4477, 2.58418)
+scale = Vector2(0.455069, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
@@ -343,6 +376,11 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 28
 text = "1"
 horizontal_alignment = 1
+
+[node name="modulate_animations" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ejfqx")
+}
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

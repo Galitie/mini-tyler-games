@@ -3,7 +3,9 @@
 [ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtmia"]
+content_margin_left = 5.0
 content_margin_top = 3.0
+content_margin_right = 5.0
 content_margin_bottom = 3.0
 bg_color = Color(0.552941, 0.407843, 0.847059, 1)
 corner_radius_top_left = 3
@@ -29,13 +31,20 @@ theme_override_constants/separation = 15
 layout_mode = 2
 theme_override_constants/separation = 9
 
+[node name="description" type="Label" parent="margin/hbox/buttons"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_font_sizes/font_size = 12
+text = "Dole out 3 points to stats"
+autowrap_mode = 2
+
 [node name="hbox" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
 
 [node name="hp" type="Button" parent="margin/hbox/buttons/hbox"]
 layout_mode = 2
 size_flags_horizontal = 4
-focus_neighbor_top = NodePath("../../button6")
+focus_neighbor_top = NodePath("../../hbox7/gamble")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
 text = "Increase Health"
 alignment = 0
@@ -81,30 +90,52 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_top = NodePath(".")
-focus_neighbor_bottom = NodePath("../../button6")
+focus_neighbor_bottom = NodePath("../../hbox7/gamble")
 text = "Change Attack Type"
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]
 layout_mode = 2
 text = "NONE"
 
-[node name="button6" type="Button" parent="margin/hbox/buttons"]
+[node name="hbox7" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
-focus_neighbor_top = NodePath("../hbox5/type")
-focus_neighbor_bottom = NodePath("../hbox/hp")
+
+[node name="gamble" type="Button" parent="margin/hbox/buttons/hbox7"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_top = NodePath("../../hbox5/type")
+focus_neighbor_bottom = NodePath("../../hbox/hp")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
 text = "GAMBLE"
 
-[node name="stats" type="VBoxContainer" parent="margin/hbox"]
+[node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]
 layout_mode = 2
-alignment = 2
+alignment = 1
 
-[node name="stat_bar" type="HBoxContainer" parent="margin/hbox/stats"]
+[node name="wins" type="HBoxContainer" parent="margin/hbox/buttons/hbox7/hbox6"]
 layout_mode = 2
-theme_override_constants/separation = 20
+
+[node name="wins" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/wins"]
+layout_mode = 2
+text = "Win:"
+
+[node name="wins_num" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/wins"]
+layout_mode = 2
+text = "0"
+
+[node name="losses" type="HBoxContainer" parent="margin/hbox/buttons/hbox7/hbox6"]
+layout_mode = 2
+
+[node name="losses" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/losses"]
+layout_mode = 2
+text = "Loss:"
+
+[node name="losses_num" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/losses"]
+layout_mode = 2
+text = "0"
 
 [connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox2/str" to="." method="_on_button_pressed" binds= ["str"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox3/int" to="." method="_on_button_pressed" binds= ["int"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox5/type" to="." method="_on_button_pressed" binds= ["type"]]
-[connection signal="pressed" from="margin/hbox/buttons/button6" to="." method="_on_button_pressed" binds= ["gamble"]]
+[connection signal="pressed" from="margin/hbox/buttons/hbox7/gamble" to="." method="_on_button_pressed" binds= ["gamble"]]

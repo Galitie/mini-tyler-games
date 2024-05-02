@@ -15,11 +15,7 @@ var upgrades_counter: int = 0
 @onready var round_timer = $round_timer
 @onready var transition_timer = $transition_timer
 @onready var command_ui = $command_ui
-@onready var wins_ui = $wins_ui
-@onready var player1_win_label = $wins_ui/margin/box/hbox/wins
-@onready var player2_win_label = $wins_ui/margin/box/hbox2/wins
-@onready var player3_win_label = $wins_ui/margin/box/hbox3/wins
-@onready var player4_win_label = $wins_ui/margin/box/hbox4/wins
+
 
 const STATE = preload("res://tylermon/mon.gd")
 
@@ -57,7 +53,6 @@ func _on_round_timer_timeout():
 		fight_time = false
 		upgrades_counter = 0
 		var winners = get_end_of_round_winner()
-		update_player_wins_losses_labels()
 		call_and_switch_modes()
 		await check_for_game_end()
 		upgrade_menu.visible = true
@@ -71,7 +66,6 @@ func _on_round_timer_timeout():
 		current_round += 1
 		upgrade_menu.visible = false
 		command_ui.visible = true
-		update_player_wins_losses_labels()
 		call_and_switch_modes()
 		countdown_label.text = "Round ends in:"
 		round_timer.start(fight_length)
@@ -101,19 +95,6 @@ func get_end_of_round_winner():
 			player.wins += 1
 			winners.append(player)
 	return winners
-
-
-func update_player_wins_losses_labels():
-	var players = get_tree().get_nodes_in_group("player")
-	for player in players:
-		if player.name == "player0":
-			player1_win_label.text = str(player.wins)
-		if player.name == "player1":
-			player2_win_label.text = str(player.wins)
-		if player.name == "player2":
-			player3_win_label.text = str(player.wins)
-		if player.name == "player3":
-			player4_win_label.text = str(player.wins)
 
 
 func check_for_game_end():

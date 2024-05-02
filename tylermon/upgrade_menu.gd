@@ -1,29 +1,45 @@
 extends Control
 var mon
+var player
 var upgrade_time : bool = false
 var points_to_spend : int = 3
 var players_done_upgrading : int = 0
+var current_focus
 
 @onready var hp_stat = $margin/hbox/buttons/hbox/stat1
 @onready var str_stat = $margin/hbox/buttons/hbox2/stat2
 @onready var int_stat = $margin/hbox/buttons/hbox3/stat3
 @onready var type_stat = $margin/hbox/buttons/hbox5/stat4
+@onready var player_wins = $margin/hbox/buttons/hbox7/hbox6/wins/wins_num
+@onready var player_losses = $margin/hbox/buttons/hbox7/hbox6/losses/losses_num
+@onready var description = $margin/hbox/buttons/description
 
 @onready var hp_button = $margin/hbox/buttons/hbox/hp
 @onready var str_button = $margin/hbox/buttons/hbox2/str
 @onready var int_button = $margin/hbox/buttons/hbox3/int
-@onready var gamble_button = $margin/hbox/buttons/button6
+@onready var gamble_button = $margin/hbox/buttons/hbox7/gamble
 @onready var type_button = $margin/hbox/buttons/hbox5/type
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
+
+
+var hp_desc = "+1 max mon health"
+var str_desc = "Mon's attacks do more damage"
+var int_desc = "Mon is more likely to listen to you and make good decisions"
+var type_desc = "Change mon's element to WATER, FIRE or EARTH"
+var gamble_desc = "Who knows?! Hint: The more losses you have, the luckier you are!"
+
 
 signal upgrades_finished
 
 func _ready():
 	get_mon()
+	get_player()
 
 
 func _process(_delta):
 	if upgrade_time:
+		current_focus = get_viewport().gui_get_focus_owner()
+		update_button_description()
 		hp_stat.text = "HP: " + str(mon.max_health)
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
@@ -31,10 +47,16 @@ func _process(_delta):
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
+		player_wins.text = str(player.wins)
+		player_losses.text = str(player.losses)
 
 
 func get_mon():
 	mon = get_child(1).get_child(0)
+
+
+func get_player():
+	player = mon.get_parent()
 
 
 func switch_upgrade_time(fight_time):
@@ -78,7 +100,6 @@ func _on_button_pressed(button_name):
 
 
 func gamble():
-	var player = mon.get_parent()
 	var player_losses = player.losses
 	var random_num = randi_range(0, 8)
 	random_num += player_losses
@@ -171,3 +192,16 @@ func increase_random_stats(stats:int, alter_by:int):
 		if random_stat3 == 3:
 			mon.intelligence += alter_by
 
+
+func update_button_description():
+	match current_focus.name:
+		"hp":
+			description.text = hp_desc
+		"str":
+			description.text = str_desc
+		"int":
+			description.text = int_desc
+		"type":
+			description.text = type_desc
+		"gamble":
+			description.text = gamble_desc

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var tyler_type: String
-var max_health: int = 3
+var max_health: int = 2
 var health: int = max_health
 var speed: int = 75
 var intelligence: int = 1
@@ -13,7 +13,7 @@ var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.IDLE
 
-@export var starting_sprite : Texture
+@export var custom_color : Color
 
 signal knocked_out
 
@@ -35,9 +35,6 @@ var state_weights = [
 	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 5}
 ]
   
-@onready var anim_player_attack = $anim_player_attack
-@onready var anim_player_hurt = $anim_player_hurt
-@onready var anim_player_damage = $anim_player_damage
 @onready var timer = $timer
 @onready var attack_timer = $attack_timer
 @onready var charge_timer = $charge_timer
@@ -67,8 +64,7 @@ var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Ca
 func _ready():
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
-	sprite.texture = starting_sprite
-
+	sprite.modulate = custom_color
 
 func _physics_process(delta):
 	if health <= 0 and current_state != State.KNOCKED_OUT:
@@ -94,6 +90,7 @@ func _on_timer_timeout():
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
+			sprite.play("move")
 			chance_to_say_phrase(bored_phrases, 2)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
@@ -102,14 +99,14 @@ func set_state(state):
 			velocity = Vector2()
 			chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
-			anim_player_attack.play("basic_atk")
+			sprite.play("basic_atk")
 			basic_atk_box.get_child(0).disabled = false
 			attack_timer.start(.3)
 		
 		State.CHARGE_UP:
 			timer.paused = true
 			velocity = Vector2()
-			anim_player_attack.play("charge_up")
+			sprite.play("charge")
 			charge_timer.start(2)
 			z_index = default_z_index + 1
 		
@@ -118,34 +115,39 @@ func set_state(state):
 			velocity = Vector2()
 			chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
-			anim_player_attack.play("special_atk")
+			sprite.play("special_atk")
 			special_atk_box.get_child(0).disabled = false
 			attack_timer.start(.3)
 		
 		State.IDLE:
+			sprite.play("idle")
 			velocity = Vector2()
 			chance_to_say_phrase(bored_phrases, 1)
 		
 		State.KNOCKED_OUT:
 			emit_signal("knocked_out")
+			sprite.play("just_knocked_out")
 			chance_to_say_phrase(knocked_out_phrases, 3)
 			timer.paused = true
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
-			anim_player_attack.play("knocked_out")
 			hp_bar.visible = false
 			velocity = Vector2()
+			sprite.play("dead")
 
 		State.TARGET_AND_GO:
+			sprite.play("move")
 			chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 		
 		State.TARGET_AND_ATTACK:
+			sprite.play("move")
 			chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 
 		State.TARGET_AND_SPECIAL:
+			sprite.play("move")
 			chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 		
@@ -153,7 +155,7 @@ func set_state(state):
 			chance_to_say_phrase(blocking_phrases, 4)
 			velocity = Vector2()
 			block_timer.start(2.5)
-			anim_player_hurt.play("block")
+			sprite.play("block")
 			timer.paused = true
 			z_index = default_z_index + 1
 			hurt_box.get_child(0).disabled = true
@@ -219,7 +221,6 @@ func _on_hurt_box_area_entered(area):
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
-		anim_player_hurt.play("hurt")
 		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
 			damage(attacking_mon, 2)
 		if elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
@@ -228,6 +229,7 @@ func _on_hurt_box_area_entered(area):
 			damage(attacking_mon, 1)
 		else:
 			damage(attacking_mon, 0)
+	sprite.play("hurt")
 	health_label.text = str(health)
 	hp_bar.value = health
 	if health <= roundi(max_health * .25):
@@ -239,7 +241,6 @@ func damage(mon, modifier: int):
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += 1 + roundi(mon.strength * strength_mod)
 	damage_label.text = str(damage)
-	anim_player_damage.play("damage")
 	health -= damage
 
 
@@ -271,7 +272,6 @@ func switch_round_modes(fight_time):
 	else:
 		timer.stop()
 		if current_state == State.KNOCKED_OUT:
-			anim_player_attack.play("get_up")
 			hp_bar.visible = true
 		set_state(State.IDLE)
 		health = max_health

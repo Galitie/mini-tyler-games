@@ -62,7 +62,9 @@ func build_winners_nodes(winners):
 			remaining_health.text = "HP remaining: " + str(winner.get_child(0).health)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var image = TextureRect.new()
-		image.texture = winner.get_child(0).get_node("sprite").texture
+		var sprite_frame = winner.get_child(0).get_node("sprite").get_sprite_frames()
+		image.texture = sprite_frame.get_frame_texture("idle",0)
+		image.modulate = winner.get_child(0).custom_color
 		var vbox = VBoxContainer.new()
 		vbox.add_child(label)
 		vbox.add_child(image)

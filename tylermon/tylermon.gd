@@ -99,8 +99,10 @@ func get_end_of_round_winner():
 
 func check_for_game_end():
 	if current_round == max_rounds:
+		var winning_players_before_totals = []
 		var winning_players = []
 		var highest_wins
+		var highest_total
 		var players = get_tree().get_nodes_in_group("player")
 		for player in players:
 			if highest_wins == null:
@@ -109,8 +111,19 @@ func check_for_game_end():
 				highest_wins = player.wins
 		for player in players:
 			if player.wins == highest_wins:
-				winning_players.append(player)
-		await show_transition("final_winner", winning_players, 100)
+				winning_players_before_totals.append(player)
+		if winning_players_before_totals.size() > 1:
+			for player in winning_players_before_totals:
+				if highest_total == null:
+					highest_total = (player.wins - player.losses)
+				if highest_total <= (player.wins - player.losses):
+					highest_total = (player.wins - player.losses)
+			for player in players:
+				if (player.wins - player.losses) == highest_total:
+					winning_players.append(player)
+			await show_transition("final_winner", winning_players, 100)
+		else:
+			await show_transition("final_winner", winning_players_before_totals, 100)
 
 
 func _add_knocked_out_mon():

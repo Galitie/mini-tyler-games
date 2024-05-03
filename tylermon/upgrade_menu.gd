@@ -219,12 +219,11 @@ func set_place():
 	var player_totals = []
 	for player in players:
 		player.total = player.wins - player.losses
-		if player.total < 0:
-			player.total = 0
 		player_totals.append(player.total)
 	player_totals.sort()
-	player_totals.reverse()
-	var index = player_totals.find(player.total)
+	var remove_duplicates = array_unique(player_totals)
+	remove_duplicates.reverse()
+	var index = remove_duplicates.find(player.total)
 	var index_corrected = index + 1
 	var add
 	if index_corrected == 1:
@@ -236,3 +235,10 @@ func set_place():
 	if index_corrected == 4:
 		add = "th"
 	place.text = str(index_corrected) + add + " place"
+
+func array_unique(array: Array) -> Array:
+	var unique: Array = []
+	for item in array:
+		if not unique.has(item):
+			unique.append(item)
+	return unique

@@ -30,6 +30,7 @@ var gamble_desc = "Who knows?! Hint: The more losses you have, the luckier you a
 
 
 signal upgrades_finished
+signal upgraded
 
 func _ready():
 	get_mon()
@@ -95,6 +96,8 @@ func _on_button_pressed(button_name):
 		for button in upgrade_buttons:
 			button.disabled = true
 		emit_signal("upgrades_finished")
+	emit_signal("upgraded")
+	
 
 
 func gamble():
@@ -113,10 +116,12 @@ func gamble():
 			mon.speed -= 25
 			description.text = "Mon is sluggish!"
 		2:
-			mon.scale -= Vector2(.15, .15)
+			for node in mon.nodes_affected_by_size:
+				node.scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"
 		3:
-			mon.scale += Vector2(.15, .15)
+			for node in mon.nodes_affected_by_size:
+				node.scale += Vector2(.15, .15)
 			description.text = "Mon has grown!"
 		4:
 			mon.speed += 25
@@ -191,9 +196,6 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.strength += alter_by
 		if random_stat3 == 3:
 			mon.intelligence += alter_by
-
-
-
 
 
 func _on_mouse_entered(button_name):

@@ -177,6 +177,25 @@ animations = [{
 "loop": false,
 "name": &"special_atk",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i6ad0")
+}],
+"loop": true,
+"name": &"upgrade_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4fk7g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_i6ad0")
+}],
+"loop": false,
+"name": &"upgrade_react",
+"speed": 3.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1caxg"]
@@ -239,9 +258,10 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"special_atk"
+animation = &"upgrade_react"
 autoplay = "idle"
 frame = 1
+frame_progress = 1.0
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]

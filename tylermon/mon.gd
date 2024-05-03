@@ -69,6 +69,7 @@ func _ready():
 	phrase.text = ""
 	get_parent().connect("send_command", get_command)
 	sprite.modulate = custom_color
+	get_parent().get_parent().connect("upgraded", upgrade_react)
 
 
 func _physics_process(delta):
@@ -293,13 +294,18 @@ func switch_round_modes(fight_time):
 		timer.stop()
 		if current_state == State.KNOCKED_OUT:
 			hp_bar.visible = true
+		set_state(State.IDLE)
+		sprite.play("upgrade_idle")
+		_on_attack_timer_timeout()
+		_on_block_timer_timeout()
 		health = max_health
 		health_label.text = str(max_health)
 		hp_bar.max_value = max_health
 		hp_bar.value = max_health
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
+		velocity = Vector2()
 		position = upgrade_pos
-		set_state(State.IDLE)
+		
 
 
 func move_to_destination(delta):
@@ -307,7 +313,8 @@ func move_to_destination(delta):
 		$sprite.flip_h = false
 	else:
 		$sprite.flip_h = true
-	position = position.move_toward(destination, speed * delta)
+	if !timer.is_stopped():
+		position = position.move_toward(destination, speed * delta)
 
 
 func get_command(command, player_index):
@@ -318,24 +325,18 @@ func get_command(command, player_index):
 
 
 func _on_attack_timer_timeout():
-	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
-		return
-	else:
-		timer.paused = false
-		basic_atk_box.get_child(0).disabled = true
-		var special_attack = special_atk_box.get_children()
-		for hitbox in special_attack:
-			hitbox.disabled = true
-		z_index = default_z_index
+	timer.paused = false
+	basic_atk_box.get_child(0).disabled = true
+	var special_attack = special_atk_box.get_children()
+	for hitbox in special_attack:
+		hitbox.disabled = true
+	z_index = default_z_index
 
 
 func _on_block_timer_timeout():
-	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
-		return
-	else:
-		timer.paused = false
-		hurt_box.get_child(0).disabled = false
-		z_index = default_z_index
+	timer.paused = false
+	hurt_box.get_child(0).disabled = false
+	z_index = default_z_index
 
 
 func _on_charge_timer_timeout():
@@ -352,3 +353,6 @@ func when_done_play_next_animation(current_animation: String, queued_animation: 
 			"just_knocked_out":
 				sprite.play(queued_animation)
 
+
+func upgrade_react():
+	sprite.play("upgrade_react")

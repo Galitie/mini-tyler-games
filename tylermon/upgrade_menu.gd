@@ -26,7 +26,7 @@ var hp_desc = "+1 max mon health"
 var str_desc = "Mon's attacks do more damage"
 var int_desc = "Mon is more likely to listen to you and make good decisions"
 var type_desc = "Change mon's element to WATER, FIRE or EARTH"
-var gamble_desc = "Who knows?! Hint: The more losses you have, the luckier you are!"
+var gamble_desc = "Who knows?! Hint: The more you are losing the luckier you are!"
 
 
 signal upgrades_finished
@@ -102,19 +102,22 @@ func _on_button_pressed(button_name):
 
 func gamble():
 	var player_losses = player.losses
+	var player_wins = player.wins
 	var random_num = randi_range(0, 8)
-	random_num += player_losses
+	random_num += (player_losses - player_wins)
+	if random_num < 0:
+		random_num = 0
 	match random_num:
 		0:
-			mon.speed -= 25
-			description.text = "Mon is sluggish!"
-		1:
 			if mon.cursed == false:
 				mon.cursed = true
 				description.text = "Mon is CURSED"
 			else:
 				mon.cursed = false
 				description.text = "Mon has been un-cursed"
+		1:
+			mon.speed -= 25
+			description.text = "Mon is sluggish!"
 		2:
 			mon.scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"

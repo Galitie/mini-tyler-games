@@ -116,12 +116,10 @@ func gamble():
 			mon.speed -= 25
 			description.text = "Mon is sluggish!"
 		2:
-			for node in mon.nodes_affected_by_size:
-				node.scale -= Vector2(.15, .15)
+			mon.scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"
 		3:
-			for node in mon.nodes_affected_by_size:
-				node.scale += Vector2(.15, .15)
+			mon.scale += Vector2(.15, .15)
 			description.text = "Mon has grown!"
 		4:
 			mon.speed += 25

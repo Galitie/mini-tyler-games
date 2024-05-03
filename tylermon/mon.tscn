@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=32 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/mon_base_hurt.png" id="2_2adcg"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/mon_base_knocked_out3.png" id="18_7kvut"]
 [ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/mon_base_special.png" id="18_050gi"]
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/mon_base_special2.png" id="19_v6lq8"]
+[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon_theme.tres" id="25_0om5b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 radius = 6.07992
@@ -198,21 +199,6 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1caxg"]
-bg_color = Color(0.4, 0.4, 0.4, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjlq7"]
-resource_local_to_scene = true
-bg_color = Color(0, 0.72549, 0.14902, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljrqg"]
 radius = 8.14321
 height = 22.8776
@@ -289,8 +275,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.994895)
 size_flags_horizontal = 4
-theme_override_styles/background = SubResource("StyleBoxFlat_1caxg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_bjlq7")
+theme = ExtResource("25_0om5b")
 step = 1.0
 show_percentage = false
 

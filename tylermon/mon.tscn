@@ -1,30 +1,29 @@
-[gd_scene load_steps=32 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=37 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
-[ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/mon_base_hurt.png" id="2_2adcg"]
-[ext_resource type="Texture2D" uid="uid://vd4htm5xmrf6" path="res://tylermon/mon_base_basic_attack.png" id="2_epn60"]
+[ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
+[ext_resource type="Texture2D" uid="uid://vd4htm5xmrf6" path="res://tylermon/sprites/mon_base_basic_attack.png" id="2_epn60"]
 [ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_i6ad0"]
-[ext_resource type="Texture2D" uid="uid://ek6pu5mhuuqf" path="res://tylermon/mon_base_idle.png" id="3_4fk7g"]
-[ext_resource type="Texture2D" uid="uid://d35oiqb68o51k" path="res://tylermon/mon_base_hurt2.png" id="3_h2vbk"]
-[ext_resource type="Texture2D" uid="uid://10xdm6hg5oay" path="res://tylermon/mon_base_basic_attack2.png" id="3_vd7s0"]
-[ext_resource type="Texture2D" uid="uid://biec2ewy4cxyq" path="res://tylermon/mon_base_basic_attack3.png" id="4_fxyav"]
-[ext_resource type="Texture2D" uid="uid://cseer4lya8rgn" path="res://tylermon/mon_base_move.png" id="6_axrsn"]
-[ext_resource type="Texture2D" uid="uid://bpaqa0iqoxs7" path="res://tylermon/mon_base_block.png" id="6_sfpif"]
-[ext_resource type="Texture2D" uid="uid://dinmg05oam6r1" path="res://tylermon/mon_base_block2.png" id="7_d7wyo"]
-[ext_resource type="Texture2D" uid="uid://bemqqy2esa2po" path="res://tylermon/mon_base_move2.png" id="7_p4ot1"]
-[ext_resource type="Texture2D" uid="uid://konncdppblxn" path="res://tylermon/mon_base_block3.png" id="8_4qljk"]
-[ext_resource type="Texture2D" uid="uid://cf23x7a6t5vwn" path="res://tylermon/mon_base_charge.png" id="9_ygnaw"]
-[ext_resource type="Texture2D" uid="uid://bjf4g6cjrobll" path="res://tylermon/mon_base_charge2.png" id="10_ix3ob"]
-[ext_resource type="Texture2D" uid="uid://dghp0ddxuub7f" path="res://tylermon/mon_base_charge3.png" id="11_ytvyf"]
-[ext_resource type="Texture2D" uid="uid://dviokamcg07ro" path="res://tylermon/mon_base_charge4.png" id="12_8fu4j"]
-[ext_resource type="Texture2D" uid="uid://chsnaoao0x1ag" path="res://tylermon/mon_base_dead.png" id="13_f3k2q"]
-[ext_resource type="Texture2D" uid="uid://bi8revtwq7k88" path="res://tylermon/mon_base_dead2.png" id="14_1lvuy"]
-[ext_resource type="Texture2D" uid="uid://dvbesa1aruxri" path="res://tylermon/mon_base_knockedout.png" id="16_qd8iq"]
-[ext_resource type="Texture2D" uid="uid://c11eo2w1506es" path="res://tylermon/mon_base_knocked_out2.png" id="17_lnq8a"]
-[ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/mon_base_knocked_out3.png" id="18_7kvut"]
-[ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/mon_base_special.png" id="18_050gi"]
-[ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/mon_base_special2.png" id="19_v6lq8"]
-[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon_theme.tres" id="25_0om5b"]
+[ext_resource type="Texture2D" uid="uid://ek6pu5mhuuqf" path="res://tylermon/sprites/mon_base_idle.png" id="3_4fk7g"]
+[ext_resource type="Texture2D" uid="uid://d35oiqb68o51k" path="res://tylermon/sprites/mon_base_hurt2.png" id="3_h2vbk"]
+[ext_resource type="Texture2D" uid="uid://10xdm6hg5oay" path="res://tylermon/sprites/mon_base_basic_attack2.png" id="3_vd7s0"]
+[ext_resource type="Texture2D" uid="uid://biec2ewy4cxyq" path="res://tylermon/sprites/mon_base_basic_attack3.png" id="4_fxyav"]
+[ext_resource type="Texture2D" uid="uid://cseer4lya8rgn" path="res://tylermon/sprites/mon_base_move.png" id="6_axrsn"]
+[ext_resource type="Texture2D" uid="uid://bpaqa0iqoxs7" path="res://tylermon/sprites/mon_base_block.png" id="6_sfpif"]
+[ext_resource type="Texture2D" uid="uid://dinmg05oam6r1" path="res://tylermon/sprites/mon_base_block2.png" id="7_d7wyo"]
+[ext_resource type="Texture2D" uid="uid://bemqqy2esa2po" path="res://tylermon/sprites/mon_base_move2.png" id="7_p4ot1"]
+[ext_resource type="Texture2D" uid="uid://konncdppblxn" path="res://tylermon/sprites/mon_base_block3.png" id="8_4qljk"]
+[ext_resource type="Texture2D" uid="uid://cf23x7a6t5vwn" path="res://tylermon/sprites/mon_base_charge.png" id="9_ygnaw"]
+[ext_resource type="Texture2D" uid="uid://bjf4g6cjrobll" path="res://tylermon/sprites/mon_base_charge2.png" id="10_ix3ob"]
+[ext_resource type="Texture2D" uid="uid://dghp0ddxuub7f" path="res://tylermon/sprites/mon_base_charge3.png" id="11_ytvyf"]
+[ext_resource type="Texture2D" uid="uid://dviokamcg07ro" path="res://tylermon/sprites/mon_base_charge4.png" id="12_8fu4j"]
+[ext_resource type="Texture2D" uid="uid://chsnaoao0x1ag" path="res://tylermon/sprites/mon_base_dead.png" id="13_f3k2q"]
+[ext_resource type="Texture2D" uid="uid://bi8revtwq7k88" path="res://tylermon/sprites/mon_base_dead2.png" id="14_1lvuy"]
+[ext_resource type="Texture2D" uid="uid://dvbesa1aruxri" path="res://tylermon/sprites/mon_base_knockedout.png" id="16_qd8iq"]
+[ext_resource type="Texture2D" uid="uid://c11eo2w1506es" path="res://tylermon/sprites/mon_base_knocked_out2.png" id="17_lnq8a"]
+[ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/sprites/mon_base_knocked_out3.png" id="18_7kvut"]
+[ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/sprites/mon_base_special.png" id="18_050gi"]
+[ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 radius = 6.07992
@@ -116,7 +115,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_h2vbk")
 }],
-"loop": false,
+"loop": true,
 "name": &"hurt",
 "speed": 3.0
 }, {
@@ -199,6 +198,61 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbm80"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+bg_color = Color(0.784314, 0.541176, 0.301961, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbync"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+bg_color = Color(0.321569, 0.498039, 0.0901961, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbxsx"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+bg_color = Color(0.188235, 0.301961, 0.0431373, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nu2nj"]
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p62ak"]
+resource_local_to_scene = true
+bg_color = Color(0.341176, 0.52549, 0.0980392, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 7
+
+[sub_resource type="Theme" id="Theme_sjqgo"]
+resource_local_to_scene = true
+Button/styles/hover = SubResource("StyleBoxFlat_sbm80")
+Button/styles/normal = SubResource("StyleBoxFlat_sbync")
+Button/styles/pressed = SubResource("StyleBoxFlat_qbxsx")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_nu2nj")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_p62ak")
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljrqg"]
 radius = 8.14321
 height = 22.8776
@@ -244,10 +298,8 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"upgrade_react"
+animation = &"hurt"
 autoplay = "idle"
-frame = 1
-frame_progress = 1.0
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]
@@ -275,7 +327,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.994895)
 size_flags_horizontal = 4
-theme = ExtResource("25_0om5b")
+theme = SubResource("Theme_sjqgo")
 step = 1.0
 show_percentage = false
 

@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyyxc3uqqve2m"]
+[gd_scene load_steps=6 format=3 uid="uid://cyyxc3uqqve2m"]
 
 [ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
-[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon_theme.tres" id="2_obobf"]
+[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="2_obobf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtmia"]
 content_margin_left = 5.0
@@ -9,6 +9,28 @@ content_margin_top = 3.0
 content_margin_right = 5.0
 content_margin_bottom = 3.0
 bg_color = Color(0.552941, 0.407843, 0.847059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dj2a"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+bg_color = Color(0.427451, 0.27451, 0.698039, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03iys"]
+content_margin_left = 5.0
+content_margin_top = 3.0
+content_margin_right = 5.0
+content_margin_bottom = 3.0
+bg_color = Color(0.235294, 0.203922, 0.254902, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -113,6 +135,8 @@ focus_neighbor_top = NodePath("../../hbox5/type")
 focus_neighbor_bottom = NodePath("../../hbox/hp")
 theme = ExtResource("2_obobf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3dj2a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_03iys")
 text = "GAMBLE"
 
 [node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]

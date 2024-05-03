@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi8revtwq7k88"
-path="res://.godot/imported/mon_base_dead2.png-1a2f29322819a48a71595f005666e364.ctex"
+uid="uid://biec2ewy4cxyq"
+path="res://.godot/imported/mon_base_basic_attack3.png-c850cdc9ec6e76fff413b139d9675fb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tylermon/mon_base_dead2.png"
-dest_files=["res://.godot/imported/mon_base_dead2.png-1a2f29322819a48a71595f005666e364.ctex"]
+source_file="res://tylermon/sprites/mon_base_basic_attack3.png"
+dest_files=["res://.godot/imported/mon_base_basic_attack3.png-c850cdc9ec6e76fff413b139d9675fb0.ctex"]
 
 [params]
 

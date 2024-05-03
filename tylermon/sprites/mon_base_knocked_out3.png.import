@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnm8cgpbfx5bk"
-path="res://.godot/imported/mon_base_hurt.png-97db1665ab6e9bfd9b01336ba366020a.ctex"
+uid="uid://b66mxbmixgxfu"
+path="res://.godot/imported/mon_base_knocked_out3.png-4bfe35f9a82b8b3b19144221d4486180.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tylermon/mon_base_hurt.png"
-dest_files=["res://.godot/imported/mon_base_hurt.png-97db1665ab6e9bfd9b01336ba366020a.ctex"]
+source_file="res://tylermon/sprites/mon_base_knocked_out3.png"
+dest_files=["res://.godot/imported/mon_base_knocked_out3.png-4bfe35f9a82b8b3b19144221d4486180.ctex"]
 
 [params]
 

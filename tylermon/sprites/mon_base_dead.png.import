@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvbesa1aruxri"
-path="res://.godot/imported/mon_base_knockedout.png-c3b71178bbe83e054ad99aee967f097c.ctex"
+uid="uid://chsnaoao0x1ag"
+path="res://.godot/imported/mon_base_dead.png-4abdf96f73030ae4fe702957eb19588e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tylermon/mon_base_knockedout.png"
-dest_files=["res://.godot/imported/mon_base_knockedout.png-c3b71178bbe83e054ad99aee967f097c.ctex"]
+source_file="res://tylermon/sprites/mon_base_dead.png"
+dest_files=["res://.godot/imported/mon_base_dead.png-4abdf96f73030ae4fe702957eb19588e.ctex"]
 
 [params]
 

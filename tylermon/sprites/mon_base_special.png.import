@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dviokamcg07ro"
-path="res://.godot/imported/mon_base_charge4.png-0b27a05a5aa7bce34c8348a3aea0a068.ctex"
+uid="uid://e6c4xabx00ep"
+path="res://.godot/imported/mon_base_special.png-8e714e2f0097f2d3e8d92f7078a834dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tylermon/mon_base_charge4.png"
-dest_files=["res://.godot/imported/mon_base_charge4.png-0b27a05a5aa7bce34c8348a3aea0a068.ctex"]
+source_file="res://tylermon/sprites/mon_base_special.png"
+dest_files=["res://.godot/imported/mon_base_special.png-8e714e2f0097f2d3e8d92f7078a834dc.ctex"]
 
 [params]
 

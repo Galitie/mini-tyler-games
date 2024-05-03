@@ -5,7 +5,7 @@ content_margin_left = 10.0
 content_margin_top = 3.0
 content_margin_right = 10.0
 content_margin_bottom = 3.0
-bg_color = Color(0.784314, 0.541176, 0.301961, 1)
+bg_color = Color(0.188235, 0.301961, 0.0431373, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -27,7 +27,7 @@ content_margin_left = 10.0
 content_margin_top = 3.0
 content_margin_right = 10.0
 content_margin_bottom = 3.0
-bg_color = Color(0.188235, 0.301961, 0.0431373, 1)
+bg_color = Color(0.117647, 0.2, 0.0196078, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -39,7 +39,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf272"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6qke"]
 bg_color = Color(0.341176, 0.52549, 0.0980392, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -52,4 +52,4 @@ Button/styles/hover = SubResource("StyleBoxFlat_sbm80")
 Button/styles/normal = SubResource("StyleBoxFlat_sbync")
 Button/styles/pressed = SubResource("StyleBoxFlat_qbxsx")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_nu2nj")
-ProgressBar/styles/fill = SubResource("StyleBoxFlat_bf272")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_m6qke")

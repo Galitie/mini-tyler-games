@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cseer4lya8rgn"
-path="res://.godot/imported/mon_base_move.png-ecc6e439f3fc2d71909054db6ce31607.ctex"
+uid="uid://bemqqy2esa2po"
+path="res://.godot/imported/mon_base_move2.png-dbe1f1526f55642dabe2ec1b2c9d5b85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tylermon/mon_base_move.png"
-dest_files=["res://.godot/imported/mon_base_move.png-ecc6e439f3fc2d71909054db6ce31607.ctex"]
+source_file="res://tylermon/sprites/mon_base_move2.png"
+dest_files=["res://.godot/imported/mon_base_move2.png-dbe1f1526f55642dabe2ec1b2c9d5b85.ctex"]
 
 [params]
 

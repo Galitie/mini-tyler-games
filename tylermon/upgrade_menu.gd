@@ -106,15 +106,15 @@ func gamble():
 	random_num += player_losses
 	match random_num:
 		0:
+			mon.speed -= 25
+			description.text = "Mon is sluggish!"
+		1:
 			if mon.cursed == false:
 				mon.cursed = true
 				description.text = "Mon is CURSED"
 			else:
 				mon.cursed = false
 				description.text = "Mon has been un-cursed"
-		1:
-			mon.speed -= 25
-			description.text = "Mon is sluggish!"
 		2:
 			mon.scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"

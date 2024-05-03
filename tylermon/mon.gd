@@ -63,7 +63,7 @@ var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
 var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
-var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Mother fucker", "jesus christ", "dickheads", "pigfuckers"]
+var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", "pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", "dumb shits", "fucking hell", "fuuuck"]
 
 func _ready():
 	phrase.text = ""

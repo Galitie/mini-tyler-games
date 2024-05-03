@@ -165,6 +165,17 @@ text = "Loss:"
 layout_mode = 2
 text = "0"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
+layout_mode = 2
+
+[node name="place" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
+layout_mode = 2
+text = "You are currently in:"
+
+[node name="place_num" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
+layout_mode = 2
+text = "1st"
+
 [connection signal="mouse_entered" from="margin/hbox/buttons/hbox/hp" to="." method="_on_mouse_entered" binds= ["hp"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]
 [connection signal="mouse_entered" from="margin/hbox/buttons/hbox2/str" to="." method="_on_mouse_entered" binds= ["str"]]

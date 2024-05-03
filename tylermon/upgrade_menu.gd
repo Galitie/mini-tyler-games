@@ -13,6 +13,7 @@ var current_focus
 @onready var player_wins = $margin/hbox/buttons/hbox7/hbox6/wins/wins_num
 @onready var player_losses = $margin/hbox/buttons/hbox7/hbox6/losses/losses_num
 @onready var description = $margin/hbox/buttons/description
+@onready var place = $margin/hbox/buttons/HBoxContainer/place_num
 
 @onready var hp_button = $margin/hbox/buttons/hbox/hp
 @onready var str_button = $margin/hbox/buttons/hbox2/str
@@ -39,6 +40,7 @@ func _ready():
 
 func _process(_delta):
 	if upgrade_time:
+		set_place()
 		hp_stat.text = "HP: " + str(mon.max_health)
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
@@ -96,8 +98,7 @@ func _on_button_pressed(button_name):
 		for button in upgrade_buttons:
 			button.disabled = true
 		emit_signal("upgrades_finished")
-	emit_signal("upgraded")
-	
+	emit_signal("upgraded")	
 
 
 func gamble():
@@ -211,3 +212,27 @@ func _on_mouse_entered(button_name):
 			description.text = type_desc
 		"gamble":
 			description.text = gamble_desc
+
+
+func set_place():
+	var players = get_tree().get_nodes_in_group("player")
+	var player_totals = []
+	for player in players:
+		player.total = player.wins - player.losses
+		if player.total < 0:
+			player.total = 0
+		player_totals.append(player.total)
+	player_totals.sort()
+	player_totals.reverse()
+	var index = player_totals.find(player.total)
+	var index_corrected = index + 1
+	var add
+	if index_corrected == 1:
+		add = "st"
+	if index_corrected == 2:
+		add = "nd"
+	if index_corrected == 3:
+		add = "rd"
+	if index_corrected == 4:
+		add = "th"
+	place.text = str(index_corrected) + add + " place"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyyxc3uqqve2m"]
+[gd_scene load_steps=4 format=3 uid="uid://cyyxc3uqqve2m"]
 
 [ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
+[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon_theme.tres" id="2_obobf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtmia"]
 content_margin_left = 5.0
@@ -47,6 +48,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../../hbox7/gamble")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
+theme = ExtResource("2_obobf")
 text = "Increase Health"
 alignment = 0
 
@@ -64,6 +66,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 focus_neighbor_top = NodePath("../../hbox/hp")
 focus_neighbor_bottom = NodePath("../../hbox3/int")
+theme = ExtResource("2_obobf")
 text = "Increase Strength"
 
 [node name="stat2" type="Label" parent="margin/hbox/buttons/hbox2"]
@@ -78,6 +81,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_top = NodePath("../../hbox2/str")
 focus_neighbor_bottom = NodePath("../../hbox5/type")
+theme = ExtResource("2_obobf")
 text = "Increase Intelligence"
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]
@@ -92,6 +96,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_top = NodePath(".")
 focus_neighbor_bottom = NodePath("../../hbox7/gamble")
+theme = ExtResource("2_obobf")
 text = "Change Attack Type"
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]
@@ -106,6 +111,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_top = NodePath("../../hbox5/type")
 focus_neighbor_bottom = NodePath("../../hbox/hp")
+theme = ExtResource("2_obobf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
 text = "GAMBLE"
 

@@ -107,7 +107,7 @@ func _on_button_pressed(button_name):
 func gamble():
 	var player_losses = player.losses
 	var player_wins = player.wins
-	var random_num = randi_range(0, 8)
+	var random_num = randi_range(0, 6)
 	random_num += (player_losses - player_wins)
 	if random_num < 0:
 		random_num = 0

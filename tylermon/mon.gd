@@ -35,7 +35,7 @@ var state_weights = [
 	{"state": State.CHARGE_UP, "roll_weight": 4, "acc_weight": 0, "mult": 1.10},
 	{"state": State.TARGET_AND_ATTACK, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
 	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
-	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 5}
+	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 7}
 ]
   
 @onready var timer = $timer
@@ -252,7 +252,7 @@ func _on_hurt_box_area_entered(area):
 func damage(mon, modifier: int):
 	var damage = mon.strength + modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
-		damage += 1 + roundi(mon.strength * strength_mod)
+		damage += 1 + mon.strength
 	damage_label.text = str(damage)
 	damage_anim_player.play("damage_amount")
 	health -= damage

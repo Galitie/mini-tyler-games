@@ -21,7 +21,7 @@ layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="center_container"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 60
 
 [node name="vbox" type="VBoxContainer" parent="center_container/vbox"]
 layout_mode = 2
@@ -40,5 +40,5 @@ horizontal_alignment = 1
 
 [node name="winners" type="HBoxContainer" parent="center_container/vbox"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 alignment = 1

@@ -64,4 +64,5 @@ func build_winners_nodes(winners):
 		var vbox = VBoxContainer.new()
 		vbox.add_child(label)
 		vbox.add_child(image)
+		vbox.set("theme_override_constants/separation", -40)
 		container.add_child(vbox)

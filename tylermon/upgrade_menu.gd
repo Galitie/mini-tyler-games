@@ -92,11 +92,20 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			var rand_num = randi_range(1,3)
 			if rand_num == 1:
-				mon.elm_type = "FIRE"
+				if mon.elm_type != "FIRE":
+					mon.elm_type = "FIRE"
+				else: 
+					mon.elm_type = "WATER"
 			if rand_num == 2:
-				mon.elm_type = "WATER"
+				if mon.elm_type != "WATER":
+					mon.elm_type = "WATER"
+				else:
+					mon.elm_type = "EARTH"
 			if rand_num == 3:
-				mon.elm_type = "EARTH"
+				if mon.elm_type != "EARTH":
+					mon.elm_type = "EARTH"
+				else:
+					mon.elm_type = "FIRE"
 			emit_signal("upgraded", "good")
 	if points_to_spend == 0:
 		for button in upgrade_buttons:

@@ -146,7 +146,7 @@ func call_and_pause():
 
 func show_transition(type, content, timer_amount):
 	if type == "round_winners":
-		$wait_timer.start(2)
+		$wait_timer.start(2.5)
 		await $wait_timer.timeout
 		emit_signal("winners", content)
 		transition_timer.start(timer_amount)
@@ -155,7 +155,7 @@ func show_transition(type, content, timer_amount):
 		$transition_ui.visible = false
 		emit_signal("clear_winners")
 	if type == "final_winner":
-		$wait_timer.start(2)
+		$wait_timer.start(2.5)
 		await $wait_timer.timeout
 		transition_timer.start(timer_amount)
 		emit_signal("final_winners", content)

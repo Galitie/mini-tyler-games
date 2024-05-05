@@ -234,13 +234,13 @@ func _on_hurt_box_area_entered(area):
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
 		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
-			damage(attacking_mon, 2)
-		if elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
-			damage(attacking_mon, -1)
-		if elm_type == "NONE" && attacking_mon.elm_type != "NONE":
-			damage(attacking_mon, 1)
+			damage(attacking_mon, 2, "super")
+		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
+			damage(attacking_mon, -1, "not")
+		elif elm_type == "NONE" && attacking_mon.elm_type != "NONE":
+			damage(attacking_mon, 1, "super")
 		else:
-			damage(attacking_mon, 0)
+			damage(attacking_mon, 0, null)
 	health_label.text = str(health)
 	hp_bar.value = health
 	velocity = Vector2()
@@ -250,14 +250,19 @@ func _on_hurt_box_area_entered(area):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
 
 
-func damage(mon, modifier: int):
+func damage(mon, modifier: int, effect):
 	var damage = randi_range(mon.strength - 3, mon.strength)
+	damage += modifier
 	if damage <= 0:
 		damage = 1
-	damage += modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += 1
-	damage_label.text = str(damage)
+	if effect == "super":
+		damage_label.text = str(damage) + "!!!"
+	elif effect == "not":
+		damage_label.text = str(damage) + "<"
+	elif effect == null:
+		damage_label.text = str(damage)	
 	damage_anim_player.play("damage_amount")
 	health -= damage
 

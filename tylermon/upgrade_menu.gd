@@ -95,10 +95,10 @@ func _on_button_pressed(button_name):
 				if mon.elm_type != "WATER":
 					mon.elm_type = "WATER"
 				else:
-					mon.elm_type = "EARTH"
+					mon.elm_type = "GRASS"
 			if rand_num == 3:
-				if mon.elm_type != "EARTH":
-					mon.elm_type = "EARTH"
+				if mon.elm_type != "GRASS":
+					mon.elm_type = "GRASS"
 				else:
 					mon.elm_type = "FIRE"
 			emit_signal("upgraded", "good")

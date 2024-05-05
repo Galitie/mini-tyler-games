@@ -145,6 +145,7 @@ alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
+alignment = 1
 
 [node name="place" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2

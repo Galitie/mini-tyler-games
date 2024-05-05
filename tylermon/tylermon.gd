@@ -59,7 +59,7 @@ func _on_round_timer_timeout():
 		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
-		command_ui.visible = false
+		#command_ui.visible = false
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats: "
 		round_timer.start(upgrade_length)
@@ -67,7 +67,7 @@ func _on_round_timer_timeout():
 		fight_time = true
 		current_round += 1
 		upgrade_menu.visible = false
-		command_ui.visible = true
+		#command_ui.visible = true
 		call_and_switch_modes()
 		countdown_label.text = "Round ends:" 
 		$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)

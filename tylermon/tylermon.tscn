@@ -9,8 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://io2r0wxux8x6" path="res://tylermon/transition_ui.tscn" id="7_4dfmu"]
 
 [node name="tylermon" type="Node2D"]
+scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 60
+fight_length = 6
 upgrade_length = 60
 max_rounds = 3
 
@@ -70,6 +71,7 @@ anchor_bottom = 1.0
 offset_top = -50.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_bottom = 10
 
 [node name="seperator" type="HBoxContainer" parent="round_ui/margin"]
 layout_mode = 2
@@ -82,7 +84,6 @@ theme_override_font_sizes/font_size = 36
 text = "Round: "
 
 [node name="upgrade_ui" type="Control" parent="."]
-visible = false
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 0
@@ -97,15 +98,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 80
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="GridContainer" type="GridContainer" parent="upgrade_ui/margin"]
 layout_mode = 2
-theme_override_constants/h_separation = 160
-theme_override_constants/v_separation = 120
+theme_override_constants/h_separation = 120
+theme_override_constants/v_separation = 60
 columns = 2
 
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
@@ -116,7 +117,7 @@ layout_mode = 2
 script = ExtResource("5_uxsio")
 
 [node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player0" instance=ExtResource("2_yelk2")]
-position = Vector2(320, 180)
+position = Vector2(264, 212)
 custom_color = Color(0.164706, 0.164706, 0.168627, 1)
 
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
@@ -126,7 +127,7 @@ layout_mode = 2
 script = ExtResource("5_uxsio")
 
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
-position = Vector2(960, 180)
+position = Vector2(934, 212)
 custom_color = Color(0.972549, 0.0941176, 0.866667, 1)
 
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
@@ -136,7 +137,7 @@ layout_mode = 2
 script = ExtResource("5_uxsio")
 
 [node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player2" instance=ExtResource("2_yelk2")]
-position = Vector2(320, 540)
+position = Vector2(264, 562)
 custom_color = Color(0.0862745, 0.701961, 0.666667, 1)
 
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
@@ -146,7 +147,7 @@ layout_mode = 2
 script = ExtResource("5_uxsio")
 
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
-position = Vector2(960, 540)
+position = Vector2(934, 562)
 custom_color = Color(1, 1, 1, 1)
 
 [node name="command_ui" type="Control" parent="."]

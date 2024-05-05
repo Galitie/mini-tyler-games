@@ -89,7 +89,7 @@ script = ExtResource("5_uxsio")
 
 [node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player0" instance=ExtResource("2_yelk2")]
 position = Vector2(320, 180)
-custom_color = Color(0.878431, 0.65098, 0.870588, 1)
+custom_color = Color(0.164706, 0.164706, 0.168627, 1)
 
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
@@ -99,7 +99,7 @@ script = ExtResource("5_uxsio")
 
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
 position = Vector2(960, 180)
-custom_color = Color(0.972549, 0.980392, 0.572549, 1)
+custom_color = Color(0.972549, 0.0941176, 0.866667, 1)
 
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
@@ -109,7 +109,7 @@ script = ExtResource("5_uxsio")
 
 [node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player2" instance=ExtResource("2_yelk2")]
 position = Vector2(320, 540)
-custom_color = Color(0.27451, 0.588235, 0.721569, 1)
+custom_color = Color(0.0862745, 0.701961, 0.666667, 1)
 
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
@@ -119,7 +119,7 @@ script = ExtResource("5_uxsio")
 
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(960, 540)
-custom_color = Color(0.992157, 0.737255, 0.47451, 1)
+custom_color = Color(1, 1, 1, 1)
 
 [node name="command_ui" type="Control" parent="."]
 custom_minimum_size = Vector2(1280, 720)
@@ -155,6 +155,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="margin" type="MarginContainer" parent="transition_ui"]

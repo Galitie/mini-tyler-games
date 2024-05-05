@@ -301,6 +301,7 @@ func command_thought(action):
 	if current_state != State.KNOCKED_OUT:
 		$thought_anim.play("thought")
 
+
 func switch_round_modes(fight_time):
 	if fight_time:
 		timer.start(.5)
@@ -321,8 +322,7 @@ func switch_round_modes(fight_time):
 	else:
 		set_state(State.IDLE)
 		timer.stop()
-		if current_state == State.KNOCKED_OUT:
-			hp_bar.visible = true
+		hp_bar.visible = true
 		sprite.play("upgrade_idle")
 		health = max_health
 		health_label.text = str(max_health)

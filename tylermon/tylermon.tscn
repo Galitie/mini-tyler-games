@@ -12,7 +12,7 @@
 script = ExtResource("1_66guv")
 fight_length = 60
 upgrade_length = 60
-max_rounds = 2
+max_rounds = 5
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 visible = false
@@ -164,5 +164,7 @@ offset_bottom = 726.0
 
 [node name="container" parent="transition_ui/margin" instance=ExtResource("7_4dfmu")]
 layout_mode = 2
+
+[node name="wait_timer" type="Timer" parent="."]
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

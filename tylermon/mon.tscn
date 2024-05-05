@@ -336,6 +336,7 @@ platform_on_leave = 2
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 5)
 rotation = 1.5708
 scale = Vector2(8.05931, 7.65057)
@@ -345,9 +346,10 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"dead"
+animation = &"block"
 autoplay = "idle"
-frame_progress = 0.652862
+frame = 5
+frame_progress = 1.0
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]

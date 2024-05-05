@@ -1,6 +1,6 @@
 extends MarginContainer
 
-@onready var title_label = $center_container/vbox/title_text
+@onready var title_label = $center_container/vbox/vbox/title_text
 
 
 func _ready():

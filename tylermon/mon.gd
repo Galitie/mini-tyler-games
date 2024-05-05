@@ -110,7 +110,7 @@ func set_state(state):
 			z_index = default_z_index + 1
 			sprite.play("basic_atk")
 			basic_atk_box.get_child(0).disabled = false
-			attack_timer.start(.3)
+			attack_timer.start(.2)
 		
 		State.CHARGE_UP:
 			timer.paused = true
@@ -128,23 +128,25 @@ func set_state(state):
 			var special_attack = special_atk_box.get_children()
 			for hitbox in special_attack:
 				hitbox.disabled = false
-			attack_timer.start(.3)
+			attack_timer.start(.2)
 		
 		State.IDLE:
 			sprite.play("idle")
 			velocity = Vector2()
-			chance_to_say_phrase(bored_phrases, 1)
 		
 		State.KNOCKED_OUT:
-			emit_signal("knocked_out")
+			current_state = State.KNOCKED_OUT
 			sprite.play("just_knocked_out")
 			chance_to_say_phrase(knocked_out_phrases, 3)
 			timer.paused = true
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
 			hurt_box.get_child(0).disabled = true
+			health_label.text = str(health)
+			hp_bar.value = health
 			hp_bar.visible = false
 			velocity = Vector2()
+			emit_signal("knocked_out")
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
@@ -164,7 +166,7 @@ func set_state(state):
 		State.BLOCK:
 			chance_to_say_phrase(blocking_phrases, 4)
 			velocity = Vector2()
-			block_timer.start(2.5)
+			block_timer.start(2)
 			sprite.play("block")
 			timer.paused = true
 			z_index = default_z_index + 1
@@ -239,17 +241,20 @@ func _on_hurt_box_area_entered(area):
 			damage(attacking_mon, 1)
 		else:
 			damage(attacking_mon, 0)
+	health_label.text = str(health)
+	hp_bar.value = health
 	velocity = Vector2()
 	anim_player.play("hurt")
 	sprite.play("hurt")
-	health_label.text = str(health)
-	hp_bar.value = health
 	if health <= roundi(max_health * .25):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
 
 
 func damage(mon, modifier: int):
-	var damage = mon.strength + modifier
+	var damage = randi_range(mon.strength - 3, mon.strength)
+	if damage <= 0:
+		damage = 1
+	damage += modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += 1
 	damage_label.text = str(damage)
@@ -292,10 +297,10 @@ func switch_round_modes(fight_time):
 		health_label.text = str(max_health)
 		timer.paused = false
 	else:
+		set_state(State.IDLE)
 		timer.stop()
 		if current_state == State.KNOCKED_OUT:
 			hp_bar.visible = true
-		set_state(State.IDLE)
 		sprite.play("upgrade_idle")
 		health = max_health
 		health_label.text = str(max_health)
@@ -304,6 +309,7 @@ func switch_round_modes(fight_time):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
 		velocity = Vector2()
 		position = upgrade_pos
+
 
 func pause():
 	velocity = Vector2()

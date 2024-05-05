@@ -21,15 +21,24 @@ layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="center_container"]
 layout_mode = 2
-theme_override_constants/separation = 60
+theme_override_constants/separation = 40
 
-[node name="title_text" type="Label" parent="center_container/vbox"]
+[node name="vbox" type="VBoxContainer" parent="center_container/vbox"]
+layout_mode = 2
+
+[node name="title_text" type="Label" parent="center_container/vbox/vbox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "ROUND WINNERS:"
 horizontal_alignment = 1
 
+[node name="description" type="Label" parent="center_container/vbox/vbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Mon(s) with the most HP left at the end of the round"
+horizontal_alignment = 1
+
 [node name="winners" type="HBoxContainer" parent="center_container/vbox"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 alignment = 1

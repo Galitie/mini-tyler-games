@@ -55,11 +55,11 @@ func _on_round_timer_timeout():
 		upgrades_counter = 0
 		var winners = get_end_of_round_winner()
 		await check_for_game_end()
-		upgrade_menu.visible = true
-		command_ui.visible = false
 		call_and_pause()
 		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
+		upgrade_menu.visible = true
+		command_ui.visible = false
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats:"
 		round_timer.start(upgrade_length)
@@ -146,13 +146,17 @@ func call_and_pause():
 
 func show_transition(type, content, timer_amount):
 	if type == "round_winners":
-		transition_timer.start(timer_amount)
+		$wait_timer.start(2)
+		await $wait_timer.timeout
 		emit_signal("winners", content)
+		transition_timer.start(timer_amount)
 		$transition_ui.visible = true
 		await transition_timer.timeout
 		$transition_ui.visible = false
 		emit_signal("clear_winners")
 	if type == "final_winner":
+		$wait_timer.start(2)
+		await $wait_timer.timeout
 		transition_timer.start(timer_amount)
 		emit_signal("final_winners", content)
 		$transition_ui.visible = true

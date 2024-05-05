@@ -232,7 +232,7 @@ func _on_hurt_box_area_entered(area):
 	#chance_to_say_phrase(hurt_phrases, 2)
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
-		var attacking_mon = attack.get_parent()
+		var attacking_mon = attack.get_parent().get_parent()
 		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
 			damage(attacking_mon, 1, "super")
 		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":

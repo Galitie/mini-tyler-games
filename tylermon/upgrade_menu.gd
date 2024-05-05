@@ -10,8 +10,6 @@ var current_focus
 @onready var str_stat = $margin/hbox/buttons/hbox2/stat2
 @onready var int_stat = $margin/hbox/buttons/hbox3/stat3
 @onready var type_stat = $margin/hbox/buttons/hbox5/stat4
-@onready var player_wins = $margin/hbox/buttons/hbox7/hbox6/wins/wins_num
-@onready var player_losses = $margin/hbox/buttons/hbox7/hbox6/losses/losses_num
 @onready var description = $margin/hbox/buttons/description
 @onready var place = $margin/hbox/buttons/HBoxContainer/place_num
 
@@ -48,9 +46,6 @@ func _process(_delta):
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
-		player_wins.text = str(player.wins)
-		player_losses.text = str(player.losses)
-
 
 func get_mon():
 	mon = get_child(1).get_child(0)
@@ -114,10 +109,8 @@ func _on_button_pressed(button_name):
 
 
 func gamble():
-	var player_losses = player.losses
-	var player_wins = player.wins
 	var random_num = randi_range(0, 7)
-	random_num += (player_losses - player_wins)
+	random_num += player.current_place
 	if random_num < 0:
 		random_num = 0
 	match random_num:
@@ -185,10 +178,10 @@ func increase_random_stats(stats:int, alter_by:int):
 		if random_stat == 2:
 			mon.strength += alter_by
 			update_description(alter_by, "strength", null, null)
-		else:
+		if random_stat == 3:
 			mon.intelligence += alter_by
 			update_description(alter_by, "intelligence", null, null)
-	if stats == 2:
+	elif stats == 2:
 		var stat
 		var stat2
 		if random_stat == 1:
@@ -210,7 +203,7 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.intelligence += alter_by
 			stat2 = "intelligence"
 		update_description(alter_by, stat, stat2, null)
-	if stats == 3:
+	elif stats == 3:
 		var stat
 		var stat2
 		var stat3
@@ -262,7 +255,7 @@ func set_place():
 	var players = get_tree().get_nodes_in_group("player")
 	var player_totals = []
 	for player in players:
-		player.total = player.wins - player.losses
+		player.total = player.wins
 		player_totals.append(player.total)
 	player_totals.sort()
 	var remove_duplicates = array_unique(player_totals)
@@ -270,6 +263,7 @@ func set_place():
 	var index = remove_duplicates.find(player.total)
 	var index_corrected = index + 1
 	var add
+	player.current_place = index_corrected
 	index_corrected = str(index_corrected)
 	if index_corrected == '1':
 		add = "st"
@@ -279,7 +273,7 @@ func set_place():
 		place.set("theme_override_colors/font_color", Color('ffffff'))
 	if index_corrected == '3':
 		add = "rd"
-		place.set("theme_override_colors/font_color", Color('ffffff'))
+		place.set("theme_override_colors/font_color", Color('e90000'))
 	if index_corrected == '4':
 		add = "th"
 		place.set("theme_override_colors/font_color", Color('e90000'))

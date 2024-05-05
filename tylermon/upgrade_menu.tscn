@@ -143,28 +143,6 @@ text = "GAMBLE"
 layout_mode = 2
 alignment = 1
 
-[node name="wins" type="HBoxContainer" parent="margin/hbox/buttons/hbox7/hbox6"]
-layout_mode = 2
-
-[node name="wins" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/wins"]
-layout_mode = 2
-text = "Win:"
-
-[node name="wins_num" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/wins"]
-layout_mode = 2
-text = "0"
-
-[node name="losses" type="HBoxContainer" parent="margin/hbox/buttons/hbox7/hbox6"]
-layout_mode = 2
-
-[node name="losses" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/losses"]
-layout_mode = 2
-text = "Loss:"
-
-[node name="losses_num" type="Label" parent="margin/hbox/buttons/hbox7/hbox6/losses"]
-layout_mode = 2
-text = "0"
-
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
 

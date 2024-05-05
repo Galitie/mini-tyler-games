@@ -234,7 +234,7 @@ func _on_hurt_box_area_entered(area):
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
 		if elm_type == "WATER" && attacking_mon.elm_type == "EARTH" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "EARTH" && attacking_mon.elm_type == "FIRE":
-			damage(attacking_mon, 1.5, "super")
+			damage(attacking_mon, 1.25, "super")
 		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
 			damage(attacking_mon, -1, "not")
 		elif elm_type == "NONE" && attacking_mon.elm_type != "NONE":
@@ -252,12 +252,16 @@ func _on_hurt_box_area_entered(area):
 
 func damage(mon, modifier: int, effect):
 	var damage = mon.strength * .65
-	damage = round(damage + (modifier * .65))
-	if damage <= 0:
-		damage = 1
+	print("damage before mod: ", damage, ", current strength: ", mon.strength)
+	damage = damage + (modifier * .65)
+	print("damage after mod: ", damage)
 	if mon.current_state == State.SPECIAL_ATTACK:
-		damage += mon.strength * .15
+		damage += (mon.strength * .15)
+		print ("damage after special: ", damage)
+	if damage <= 1:
+		damage = 1
 	damage = round(damage)
+	print("final damage amount: ", damage)
 	if effect == "super":
 		damage_label.text = str(damage) + "!!!"
 	elif effect == "not":

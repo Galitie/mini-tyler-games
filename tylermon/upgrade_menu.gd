@@ -75,7 +75,7 @@ func _on_button_pressed(button_name):
 	match button_name:
 		"hp":
 			points_to_spend -= 1
-			mon.max_health += 1
+			mon.max_health += 2
 			emit_signal("upgraded", "good")
 		"str":
 			points_to_spend -= 1
@@ -171,7 +171,7 @@ func increase_random_stats(stats:int, alter_by:int):
 	var random_stat3 = possible_stats.pick_random()
 	if stats == 1:
 		if random_stat == 1:
-			mon.max_health += alter_by
+			mon.max_health += (alter_by + 1)
 			update_description(alter_by, "health", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -183,7 +183,7 @@ func increase_random_stats(stats:int, alter_by:int):
 		var stat
 		var stat2
 		if random_stat == 1:
-			mon.max_health += alter_by
+			mon.max_health += (alter_by + 1)
 			stat = "health"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -192,7 +192,7 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.intelligence += alter_by
 			stat = "intelligence"
 		if random_stat2 == 1:
-			mon.max_health += alter_by
+			mon.max_health += (alter_by + 1)
 			stat2 = "health"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -206,7 +206,7 @@ func increase_random_stats(stats:int, alter_by:int):
 		var stat2
 		var stat3
 		if random_stat == 1:
-			mon.max_health += alter_by
+			mon.max_health += alter_by + 1
 			stat = "health"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -215,7 +215,7 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.intelligence += alter_by
 			stat = "intelligence"
 		if random_stat2 == 1:
-			mon.max_health += alter_by
+			mon.max_health += alter_by + 1
 			stat2 = "health"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -224,7 +224,7 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.intelligence += alter_by
 			stat2 = "intelligence"
 		if random_stat3 == 1:
-			mon.max_health += alter_by
+			mon.max_health += alter_by + 1
 			stat3 = "health"
 		if random_stat3 == 2:
 			mon.strength += alter_by
@@ -278,6 +278,7 @@ func array_unique(array: Array) -> Array:
 		if not unique.has(item):
 			unique.append(item)
 	return unique
+
 
 func update_description(amount : int, stat, stat2, stat3):
 	var plural = ""

@@ -10,7 +10,7 @@
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
-fight_length = 11
+fight_length = 60
 upgrade_length = 60
 max_rounds = 3
 
@@ -52,6 +52,34 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "30"
+
+[node name="round_ui" type="Control" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="margin" type="MarginContainer" parent="round_ui"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="seperator" type="HBoxContainer" parent="round_ui/margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="label" type="Label" parent="round_ui/margin/seperator"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "Round: "
 
 [node name="upgrade_ui" type="Control" parent="."]
 visible = false
@@ -122,6 +150,7 @@ position = Vector2(960, 540)
 custom_color = Color(1, 1, 1, 1)
 
 [node name="command_ui" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 0

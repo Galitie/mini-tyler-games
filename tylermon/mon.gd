@@ -68,7 +68,7 @@ var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "
 
 func _ready():
 	phrase.text = ""
-	get_parent().connect("send_command", get_command)
+	#get_parent().connect("send_command", get_command)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
 
@@ -252,16 +252,12 @@ func _on_hurt_box_area_entered(area):
 
 func damage(mon, modifier: int, effect):
 	var damage = mon.strength * .65
-	print("damage before mod: ", damage, ", current strength: ", mon.strength)
 	damage = damage + (modifier * .65)
-	print("damage after mod: ", damage)
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += (mon.strength * .15)
-		print ("damage after special: ", damage)
 	if damage <= 1:
 		damage = 1
 	damage = round(damage)
-	print("final damage amount: ", damage)
 	if effect == "super":
 		damage_label.text = str(damage) + "!!!"
 	elif effect == "not":
@@ -349,12 +345,12 @@ func move_to_destination(delta):
 		position = position.move_toward(destination, speed * delta)
 
 
-func get_command(command, player_index):
-	var player = get_parent().name
-	if player.split("player")[1] == str(player_index):
-		print("mon", player_index + 1, " recieved command ", State.keys()[command])
-		current_player_command = command
-	command_thought(command)
+#func get_command(command, player_index):
+	#var player = get_parent().name
+	#if player.split("player")[1] == str(player_index):
+		#print("mon", player_index + 1, " recieved command ", State.keys()[command])
+		#current_player_command = command
+	#command_thought(command)
 
 
 func _on_attack_timer_timeout():

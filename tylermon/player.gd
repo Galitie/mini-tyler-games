@@ -9,7 +9,6 @@ var current_place : int
 
 const STATE = preload("res://tylermon/mon.gd")
 
-signal send_command(command, player)
 
 func _ready():
 	set_mon()
@@ -17,20 +16,7 @@ func _ready():
 
 
 func _process(_delta):
-	if fight_mode:
-		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_A):
-			if Input.is_action_just_pressed("tylermon_attack"):
-				emit_signal("send_command", STATE.State.BASIC_ATTACK, player_index)
-		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_B):
-			if Input.is_action_just_pressed("tylermon_block"):
-				emit_signal("send_command", STATE.State.BLOCK, player_index)
-		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_Y):
-			if Input.is_action_just_pressed("tylermon_special"):
-				emit_signal("send_command", STATE.State.CHARGE_UP, player_index)
-		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_X):
-			if Input.is_action_just_pressed("tylermon_target"):
-				emit_signal("send_command", STATE.State.TARGET_AND_GO, player_index)
-	else:
+	if !fight_mode:
 		if Input.is_joy_button_pressed(player_index,JOY_BUTTON_A):
 			if Input.is_action_just_pressed("tylermon_accept"):
 				print("player ", player_index, " pressed X")

@@ -25,7 +25,8 @@ signal clear_winners
 
 func _ready():
 	fight_time = true
-	countdown_label.text = "Round " + str(current_round) + "/" + str(max_rounds) +  ": "
+	countdown_label.text = "Round ends: "
+	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 	round_timer.start(fight_length)
 	call_and_switch_modes()
 	var mons = get_tree().get_nodes_in_group("mons")
@@ -60,7 +61,7 @@ func _on_round_timer_timeout():
 		upgrade_menu.visible = true
 		command_ui.visible = false
 		knocked_out_mons = 0
-		countdown_label.text = "Add 3 points to stats:"
+		countdown_label.text = "Add 3 points to stats: "
 		round_timer.start(upgrade_length)
 	else:
 		fight_time = true
@@ -68,7 +69,8 @@ func _on_round_timer_timeout():
 		upgrade_menu.visible = false
 		command_ui.visible = true
 		call_and_switch_modes()
-		countdown_label.text = "Round " + str(current_round) + "/" + str(max_rounds) +  ": "
+		countdown_label.text = "Round ends:" 
+		$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 		round_timer.start(fight_length)
 
 
@@ -114,9 +116,7 @@ func check_for_game_end():
 
 
 func _add_knocked_out_mon():
-	print("got signal for knocked out mon")
 	knocked_out_mons += 1
-	print("current total: ", knocked_out_mons)
 
 
 func call_and_switch_modes():

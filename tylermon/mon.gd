@@ -11,7 +11,7 @@ var elm_type = "NONE"
 var current_state = State.IDLE
 var destination : Vector2
 var default_z_index = 0
-var current_player_command = State.IDLE
+var current_player_command = State.TARGET_AND_ATTACK
 var cursed : bool = false
 var max_think_time : float = 3
 
@@ -145,7 +145,6 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 			hp_bar.visible = false
 			velocity = Vector2()
-
 
 		State.TARGET_AND_GO:
 			sprite.play("move")

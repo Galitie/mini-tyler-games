@@ -26,10 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
+resource_local_to_scene = true
 radius = 6.07992
 height = 17.2536
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_scvj0"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 0.5,
@@ -218,6 +220,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
+resource_local_to_scene = true
+radius = 5.76907
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbm80"]
 content_margin_left = 10.0
 content_margin_top = 3.0
@@ -273,11 +282,6 @@ Button/styles/pressed = SubResource("StyleBoxFlat_qbxsx")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_nu2nj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_p62ak")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
-radius = 5.76907
-
 [sub_resource type="Animation" id="Animation_lk8iw"]
 resource_name = "damage_amount"
 length = 0.75
@@ -312,7 +316,7 @@ length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:modulate")
+tracks/0/path = NodePath("scalable_nodes/sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -371,7 +375,9 @@ rotation = 1.5708
 scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="scalable_nodes" type="Node2D" parent="."]
+
+[node name="sprite" type="AnimatedSprite2D" parent="scalable_nodes"]
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
@@ -380,6 +386,48 @@ autoplay = "idle"
 frame = 5
 frame_progress = 1.0
 flip_h = true
+
+[node name="hurt_box" type="Area2D" parent="scalable_nodes"]
+rotation = -0.0788491
+collision_layer = 0
+collision_mask = 4
+
+[node name="hurt_box_coll" type="CollisionShape2D" parent="scalable_nodes/hurt_box"]
+position = Vector2(-0.393837, 4.98447)
+rotation = 1.64965
+scale = Vector2(8.05931, 7.65057)
+shape = SubResource("CapsuleShape2D_u036k")
+
+[node name="basic_atk_box" type="Area2D" parent="scalable_nodes"]
+position = Vector2(0, 20)
+scale = Vector2(9.28914, 9.34998)
+collision_layer = 4
+collision_mask = 0
+
+[node name="basic_atk_box_coll" type="CollisionShape2D" parent="scalable_nodes/basic_atk_box"]
+position = Vector2(0.120622, -1.64608)
+rotation = 1.57904
+scale = Vector2(0.97977, 1.0651)
+shape = SubResource("CircleShape2D_ji0f1")
+disabled = true
+
+[node name="special_atk_box" type="Area2D" parent="scalable_nodes"]
+position = Vector2(-7, -30)
+scale = Vector2(16.7837, 5.41757)
+collision_layer = 4
+collision_mask = 0
+
+[node name="special_atk_box_coll" type="CollisionShape2D" parent="scalable_nodes/special_atk_box"]
+position = Vector2(-6.67314, 0.553753)
+scale = Vector2(0.455069, 1.2)
+shape = SubResource("CircleShape2D_glbfy")
+disabled = true
+
+[node name="special_atk_box_coll2" type="CollisionShape2D" parent="scalable_nodes/special_atk_box"]
+position = Vector2(7.80519, -0.922927)
+scale = Vector2(0.455069, 1.2)
+shape = SubResource("CircleShape2D_glbfy")
+disabled = true
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -427,48 +475,6 @@ text = "/"
 [node name="max_health" type="Label" parent="hp_bar/hp_container"]
 layout_mode = 2
 text = "3"
-
-[node name="hurt_box" type="Area2D" parent="."]
-rotation = -0.0788491
-collision_layer = 0
-collision_mask = 4
-
-[node name="hurt_box_coll" type="CollisionShape2D" parent="hurt_box"]
-position = Vector2(-0.393837, 4.98447)
-rotation = 1.64965
-scale = Vector2(8.05931, 7.65057)
-shape = SubResource("CapsuleShape2D_u036k")
-
-[node name="basic_atk_box" type="Area2D" parent="."]
-position = Vector2(0, 20)
-scale = Vector2(9.28914, 9.34998)
-collision_layer = 4
-collision_mask = 0
-
-[node name="basic_atk_box_coll" type="CollisionShape2D" parent="basic_atk_box"]
-position = Vector2(0.120622, -1.64608)
-rotation = 1.57904
-scale = Vector2(0.97977, 1.0651)
-shape = SubResource("CircleShape2D_ji0f1")
-disabled = true
-
-[node name="special_atk_box" type="Area2D" parent="."]
-position = Vector2(-7, -30)
-scale = Vector2(16.7837, 5.41757)
-collision_layer = 4
-collision_mask = 0
-
-[node name="special_atk_box_coll" type="CollisionShape2D" parent="special_atk_box"]
-position = Vector2(-6.67314, 0.553753)
-scale = Vector2(0.455069, 1.2)
-shape = SubResource("CircleShape2D_glbfy")
-disabled = true
-
-[node name="special_atk_box_coll2" type="CollisionShape2D" parent="special_atk_box"]
-position = Vector2(7.80519, -0.922927)
-scale = Vector2(0.455069, 1.2)
-shape = SubResource("CircleShape2D_glbfy")
-disabled = true
 
 [node name="phrase" type="Label" parent="."]
 anchors_preset = 8
@@ -553,10 +559,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ejfqx")
 }
 
+[connection signal="area_entered" from="scalable_nodes/hurt_box" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="scalable_nodes/special_atk_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="block_timer" to="." method="_on_block_timer_timeout"]
-[connection signal="area_entered" from="hurt_box" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_entered" from="basic_atk_box" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_entered" from="special_atk_box" to="." method="_on_hurt_box_area_entered"]

@@ -135,11 +135,11 @@ func gamble():
 			description.text = "Mon is sluggish!"
 			emit_signal("upgraded", "bad")
 		2:
-			mon.scale -= Vector2(.15, .15)
+			mon.get_node("scalable_nodes").scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"
 			emit_signal("upgraded", "good")
 		3:
-			mon.scale += Vector2(.15, .15)
+			mon.get_node("scalable_nodes").scale += Vector2(.15, .15)
 			description.text = "Mon has grown!"
 			emit_signal("upgraded", "good")
 		4:
@@ -270,15 +270,20 @@ func set_place():
 	var index = remove_duplicates.find(player.total)
 	var index_corrected = index + 1
 	var add
-	if index_corrected == 1:
+	index_corrected = str(index_corrected)
+	if index_corrected == '1':
 		add = "st"
-	if index_corrected == 2:
+		place.set("theme_override_colors/font_color", Color('00cb00'))
+	if index_corrected == '2':
 		add = "nd"
-	if index_corrected == 3:
+		place.set("theme_override_colors/font_color", Color('ffffff'))
+	if index_corrected == '3':
 		add = "rd"
-	if index_corrected == 4:
+		place.set("theme_override_colors/font_color", Color('ffffff'))
+	if index_corrected == '4':
 		add = "th"
-	place.text = str(index_corrected) + add + " place"
+		place.set("theme_override_colors/font_color", Color('e90000'))
+	place.text = index_corrected + add + " place"
 
 
 func array_unique(array: Array) -> Array:

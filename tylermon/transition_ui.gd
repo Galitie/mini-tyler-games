@@ -58,7 +58,7 @@ func build_winners_nodes(winners):
 			label.text = "Player 4"
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var image = TextureRect.new()
-		var sprite_frame = winner.get_child(0).get_node("sprite").get_sprite_frames()
+		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		image.texture = sprite_frame.get_frame_texture("idle",0)
 		image.modulate = winner.get_child(0).custom_color
 		var vbox = VBoxContainer.new()

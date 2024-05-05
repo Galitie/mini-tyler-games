@@ -45,14 +45,14 @@ var state_weights = [
 @onready var hp_bar = $hp_bar
 @onready var health_label = $hp_bar/hp_container/current_health
 @onready var max_health_label = $hp_bar/hp_container/max_health
-@onready var hurt_box = $hurt_box
-@onready var basic_atk_box = $basic_atk_box
-@onready var special_atk_box = $special_atk_box
+@onready var hurt_box = $scalable_nodes/hurt_box
+@onready var basic_atk_box = $scalable_nodes/basic_atk_box
+@onready var special_atk_box = $scalable_nodes/special_atk_box
 @onready var fight_pos = position
 @onready var upgrade_pos = Vector2(position.x + 180, position.y - 20)
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
-@onready var sprite = $sprite
+@onready var sprite = $scalable_nodes/sprite
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
 
@@ -342,9 +342,9 @@ func pause():
 
 func move_to_destination(delta):
 	if position.x <= destination.x :
-		$sprite.flip_h = false
+		sprite.flip_h = false
 	else:
-		$sprite.flip_h = true
+		sprite.flip_h = true
 	if !timer.is_stopped():
 		position = position.move_toward(destination, speed * delta)
 

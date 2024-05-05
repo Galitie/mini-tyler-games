@@ -53,7 +53,8 @@ var state_weights = [
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
 @onready var sprite = $sprite
-@onready var anim_player = $modulate_animations
+@onready var anim_player = $modulate_anim
+@onready var damage_anim_player = $damage_anim
 
 
 var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
@@ -253,6 +254,7 @@ func damage(mon, modifier: int):
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += 1 + roundi(mon.strength * strength_mod)
 	damage_label.text = str(damage)
+	damage_anim_player.play("damage_amount")
 	health -= damage
 
 

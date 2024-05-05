@@ -381,10 +381,9 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"block"
+animation = &"special_atk"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
+frame = 1
 flip_h = true
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
@@ -399,8 +398,8 @@ scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
 [node name="basic_atk_box" type="Area2D" parent="scalable_nodes"]
-position = Vector2(0, 20)
-scale = Vector2(9.28914, 9.34998)
+position = Vector2(0, 25)
+scale = Vector2(10.5394, 10.925)
 collision_layer = 4
 collision_mask = 0
 

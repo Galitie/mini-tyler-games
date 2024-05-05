@@ -57,13 +57,13 @@ var state_weights = [
 @onready var damage_anim_player = $damage_anim
 
 
-var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
-var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
-var attack_phrases = ["DIE!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
+#var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
+#var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
+#var attack_phrases = ["DIE!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
 var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
 var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
 var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
-var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
+#var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
 var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", "pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", "dumb shits", "fucking hell", "fuuuck"]
 
 func _ready():
@@ -100,13 +100,13 @@ func set_state(state):
 	match state:
 		State.WALK_RANDOM:
 			sprite.play("move")
-			chance_to_say_phrase(bored_phrases, 3)
+			#chance_to_say_phrase(bored_phrases, 3)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
 			timer.paused = true
 			velocity = Vector2()
-			chance_to_say_phrase(attack_phrases, 4)
+			#chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("basic_atk")
 			basic_atk_box.get_child(0).disabled = false
@@ -122,7 +122,7 @@ func set_state(state):
 		State.SPECIAL_ATTACK:
 			timer.paused = true
 			velocity = Vector2()
-			chance_to_say_phrase(attack_phrases, 4)
+			#chance_to_say_phrase(attack_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("special_atk")
 			var special_attack = special_atk_box.get_children()
@@ -150,21 +150,21 @@ func set_state(state):
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
-			chance_to_say_phrase(target_phrases, 4)
+			#chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 		
 		State.TARGET_AND_ATTACK:
 			sprite.play("move")
-			chance_to_say_phrase(target_phrases, 4)
+			#chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 
 		State.TARGET_AND_SPECIAL:
 			sprite.play("move")
-			chance_to_say_phrase(target_phrases, 4)
+			#chance_to_say_phrase(target_phrases, 4)
 			destination = get_other_random_mon().position
 		
 		State.BLOCK:
-			chance_to_say_phrase(blocking_phrases, 4)
+			#chance_to_say_phrase(blocking_phrases, 4)
 			velocity = Vector2()
 			block_timer.start(2)
 			sprite.play("block")
@@ -229,7 +229,7 @@ func get_other_random_mon():
 
 func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box or area == special_atk_box : return
-	chance_to_say_phrase(hurt_phrases, 2)
+	#chance_to_say_phrase(hurt_phrases, 2)
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent()
@@ -289,6 +289,18 @@ func chance_to_say_phrase(array, chance : int):
 			phrase.text = ""
 
 
+func command_thought(action):
+	if action == State.BLOCK:
+		$thought.text = "Block"
+	if action == State.CHARGE_UP:
+		$thought.text = "Special"
+	if action == State.BASIC_ATTACK:
+		$thought.text = "Attack"
+	if action == State.TARGET_AND_GO:
+		$thought.text = "Target & go"
+	if current_state != State.KNOCKED_OUT:
+		$thought_anim.play("thought")
+
 func switch_round_modes(fight_time):
 	if fight_time:
 		timer.start(.5)
@@ -342,6 +354,7 @@ func get_command(command, player_index):
 	if player.split("player")[1] == str(player_index):
 		print("mon", player_index + 1, " recieved command ", State.keys()[command])
 		current_player_command = command
+	command_thought(command)
 
 
 func _on_attack_timer_timeout():

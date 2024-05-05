@@ -252,7 +252,7 @@ func _on_hurt_box_area_entered(area):
 func damage(mon, modifier: int):
 	var damage = mon.strength + modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
-		damage += 1 + mon.strength
+		damage += 1
 	damage_label.text = str(damage)
 	damage_anim_player.play("damage_amount")
 	health -= damage

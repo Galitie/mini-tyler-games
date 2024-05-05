@@ -12,7 +12,7 @@
 script = ExtResource("1_66guv")
 fight_length = 60
 upgrade_length = 60
-max_rounds = 5
+max_rounds = 10
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 visible = false

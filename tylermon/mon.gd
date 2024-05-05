@@ -238,7 +238,7 @@ func _on_hurt_box_area_entered(area):
 		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "EARTH"  or elm_type == "EARTH" && attacking_mon.elm_type == "WATER":
 			damage(attacking_mon, -1, "not")
 		elif elm_type == "NONE" && attacking_mon.elm_type != "NONE":
-			damage(attacking_mon, .50, "super")
+			damage(attacking_mon, .50, null)
 		else:
 			damage(attacking_mon, 0, null)
 	health_label.text = str(health)

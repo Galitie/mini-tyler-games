@@ -356,5 +356,8 @@ func when_done_play_next_animation(current_animation: String, queued_animation: 
 				sprite.play(queued_animation)
 
 
-func upgrade_react():
-	sprite.play("upgrade_react")
+func upgrade_react(reaction):
+	if reaction == "good":
+		sprite.play("upgrade_react_good")
+	if reaction == "bad":
+		sprite.play("upgrade_react_bad")

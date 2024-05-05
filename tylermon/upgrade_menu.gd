@@ -31,7 +31,7 @@ var gamble_desc = "Who knows?! Hint: The more you are losing the luckier you are
 
 
 signal upgrades_finished
-signal upgraded
+signal upgraded(type)
 
 func _ready():
 	get_mon()
@@ -76,12 +76,15 @@ func _on_button_pressed(button_name):
 		"hp":
 			points_to_spend -= 1
 			mon.max_health += 1
+			emit_signal("upgraded", "good")
 		"str":
 			points_to_spend -= 1
 			mon.strength += 1
+			emit_signal("upgraded", "good")
 		"int":
 			points_to_spend -= 1
 			mon.intelligence += 1
+			emit_signal("upgraded", "good")
 		"gamble":
 			points_to_spend -= 1
 			gamble()
@@ -94,11 +97,11 @@ func _on_button_pressed(button_name):
 				mon.elm_type = "WATER"
 			if rand_num == 3:
 				mon.elm_type = "EARTH"
+			emit_signal("upgraded", "good")
 	if points_to_spend == 0:
 		for button in upgrade_buttons:
 			button.disabled = true
-		emit_signal("upgrades_finished")
-	emit_signal("upgraded")	
+		emit_signal("upgrades_finished")	
 
 
 func gamble():
@@ -113,43 +116,50 @@ func gamble():
 			if mon.cursed == false:
 				mon.cursed = true
 				description.text = "Mon is CURSED"
+				emit_signal("upgraded", "bad")
 			else:
 				mon.cursed = false
 				description.text = "Mon has been un-cursed"
+				emit_signal("upgraded", "bad")
 		1:
 			mon.speed -= 25
 			description.text = "Mon is sluggish!"
+			emit_signal("upgraded", "bad")
 		2:
 			mon.scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"
+			emit_signal("upgraded", "good")
 		3:
 			mon.scale += Vector2(.15, .15)
 			description.text = "Mon has grown!"
+			emit_signal("upgraded", "good")
 		4:
 			mon.speed += 25
 			description.text = "Mon is speedier!"
+			emit_signal("upgraded", "good")
 		5:
 			if mon.max_think_time == 1.5:
-				description.text = "Mon gained 1 random stat increase!"
 				increase_random_stats(1,1)
+				emit_signal("upgraded", "good")
 			else:
 				mon.max_think_time = 1.5
 				description.text = "Mon has ADHD and will change it's mind quicker"
+				emit_signal("upgraded", "good")
 		6:
-			description.text = "Mon gained 1 point in one random stat"
 			increase_random_stats(1,1)
+			emit_signal("upgraded", "good")
 		7:
-			description.text = "LUCKY! Mon gained 1 point in two random stats!"
 			increase_random_stats(2,1)
+			emit_signal("upgraded", "good")
 		8:
-			description.text = "LUCKY! Mon gained 2 points in one random stat!"
 			increase_random_stats(1,2)
+			emit_signal("upgraded", "good")
 		9:
-			description.text = "LUCKY! Mon gained 1 point in THREE random stats!"
 			increase_random_stats(3,1)
+			emit_signal("upgraded", "good")
 		_:
-			description.text = "LUCKY! Mon gained 3 points in 1 random stat!"
 			increase_random_stats(1,3)
+			emit_signal("upgraded", "good")
 
 
 func increase_random_stats(stats:int, alter_by:int):
@@ -162,42 +172,67 @@ func increase_random_stats(stats:int, alter_by:int):
 	if stats == 1:
 		if random_stat == 1:
 			mon.max_health += alter_by
+			update_description(alter_by, "health", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
+			update_description(alter_by, "strength", null, null)
 		else:
 			mon.intelligence += alter_by
+			update_description(alter_by, "intelligence", null, null)
 	if stats == 2:
+		var stat
+		var stat2
 		if random_stat == 1:
 			mon.max_health += alter_by
+			stat = "health"
 		if random_stat == 2:
 			mon.strength += alter_by
+			stat = "strength"
 		if random_stat == 3:
 			mon.intelligence += alter_by
+			stat = "intelligence"
 		if random_stat2 == 1:
 			mon.max_health += alter_by
+			stat2 = "health"
 		if random_stat2 == 2:
 			mon.strength += alter_by
+			stat2 = "strength"
 		if random_stat2 == 3:
 			mon.intelligence += alter_by
+			stat2 = "intelligence"
+		update_description(alter_by, stat, stat2, null)
 	if stats == 3:
+		var stat
+		var stat2
+		var stat3
 		if random_stat == 1:
 			mon.max_health += alter_by
+			stat = "health"
 		if random_stat == 2:
 			mon.strength += alter_by
+			stat = "strength"
 		if random_stat == 3:
 			mon.intelligence += alter_by
+			stat = "intelligence"
 		if random_stat2 == 1:
 			mon.max_health += alter_by
+			stat2 = "health"
 		if random_stat2 == 2:
 			mon.strength += alter_by
+			stat2 = "strength"
 		if random_stat2 == 3:
 			mon.intelligence += alter_by
+			stat2 = "intelligence"
 		if random_stat3 == 1:
 			mon.max_health += alter_by
+			stat3 = "health"
 		if random_stat3 == 2:
 			mon.strength += alter_by
+			stat3 = "strength"
 		if random_stat3 == 3:
 			mon.intelligence += alter_by
+			stat3 = "intelligence"
+		update_description(alter_by, stat, stat2, stat3)
 
 
 func _on_mouse_entered(button_name):
@@ -242,3 +277,14 @@ func array_unique(array: Array) -> Array:
 		if not unique.has(item):
 			unique.append(item)
 	return unique
+
+func update_description(amount : int, stat, stat2, stat3):
+	var plural = ""
+	if amount > 1:
+		plural = "s"
+	if stat2 == null and stat3 == null:
+		description.text = "Mon gained " + str(amount) + " " + str(stat) + " point" + plural + "!"
+	elif stat != null and stat2 != null and stat3 == null:
+		description.text = "Mon gained " + str(amount) + " " + str(stat) + " and " +  str(amount) + " " + str(stat2) + " point" + plural + "!"
+	else:
+		description.text = "Mon gained " + str(amount) + " " + str(stat) + ", " +  str(amount) + " " + str(stat2) + " and " +  str(amount) + " " + str(stat3) + " point" + plural + "!"

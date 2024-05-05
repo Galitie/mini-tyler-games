@@ -188,14 +188,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_2adcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h2vbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2adcg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h2vbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_i6ad0")
+}],
+"loop": false,
+"name": &"upgrade_react_bad",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_4fk7g")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_i6ad0")
 }],
 "loop": false,
-"name": &"upgrade_react",
-"speed": 3.0
+"name": &"upgrade_react_good",
+"speed": 5.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbm80"]
@@ -452,9 +472,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -100.0
+offset_top = -50.0
 offset_right = 20.0
-offset_bottom = -61.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.25, 1.25)

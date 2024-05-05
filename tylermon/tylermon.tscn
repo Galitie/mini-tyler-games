@@ -10,7 +10,7 @@
 
 [node name="tylermon" type="Node2D"]
 script = ExtResource("1_66guv")
-fight_length = 31
+fight_length = 11
 upgrade_length = 60
 max_rounds = 3
 

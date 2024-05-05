@@ -23,7 +23,7 @@ var current_focus
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
 
 
-var hp_desc = "+1 max mon health"
+var hp_desc = "+2 max mon health"
 var str_desc = "Mon's attacks do more damage"
 var int_desc = "Mon is more likely to listen to you and make good decisions"
 var type_desc = "Change mon's element to WATER, FIRE or EARTH"

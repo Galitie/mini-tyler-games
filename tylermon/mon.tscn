@@ -278,22 +278,6 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_p62ak")
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
 radius = 5.76907
 
-[sub_resource type="Animation" id="Animation_i6xwv"]
-resource_name = "hurt"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.917647, 0.266667, 0.25098, 1), Color(0.917647, 0.266667, 0.25098, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_lk8iw"]
 resource_name = "damage_amount"
 length = 0.75
@@ -322,6 +306,22 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_i6xwv"]
+resource_name = "hurt"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.917647, 0.266667, 0.25098, 1), Color(0.917647, 0.266667, 0.25098, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ejfqx"]
 _data = {
 "damage_amount": SubResource("Animation_lk8iw"),
@@ -347,6 +347,7 @@ position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
 animation = &"dead"
 autoplay = "idle"
+frame_progress = 0.652862
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]

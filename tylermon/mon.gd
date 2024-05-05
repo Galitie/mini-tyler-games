@@ -214,7 +214,7 @@ func update_state(state, delta):
 			pass
 	
 		State.KNOCKED_OUT:
-			when_done_play_next_animation("is_knocked_out", "dead")
+			when_done_play_next_animation()
 
 
 func get_other_random_mon():
@@ -297,8 +297,6 @@ func switch_round_modes(fight_time):
 			hp_bar.visible = true
 		set_state(State.IDLE)
 		sprite.play("upgrade_idle")
-		_on_attack_timer_timeout()
-		_on_block_timer_timeout()
 		health = max_health
 		health_label.text = str(max_health)
 		hp_bar.max_value = max_health
@@ -306,7 +304,12 @@ func switch_round_modes(fight_time):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
 		velocity = Vector2()
 		position = upgrade_pos
-		
+
+func pause():
+	velocity = Vector2()
+	_on_attack_timer_timeout()
+	_on_block_timer_timeout()
+	timer.stop()
 
 
 func move_to_destination(delta):
@@ -348,11 +351,9 @@ func _on_charge_timer_timeout():
 		set_state(State.SPECIAL_ATTACK)
 
 
-func when_done_play_next_animation(current_animation: String, queued_animation: String):
+func when_done_play_next_animation():
 	if !sprite.is_playing():
-		match current_animation:
-			"just_knocked_out":
-				sprite.play(queued_animation)
+		sprite.play("dead")	
 
 
 func upgrade_react(reaction):

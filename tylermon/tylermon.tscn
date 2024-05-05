@@ -12,7 +12,7 @@
 script = ExtResource("1_66guv")
 fight_length = 60
 upgrade_length = 60
-max_rounds = 10
+max_rounds = 2
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 visible = false
@@ -45,7 +45,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
-text = "Round ends: "
+text = "Round: "
 
 [node name="countdown" type="Label" parent="countdown_ui/margin/seperator"]
 layout_mode = 2

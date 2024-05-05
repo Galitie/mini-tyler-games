@@ -273,12 +273,10 @@ Button/styles/pressed = SubResource("StyleBoxFlat_qbxsx")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_nu2nj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_p62ak")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljrqg"]
-radius = 8.14321
-height = 22.8776
+[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
-radius = 9.15743
+radius = 5.76907
 
 [sub_resource type="Animation" id="Animation_i6xwv"]
 resource_name = "hurt"
@@ -347,8 +345,9 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"hurt"
+animation = &"basic_atk"
 autoplay = "idle"
+frame = 1
 flip_h = true
 
 [node name="timer" type="Timer" parent="."]
@@ -410,32 +409,32 @@ scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
 [node name="basic_atk_box" type="Area2D" parent="."]
-position = Vector2(0, -2)
-scale = Vector2(8.29037, 8.41757)
+position = Vector2(0, 20)
+scale = Vector2(9.28914, 9.34998)
 collision_layer = 4
 collision_mask = 0
 
 [node name="basic_atk_box_coll" type="CollisionShape2D" parent="basic_atk_box"]
 position = Vector2(0.120622, -1.64608)
 rotation = 1.57904
-scale = Vector2(1.12, 1.0651)
-shape = SubResource("CapsuleShape2D_ljrqg")
+scale = Vector2(0.97977, 1.0651)
+shape = SubResource("CircleShape2D_ji0f1")
 disabled = true
 
 [node name="special_atk_box" type="Area2D" parent="."]
-position = Vector2(-7, -33)
+position = Vector2(-7, -30)
 scale = Vector2(16.7837, 5.41757)
 collision_layer = 4
 collision_mask = 0
 
 [node name="special_atk_box_coll" type="CollisionShape2D" parent="special_atk_box"]
-position = Vector2(-6.01774, 2.03043)
+position = Vector2(-6.67314, 0.553753)
 scale = Vector2(0.455069, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
 [node name="special_atk_box_coll2" type="CollisionShape2D" parent="special_atk_box"]
-position = Vector2(7.4477, 2.58418)
+position = Vector2(7.80519, -0.922927)
 scale = Vector2(0.455069, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true

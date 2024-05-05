@@ -107,7 +107,7 @@ func _on_button_pressed(button_name):
 func gamble():
 	var player_losses = player.losses
 	var player_wins = player.wins
-	var random_num = randi_range(0, 6)
+	var random_num = randi_range(0, 7)
 	random_num += (player_losses - player_wins)
 	if random_num < 0:
 		random_num = 0
@@ -270,6 +270,7 @@ func set_place():
 	if index_corrected == 4:
 		add = "th"
 	place.text = str(index_corrected) + add + " place"
+
 
 func array_unique(array: Array) -> Array:
 	var unique: Array = []

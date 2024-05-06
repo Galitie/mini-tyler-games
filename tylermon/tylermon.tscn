@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ciyas0u8oerjv"]
+[gd_scene load_steps=9 format=3 uid="uid://ciyas0u8oerjv"]
 
 [ext_resource type="Script" path="res://tylermon/tylermon.gd" id="1_66guv"]
 [ext_resource type="PackedScene" uid="uid://c8s20lpclkjhg" path="res://tylermon/background/arena.tscn" id="2_mlfq2"]
@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cyyxc3uqqve2m" path="res://tylermon/upgrade_menu.tscn" id="4_03my5"]
 [ext_resource type="Script" path="res://tylermon/player.gd" id="5_uxsio"]
 [ext_resource type="PackedScene" uid="uid://cb7lwc1cg6d5c" path="res://tylermon/command_menu.tscn" id="6_8kvd3"]
+[ext_resource type="Texture2D" uid="uid://do7rmo5v127b4" path="res://tylermon/background/elements.png" id="6_urw4u"]
 [ext_resource type="PackedScene" uid="uid://io2r0wxux8x6" path="res://tylermon/transition_ui.tscn" id="7_4dfmu"]
 
 [node name="tylermon" type="Node2D"]
 scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 60
+fight_length = 5
 upgrade_length = 60
 max_rounds = 5
 
@@ -128,7 +129,7 @@ script = ExtResource("5_uxsio")
 
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
 position = Vector2(934, 212)
-custom_color = Color(0.972549, 0.0941176, 0.866667, 1)
+custom_color = Color(0.788235, 0.372549, 0.964706, 1)
 
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2
@@ -149,6 +150,10 @@ script = ExtResource("5_uxsio")
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(934, 562)
 custom_color = Color(1, 1, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="upgrade_ui"]
+position = Vector2(618.681, 334.332)
+texture = ExtResource("6_urw4u")
 
 [node name="command_ui" type="Control" parent="."]
 visible = false

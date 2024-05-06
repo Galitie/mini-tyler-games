@@ -137,7 +137,7 @@ func set_state(state):
 		State.KNOCKED_OUT:
 			current_state = State.KNOCKED_OUT
 			sprite.play("just_knocked_out")
-			chance_to_say_phrase(knocked_out_phrases, 3)
+			chance_to_say_phrase(knocked_out_phrases, 1)
 			timer.paused = true
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
@@ -176,7 +176,7 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 
 		State.PLAYER_COMMAND:
-			chance_to_say_phrase(listening_phrases, 1)
+			#chance_to_say_phrase(listening_phrases, 1)
 			set_state(current_player_command)
 			
 	if state == State.PLAYER_COMMAND:

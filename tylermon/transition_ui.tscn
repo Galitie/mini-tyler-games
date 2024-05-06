@@ -18,7 +18,7 @@ script = ExtResource("1_d5nyu")
 
 [node name="overlay" type="ColorRect" parent="."]
 layout_mode = 2
-color = Color(0.309804, 0.227451, 0.360784, 1)
+color = Color(0.207843, 0.266667, 0.14902, 1)
 
 [node name="center_container" type="CenterContainer" parent="."]
 layout_mode = 2

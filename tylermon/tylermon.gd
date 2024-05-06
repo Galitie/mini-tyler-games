@@ -98,7 +98,7 @@ func get_end_of_round_winner():
 			var player = mon.get_parent()
 		else:
 			var player = mon.get_parent()
-			player.wins += 1
+			player.wins += 5
 			winners.append(player)
 	return winners
 

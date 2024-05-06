@@ -17,7 +17,7 @@ var max_think_time : float = 3
 
 @export var custom_color : Color
 
-signal knocked_out
+signal knocked_out(place)
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
@@ -146,6 +146,9 @@ func set_state(state):
 			hp_bar.value = health
 			hp_bar.visible = false
 			velocity = Vector2()
+			var victory_points = check_how_many_other_mons_knocked_out()
+			var player = get_parent()
+			player.wins += victory_points
 			emit_signal("knocked_out")
 
 		State.TARGET_AND_GO:
@@ -225,6 +228,23 @@ func get_other_random_mon():
 	while random_mon == self or random_mon.current_state == State.KNOCKED_OUT:
 		random_mon = get_all_mons.pick_random()
 	return random_mon
+
+
+func check_how_many_other_mons_knocked_out():
+	var all_mons = get_tree().get_nodes_in_group("mons")
+	var counter = 0
+	for mon in all_mons:
+		if mon.current_state == State.KNOCKED_OUT:
+			if mon.name != name:
+				counter += 1
+	if counter == 0:
+		return 0
+	if counter == 1:
+		return 1
+	if counter == 2:
+		return 3
+	else:
+		return 5
 
 
 func _on_hurt_box_area_entered(area):

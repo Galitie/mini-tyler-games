@@ -145,15 +145,22 @@ alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
-alignment = 1
 
 [node name="place" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2
-text = "You are currently in:"
+text = "Currently in"
 
 [node name="place_num" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2
-text = "1st"
+text = "1st place"
+
+[node name="label2" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
+layout_mode = 2
+text = "- VP:"
+
+[node name="vp" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
+layout_mode = 2
+text = "0"
 
 [connection signal="mouse_entered" from="margin/hbox/buttons/hbox/hp" to="." method="_on_mouse_entered" binds= ["hp"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]

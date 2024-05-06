@@ -12,6 +12,7 @@ var current_focus
 @onready var type_stat = $margin/hbox/buttons/hbox5/stat4
 @onready var description = $margin/hbox/buttons/description
 @onready var place = $margin/hbox/buttons/HBoxContainer/place_num
+@onready var vp = $margin/hbox/buttons/HBoxContainer/vp
 
 @onready var hp_button = $margin/hbox/buttons/hbox/hp
 @onready var str_button = $margin/hbox/buttons/hbox2/str
@@ -23,7 +24,7 @@ var current_focus
 
 var hp_desc = "+2 max mon health"
 var str_desc = "Mon's attacks do more damage"
-var int_desc = "Mon is more likely to listen to you and make good decisions"
+var int_desc = "Mon is more likely to make good decisions"
 var type_desc = "Change mon's element to WATER, FIRE or EARTH"
 var gamble_desc = "Who knows?! Hint: The more you are losing the luckier you are!"
 
@@ -46,6 +47,7 @@ func _process(_delta):
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
+		vp.text = str(player.wins)
 
 func get_mon():
 	mon = get_child(1).get_child(0)

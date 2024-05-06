@@ -16,7 +16,6 @@ upgrade_length = 60
 max_rounds = 3
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
-visible = false
 z_index = -2
 
 [node name="round_timer" type="Timer" parent="."]
@@ -84,6 +83,7 @@ theme_override_font_sizes/font_size = 36
 text = "Round: "
 
 [node name="upgrade_ui" type="Control" parent="."]
+visible = false
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 0
@@ -118,7 +118,7 @@ script = ExtResource("5_uxsio")
 
 [node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_menu/player0" instance=ExtResource("2_yelk2")]
 position = Vector2(264, 212)
-custom_color = Color(0.164706, 0.164706, 0.168627, 1)
+custom_color = Color(0.992157, 0.584314, 0.227451, 1)
 
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer" instance=ExtResource("4_03my5")]
 layout_mode = 2

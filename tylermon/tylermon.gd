@@ -21,6 +21,7 @@ const STATE = preload("res://tylermon/mon.gd")
 signal winners(winner_nodes : Array)
 signal final_winners(winner_nodes : Array)
 signal clear_winners
+signal change_background
 
 
 func _ready():
@@ -35,7 +36,8 @@ func _ready():
 	var upgrade_menus = get_tree().get_nodes_in_group("upgrade_menus")
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
-
+	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
+	
 
 func _process(_delta):
 	countdown_nums.text = "%02d" % time_left()
@@ -63,10 +65,12 @@ func _on_round_timer_timeout():
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats: "
 		round_timer.start(upgrade_length)
+		get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:
 		fight_time = true
 		current_round += 1
 		upgrade_menu.visible = false
+		get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
 		#command_ui.visible = true
 		call_and_switch_modes()
 		countdown_label.text = "Round ends:" 

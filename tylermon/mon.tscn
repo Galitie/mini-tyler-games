@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
 [ext_resource type="Texture2D" uid="uid://vd4htm5xmrf6" path="res://tylermon/sprites/mon_base_basic_attack.png" id="2_epn60"]
-[ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/test_image.png" id="2_i6ad0"]
 [ext_resource type="Texture2D" uid="uid://ek6pu5mhuuqf" path="res://tylermon/sprites/mon_base_idle.png" id="3_4fk7g"]
 [ext_resource type="Texture2D" uid="uid://d35oiqb68o51k" path="res://tylermon/sprites/mon_base_hurt2.png" id="3_h2vbk"]
 [ext_resource type="Texture2D" uid="uid://10xdm6hg5oay" path="res://tylermon/sprites/mon_base_basic_attack2.png" id="3_vd7s0"]
 [ext_resource type="Texture2D" uid="uid://biec2ewy4cxyq" path="res://tylermon/sprites/mon_base_basic_attack3.png" id="4_fxyav"]
+[ext_resource type="Texture2D" uid="uid://dam4ybtchqfc0" path="res://tylermon/sprites/test_image.png" id="5_ph7ik"]
 [ext_resource type="Texture2D" uid="uid://cseer4lya8rgn" path="res://tylermon/sprites/mon_base_move.png" id="6_axrsn"]
 [ext_resource type="Texture2D" uid="uid://bpaqa0iqoxs7" path="res://tylermon/sprites/mon_base_block.png" id="6_sfpif"]
 [ext_resource type="Texture2D" uid="uid://dinmg05oam6r1" path="res://tylermon/sprites/mon_base_block2.png" id="7_d7wyo"]
@@ -44,7 +44,7 @@ animations = [{
 "texture": ExtResource("4_fxyav")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"basic_atk",
@@ -70,7 +70,7 @@ animations = [{
 "texture": ExtResource("6_sfpif")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"block",
@@ -123,7 +123,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_4fk7g")
@@ -154,7 +154,7 @@ animations = [{
 "texture": ExtResource("7_p4ot1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": true,
 "name": &"move",
@@ -174,7 +174,7 @@ animations = [{
 "texture": ExtResource("9_ygnaw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"special_atk",
@@ -182,7 +182,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": true,
 "name": &"upgrade_idle",
@@ -202,7 +202,7 @@ animations = [{
 "texture": ExtResource("3_h2vbk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"upgrade_react_bad",
@@ -213,7 +213,7 @@ animations = [{
 "texture": ExtResource("3_4fk7g")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_i6ad0")
+"texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"upgrade_react_good",

@@ -263,13 +263,13 @@ func _on_hurt_box_area_entered(area):
 	for attack in attackers:
 		var attacking_mon = attack.get_parent().get_parent()
 		if elm_type == "WATER" && attacking_mon.elm_type == "GRASS" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "GRASS" && attacking_mon.elm_type == "FIRE":
-			damage(attacking_mon, 1, "super")
+			damage(attacking_mon, 1.25, "super")
 		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "GRASS"  or elm_type == "GRASS" && attacking_mon.elm_type == "WATER":
-			damage(attacking_mon, -1, "not")
+			damage(attacking_mon, .85, "not")
 		elif elm_type == "NONE" && attacking_mon.elm_type != "NONE":
-			damage(attacking_mon, .50, null)
+			damage(attacking_mon, 1.25, "super")
 		else:
-			damage(attacking_mon, 0, null)
+			damage(attacking_mon, 1, null)
 	health_label.text = str(health)
 	hp_bar.value = health
 	velocity = Vector2()
@@ -279,14 +279,19 @@ func _on_hurt_box_area_entered(area):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
 
 
-func damage(mon, modifier: int, effect):
-	var damage = mon.strength * .65
-	damage = damage + (modifier * .65)
+func damage(mon, modifier: float, effect):
+	var damage = mon.strength * .45
+	print("Strength: ", damage)
+	damage *= modifier
+	print("After mod: ", damage)
 	if mon.current_state == State.SPECIAL_ATTACK:
-		damage += (mon.strength * .15)
+		damage += (mon.strength * .25)
+		print("if special: ", damage)
 	if damage <= 1:
 		damage = 1
+		print("If damage is <= to 1: ",damage)
 	damage = round(damage)
+	print("after rounding: ", damage)
 	if effect == "super":
 		damage_label.set("theme_override_colors/font_color", "ea4440")
 		damage_label.text = str(damage) + "!"

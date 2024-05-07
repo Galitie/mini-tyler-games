@@ -55,6 +55,7 @@ var state_weights = [
 @onready var sprite = $scalable_nodes/sprite
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
+@onready var element_player = $scalable_nodes/element
 
 
 #var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
@@ -71,6 +72,7 @@ func _ready():
 	#get_parent().connect("send_command", get_command)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
+	get_parent().get_parent().connect("set_element", show_element_effect)
 
 
 func _physics_process(delta):
@@ -409,3 +411,15 @@ func upgrade_react(reaction):
 		sprite.play("upgrade_react_good")
 	if reaction == "bad":
 		sprite.play("upgrade_react_bad")
+
+
+func show_element_effect(element: String):
+	if element == "FIRE":
+		elm_type = "FIRE"
+		element_player.emitting = true
+	if element == "WATER":
+		elm_type = "WATER"
+		#element_player.emitting = true
+	if element == "GRASS":
+		elm_type = "GRASS"
+		#element_player.emitting = true

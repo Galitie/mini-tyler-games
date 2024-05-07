@@ -31,6 +31,7 @@ var gamble_desc = "Who knows?! Hint: The more you are losing the luckier you are
 
 signal upgrades_finished
 signal upgraded(type)
+signal set_element
 
 func _ready():
 	get_mon()
@@ -91,7 +92,7 @@ func _on_button_pressed(button_name):
 			var rand_num = randi_range(1,3)
 			if rand_num == 1:
 				if mon.elm_type != "FIRE":
-					mon.elm_type = "FIRE"
+					emit_signal("set_element", "FIRE")
 				else: 
 					mon.elm_type = "WATER"
 			if rand_num == 2:
@@ -103,7 +104,7 @@ func _on_button_pressed(button_name):
 				if mon.elm_type != "GRASS":
 					mon.elm_type = "GRASS"
 				else:
-					mon.elm_type = "FIRE"
+					emit_signal("set_element", "FIRE")
 			emit_signal("upgraded", "good")
 	if points_to_spend == 0:
 		for button in upgrade_buttons:

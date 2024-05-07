@@ -14,6 +14,12 @@ var default_z_index = 0
 var current_player_command = State.TARGET_AND_ATTACK
 var cursed : bool = false
 var max_think_time : float = 3
+var fire_material = load("res://tylermon/fire.tres")
+var fire_text = load("res://tylermon/background/flame_text.png")
+var water_material = load("res://tylermon/water.tres")
+var water_text = load("res://tylermon/background/water_text.png")
+var grass_material = load("res://tylermon/grass.tres")
+var grass_text = load("res://tylermon/background/grass_text.png")
 
 @export var custom_color : Color
 
@@ -138,6 +144,7 @@ func set_state(state):
 		
 		State.KNOCKED_OUT:
 			current_state = State.KNOCKED_OUT
+			toggle_particle(false)
 			sprite.play("just_knocked_out")
 			chance_to_say_phrase(knocked_out_phrases, 1)
 			timer.paused = true
@@ -341,6 +348,7 @@ func switch_round_modes(fight_time):
 		health_label.text = str(max_health)
 		timer.paused = false
 	else:
+		toggle_particle(true)
 		set_state(State.IDLE)
 		timer.stop()
 		hp_bar.visible = true
@@ -416,10 +424,23 @@ func upgrade_react(reaction):
 func show_element_effect(element: String):
 	if element == "FIRE":
 		elm_type = "FIRE"
+		element_player.texture = fire_text
+		element_player.process_material = fire_material
 		element_player.emitting = true
 	if element == "WATER":
 		elm_type = "WATER"
-		#element_player.emitting = true
+		element_player.texture = water_text
+		element_player.process_material = water_material
+		element_player.emitting = true
 	if element == "GRASS":
 		elm_type = "GRASS"
-		#element_player.emitting = true
+		element_player.texture = grass_text
+		element_player.process_material = grass_material
+		element_player.emitting = true
+
+
+func toggle_particle(effect : bool):
+	if effect == true and elm_type != "NONE":
+		element_player.emitting = true
+	else:
+		element_player.emitting = false

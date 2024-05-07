@@ -94,15 +94,15 @@ func _on_button_pressed(button_name):
 				if mon.elm_type != "FIRE":
 					emit_signal("set_element", "FIRE")
 				else: 
-					mon.elm_type = "WATER"
+					emit_signal("set_element", "WATER")
 			if rand_num == 2:
 				if mon.elm_type != "WATER":
-					mon.elm_type = "WATER"
+					emit_signal("set_element", "WATER")
 				else:
-					mon.elm_type = "GRASS"
+					emit_signal("set_element", "GRASS")
 			if rand_num == 3:
 				if mon.elm_type != "GRASS":
-					mon.elm_type = "GRASS"
+					emit_signal("set_element", "GRASS")
 				else:
 					emit_signal("set_element", "FIRE")
 			emit_signal("upgraded", "good")

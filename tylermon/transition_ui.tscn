@@ -1,7 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://io2r0wxux8x6"]
+[gd_scene load_steps=7 format=3 uid="uid://io2r0wxux8x6"]
 
 [ext_resource type="Script" path="res://tylermon/transition_ui.gd" id="1_d5nyu"]
 [ext_resource type="Texture2D" uid="uid://bi1d0ymwpaswg" path="res://tylermon/background/winner_banner.png" id="2_gmicj"]
+[ext_resource type="Texture2D" uid="uid://y51xhwuw8swe" path="res://tylermon/background/confetti.png" id="3_dtla6"]
+
+[sub_resource type="Gradient" id="Gradient_ln3ib"]
+offsets = PackedFloat32Array(0.684385, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4xxmb"]
+gradient = SubResource("Gradient_ln3ib")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o27xt"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(640, 0, 0)
+emission_shape_scale = Vector3(640, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+angular_velocity_min = 16.36
+angular_velocity_max = 188.18
+gravity = Vector3(0, 98, 0)
+scale_min = 0.25
+color_ramp = SubResource("GradientTexture1D_4xxmb")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
 
 [node name="container" type="MarginContainer"]
 custom_minimum_size = Vector2(0, 600)
@@ -20,6 +45,14 @@ script = ExtResource("1_d5nyu")
 [node name="overlay" type="TextureRect" parent="."]
 layout_mode = 2
 texture = ExtResource("2_gmicj")
+
+[node name="confetti" type="GPUParticles2D" parent="overlay"]
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_o27xt")
+texture = ExtResource("3_dtla6")
+lifetime = 4.0
+randomness = 0.1
 
 [node name="center_container" type="CenterContainer" parent="."]
 layout_mode = 2

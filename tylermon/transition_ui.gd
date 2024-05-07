@@ -1,6 +1,7 @@
 extends MarginContainer
 
 @onready var title_label = $center_container/vbox/vbox/title_text
+@onready var confetti = $overlay/confetti
 
 
 func _ready():
@@ -34,6 +35,7 @@ func clear_winners():
 
 
 func show_final_winners(winners):
+	confetti.emitting = true
 	if winners.size() == 1:
 		title_label.text = "✨🏆 GAME WINNER 🏆✨"
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=41 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/sprites/mon_base_knocked_out3.png" id="18_7kvut"]
 [ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/sprites/mon_base_special.png" id="18_050gi"]
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
+[ext_resource type="Material" uid="uid://cyc8enwy4vivf" path="res://tylermon/grass.tres" id="25_7cfht"]
+[ext_resource type="Texture2D" uid="uid://bcc2g42v5i11n" path="res://tylermon/background/grass_text.png" id="26_rqi1e"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 resource_local_to_scene = true
@@ -429,7 +431,8 @@ disabled = true
 
 [node name="element" type="GPUParticles2D" parent="scalable_nodes"]
 position = Vector2(0, 48)
-emitting = false
+process_material = ExtResource("25_7cfht")
+texture = ExtResource("26_rqi1e")
 explosiveness = 0.04
 randomness = 0.03
 

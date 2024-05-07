@@ -41,6 +41,10 @@ func _ready():
 
 func _process(_delta):
 	countdown_nums.text = "%02d" % time_left()
+	if round_timer.time_left < 5:
+		countdown_nums.set("theme_override_colors/font_color", Color("ff0000"))
+	else:
+		countdown_nums.set("theme_override_colors/font_color", Color("000000"))
 	if fight_time:
 		check_for_winners_during_fight()
 

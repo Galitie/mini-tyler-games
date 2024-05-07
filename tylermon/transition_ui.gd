@@ -18,9 +18,9 @@ func update_winners(winners):
 	if winners.size() == 0:
 		"NO WINNERS THIS ROUND"
 	if winners.size() == 1:
-		title_label.text = "ROUND WINNER:"
+		title_label.text = "🎉 ROUND WINNER 🎉"
 	else:
-		title_label.text = "ROUND WINNERS:"
+		title_label.text = "🎉 ROUND WINNERS 🎉"
 	build_winners_nodes(winners)
 
 
@@ -35,9 +35,9 @@ func clear_winners():
 
 func show_final_winners(winners):
 	if winners.size() == 1:
-		title_label.text = "GAME WINNER:"
+		title_label.text = "✨🏆 GAME WINNER 🏆✨"
 	else:
-		title_label.text = "GAME WINNERS:"
+		title_label.text = "✨🏆 GAME WINNERS 🏆✨"
 	build_winners_nodes(winners)
 
 

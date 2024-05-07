@@ -284,7 +284,6 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_p62ak")
 
 [sub_resource type="Animation" id="Animation_lk8iw"]
 resource_name = "damage_amount"
-length = 0.75
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -292,7 +291,7 @@ tracks/0/path = NodePath("damage_taken:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.2, 0.7, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -304,10 +303,10 @@ tracks/1/path = NodePath("damage_taken:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.7),
+"times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-100, -19.5), Vector2(-100, -100)]
+"values": [Vector2(-105, -19.5), Vector2(-105, -100)]
 }
 
 [sub_resource type="Animation" id="Animation_i6xwv"]
@@ -530,21 +529,23 @@ uppercase = true
 
 [node name="damage_taken" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
+z_index = 3
+y_sort_enabled = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
+offset_left = -105.0
 offset_top = -19.5
-offset_right = 69.0
+offset_right = 64.0
 offset_bottom = 19.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.25, 1.25)
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 28
-text = "not effective"
+text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 

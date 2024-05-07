@@ -12,7 +12,7 @@
 [node name="tylermon" type="Node2D"]
 scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 60
+fight_length = 5
 upgrade_length = 120
 max_rounds = 5
 
@@ -151,10 +151,6 @@ script = ExtResource("5_uxsio")
 position = Vector2(934, 562)
 custom_color = Color(1, 1, 1, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="upgrade_ui"]
-position = Vector2(618.681, 334.332)
-texture = ExtResource("6_urw4u")
-
 [node name="command_ui" type="Control" parent="."]
 visible = false
 custom_minimum_size = Vector2(1280, 720)
@@ -202,5 +198,9 @@ offset_bottom = 726.0
 layout_mode = 2
 
 [node name="wait_timer" type="Timer" parent="."]
+
+[node name="elements" type="Sprite2D" parent="."]
+position = Vector2(1223.35, 56.5487)
+texture = ExtResource("6_urw4u")
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

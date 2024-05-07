@@ -4,9 +4,9 @@
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="2_obobf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dtmia"]
-content_margin_left = 5.0
+content_margin_left = 10.0
 content_margin_top = 3.0
-content_margin_right = 5.0
+content_margin_right = 10.0
 content_margin_bottom = 3.0
 bg_color = Color(0.552941, 0.407843, 0.847059, 1)
 corner_radius_top_left = 3
@@ -57,9 +57,10 @@ theme_override_constants/separation = 9
 [node name="description" type="Label" parent="margin/hbox/buttons"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.788235, 0.788235, 0.788235, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
-text = "Dole out 3 points to stats"
+text = "Dole out 3 points to stats this is a test of even more text"
+horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="hbox" type="HBoxContainer" parent="margin/hbox/buttons"]
@@ -71,7 +72,7 @@ size_flags_horizontal = 4
 focus_neighbor_top = NodePath("../../hbox7/gamble")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
 theme = ExtResource("2_obobf")
-text = "Increase Health"
+text = "❤️ Increase Health"
 alignment = 0
 
 [node name="stat1" type="Label" parent="margin/hbox/buttons/hbox"]
@@ -89,7 +90,8 @@ size_flags_horizontal = 2
 focus_neighbor_top = NodePath("../../hbox/hp")
 focus_neighbor_bottom = NodePath("../../hbox3/int")
 theme = ExtResource("2_obobf")
-text = "Increase Strength"
+text = "💪 Increase Strength"
+alignment = 0
 
 [node name="stat2" type="Label" parent="margin/hbox/buttons/hbox2"]
 layout_mode = 2
@@ -104,7 +106,8 @@ size_flags_horizontal = 3
 focus_neighbor_top = NodePath("../../hbox2/str")
 focus_neighbor_bottom = NodePath("../../hbox5/type")
 theme = ExtResource("2_obobf")
-text = "Increase Intelligence"
+text = "🧠 Increase Intellect"
+alignment = 0
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]
 layout_mode = 2
@@ -119,7 +122,8 @@ size_flags_horizontal = 3
 focus_neighbor_top = NodePath(".")
 focus_neighbor_bottom = NodePath("../../hbox7/gamble")
 theme = ExtResource("2_obobf")
-text = "Change Attack Type"
+text = " ♻️ Change Element"
+alignment = 0
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]
 layout_mode = 2
@@ -130,14 +134,16 @@ layout_mode = 2
 
 [node name="gamble" type="Button" parent="margin/hbox/buttons/hbox7"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../../hbox5/type")
 focus_neighbor_bottom = NodePath("../../hbox/hp")
 theme = ExtResource("2_obobf")
 theme_override_styles/normal = SubResource("StyleBoxFlat_dtmia")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3dj2a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_03iys")
-text = "GAMBLE"
+text = "🎲 GAMBLE "
+alignment = 0
 
 [node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]
 layout_mode = 2
@@ -145,6 +151,7 @@ alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
+alignment = 1
 
 [node name="place" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2

@@ -146,7 +146,7 @@ func set_state(state):
 			current_state = State.KNOCKED_OUT
 			toggle_particle(false)
 			sprite.play("just_knocked_out")
-			chance_to_say_phrase(knocked_out_phrases, 1)
+			#chance_to_say_phrase(knocked_out_phrases, 1)
 			timer.paused = true
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true

@@ -442,5 +442,5 @@ func show_element_effect(element: String):
 func toggle_particle(effect : bool):
 	if effect == true and elm_type != "NONE":
 		element_player.emitting = true
-	else:
+	if effect == false and elm_type != "NONE":
 		element_player.emitting = false

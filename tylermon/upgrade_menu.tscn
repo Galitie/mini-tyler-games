@@ -59,7 +59,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
-text = "Dole out 3 points to stats this is a test of even more text"
+text = "Add 3 points to stats"
 horizontal_alignment = 1
 autowrap_mode = 2
 

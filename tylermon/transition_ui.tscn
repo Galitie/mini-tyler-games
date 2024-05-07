@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://io2r0wxux8x6"]
+[gd_scene load_steps=3 format=3 uid="uid://io2r0wxux8x6"]
 
 [ext_resource type="Script" path="res://tylermon/transition_ui.gd" id="1_d5nyu"]
+[ext_resource type="Texture2D" uid="uid://bi1d0ymwpaswg" path="res://tylermon/background/winner_banner.png" id="2_gmicj"]
 
 [node name="container" type="MarginContainer"]
 custom_minimum_size = Vector2(0, 600)
@@ -16,30 +17,25 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 script = ExtResource("1_d5nyu")
 
-[node name="overlay" type="ColorRect" parent="."]
+[node name="overlay" type="TextureRect" parent="."]
 layout_mode = 2
-color = Color(0.207843, 0.266667, 0.14902, 1)
+texture = ExtResource("2_gmicj")
 
 [node name="center_container" type="CenterContainer" parent="."]
 layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="center_container"]
 layout_mode = 2
-theme_override_constants/separation = 60
+theme_override_constants/separation = -50
 
 [node name="vbox" type="VBoxContainer" parent="center_container/vbox"]
 layout_mode = 2
 
 [node name="title_text" type="Label" parent="center_container/vbox/vbox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "ROUND WINNERS:"
-horizontal_alignment = 1
-
-[node name="description" type="Label" parent="center_container/vbox/vbox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Mon(s) with the most HP left at the end of the round"
 horizontal_alignment = 1
 
 [node name="winners" type="HBoxContainer" parent="center_container/vbox"]

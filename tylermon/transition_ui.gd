@@ -44,25 +44,11 @@ func show_final_winners(winners):
 func build_winners_nodes(winners):
 	var container = get_node("center_container/vbox/winners")
 	for winner in winners:
-		var label = Label.new()
-		var remaining_health = Label.new()
-		remaining_health.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		if winner.name == "player0":
-			label.text = "Player 1"
-		if winner.name == "player1":
-			label.text = "Player 2"
-		if winner.name == "player2":
-			label.text = "Player 3"
-		if winner.name == "player3":
-			label.text = "Player 4"
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var image = TextureRect.new()
 		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		image.texture = sprite_frame.get_frame_texture("idle",0)
 		image.modulate = winner.get_child(0).custom_color
 		var vbox = VBoxContainer.new()
-		vbox.add_child(label)
 		vbox.add_child(image)
 		vbox.set("theme_override_constants/separation", -40)
 		container.add_child(vbox)

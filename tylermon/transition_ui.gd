@@ -33,7 +33,11 @@ func clear_winners():
 	if children.size() > 0:
 		for child in children:
 			child.queue_free()
-
+	var loser_container = get_node("center_container/vbox/losers")
+	var loser_children = loser_container.get_children()
+	if loser_children.size() > 0:
+		for child in loser_children:
+			child.queue_free()
 
 func show_final_winners(winners):
 	end_of_game = true

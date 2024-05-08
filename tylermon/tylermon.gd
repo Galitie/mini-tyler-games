@@ -62,7 +62,7 @@ func _on_round_timer_timeout():
 		var winners = get_end_of_round_winner()
 		await check_for_game_end()
 		call_and_pause()
-		await show_transition("round_winners", winners, 15)
+		await show_transition("round_winners", winners, 7)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		#command_ui.visible = false

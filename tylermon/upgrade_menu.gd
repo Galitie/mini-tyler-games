@@ -259,12 +259,11 @@ func set_place():
 	var players = get_tree().get_nodes_in_group("player")
 	var player_totals = []
 	for player in players:
-		player.total = player.wins
-		player_totals.append(player.total)
+		player_totals.append(player.wins)
 	player_totals.sort()
 	var remove_duplicates = array_unique(player_totals)
 	remove_duplicates.reverse()
-	var index = remove_duplicates.find(player.total)
+	var index = remove_duplicates.find(player.wins)
 	var index_corrected = index + 1
 	var add
 	player.current_place = index_corrected

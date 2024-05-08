@@ -59,7 +59,7 @@ layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="center_container"]
 layout_mode = 2
-theme_override_constants/separation = -50
+theme_override_constants/separation = 30
 
 [node name="vbox" type="VBoxContainer" parent="center_container/vbox"]
 layout_mode = 2
@@ -72,6 +72,11 @@ text = "ROUND WINNERS:"
 horizontal_alignment = 1
 
 [node name="winners" type="HBoxContainer" parent="center_container/vbox"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="losers" type="HBoxContainer" parent="center_container/vbox"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1

@@ -62,7 +62,7 @@ func _on_round_timer_timeout():
 		var winners = get_end_of_round_winner()
 		await check_for_game_end()
 		call_and_pause()
-		await show_transition("round_winners", winners, 5)
+		await show_transition("round_winners", winners, 15)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		#command_ui.visible = false
@@ -98,9 +98,7 @@ func get_end_of_round_winner():
 		if highest_health_mon.health <= mon.health:
 			highest_health_mon = mon
 	for mon in mons:
-		if mon.health != highest_health_mon.health:
-			var player = mon.get_parent()
-		else:
+		if mon.health == highest_health_mon.health:
 			var player = mon.get_parent()
 			player.wins += 5
 			winners.append(player)
@@ -115,7 +113,7 @@ func check_for_game_end():
 		for player in players:
 			if highest_wins == null:
 				highest_wins = player.wins 
-			if highest_wins <= player.wins:
+			elif highest_wins <= player.wins:
 				highest_wins = player.wins
 		for player in players:
 			if player.wins == highest_wins:

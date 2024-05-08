@@ -2,7 +2,6 @@ class_name Player
 extends Node
 var mon : CharacterBody2D
 var wins : int = 0
-var total : int
 var player_index : int
 var fight_mode : bool
 var current_place : int

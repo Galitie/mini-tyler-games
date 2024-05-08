@@ -23,7 +23,7 @@ var grass_text = load("res://tylermon/background/grass_text.png")
 
 @export var custom_color : Color
 
-signal knocked_out(place)
+signal knocked_out
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
@@ -146,7 +146,6 @@ func set_state(state):
 			current_state = State.KNOCKED_OUT
 			toggle_particle(false)
 			sprite.play("just_knocked_out")
-			#chance_to_say_phrase(knocked_out_phrases, 1)
 			timer.paused = true
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
@@ -449,3 +448,4 @@ func toggle_particle(effect : bool):
 		element_player.emitting = true
 	if effect == false and elm_type != "NONE":
 		element_player.emitting = false
+

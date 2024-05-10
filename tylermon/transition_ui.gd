@@ -69,19 +69,17 @@ func build_nodes(winners):
 
 
 func build_losers_nodes(winners):
-	#var loser_header = Label.new()
-	#loser_header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	#loser_header.set("theme_override_colors/font_color", Color("000000"))
-	#loser_header.set("theme_override_font_sizes/font_size", 24)
-	#loser_header.text = "LOSERS"
-	#var sibling = get_node("center_container/vbox/winners")
-	#sibling.add_sibling(loser_header)
 	var losers = get_tree().get_nodes_in_group("player")
 	for winner in winners:
 		for player in losers:
 			if winner == player:
 				losers.erase(player)
 	var container = get_node("center_container/vbox/losers")
+	for loser in losers:
+		if winners.size() == 3:
+			loser.wins += 3
+		if winners.size() == 2:
+			loser.wins += 1
 	for loser in losers:
 		var image = TextureRect.new()
 		var label = Label.new()

@@ -14,7 +14,6 @@ var default_z_index = 0
 var current_player_command = State.TARGET_AND_ATTACK
 var cursed : bool = false
 var max_think_time : float = 3
-var victory_points = 5
 var fire_material = load("res://tylermon/fire.tres")
 var fire_text = load("res://tylermon/background/flame_text.png")
 var water_material = load("res://tylermon/water.tres")
@@ -149,7 +148,7 @@ func set_state(state):
 			hp_bar.value = health
 			hp_bar.visible = false
 			velocity = Vector2()
-			check_how_many_other_mons_knocked_out()
+			var victory_points = check_how_many_other_mons_knocked_out()
 			var player = get_parent()
 			player.wins += victory_points
 			$dead_anim_timer.start(.60)
@@ -262,13 +261,14 @@ func check_how_many_other_mons_knocked_out():
 	for mon in all_mons:
 		if mon.current_state == State.KNOCKED_OUT and mon != self:
 			counter += 1
-	match counter:
-		0:
-			victory_points = 0
-		1:
-			victory_points = 1
-		2:
-			victory_points = 3
+	if counter == 0:
+		return 0
+	if counter == 1:
+		return 1
+	if counter == 2:
+		return 3
+	else:
+		return 5
 
 
 func _on_hurt_box_area_entered(area):
@@ -345,7 +345,6 @@ func command_thought(action):
 
 func switch_round_modes(fight_time):
 	if fight_time:
-		victory_points = 5
 		timer.start(.5)
 		position = fight_pos
 		hp_bar.visible = true

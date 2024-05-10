@@ -380,9 +380,8 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"special_atk"
+animation = &"just_knocked_out"
 autoplay = "idle"
-frame = 1
 flip_h = true
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
@@ -444,6 +443,12 @@ one_shot = true
 one_shot = true
 
 [node name="block_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="knockout_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="dead_anim_timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="hp_bar" type="ProgressBar" parent="."]
@@ -571,3 +576,5 @@ libraries = {
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="block_timer" to="." method="_on_block_timer_timeout"]
+[connection signal="timeout" from="knockout_timer" to="." method="_on_knockout_timer_timeout"]
+[connection signal="timeout" from="dead_anim_timer" to="." method="_on_dead_anim_timer_timeout"]

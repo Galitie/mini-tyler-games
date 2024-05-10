@@ -143,7 +143,6 @@ func set_state(state):
 			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
-			current_state = State.KNOCKED_OUT
 			toggle_particle(false)
 			sprite.play("just_knocked_out")
 			timer.paused = true
@@ -157,22 +156,38 @@ func set_state(state):
 			var victory_points = check_how_many_other_mons_knocked_out()
 			var player = get_parent()
 			player.wins += victory_points
-			emit_signal("knocked_out")
+			$dead_anim_timer.start(.60)
+			$knockout_timer.start(1.25)
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
 			#chance_to_say_phrase(target_phrases, 4)
-			destination = get_other_random_mon().position
+			var random_mon = get_other_random_mon()
+			if random_mon == null:
+					timer.stop()
+					sprite.play("idle")
+			else:
+				destination = random_mon.position
 		
 		State.TARGET_AND_ATTACK:
 			sprite.play("move")
 			#chance_to_say_phrase(target_phrases, 4)
-			destination = get_other_random_mon().position
+			var random_mon = get_other_random_mon()
+			if random_mon == null:
+					timer.stop()
+					sprite.play("idle")
+			else:
+				destination = random_mon.position
 
 		State.TARGET_AND_SPECIAL:
 			sprite.play("move")
 			#chance_to_say_phrase(target_phrases, 4)
-			destination = get_other_random_mon().position
+			var random_mon = get_other_random_mon()
+			if random_mon == null:
+					timer.stop()
+					sprite.play("idle")
+			else:
+				destination = random_mon.position
 		
 		State.BLOCK:
 			#chance_to_say_phrase(blocking_phrases, 4)
@@ -227,15 +242,22 @@ func update_state(state, delta):
 			pass
 	
 		State.KNOCKED_OUT:
-			when_done_play_next_animation()
+			pass
 
 
 func get_other_random_mon():
 	var get_all_mons = get_tree().get_nodes_in_group("mons")
-	var random_mon = get_all_mons.pick_random()
-	while random_mon == self or random_mon.current_state == State.KNOCKED_OUT:
-		random_mon = get_all_mons.pick_random()
-	return random_mon
+	var mons_to_target = []
+	var random_mon
+	for mon in get_all_mons:
+		if mon == self or mon.current_state == State.KNOCKED_OUT:
+			continue
+		mons_to_target.append(mon)
+	if mons_to_target.size() > 0:
+		random_mon = mons_to_target.pick_random()
+		return random_mon
+	else:
+		return null
 
 
 func check_how_many_other_mons_knocked_out():
@@ -413,11 +435,6 @@ func _on_charge_timer_timeout():
 		set_state(State.SPECIAL_ATTACK)
 
 
-func when_done_play_next_animation():
-	if !sprite.is_playing():
-		sprite.play("dead")	
-
-
 func upgrade_react(reaction):
 	if reaction == "good":
 		sprite.play("upgrade_react_good")
@@ -449,3 +466,10 @@ func toggle_particle(effect : bool):
 	if effect == false and elm_type != "NONE":
 		element_player.emitting = false
 
+
+func _on_knockout_timer_timeout():
+	emit_signal("knocked_out")
+
+
+func _on_dead_anim_timer_timeout():
+	sprite.play("dead")

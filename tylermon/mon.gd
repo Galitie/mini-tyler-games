@@ -138,12 +138,14 @@ func set_state(state):
 		
 		State.KNOCKED_OUT:
 			toggle_particle(false)
+			_on_block_timer_timeout()
+			_on_attack_timer_timeout()
+			hurt_box.get_child(0).disabled = true
 			chance_to_say_phrase(cursed_phrases, 4)
 			sprite.play("just_knocked_out")
-			timer.paused = true
+			timer.stop()
 			z_index = default_z_index - 1
 			get_node("collision").disabled = true
-			hurt_box.get_child(0).disabled = true
 			health_label.text = str(health)
 			hp_bar.value = health
 			hp_bar.visible = false
@@ -159,8 +161,8 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
-					timer.stop()
-					sprite.play("idle")
+				print("random_mon == null")
+				sprite.play("idle")
 			else:
 				destination = random_mon.position
 		
@@ -169,7 +171,6 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
-					timer.stop()
 					sprite.play("idle")
 			else:
 				destination = random_mon.position
@@ -179,7 +180,6 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
-					timer.stop()
 					sprite.play("idle")
 			else:
 				destination = random_mon.position
@@ -378,7 +378,6 @@ func switch_round_modes(fight_time):
 func pause():
 	velocity = Vector2()
 	_on_attack_timer_timeout()
-	_on_block_timer_timeout()
 	timer.stop()
 
 

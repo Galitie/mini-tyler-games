@@ -108,19 +108,20 @@ func set_state(state):
 	match state:
 		State.WALK_RANDOM:
 			sprite.play("move")
-			#chance_to_say_phrase(bored_phrases, 3)
+			chance_to_say_phrase(cursed_phrases, 3)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
 			timer.paused = true
 			velocity = Vector2()
-			#chance_to_say_phrase(attack_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("basic_atk")
 			basic_atk_box.get_child(0).disabled = false
 			attack_timer.start(.2)
 		
 		State.CHARGE_UP:
+			chance_to_say_phrase(cursed_phrases, 4)
 			timer.paused = true
 			velocity = Vector2()
 			sprite.play("charge")
@@ -130,7 +131,7 @@ func set_state(state):
 		State.SPECIAL_ATTACK:
 			timer.paused = true
 			velocity = Vector2()
-			#chance_to_say_phrase(attack_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("special_atk")
 			var special_attack = special_atk_box.get_children()
@@ -139,11 +140,13 @@ func set_state(state):
 			attack_timer.start(.2)
 		
 		State.IDLE:
+			chance_to_say_phrase(cursed_phrases, 4)
 			sprite.play("idle")
 			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
 			toggle_particle(false)
+			chance_to_say_phrase(cursed_phrases, 4)
 			sprite.play("just_knocked_out")
 			timer.paused = true
 			z_index = default_z_index - 1
@@ -161,7 +164,7 @@ func set_state(state):
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
-			#chance_to_say_phrase(target_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 					timer.stop()
@@ -171,7 +174,7 @@ func set_state(state):
 		
 		State.TARGET_AND_ATTACK:
 			sprite.play("move")
-			#chance_to_say_phrase(target_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 					timer.stop()
@@ -181,7 +184,7 @@ func set_state(state):
 
 		State.TARGET_AND_SPECIAL:
 			sprite.play("move")
-			#chance_to_say_phrase(target_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 					timer.stop()
@@ -190,7 +193,7 @@ func set_state(state):
 				destination = random_mon.position
 		
 		State.BLOCK:
-			#chance_to_say_phrase(blocking_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 4)
 			velocity = Vector2()
 			block_timer.start(2)
 			sprite.play("block")
@@ -199,7 +202,7 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 
 		State.PLAYER_COMMAND:
-			#chance_to_say_phrase(listening_phrases, 1)
+			chance_to_say_phrase(cursed_phrases, 1)
 			set_state(current_player_command)
 			
 	if state == State.PLAYER_COMMAND:
@@ -334,13 +337,6 @@ func chance_to_say_phrase(array, chance : int):
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
-	else:
-		if rand_num == 1:
-			var rand_phrase = array.pick_random()
-			phrase.get_node("phrase_timer").start(2)
-			phrase.text = rand_phrase
-			await phrase.get_node("phrase_timer").timeout
-			phrase.text = ""
 
 
 func command_thought(action):

@@ -14,6 +14,7 @@ var default_z_index = 0
 var current_player_command = State.TARGET_AND_ATTACK
 var cursed : bool = false
 var max_think_time : float = 3
+var victory_points = 5
 var fire_material = load("res://tylermon/fire.tres")
 var fire_text = load("res://tylermon/background/flame_text.png")
 var water_material = load("res://tylermon/water.tres")
@@ -63,15 +64,7 @@ var state_weights = [
 @onready var damage_anim_player = $damage_anim
 @onready var element_player = $scalable_nodes/element
 
-
-#var bored_phrases = ["Whatever", "ZZZ", "Meh", "IDK", "*shrugs*", "???", "I'm bored"]
-#var target_phrases = ["Charge!", "For Frodo!", "Liberty or Death!", "Leeeroy Jenkins!", "I have the power!"]
-#var attack_phrases = ["DIE!", "Justice!", "HI-YAH!", "Take that!", "I need the last hit"]
-#var hurt_phrases = ["Ouch!", "YEOW!", "!", "I need help!", "Don't touch me!", ">:(", "Ow!", "How dare!", "Oof!", "Good grief!", "Jeez!", "Eep!", "Yikes!", "Zoinks!", "argh!"]
-var knocked_out_phrases = ["Avenge me!", "X.X", "RIP", ":(", "T.T", "RIPAROONIE", "Alas...", "Think of me", "dang it", "c'mon!", "aw nuts", "D'oh!", "Rats!"]
-#var listening_phrases = ["Aye-aye!", "I'm on it!", "Roger roger", "I'm all ears", "No problem", "Understood", "Acknowledged", "Yes master", "say no more", "You bet!", "Loud and clear!"]
-#var blocking_phrases = ["Not this time!", "Not today!", "NOPE", "Get back!", "Can't touch this"]
-var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", "pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", "dumb shits", "fucking hell", "fuuuck"]
+var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", "pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", "dumb shits", "fucking hell", "fuuuck", "douche pickle", "shittertons", "dingle berries", "dipshits", "shmucks"]
 
 func _ready():
 	phrase.text = ""
@@ -156,7 +149,7 @@ func set_state(state):
 			hp_bar.value = health
 			hp_bar.visible = false
 			velocity = Vector2()
-			var victory_points = check_how_many_other_mons_knocked_out()
+			check_how_many_other_mons_knocked_out()
 			var player = get_parent()
 			player.wins += victory_points
 			$dead_anim_timer.start(.60)
@@ -267,17 +260,15 @@ func check_how_many_other_mons_knocked_out():
 	var all_mons = get_tree().get_nodes_in_group("mons")
 	var counter = 0
 	for mon in all_mons:
-		if mon.current_state == State.KNOCKED_OUT:
-			if mon.name != name:
-				counter += 1
-	if counter == 0:
-		return 0
-	if counter == 1:
-		return 1
-	if counter == 2:
-		return 3
-	else:
-		return 5
+		if mon.current_state == State.KNOCKED_OUT and mon != self:
+			counter += 1
+	match counter:
+		0:
+			victory_points = 0
+		1:
+			victory_points = 1
+		2:
+			victory_points = 3
 
 
 func _on_hurt_box_area_entered(area):
@@ -354,6 +345,7 @@ func command_thought(action):
 
 func switch_round_modes(fight_time):
 	if fight_time:
+		victory_points = 5
 		timer.start(.5)
 		position = fight_pos
 		hp_bar.visible = true

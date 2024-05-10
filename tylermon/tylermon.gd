@@ -100,7 +100,7 @@ func get_end_of_round_winner():
 	for mon in mons:
 		if mon.health == highest_health_mon.health:
 			var player = mon.get_parent()
-			player.wins += 5
+			player.wins += mon.victory_points
 			winners.append(player)
 	return winners
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=54 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/sprites/mon_base_special.png" id="18_050gi"]
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
 [ext_resource type="Texture2D" uid="uid://hckkwtxwonq2" path="res://tylermon/sprites/acc_witch_hat_hurt.png" id="25_fho1q"]
-[ext_resource type="AudioStream" uid="uid://ds41j7em87ob2" path="res://tylermon/sfx/move.mp3" id="25_fij4l"]
 [ext_resource type="Texture2D" uid="uid://gove44yuv6cn" path="res://tylermon/sprites/acc_witch_hat_block1.png" id="25_jnnku"]
 [ext_resource type="Texture2D" uid="uid://b7ath3ni4hlvk" path="res://tylermon/sprites/acc_witch_hat_move1.png" id="25_rnkkf"]
 [ext_resource type="Texture2D" uid="uid://batc21dgs8lpj" path="res://tylermon/sprites/acc_witch_hat_idle2.png" id="26_d87c2"]
@@ -614,7 +613,7 @@ randomness = 0.03
 visible = false
 position = Vector2(-11, -41)
 sprite_frames = SubResource("SpriteFrames_4inlb")
-animation = &"upgrade_idle"
+animation = &"idle"
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -754,10 +753,6 @@ libraries = {
 }
 
 [node name="audio_player" type="AudioStreamPlayer2D" parent="."]
-
-[node name="looping_audio_player" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("25_fij4l")
-volume_db = -8.411
 
 [connection signal="area_entered" from="scalable_nodes/hurt_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]

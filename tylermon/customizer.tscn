@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://m7x0w3mg0g76"]
+
+[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="1_ehhrm"]
+[ext_resource type="Script" path="res://tylermon/customizer.gd" id="1_krosd"]
+
+[node name="customizer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_krosd")
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="vbox" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="margin/vbox"]
+layout_mode = 2
+text = "Player #"
+
+[node name="Button" type="Button" parent="margin/vbox"]
+layout_mode = 2
+theme = ExtResource("1_ehhrm")
+text = "🎨 Change Color"
+
+[connection signal="pressed" from="margin/vbox/Button" to="." method="_on_button_pressed"]

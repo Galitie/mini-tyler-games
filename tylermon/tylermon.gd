@@ -4,6 +4,7 @@ var fight_time: bool
 var current_round : int = 1
 var knocked_out_mons: int = 0
 var upgrades_counter: int = 0
+var start_menu_time = true
 
 @export var fight_length: int
 @export var upgrade_length: int
@@ -15,6 +16,10 @@ var upgrades_counter: int = 0
 @onready var round_timer = $round_timer
 @onready var transition_timer = $transition_timer
 @onready var command_ui = $command_ui
+@onready var customization_buttons = get_tree().get_nodes_in_group("customizer")
+@onready var mons = get_tree().get_nodes_in_group("mons")
+@onready var upgrade_menus = get_tree().get_nodes_in_group("upgrade_menus")
+
 
 const STATE = preload("res://tylermon/mon.gd")
 
@@ -25,21 +30,28 @@ signal change_background
 
 
 func _ready():
+	for menus in customization_buttons:
+		menus.visible = true
+	for mon in mons:
+		mon.connect("knocked_out", _add_knocked_out_mon)
+	for upgrade in upgrade_menus:
+		upgrade.connect("upgrades_finished", end_upgrades_early)
+	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
+	countdown_label.text = "Choose a color, then when all players are ready, press start!"
+
+func start_game():
+	start_menu_time = false
+	for menus in customization_buttons:
+		menus.visible = false
 	fight_time = true
 	countdown_label.text = "Round ends: "
 	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 	round_timer.start(fight_length)
 	call_and_switch_modes()
-	var mons = get_tree().get_nodes_in_group("mons")
-	for mon in mons:
-		mon.connect("knocked_out", _add_knocked_out_mon)
-	var upgrade_menus = get_tree().get_nodes_in_group("upgrade_menus")
-	for upgrade in upgrade_menus:
-		upgrade.connect("upgrades_finished", end_upgrades_early)
-	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
-
 
 func _process(_delta):
+	if Input.is_action_pressed("start") and start_menu_time == true:
+		start_game()
 	countdown_nums.text = "%02d" % time_left()
 	if round_timer.time_left < 5:
 		countdown_nums.set("theme_override_colors/font_color", Color("ff0000"))

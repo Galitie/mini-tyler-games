@@ -63,7 +63,6 @@ var state_weights = [
 @onready var damage_anim_player = $damage_anim
 @onready var element_player = $scalable_nodes/element
 @onready var audio_player = $audio_player
-@onready var looping_audio_player = $looping_audio_player
 @onready var hat = $scalable_nodes/witch_hat
 
 var cursed_phrases = [
@@ -99,7 +98,6 @@ var death_sounds = [
 var special_sound = ["res://tylermon/sfx/punch.wav"]
 var basic_attack_sound = ["res://tylermon/sfx/spike.wav"]
 var charge_sound = ["res://tylermon/sfx/charge.wav"]
-var move_sound = ["res://tylermon/sfx/move.mp3"]
 var block_sound = ["res://tylermon/sfx/block.wav"]
 
 func _ready():
@@ -139,7 +137,6 @@ func set_state(state):
 		State.WALK_RANDOM:
 			sprite.play("move")
 			hat.play("move")
-			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 3)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
@@ -209,7 +206,6 @@ func set_state(state):
 		State.TARGET_AND_GO:
 			sprite.play("move")
 			hat.play("move")
-			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
@@ -222,7 +218,6 @@ func set_state(state):
 		State.TARGET_AND_ATTACK:
 			sprite.play("move")
 			hat.play("move")
-			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
@@ -235,7 +230,6 @@ func set_state(state):
 		State.TARGET_AND_SPECIAL:
 			sprite.play("move")
 			hat.play("move")
-			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
@@ -361,17 +355,12 @@ func _on_hurt_box_area_entered(area):
 
 func damage(mon, modifier: float, effect):
 	var damage = mon.strength * .45
-	print("Strength: ", damage)
 	damage *= modifier
-	print("After mod: ", damage)
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += (mon.strength * .25)
-		print("if special: ", damage)
 	if damage <= 1:
 		damage = 1
-		print("If damage is <= to 1: ",damage)
 	damage = round(damage)
-	print("after rounding: ", damage)
 	if effect == "super":
 		damage_label.set("theme_override_colors/font_color", "ea4440")
 		damage_label.text = str(damage) + "!"
@@ -536,9 +525,5 @@ func _on_dead_anim_timer_timeout():
 
 func play_audio(arr):
 	var audio = load(arr.pick_random())
-	if arr == move_sound:
-		looping_audio_player.stream = audio
-		looping_audio_player.play()
-	else:
-		audio_player.stream = audio
-		audio_player.play()
+	audio_player.stream = audio
+	audio_player.play()

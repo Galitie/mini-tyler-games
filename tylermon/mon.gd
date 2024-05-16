@@ -8,7 +8,7 @@ var intelligence: int = 1
 var strength: int = 1
 var strength_mod: float = .20
 var elm_type = "NONE"
-var current_state = State.IDLE
+var current_state
 var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.TARGET_AND_ATTACK
@@ -63,7 +63,7 @@ var state_weights = [
 @onready var damage_anim_player = $damage_anim
 @onready var element_player = $scalable_nodes/element
 @onready var audio_player = $audio_player
-@onready var looping_audio_player
+@onready var hat = $scalable_nodes/hat
 
 var cursed_phrases = [
 	"fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", 
@@ -103,6 +103,7 @@ var block_sound = ["res://tylermon/sfx/block.wav"]
 
 func _ready():
 	phrase.text = ""
+	set_state(State.IDLE)
 	#get_parent().connect("send_command", get_command)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
@@ -136,6 +137,7 @@ func set_state(state):
 	match state:
 		State.WALK_RANDOM:
 			sprite.play("move")
+			hat.play("move")
 			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 3)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
@@ -146,6 +148,7 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("basic_atk")
+			hat.play("basic_atk")
 			play_audio(basic_attack_sound)
 			basic_atk_box.get_child(0).disabled = false
 			attack_timer.start(.2)
@@ -154,6 +157,7 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			timer.paused = true
 			velocity = Vector2()
+			hat.play("charge")
 			sprite.play("charge")
 			play_audio(charge_sound)
 			charge_timer.start(2)
@@ -164,6 +168,7 @@ func set_state(state):
 			velocity = Vector2()
 			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
+			hat.play("special_atk")
 			sprite.play("special_atk")
 			play_audio(special_sound)
 			var special_attack = special_atk_box.get_children()
@@ -174,6 +179,7 @@ func set_state(state):
 		State.IDLE:
 			audio_player.stop()
 			chance_to_say_phrase(cursed_phrases, 4)
+			hat.play("idle")
 			sprite.play("idle")
 			velocity = Vector2()
 		
@@ -184,6 +190,7 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 			play_audio(death_sounds)
 			chance_to_say_phrase(cursed_phrases, 4)
+			hat.play("knocked_out")
 			sprite.play("just_knocked_out")
 			timer.stop()
 			z_index = default_z_index - 1
@@ -200,33 +207,39 @@ func set_state(state):
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
+			hat.play("move")
 			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 				audio_player.stop()
+				hat.play("idle")
 				sprite.play("idle")
 			else:
 				destination = random_mon.position
 		
 		State.TARGET_AND_ATTACK:
 			sprite.play("move")
+			hat.play("move")
 			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 				audio_player.stop()
+				hat.play("idle")
 				sprite.play("idle")
 			else:
 				destination = random_mon.position
 
 		State.TARGET_AND_SPECIAL:
 			sprite.play("move")
+			hat.play("move")
 			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 				audio_player.stop()
+				hat.play("idle")
 				sprite.play("idle")
 			else:
 				destination = random_mon.position
@@ -236,6 +249,7 @@ func set_state(state):
 			play_audio(block_sound)
 			velocity = Vector2()
 			block_timer.start(2)
+			hat.play("block")
 			sprite.play("block")
 			timer.paused = true
 			z_index = default_z_index + 1
@@ -338,6 +352,7 @@ func _on_hurt_box_area_entered(area):
 	velocity = Vector2()
 	play_audio(hurt_sounds)
 	anim_player.play("hurt")
+	hat.play("hurt")
 	sprite.play("hurt")
 	if health <= roundi(max_health * .25):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
@@ -414,6 +429,7 @@ func switch_round_modes(fight_time):
 		set_state(State.IDLE)
 		timer.stop()
 		hp_bar.visible = true
+		hat.play("upgrade_idle")
 		sprite.play("upgrade_idle")
 		health = max_health
 		health_label.text = str(max_health)
@@ -433,8 +449,10 @@ func pause():
 func move_to_destination(delta):
 	if position.x <= destination.x :
 		sprite.flip_h = false
+		hat.flip_h = false
 	else:
 		sprite.flip_h = true
+		hat.flip_h = true
 	if !timer.is_stopped():
 		position = position.move_toward(destination, speed * delta)
 
@@ -472,9 +490,11 @@ func _on_charge_timer_timeout():
 
 func upgrade_react(reaction):
 	if reaction == "good":
+		hat.play("upgrade_good")
 		sprite.play("upgrade_react_good")
 		play_audio(happy_sounds)
 	if reaction == "bad":
+		hat.play("upgrade_bad")
 		sprite.play("upgrade_react_bad")
 		play_audio(hurt_sounds)
 
@@ -510,6 +530,7 @@ func _on_knockout_timer_timeout():
 
 func _on_dead_anim_timer_timeout():
 	sprite.play("dead")
+	hat.play("dead")
 
 
 func play_audio(arr):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=55 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -24,7 +24,20 @@
 [ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/sprites/mon_base_knocked_out3.png" id="18_7kvut"]
 [ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/sprites/mon_base_special.png" id="18_050gi"]
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
+[ext_resource type="Texture2D" uid="uid://hckkwtxwonq2" path="res://tylermon/sprites/acc_witch_hat_hurt.png" id="25_fho1q"]
 [ext_resource type="AudioStream" uid="uid://ds41j7em87ob2" path="res://tylermon/sfx/move.mp3" id="25_fij4l"]
+[ext_resource type="Texture2D" uid="uid://gove44yuv6cn" path="res://tylermon/sprites/acc_witch_hat_block1.png" id="25_jnnku"]
+[ext_resource type="Texture2D" uid="uid://b7ath3ni4hlvk" path="res://tylermon/sprites/acc_witch_hat_move1.png" id="25_rnkkf"]
+[ext_resource type="Texture2D" uid="uid://batc21dgs8lpj" path="res://tylermon/sprites/acc_witch_hat_idle2.png" id="26_d87c2"]
+[ext_resource type="Texture2D" uid="uid://dmr3ertotj53j" path="res://tylermon/sprites/witch_hat_block2.png" id="26_i5jbf"]
+[ext_resource type="Texture2D" uid="uid://bbipao4tejmkr" path="res://tylermon/sprites/acc_witch_hat_move2.png" id="26_qivfu"]
+[ext_resource type="Texture2D" uid="uid://csewdbj0ndqxs" path="res://tylermon/sprites/acc_witch_hat_idle1.png" id="27_mv3sv"]
+[ext_resource type="Texture2D" uid="uid://cclk8cohqlsw" path="res://tylermon/sprites/acc_witch_hat_charge.png" id="28_vc1qp"]
+[ext_resource type="Texture2D" uid="uid://dwqfw74odc0sk" path="res://tylermon/sprites/acc_witch_hat_dead.png" id="29_xuq3y"]
+[ext_resource type="Texture2D" uid="uid://dod64sf12cik6" path="res://tylermon/sprites/acc_witch_hat_knockedout1.png" id="31_pc4xg"]
+[ext_resource type="Texture2D" uid="uid://c1k8n7i86ypol" path="res://tylermon/sprites/acc_witch_hat_knockedout2.png" id="32_dy6l2"]
+[ext_resource type="Texture2D" uid="uid://ctnl28ayx72h6" path="res://tylermon/sprites/acc_witch_hat_knockedout3.png" id="33_g5jjv"]
+[ext_resource type="Texture2D" uid="uid://bdrhephyl61ni" path="res://tylermon/sprites/acc_witch_hat_special2.png" id="33_got07"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 resource_local_to_scene = true
@@ -191,6 +204,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": true,
+"name": &"upgrade_idle_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_2adcg")
 }, {
 "duration": 1.0,
@@ -227,6 +248,157 @@ resource_local_to_scene = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
 resource_local_to_scene = true
 radius = 5.76907
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4inlb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": true,
+"name": &"basic_atk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_jnnku")
+}, {
+"duration": 1.5,
+"texture": ExtResource("26_i5jbf")
+}, {
+"duration": 1.5,
+"texture": ExtResource("26_i5jbf")
+}, {
+"duration": 1.5,
+"texture": ExtResource("26_i5jbf")
+}, {
+"duration": 1.5,
+"texture": ExtResource("26_i5jbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_jnnku")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": false,
+"name": &"block",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_vc1qp")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_xuq3y")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_fho1q")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_d87c2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_pc4xg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_dy6l2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_g5jjv")
+}],
+"loop": false,
+"name": &"knocked_out",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_rnkkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_qivfu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("33_got07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_got07")
+}, {
+"duration": 2.0,
+"texture": ExtResource("33_got07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vc1qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": false,
+"name": &"special_atk",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_fho1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vc1qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vc1qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vc1qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_vc1qp")
+}],
+"loop": false,
+"name": &"upgrade_bad",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_d87c2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": false,
+"name": &"upgrade_good",
+"speed": 5.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbm80"]
 content_margin_left = 10.0
@@ -354,9 +526,15 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_1o1it"]
+resource_name = "hat_idle"
+length = 0.4
+loop_mode = 1
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ejfqx"]
 _data = {
 "damage_amount": SubResource("Animation_lk8iw"),
+"hat_idle": SubResource("Animation_1o1it"),
 "hurt": SubResource("Animation_i6xwv"),
 "thought": SubResource("Animation_han7l")
 }
@@ -381,9 +559,8 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"just_knocked_out"
+animation = &"upgrade_idle_1"
 autoplay = "idle"
-flip_h = true
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
 rotation = -0.0788491
@@ -432,6 +609,11 @@ position = Vector2(0, 48)
 emitting = false
 explosiveness = 0.04
 randomness = 0.03
+
+[node name="hat" type="AnimatedSprite2D" parent="scalable_nodes"]
+position = Vector2(-11, -41)
+sprite_frames = SubResource("SpriteFrames_4inlb")
+animation = &"upgrade_bad"
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0

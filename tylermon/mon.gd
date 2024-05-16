@@ -63,6 +63,7 @@ var state_weights = [
 @onready var damage_anim_player = $damage_anim
 @onready var element_player = $scalable_nodes/element
 @onready var audio_player = $audio_player
+@onready var looping_audio_player = $looping_audio_player
 @onready var hat = $scalable_nodes/hat
 
 var cursed_phrases = [
@@ -535,5 +536,9 @@ func _on_dead_anim_timer_timeout():
 
 func play_audio(arr):
 	var audio = load(arr.pick_random())
-	audio_player.stream = audio
-	audio_player.play()
+	if arr == move_sound:
+		looping_audio_player.stream = audio
+		looping_audio_player.play()
+	else:
+		audio_player.stream = audio
+		audio_player.play()

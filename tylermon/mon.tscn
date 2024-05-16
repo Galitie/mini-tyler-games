@@ -482,6 +482,11 @@ tracks/1/keys = {
 "values": [Vector2(-105, -19.5), Vector2(-105, -100)]
 }
 
+[sub_resource type="Animation" id="Animation_1o1it"]
+resource_name = "hat_idle"
+length = 0.4
+loop_mode = 1
+
 [sub_resource type="Animation" id="Animation_i6xwv"]
 resource_name = "hurt"
 length = 0.25
@@ -525,11 +530,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_1o1it"]
-resource_name = "hat_idle"
-length = 0.4
-loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ejfqx"]
 _data = {
@@ -611,9 +611,10 @@ explosiveness = 0.04
 randomness = 0.03
 
 [node name="hat" type="AnimatedSprite2D" parent="scalable_nodes"]
+visible = false
 position = Vector2(-11, -41)
 sprite_frames = SubResource("SpriteFrames_4inlb")
-animation = &"upgrade_bad"
+animation = &"upgrade_idle"
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -756,6 +757,7 @@ libraries = {
 
 [node name="looping_audio_player" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_fij4l")
+volume_db = -8.411
 
 [connection signal="area_entered" from="scalable_nodes/hurt_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]

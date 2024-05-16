@@ -36,8 +36,8 @@ func _ready():
 	var upgrade_menus = get_tree().get_nodes_in_group("upgrade_menus")
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
-	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
-	
+	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
+
 
 func _process(_delta):
 	countdown_nums.text = "%02d" % time_left()

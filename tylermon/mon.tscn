@@ -204,14 +204,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("27_mv3sv")
-}],
-"loop": true,
-"name": &"upgrade_idle_1",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("2_2adcg")
 }, {
 "duration": 1.0,
@@ -373,16 +365,16 @@ animations = [{
 "texture": ExtResource("25_fho1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_vc1qp")
+"texture": ExtResource("25_fho1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_vc1qp")
+"texture": ExtResource("25_fho1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_vc1qp")
+"texture": ExtResource("25_fho1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("28_vc1qp")
+"texture": ExtResource("25_fho1q")
 }],
 "loop": false,
 "name": &"upgrade_bad",
@@ -397,6 +389,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"upgrade_good",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_mv3sv")
+}],
+"loop": true,
+"name": &"upgrade_idle",
 "speed": 5.0
 }]
 
@@ -559,7 +559,7 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.917647, 0.266667, 0.25098, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"upgrade_idle_1"
+animation = &"basic_atk"
 autoplay = "idle"
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]

@@ -64,7 +64,7 @@ var state_weights = [
 @onready var element_player = $scalable_nodes/element
 @onready var audio_player = $audio_player
 @onready var looping_audio_player = $looping_audio_player
-@onready var hat = $scalable_nodes/hat
+@onready var hat = $scalable_nodes/witch_hat
 
 var cursed_phrases = [
 	"fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", 

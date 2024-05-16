@@ -121,11 +121,13 @@ func gamble():
 		0:
 			if mon.cursed == false:
 				mon.cursed = true
+				mon.hat.visible = true
 				description.text = "Mon is CURSED"
 				emit_signal("upgraded", "bad")
 			else:
 				mon.cursed = false
 				description.text = "Mon has been un-cursed"
+				mon.hat.visible = false
 				emit_signal("upgraded", "bad")
 		1:
 			mon.speed -= 25
@@ -134,15 +136,15 @@ func gamble():
 		2:
 			mon.get_node("scalable_nodes").scale -= Vector2(.15, .15)
 			description.text = "Mon has shrunk!"
-			emit_signal("upgraded", "good")
+			emit_signal("upgraded", "bad")
 		3:
 			mon.get_node("scalable_nodes").scale += Vector2(.15, .15)
 			description.text = "Mon has grown!"
-			emit_signal("upgraded", "good")
+			emit_signal("upgraded", "bad")
 		4:
 			mon.speed += 25
 			description.text = "Mon is speedier!"
-			emit_signal("upgraded", "good")
+			emit_signal("upgraded", "bad")
 		5:
 			if mon.max_think_time == 1.5:
 				increase_random_stats(1,1)

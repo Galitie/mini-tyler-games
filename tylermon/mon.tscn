@@ -610,7 +610,7 @@ emitting = false
 explosiveness = 0.04
 randomness = 0.03
 
-[node name="hat" type="AnimatedSprite2D" parent="scalable_nodes"]
+[node name="witch_hat" type="AnimatedSprite2D" parent="scalable_nodes"]
 visible = false
 position = Vector2(-11, -41)
 sprite_frames = SubResource("SpriteFrames_4inlb")

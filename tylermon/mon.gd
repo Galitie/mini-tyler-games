@@ -62,8 +62,44 @@ var state_weights = [
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
 @onready var element_player = $scalable_nodes/element
+@onready var audio_player = $audio_player
+@onready var looping_audio_player
 
-var cursed_phrases = ["fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", "fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", "pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", "dumb shits", "fucking hell", "fuuuck", "douche pickle", "shittertons", "dingle berries", "dipshits", "shmucks"]
+var cursed_phrases = [
+	"fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", 
+	"fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", 
+	"pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", 
+	"dumb shits", "fucking hell", "fuuuck", "douche pickle", "shittertons", "dingle berries", 
+	"dipshits", "shmucks"
+	]
+
+var happy_sounds = [
+	"res://tylermon/sfx/happy_0.wav", "res://tylermon/sfx/happy_01.wav",
+	"res://tylermon/sfx/happy_02.wav", "res://tylermon/sfx/happy_03.wav",
+	"res://tylermon/sfx/happy_04.wav", "res://tylermon/sfx/happy_05.wav",
+	"res://tylermon/sfx/happy_06.wav", "res://tylermon/sfx/happy_08.wav",
+	"res://tylermon/sfx/happy_09.wav", "res://tylermon/sfx/happy_10.wav",
+	"res://tylermon/sfx/happy_11.wav", "res://tylermon/sfx/happy_12.wav",
+	"res://tylermon/sfx/happy_13.wav", "res://tylermon/sfx/happy_14.wav",
+	"res://tylermon/sfx/happy_15.wav", "res://tylermon/sfx/happy_16.wav"
+	]
+
+var hurt_sounds = [
+	"res://tylermon/sfx/hurt_1.wav", "res://tylermon/sfx/hurt_2.wav",
+	"res://tylermon/sfx/hurt_0.wav", "res://tylermon/sfx/hurt_3.wav",
+	"res://tylermon/sfx/hurt_4.wav", "res://tylermon/sfx/hurt_5.wav"
+	]
+
+var death_sounds = [
+	"res://tylermon/sfx/death.wav", "res://tylermon/sfx/death_2.wav", 
+	"res://tylermon/sfx/death_3.wav"
+	]
+
+var special_sound = ["res://tylermon/sfx/punch.wav"]
+var basic_attack_sound = ["res://tylermon/sfx/spike.wav"]
+var charge_sound = ["res://tylermon/sfx/charge.wav"]
+var move_sound = ["res://tylermon/sfx/move.mp3"]
+var block_sound = ["res://tylermon/sfx/block.wav"]
 
 func _ready():
 	phrase.text = ""
@@ -100,6 +136,7 @@ func set_state(state):
 	match state:
 		State.WALK_RANDOM:
 			sprite.play("move")
+			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 3)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
@@ -109,6 +146,7 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("basic_atk")
+			play_audio(basic_attack_sound)
 			basic_atk_box.get_child(0).disabled = false
 			attack_timer.start(.2)
 		
@@ -117,6 +155,7 @@ func set_state(state):
 			timer.paused = true
 			velocity = Vector2()
 			sprite.play("charge")
+			play_audio(charge_sound)
 			charge_timer.start(2)
 			z_index = default_z_index + 1
 		
@@ -126,12 +165,14 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
 			sprite.play("special_atk")
+			play_audio(special_sound)
 			var special_attack = special_atk_box.get_children()
 			for hitbox in special_attack:
 				hitbox.disabled = false
 			attack_timer.start(.2)
 		
 		State.IDLE:
+			audio_player.stop()
 			chance_to_say_phrase(cursed_phrases, 4)
 			sprite.play("idle")
 			velocity = Vector2()
@@ -141,6 +182,7 @@ func set_state(state):
 			_on_block_timer_timeout()
 			_on_attack_timer_timeout()
 			hurt_box.get_child(0).disabled = true
+			play_audio(death_sounds)
 			chance_to_say_phrase(cursed_phrases, 4)
 			sprite.play("just_knocked_out")
 			timer.stop()
@@ -158,34 +200,40 @@ func set_state(state):
 
 		State.TARGET_AND_GO:
 			sprite.play("move")
+			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
-				print("random_mon == null")
+				audio_player.stop()
 				sprite.play("idle")
 			else:
 				destination = random_mon.position
 		
 		State.TARGET_AND_ATTACK:
 			sprite.play("move")
+			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
-					sprite.play("idle")
+				audio_player.stop()
+				sprite.play("idle")
 			else:
 				destination = random_mon.position
 
 		State.TARGET_AND_SPECIAL:
 			sprite.play("move")
+			play_audio(move_sound)
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
-					sprite.play("idle")
+				audio_player.stop()
+				sprite.play("idle")
 			else:
 				destination = random_mon.position
 		
 		State.BLOCK:
 			chance_to_say_phrase(cursed_phrases, 4)
+			play_audio(block_sound)
 			velocity = Vector2()
 			block_timer.start(2)
 			sprite.play("block")
@@ -288,6 +336,7 @@ func _on_hurt_box_area_entered(area):
 	health_label.text = str(health)
 	hp_bar.value = health
 	velocity = Vector2()
+	play_audio(hurt_sounds)
 	anim_player.play("hurt")
 	sprite.play("hurt")
 	if health <= roundi(max_health * .25):
@@ -424,8 +473,10 @@ func _on_charge_timer_timeout():
 func upgrade_react(reaction):
 	if reaction == "good":
 		sprite.play("upgrade_react_good")
+		play_audio(happy_sounds)
 	if reaction == "bad":
 		sprite.play("upgrade_react_bad")
+		play_audio(hurt_sounds)
 
 
 func show_element_effect(element: String):
@@ -459,3 +510,9 @@ func _on_knockout_timer_timeout():
 
 func _on_dead_anim_timer_timeout():
 	sprite.play("dead")
+
+
+func play_audio(arr):
+	var audio = load(arr.pick_random())
+	audio_player.stream = audio
+	audio_player.play()

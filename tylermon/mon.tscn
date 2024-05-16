@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=40 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/sprites/mon_base_knocked_out3.png" id="18_7kvut"]
 [ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/sprites/mon_base_special.png" id="18_050gi"]
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
+[ext_resource type="AudioStream" uid="uid://ds41j7em87ob2" path="res://tylermon/sfx/move.mp3" id="25_fij4l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 resource_local_to_scene = true
@@ -568,6 +569,11 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_ejfqx")
 }
+
+[node name="audio_player" type="AudioStreamPlayer2D" parent="."]
+
+[node name="looping_audio_player" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_fij4l")
 
 [connection signal="area_entered" from="scalable_nodes/hurt_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]

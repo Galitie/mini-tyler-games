@@ -1,7 +1,10 @@
 extends MarginContainer
 
 @onready var title_label = $center_container/vbox/vbox/title_text
-@onready var confetti = $overlay/confetti
+@onready var large_confetti = $confetti
+@onready var sm_left_confetti = $confetti2
+@onready var sm_right_confetti = $confetti3
+
 
 var end_of_game = false
 
@@ -24,6 +27,8 @@ func update_winners(winners):
 	else:
 		title_label.text = "🎉 ROUND WINNERS 🎉"
 	build_nodes(winners)
+	sm_left_confetti.emitting = true
+	sm_right_confetti.emitting = true
 
 
 func clear_winners():
@@ -38,10 +43,16 @@ func clear_winners():
 	if loser_children.size() > 0:
 		for child in loser_children:
 			child.queue_free()
+	sm_left_confetti.emitting = false
+	sm_right_confetti.emitting = false
+	large_confetti.emitting = false
+
 
 func show_final_winners(winners):
 	end_of_game = true
-	confetti.emitting = true
+	large_confetti.emitting = true
+	sm_left_confetti.emitting = true
+	sm_right_confetti.emitting = true
 	if winners.size() == 1:
 		title_label.text = "✨🏆 GAME WINNER 🏆✨"
 	else:
@@ -100,6 +111,4 @@ func build_losers_nodes(winners):
 		vbox.add_child(image)
 		vbox.set("theme_override_constants/separation", -20)
 		container.add_child(vbox)	
-
-
 

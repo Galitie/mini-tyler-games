@@ -78,9 +78,11 @@ func _on_round_timer_timeout():
 		fight_time = false
 		upgrades_counter = 0
 		var winners = get_end_of_round_winner()
+		audio_player.stream = victory
+		audio_player.play()
 		await check_for_game_end()
 		call_and_pause()
-		await show_transition("round_winners", winners, 5)
+		await show_transition("round_winners", winners, 7)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		#command_ui.visible = false
@@ -104,8 +106,7 @@ func check_for_winners_during_fight():
 	if knocked_out_mons == 3:
 		round_timer.stop()
 		_on_round_timer_timeout()
-		audio_player.stream = victory
-		audio_player.play()
+
 
 
 func get_end_of_round_winner():

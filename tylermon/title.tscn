@@ -42,7 +42,7 @@ texture = ExtResource("1_nkvg6")
 
 [node name="press_start" type="Sprite2D" parent="."]
 position = Vector2(640, 572)
-scale = Vector2(0.768839, 0.768839)
+scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_uawli")
 
 [node name="anim_player" type="AnimationPlayer" parent="."]

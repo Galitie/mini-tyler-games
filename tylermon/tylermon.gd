@@ -32,6 +32,7 @@ signal change_background
 
 
 func _ready():
+	$music.playing = true
 	for menus in customization_buttons:
 		menus.visible = true
 	for mon in mons:

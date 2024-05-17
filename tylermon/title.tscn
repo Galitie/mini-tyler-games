@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://c17xu7f8tvrfk"]
+
+[ext_resource type="Texture2D" uid="uid://48cwj3wacki4" path="res://tylermon/background/title_screen.png" id="1_nkvg6"]
+[ext_resource type="Script" path="res://tylermon/title.gd" id="1_ou28i"]
+[ext_resource type="Texture2D" uid="uid://bu84eaqcbween" path="res://tylermon/background/press_start.png" id="2_uawli"]
+
+[sub_resource type="Animation" id="Animation_87fa4"]
+resource_name = "pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("press_start:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(1, 1), Vector2(0.75, 0.75)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_djrul"]
+_data = {
+"pulse": SubResource("Animation_87fa4")
+}
+
+[node name="title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ou28i")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_nkvg6")
+
+[node name="press_start" type="Sprite2D" parent="."]
+position = Vector2(640, 572)
+scale = Vector2(0.768839, 0.768839)
+texture = ExtResource("2_uawli")
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_djrul")
+}

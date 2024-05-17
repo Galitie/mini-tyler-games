@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://mej1pqgdqmna"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://mej1pqgdqmna"]
+
+[ext_resource type="FontFile" uid="uid://csg2ib3ns86mg" path="res://tylermon/PoetsenOne-Regular.ttf" id="1_v6dd7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbm80"]
 content_margin_left = 10.0
@@ -48,8 +50,11 @@ corner_radius_bottom_left = 7
 
 [resource]
 resource_local_to_scene = true
+Button/fonts/font = ExtResource("1_v6dd7")
 Button/styles/hover = SubResource("StyleBoxFlat_sbm80")
 Button/styles/normal = SubResource("StyleBoxFlat_sbync")
 Button/styles/pressed = SubResource("StyleBoxFlat_qbxsx")
+Label/fonts/font = ExtResource("1_v6dd7")
+ProgressBar/fonts/font = ExtResource("1_v6dd7")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_nu2nj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_m6qke")

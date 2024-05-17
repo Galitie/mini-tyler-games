@@ -22,6 +22,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="margin/vbox"]
 layout_mode = 2
+theme = ExtResource("1_ehhrm")
 text = "Player #"
 
 [node name="Button" type="Button" parent="margin/vbox"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=55 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://c1k8n7i86ypol" path="res://tylermon/sprites/acc_witch_hat_knockedout2.png" id="32_dy6l2"]
 [ext_resource type="Texture2D" uid="uid://ctnl28ayx72h6" path="res://tylermon/sprites/acc_witch_hat_knockedout3.png" id="33_g5jjv"]
 [ext_resource type="Texture2D" uid="uid://bdrhephyl61ni" path="res://tylermon/sprites/acc_witch_hat_special2.png" id="33_got07"]
+[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="38_5lyhm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 resource_local_to_scene = true
@@ -635,6 +636,7 @@ one_shot = true
 one_shot = true
 
 [node name="hp_bar" type="ProgressBar" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -648,6 +650,7 @@ scale = Vector2(1, 0.994895)
 size_flags_horizontal = 4
 theme = SubResource("Theme_sjqgo")
 step = 1.0
+value = 2.0
 show_percentage = false
 
 [node name="hp_container" type="HBoxContainer" parent="hp_bar"]
@@ -658,15 +661,18 @@ alignment = 1
 
 [node name="current_health" type="Label" parent="hp_bar/hp_container"]
 layout_mode = 2
-text = "3"
+theme = ExtResource("38_5lyhm")
+text = "2"
 
 [node name="divider" type="Label" parent="hp_bar/hp_container"]
 layout_mode = 2
+theme = ExtResource("38_5lyhm")
 text = "/"
 
 [node name="max_health" type="Label" parent="hp_bar/hp_container"]
 layout_mode = 2
-text = "3"
+theme = ExtResource("38_5lyhm")
+text = "2"
 
 [node name="phrase" type="Label" parent="."]
 anchors_preset = 8
@@ -681,6 +687,7 @@ offset_bottom = -58.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(64, 12)
+theme = ExtResource("38_5lyhm")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
@@ -707,6 +714,7 @@ offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(63.1474, 11.31)
+theme = ExtResource("38_5lyhm")
 theme_override_colors/font_color = Color(0, 0.533333, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
@@ -732,6 +740,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.25, 1.25)
 size_flags_horizontal = 4
+theme = ExtResource("38_5lyhm")
 theme_override_font_sizes/font_size = 28
 text = "1"
 horizontal_alignment = 1

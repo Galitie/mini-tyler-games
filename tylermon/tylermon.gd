@@ -37,10 +37,12 @@ func _ready():
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
-	countdown_label.text = "Choose a color, then when all players are ready, press start!"
+	countdown_nums.text = "Choose a color then press START when all players are ready!"
 
 func start_game():
 	start_menu_time = false
+	for mon in mons:
+		mon.hp_bar.visible = true
 	for menus in customization_buttons:
 		menus.visible = false
 	fight_time = true
@@ -49,10 +51,12 @@ func start_game():
 	round_timer.start(fight_length)
 	call_and_switch_modes()
 
+
 func _process(_delta):
 	if Input.is_action_pressed("start") and start_menu_time == true:
 		start_game()
-	countdown_nums.text = "%02d" % time_left()
+	if start_menu_time == false:
+		countdown_nums.text = "%02d" % time_left()
 	if round_timer.time_left < 5:
 		countdown_nums.set("theme_override_colors/font_color", Color("ff0000"))
 	else:

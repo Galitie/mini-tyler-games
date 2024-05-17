@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://io2r0wxux8x6"]
+[gd_scene load_steps=8 format=3 uid="uid://io2r0wxux8x6"]
 
 [ext_resource type="Script" path="res://tylermon/transition_ui.gd" id="1_d5nyu"]
 [ext_resource type="Texture2D" uid="uid://bi1d0ymwpaswg" path="res://tylermon/background/winner_banner.png" id="2_gmicj"]
 [ext_resource type="Texture2D" uid="uid://y51xhwuw8swe" path="res://tylermon/background/confetti.png" id="3_dtla6"]
+[ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="4_nqll4"]
 
 [sub_resource type="Gradient" id="Gradient_ln3ib"]
 offsets = PackedFloat32Array(0.684385, 1)
@@ -66,6 +67,7 @@ layout_mode = 2
 
 [node name="title_text" type="Label" parent="center_container/vbox/vbox"]
 layout_mode = 2
+theme = ExtResource("4_nqll4")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "ROUND WINNERS:"

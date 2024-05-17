@@ -18,7 +18,7 @@ func _process(_delta):
 
 func update_winners(winners):
 	if winners.size() == 0:
-		"NO WINNERS THIS ROUND"
+		title_label.text = "NO WINNERS THIS ROUND"
 	if winners.size() == 1:
 		title_label.text = "🎉 ROUND WINNER 🎉"
 	else:
@@ -54,6 +54,7 @@ func build_nodes(winners):
 	for winner in winners:
 		var image = TextureRect.new()
 		var label = Label.new()
+		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label.text = "Total VP: " + str(winner.wins)
@@ -92,6 +93,7 @@ func build_losers_nodes(winners):
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label.text = "Total VP: " + str(loser.wins)
+		label.theme = load("res://tylermon/tylermon_theme.tres")
 		image.modulate = loser.get_child(0).custom_color
 		var vbox = VBoxContainer.new()
 		vbox.add_child(label)

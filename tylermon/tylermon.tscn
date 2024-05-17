@@ -258,4 +258,6 @@ layout_mode = 2
 position = Vector2(1223.35, 56.5487)
 texture = ExtResource("6_urw4u")
 
+[node name="audio" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

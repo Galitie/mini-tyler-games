@@ -5,11 +5,13 @@ var current_round : int = 1
 var knocked_out_mons: int = 0
 var upgrades_counter: int = 0
 var start_menu_time = true
+var victory = load("res://tylermon/sfx/victory.mp3")
 
 @export var fight_length: int
 @export var upgrade_length: int
 @export var max_rounds: int
 
+@onready var audio_player = $audio
 @onready var upgrade_menu = $upgrade_ui
 @onready var countdown_label = $countdown_ui/margin/seperator/label
 @onready var countdown_nums = $countdown_ui/margin/seperator/countdown
@@ -78,7 +80,7 @@ func _on_round_timer_timeout():
 		var winners = get_end_of_round_winner()
 		await check_for_game_end()
 		call_and_pause()
-		await show_transition("round_winners", winners, 7)
+		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		#command_ui.visible = false
@@ -102,6 +104,8 @@ func check_for_winners_during_fight():
 	if knocked_out_mons == 3:
 		round_timer.stop()
 		_on_round_timer_timeout()
+		audio_player.stream = victory
+		audio_player.play()
 
 
 func get_end_of_round_winner():

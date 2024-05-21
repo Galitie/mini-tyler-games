@@ -6,12 +6,113 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rka1n"]
 size = Vector2(128, 128)
 
-[node name="fighter" type="CharacterBody2D"]
-collision_mask = 3
+[node name="fighter" type="Node2D"]
 script = ExtResource("1_pejqx")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="r_arm" type="RigidBody2D" parent="."]
+position = Vector2(34, 107)
+rotation = 0.849034
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="r_arm"]
+scale = Vector2(1, 0.320001)
 texture = ExtResource("2_k0tac")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="r_arm"]
+scale = Vector2(1, 0.320001)
 shape = SubResource("RectangleShape2D_rka1n")
+
+[node name="head" type="RigidBody2D" parent="."]
+position = Vector2(1, 23)
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="head"]
+scale = Vector2(0.68639, 0.728226)
+texture = ExtResource("2_k0tac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
+scale = Vector2(0.68372, 0.714521)
+shape = SubResource("RectangleShape2D_rka1n")
+
+[node name="r_leg" type="RigidBody2D" parent="."]
+position = Vector2(22, 232)
+rotation = 1.57117
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="r_leg"]
+scale = Vector2(1, 0.320001)
+texture = ExtResource("2_k0tac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="r_leg"]
+scale = Vector2(1, 0.320001)
+shape = SubResource("RectangleShape2D_rka1n")
+
+[node name="body" type="RigidBody2D" parent="."]
+position = Vector2(0, 130)
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="body"]
+scale = Vector2(0.72, 1)
+texture = ExtResource("2_k0tac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+scale = Vector2(0.747013, -0.98636)
+shape = SubResource("RectangleShape2D_rka1n")
+
+[node name="l_leg" type="RigidBody2D" parent="."]
+position = Vector2(-23, 234)
+rotation = 1.57117
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="l_leg"]
+scale = Vector2(1, 0.320001)
+texture = ExtResource("2_k0tac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="l_leg"]
+scale = Vector2(1, 0.320001)
+shape = SubResource("RectangleShape2D_rka1n")
+
+[node name="l_arm" type="RigidBody2D" parent="."]
+position = Vector2(-47, 114)
+rotation = -0.776357
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="l_arm"]
+scale = Vector2(1, 0.320001)
+texture = ExtResource("2_k0tac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="l_arm"]
+scale = Vector2(1, 0.320001)
+shape = SubResource("RectangleShape2D_rka1n")
+
+[node name="joints" type="Node2D" parent="."]
+
+[node name="neck" type="PinJoint2D" parent="joints"]
+position = Vector2(-24, 67)
+node_a = NodePath("../../head")
+node_b = NodePath("../../body")
+
+[node name="neck2" type="PinJoint2D" parent="joints"]
+position = Vector2(27, 67)
+node_a = NodePath("../../head")
+node_b = NodePath("../../body")
+
+[node name="l_shoulder" type="PinJoint2D" parent="joints"]
+position = Vector2(-10, 81)
+node_a = NodePath("../../body")
+node_b = NodePath("../../l_arm")
+
+[node name="r_shoulder" type="PinJoint2D" parent="joints"]
+position = Vector2(3, 69)
+node_a = NodePath("../../body")
+node_b = NodePath("../../r_arm")
+
+[node name="r_hip" type="PinJoint2D" parent="joints"]
+position = Vector2(23, 181)
+node_a = NodePath("../../body")
+node_b = NodePath("../../r_leg")
+
+[node name="l_hip" type="PinJoint2D" parent="joints"]
+position = Vector2(-23, 183)
+node_a = NodePath("../../body")
+node_b = NodePath("../../l_leg")

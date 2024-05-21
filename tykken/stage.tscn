@@ -8,7 +8,7 @@ size = Vector2(1305, 20)
 [node name="stage" type="Node2D"]
 
 [node name="fighter" parent="." instance=ExtResource("1_cjwp5")]
-position = Vector2(625, 0)
+position = Vector2(612, 0)
 
 [node name="ground" type="StaticBody2D" parent="."]
 collision_layer = 2

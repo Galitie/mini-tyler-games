@@ -136,6 +136,7 @@ tylermon_target={
 
 [layer_names]
 
+2d_physics/layer_2="wall"
 2d_physics/layer_3="hit_boxes"
 
 [rendering]

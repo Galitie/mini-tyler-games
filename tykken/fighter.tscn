@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ncbva8qk74j8"]
+
+[ext_resource type="Script" path="res://tykken/fighter.gd" id="1_pejqx"]
+[ext_resource type="Texture2D" uid="uid://mh88hi5a3nux" path="res://icon.svg" id="2_k0tac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rka1n"]
+size = Vector2(128, 128)
+
+[node name="fighter" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_pejqx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_k0tac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rka1n")

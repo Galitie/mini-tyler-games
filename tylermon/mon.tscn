@@ -501,13 +501,14 @@ shape = SubResource("CapsuleShape2D_u036k")
 [node name="scalable_nodes" type="Node2D" parent="."]
 
 [node name="sprite" type="AnimatedSprite2D" parent="scalable_nodes"]
-modulate = Color(0.917647, 0.266667, 0.25098, 1)
+modulate = Color(0.894118, 0.290196, 0.305882, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
 animation = &"basic_atk"
 autoplay = "idle"
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
+visible = false
 rotation = -0.0788491
 collision_layer = 0
 collision_mask = 4
@@ -519,6 +520,7 @@ scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
 [node name="basic_atk_box" type="Area2D" parent="scalable_nodes"]
+visible = false
 position = Vector2(0, 25)
 scale = Vector2(10.5394, 10.925)
 collision_layer = 4
@@ -532,6 +534,7 @@ shape = SubResource("CircleShape2D_ji0f1")
 disabled = true
 
 [node name="special_atk_box" type="Area2D" parent="scalable_nodes"]
+visible = false
 position = Vector2(-7, -30)
 scale = Vector2(16.7837, 5.41757)
 collision_layer = 4

@@ -1,8 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://c17xu7f8tvrfk"]
+[gd_scene load_steps=8 format=3 uid="uid://c17xu7f8tvrfk"]
 
 [ext_resource type="Texture2D" uid="uid://48cwj3wacki4" path="res://tylermon/background/title_screen.png" id="1_nkvg6"]
 [ext_resource type="Script" path="res://tylermon/title.gd" id="1_ou28i"]
 [ext_resource type="Texture2D" uid="uid://bu84eaqcbween" path="res://tylermon/background/press_start.png" id="2_uawli"]
+
+[sub_resource type="Shader" id="Shader_v3333"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h4e5c"]
+shader = SubResource("Shader_v3333")
 
 [sub_resource type="Animation" id="Animation_87fa4"]
 resource_name = "pulse"
@@ -35,6 +55,7 @@ grow_vertical = 2
 script = ExtResource("1_ou28i")
 
 [node name="background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_h4e5c")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

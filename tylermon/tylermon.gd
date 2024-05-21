@@ -41,6 +41,7 @@ func _ready():
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
 	countdown_nums.text = "Choose a color then press START when all players are ready!"
+	
 
 func start_game():
 	start_menu_time = false
@@ -60,7 +61,7 @@ func _process(_delta):
 		start_game()
 	if start_menu_time == false:
 		countdown_nums.text = "%02d" % time_left()
-	if round_timer.time_left < 5:
+	if round_timer.time_left < 5 && start_menu_time == false:
 		countdown_nums.set("theme_override_colors/font_color", Color("ff0000"))
 	else:
 		countdown_nums.set("theme_override_colors/font_color", Color("000000"))

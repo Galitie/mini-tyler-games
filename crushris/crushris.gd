@@ -38,6 +38,9 @@ const WORLD_COLLISION_LAYER: int = 1
 var death_row: Array = []
 var fall_blocks: Array = []
 
+var game_over: bool = false
+var players_killed: int = 0
+
 func spawn_piece() -> void:
 	var piece_instance = piece_scenes.pick_random().instantiate()
 	add_child(piece_instance)
@@ -46,9 +49,12 @@ func spawn_piece() -> void:
 	piece_destination = active_piece.position
 
 func _ready() -> void:
+	for player in get_tree().get_nodes_in_group("players"):
+		player.connect("player_killed", _on_player_killed)
+	
 	spawn_piece()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta) -> void:
 	if death_row.size() != 0:
 		block_killer_timer += 1
 		if block_killer_timer >= block_killer_timer_length:
@@ -65,23 +71,26 @@ func _physics_process(delta: float) -> void:
 		if !still_falling:
 			fall_blocks.clear()
 			check_rows()
-	elif active_piece == null:
+	elif !game_over && active_piece == null:
 		spawn_piece()
 	
 	if active_piece:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
-		if Input.is_action_just_pressed("rotate_piece_left"):
-			active_piece.turn(-PI / 2)
-		if Input.is_action_just_pressed("rotate_piece_right"):
-			active_piece.turn(PI / 2)
-		
-		if Input.is_action_just_pressed("move_piece_left"):
-			if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
-				piece_destination.x = active_piece.position.x - TILE_SIZE
-		if Input.is_action_just_pressed("move_piece_right"):
-			if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
-				piece_destination.x = active_piece.position.x + TILE_SIZE
+		if !game_over:
+			if Input.is_action_just_pressed("rotate_piece_left"):
+				active_piece.turn(-PI / 2)
+			if Input.is_action_just_pressed("rotate_piece_right"):
+				active_piece.turn(PI / 2)
+			
+			if Input.is_action_pressed("move_piece_left"):
+				if active_piece.global_position.x == piece_destination.x:
+					if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
+						piece_destination.x = active_piece.position.x - TILE_SIZE
+			if Input.is_action_pressed("move_piece_right"):
+				if active_piece.global_position.x == piece_destination.x:
+					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
+						piece_destination.x = active_piece.position.x + TILE_SIZE
 		
 		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
 			active_piece.position.y += PIECE_FALL_SPEED * delta
@@ -94,17 +103,22 @@ func _physics_process(delta: float) -> void:
 				
 		if snap_timer >= snap_timer_length:
 			active_piece.position = snap_piece_position(active_piece.position)
-			# TODO: This is bugged. Needs to actually determine the arena ceiling
-			if active_piece.check_contact(Vector2(0, -TILE_SIZE)):
-				print("GAME OVER")
-				active_piece = null
-			else:
-				active_piece.set_collision_layer(WORLD_COLLISION_LAYER)
-				active_piece = null
-				check_rows()
-				if death_row.size() == 0:
-					spawn_piece()
+			
+			active_piece.set_collision_layer(WORLD_COLLISION_LAYER)
+			check_rows()
 			snap_timer = 0
+			if death_row.size() == 0:
+				for block in active_piece.get_children():
+					var col_result: KinematicCollision2D = KinematicCollision2D.new()
+					if block.test_move(block.global_transform, Vector2(0, -TILE_SIZE), col_result, 0.0):
+						if col_result && col_result.get_collider().name == "arena_ceiling":
+							game_over = true
+							active_piece = null
+				
+				if !game_over:
+					spawn_piece()
+			else:
+				active_piece = null
 				
 func snap_piece_position(pos: Vector2) -> Vector2:
 	var result: Vector2 = BOTTOM_LEFT_ROW_ORIGIN + Vector2(
@@ -143,3 +157,9 @@ func check_rows() -> void:
 		block_killer_timer = block_killer_timer_length
 	else:
 		fall_blocks.clear()
+
+func _on_player_killed() -> void:
+	players_killed += 1
+	if players_killed >= 3:
+		game_over = true
+		$blocks_win.visible = true

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bw0cafqg6opwm"]
+[gd_scene load_steps=7 format=3 uid="uid://bw0cafqg6opwm"]
 
 [ext_resource type="Script" path="res://crushris/rockman.gd" id="1_f26mj"]
 [ext_resource type="Texture2D" uid="uid://rf0xxypn1mqw" path="res://crushris/rockman.png" id="1_j3tyy"]
+[ext_resource type="Texture2D" uid="uid://ccmj68ahfehhy" path="res://crushris/rockman_outline.png" id="2_kjtgc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0bwpm"]
 animations = [{
@@ -26,6 +27,9 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_f26mj")
+
+[node name="outline" type="Sprite2D" parent="."]
+texture = ExtResource("2_kjtgc")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0bwpm")

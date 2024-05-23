@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=9 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
 [ext_resource type="Texture2D" uid="uid://43s6nj13pmcd" path="res://crushris/bg.png" id="2_y6e6l"]
 [ext_resource type="VideoStream" path="res://crushris/embers.ogv" id="4_pk3vh"]
 [ext_resource type="PackedScene" uid="uid://bw0cafqg6opwm" path="res://crushris/rockman.tscn" id="5_8wb2y"]
+[ext_resource type="Texture2D" uid="uid://5cmtkfmkw48h" path="res://crushris/blocks_win.png" id="6_les5k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
 size = Vector2(250, 25)
@@ -60,5 +61,24 @@ shape = SubResource("RectangleShape2D_7tcbf")
 position = Vector2(777.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
 
-[node name="rockman" parent="." instance=ExtResource("5_8wb2y")]
-position = Vector2(651, 598)
+[node name="rockman" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
+position = Vector2(628, 598)
+controller_port = 1
+color = Color(1, 0, 0, 1)
+
+[node name="rockman2" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
+position = Vector2(653, 598)
+controller_port = 2
+color = Color(1, 1, 0, 1)
+
+[node name="rockman3" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
+position = Vector2(602, 598)
+controller_port = 3
+color = Color(0, 0, 1, 1)
+
+[node name="blocks_win" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(640, 347)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_les5k")

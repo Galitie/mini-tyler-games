@@ -1,0 +1,341 @@
+[gd_scene load_steps=17 format=3 uid="uid://cqxadhyu7lpgq"]
+
+[ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
+[ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
+[ext_resource type="PackedScene" uid="uid://csc7hssyqrj7s" path="res://menu/title.glb" id="2_ff23y"]
+[ext_resource type="Texture2D" uid="uid://cuh1ht4jpmj5f" path="res://menu/crushtris_thumbnail.png" id="5_k1cse"]
+[ext_resource type="Shader" path="res://menu/glass.gdshader" id="6_2v6rl"]
+
+[sub_resource type="Environment" id="Environment_ug5bm"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+volumetric_fog_density = 0.0106
+
+[sub_resource type="Animation" id="Animation_pvetu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dpssh"]
+resource_name = "skooch_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector3(0, 0, 15), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qsgqd"]
+resource_name = "skooch_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-15, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x53jh"]
+_data = {
+"RESET": SubResource("Animation_pvetu"),
+"skooch_in": SubResource("Animation_dpssh"),
+"skooch_out": SubResource("Animation_qsgqd")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_dis2e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1k0ah"]
+render_priority = 0
+shader = ExtResource("6_2v6rl")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/specular = 9.59
+shader_parameter/offset = 1.35
+shader_parameter/opacity = 0.055
+
+[sub_resource type="Animation" id="Animation_ko4l7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 3, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../logo_origin/logo:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../logo_origin/logo:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.3, 0.3, 0.3)]
+}
+
+[sub_resource type="Animation" id="Animation_7tlwd"]
+resource_name = "pop_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.277392, 1),
+"update": 0,
+"values": [Vector3(1, 3, 1), Vector3(1, 8, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../logo_origin/logo:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 0.196146, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.5, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../logo_origin/logo:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.196, 0.196, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0872665, 0, -0.0872665), Vector3(0.0872665, 0, -0.0872665), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1.68179, 1),
+"update": 0,
+"values": [Vector3(0.25, 0.25, 0.25), Vector3(0.4, 0.4, 0.4)]
+}
+
+[sub_resource type="Animation" id="Animation_qqyfx"]
+resource_name = "stabilize"
+length = 10.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../logo_origin/logo:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8),
+"transitions": PackedFloat32Array(0.3, 2.5, 0.3, 2.5, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.2, 0), Vector3(0, 0.1, 0), Vector3(0, -0.2, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../logo_origin/logo:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10.2, 10.4),
+"transitions": PackedFloat32Array(0.366021, 2.63902, 0.329877, 2.07053, 0.535887, 1.93187, 0.594604, 2.92817, 0.267943, 3.36358, 0.307786, 2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.0277682, -1.49474e-11, 0.122365), Vector3(0, 0, 0), Vector3(0.0696561, -5.16163e-09, -0.128945), Vector3(0.0845739, 0.0266834, 0.0215455), Vector3(0.0717329, 0.033493, 0.158158), Vector3(-0.0921916, 0.0241066, 0.0475367), Vector3(-0.0548336, 0.00871134, -0.117058), Vector3(0, 0, 0), Vector3(-0.0115025, -0.000949826, 0.116358), Vector3(0, 0, 0), Vector3(0, 0, -0.0451866), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ch774"]
+_data = {
+"RESET": SubResource("Animation_ko4l7"),
+"pop_out": SubResource("Animation_7tlwd"),
+"stabilize": SubResource("Animation_qqyfx")
+}
+
+[node name="menu" type="Node3D"]
+script = ExtResource("1_hljnx")
+
+[node name="world" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ug5bm")
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 2, -9)
+projection = 1
+size = 10.0
+
+[node name="title" parent="." instance=ExtResource("2_ff23y")]
+
+[node name="animator" type="AnimationPlayer" parent="title"]
+libraries = {
+"": SubResource("AnimationLibrary_x53jh")
+}
+
+[node name="timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="spin_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.189113, 0.981955, 0, -0.981955, -0.189113, 0, 5.25844, 0)
+
+[node name="thumbnail" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 1, 3, 1)
+visible = false
+billboard = 1
+texture_filter = 0
+texture = ExtResource("5_k1cse")
+
+[node name="projector" type="MeshInstance3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 14, -10, 14)
+mesh = SubResource("BoxMesh_dis2e")
+surface_material_override/0 = SubResource("ShaderMaterial_1k0ah")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -170.0
+offset_right = 285.0
+offset_bottom = -21.0
+texture = ExtResource("5_k1cse")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="animator" type="AnimationPlayer" parent="."]
+root_node = NodePath("../thumbnail")
+libraries = {
+"": SubResource("AnimationLibrary_ch774")
+}
+
+[node name="logo_origin" type="Node3D" parent="."]
+
+[node name="logo" parent="logo_origin" instance=ExtResource("1_o2h2v")]

@@ -9,18 +9,29 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite: AnimatedSprite2D = $sprite
 
+@export var controller_port: int
+@export var color: Color
+
+signal player_killed
+
+func _ready() -> void:
+	sprite.modulate = color
+
 func _physics_process(delta: float) -> void:
+	# BUG: Players still collide with each other and can influence their squish-age.
 	if kill_zone.test_move(global_transform, Vector2.ZERO, null, 0.01):
 		print("squish")
+		emit_signal("player_killed")
 		queue_free()
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	for event in InputMap.action_get_events("jump"):
+		if event.device == controller_port && Input.is_action_just_pressed("jump"):
+			velocity.y = JUMP_VELOCITY
 
-	var direction = Input.get_axis("move_left", "move_right")
+	var direction = Input.get_joy_axis(controller_port, JOY_AXIS_LEFT_X)
 	if direction:
 		velocity.x = direction * SPEED
 		

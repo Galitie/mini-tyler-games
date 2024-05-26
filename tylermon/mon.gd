@@ -191,7 +191,7 @@ func set_state(state):
 			hat.play("knocked_out")
 			sprite.play("just_knocked_out")
 			timer.stop()
-			z_index = default_z_index - 1
+			z_index = default_z_index - 2
 			get_node("collision").disabled = true
 			health_label.text = str(health)
 			hp_bar.value = health
@@ -400,6 +400,7 @@ func command_thought(action):
 func switch_round_modes(fight_time):
 	if fight_time:
 		timer.start(.5)
+		z_index = default_z_index
 		position = fight_pos
 		hp_bar.visible = true
 		basic_atk_box.get_child(0).disabled = true
@@ -471,7 +472,6 @@ func _on_block_timer_timeout():
 
 
 func _on_charge_timer_timeout():
-	z_index = default_z_index
 	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
 		return
 	else:

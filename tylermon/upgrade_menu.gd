@@ -115,9 +115,8 @@ func _on_button_pressed(button_name):
 
 func gamble():
 	var random_num = randi_range(0, 7)
-	random_num += player.current_place - 1
-	if random_num < 0:
-		random_num = 0
+	random_num += player.current_place
+
 	match random_num:
 		0:
 			if mon.cursed == false:

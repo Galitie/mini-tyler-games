@@ -51,6 +51,7 @@ func _process(_delta):
 		vp.text = str(player.wins)
 
 
+
 func get_mon():
 	mon = get_child(1).get_child(0)
 

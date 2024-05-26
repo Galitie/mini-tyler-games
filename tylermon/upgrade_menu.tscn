@@ -111,7 +111,7 @@ size_flags_vertical = 4
 focus_neighbor_top = NodePath("../../hbox5/type")
 focus_neighbor_bottom = NodePath("../../hbox/hp")
 theme = ExtResource("2_obobf")
-text = "🎲 GAMBLE "
+text = "🎲 Gamble"
 alignment = 0
 
 [node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]

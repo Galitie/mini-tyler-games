@@ -155,14 +155,3 @@ offset_top = 42.0
 offset_right = -5.0
 offset_bottom = 82.0
 texture = ExtResource("3_qnsce")
-
-[connection signal="mouse_entered" from="margin/hbox/buttons/hbox/hp" to="." method="_on_mouse_entered" binds= ["hp"]]
-[connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]
-[connection signal="mouse_entered" from="margin/hbox/buttons/hbox2/str" to="." method="_on_mouse_entered" binds= ["str"]]
-[connection signal="pressed" from="margin/hbox/buttons/hbox2/str" to="." method="_on_button_pressed" binds= ["str"]]
-[connection signal="mouse_entered" from="margin/hbox/buttons/hbox3/int" to="." method="_on_mouse_entered" binds= ["int"]]
-[connection signal="pressed" from="margin/hbox/buttons/hbox3/int" to="." method="_on_button_pressed" binds= ["int"]]
-[connection signal="mouse_entered" from="margin/hbox/buttons/hbox5/type" to="." method="_on_mouse_entered" binds= ["type"]]
-[connection signal="pressed" from="margin/hbox/buttons/hbox5/type" to="." method="_on_button_pressed" binds= ["type"]]
-[connection signal="mouse_entered" from="margin/hbox/buttons/hbox7/gamble" to="." method="_on_mouse_entered" binds= ["gamble"]]
-[connection signal="pressed" from="margin/hbox/buttons/hbox7/gamble" to="." method="_on_button_pressed" binds= ["gamble"]]

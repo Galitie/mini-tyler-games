@@ -309,7 +309,7 @@ func set_place():
 		place.set("theme_override_colors/font_color", Color('ffffff'))
 	if index_corrected == '3':
 		add = "rd"
-		place.set("theme_override_colors/font_color", Color('e90000'))
+		place.set("theme_override_colors/font_color", Color('ffffff'))
 	if index_corrected == '4':
 		add = "th"
 		place.set("theme_override_colors/font_color", Color('e90000'))

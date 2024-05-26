@@ -42,7 +42,7 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 resource_local_to_scene = true
 radius = 6.07992
-height = 17.2536
+height = 15.4237
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_scvj0"]
 resource_local_to_scene = true
@@ -486,13 +486,12 @@ _data = {
 
 [node name="mon" type="CharacterBody2D" groups=["mons"]]
 motion_mode = 1
-wall_min_slide_angle = 3.14159
 floor_constant_speed = true
 platform_on_leave = 2
+platform_wall_layers = 2
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 5)
 rotation = 1.5708
 scale = Vector2(8.05931, 7.65057)
@@ -504,11 +503,10 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.894118, 0.290196, 0.305882, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"basic_atk"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
-visible = false
 rotation = -0.0788491
 collision_layer = 0
 collision_mask = 4
@@ -520,7 +518,6 @@ scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
 [node name="basic_atk_box" type="Area2D" parent="scalable_nodes"]
-visible = false
 position = Vector2(0, 25)
 scale = Vector2(10.5394, 10.925)
 collision_layer = 4
@@ -534,7 +531,6 @@ shape = SubResource("CircleShape2D_ji0f1")
 disabled = true
 
 [node name="special_atk_box" type="Area2D" parent="scalable_nodes"]
-visible = false
 position = Vector2(-7, -30)
 scale = Vector2(16.7837, 5.41757)
 collision_layer = 4

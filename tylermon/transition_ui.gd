@@ -81,17 +81,14 @@ func build_nodes(winners):
 
 
 func build_losers_nodes(winners):
-	var losers = get_tree().get_nodes_in_group("player")
-	for winner in winners:
-		for player in losers:
-			if winner == player:
-				losers.erase(player)
+	var players = get_tree().get_nodes_in_group("player")
+	var losers = []
+	
+	for player in players:
+		if !winners.has(player):
+			losers.append(player)
+	
 	var container = get_node("center_container/vbox/losers")
-	for loser in losers:
-		if winners.size() == 3:
-			loser.wins += 3
-		if winners.size() == 2:
-			loser.wins += 1
 	for loser in losers:
 		var image = TextureRect.new()
 		var label = Label.new()

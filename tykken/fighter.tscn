@@ -7,7 +7,6 @@
 size = Vector2(128, 128)
 
 [node name="fighter" type="Node2D"]
-script = ExtResource("1_pejqx")
 
 [node name="r_arm" type="RigidBody2D" parent="."]
 position = Vector2(34, 107)
@@ -50,6 +49,7 @@ shape = SubResource("RectangleShape2D_rka1n")
 [node name="body" type="RigidBody2D" parent="."]
 position = Vector2(0, 130)
 collision_mask = 2
+script = ExtResource("1_pejqx")
 
 [node name="Sprite2D" type="Sprite2D" parent="body"]
 scale = Vector2(0.72, 1)
@@ -113,6 +113,6 @@ node_a = NodePath("../../body")
 node_b = NodePath("../../r_leg")
 
 [node name="l_hip" type="PinJoint2D" parent="joints"]
-position = Vector2(-23, 183)
+position = Vector2(-24, 183)
 node_a = NodePath("../../body")
 node_b = NodePath("../../l_leg")

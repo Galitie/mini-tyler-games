@@ -15,7 +15,7 @@
 [node name="tylermon" type="Node2D"]
 scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 21
+fight_length = 5
 upgrade_length = 120
 max_rounds = 2
 
@@ -142,6 +142,7 @@ layout_mode = 2
 
 [node name="player1" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu2" groups=["player"]]
 script = ExtResource("5_uxsio")
+controller_port = 1
 
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
 position = Vector2(934, 212)
@@ -165,6 +166,7 @@ layout_mode = 2
 
 [node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu3" groups=["player"]]
 script = ExtResource("5_uxsio")
+controller_port = 2
 
 [node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_menu3/player2" instance=ExtResource("2_yelk2")]
 position = Vector2(264, 562)
@@ -188,6 +190,7 @@ layout_mode = 2
 
 [node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_menu4" groups=["player"]]
 script = ExtResource("5_uxsio")
+controller_port = 3
 
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(934, 562)

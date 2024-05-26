@@ -110,7 +110,6 @@ func check_for_winners_during_fight():
 		_on_round_timer_timeout()
 
 
-
 func get_end_of_round_winner():
 	var mons = get_tree().get_nodes_in_group("mons")
 	var highest_health_mon = null
@@ -125,6 +124,21 @@ func get_end_of_round_winner():
 			var player = mon.get_parent()
 			player.wins += 5
 			winners.append(player)
+	
+	var players = get_tree().get_nodes_in_group("player")
+	
+	var losers = []
+	
+	for player in players:
+		if !winners.has(player):
+			losers.append(player)
+	
+	for loser in losers:
+		if winners.size() == 3:
+			loser.wins += 3
+		if winners.size() == 2:
+			loser.wins += 2
+	
 	return winners
 
 

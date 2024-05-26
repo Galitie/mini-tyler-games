@@ -3,7 +3,6 @@ extends CharacterBody2D
 const SPEED: float = 150.0
 const JUMP_VELOCITY: float = -450.0
 
-var jumping: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var kill_zone: StaticBody2D = $kill_zone
@@ -27,13 +26,10 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
-		jumping = false
+		if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
+			velocity.y = JUMP_VELOCITY
 
-	if Input.is_joy_button_pressed(controller_port, JOY_BUTTON_A) && !jumping:
-		velocity.y = JUMP_VELOCITY
-		jumping = true
-
-	var direction = Input.get_joy_axis(controller_port, JOY_AXIS_LEFT_X)
+	var direction: float = Controller.GetLeftStick(controller_port).x
 	if direction:
 		velocity.x = direction * SPEED
 		

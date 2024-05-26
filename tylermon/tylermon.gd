@@ -39,7 +39,7 @@ func _ready():
 		mon.connect("knocked_out", _add_knocked_out_mon)
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
-	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
+	get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
 	countdown_nums.text = "Roll a color for your mon - press ENTER when all players are ready!"
 	
 
@@ -49,6 +49,10 @@ func start_game():
 		mon.hp_bar.visible = true
 	for menus in customization_buttons:
 		menus.visible = false
+	$upgrade_ui/margin/GridContainer/upgrade_menu/player0/mon1/customizer.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_menu2/player1/mon2/customizer2.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_menu3/player2/mon3/customizer3.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_menu4/player3/mon4/customizer4.set_process(false)
 	fight_time = true
 	countdown_label.text = "Round ends: "
 	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
@@ -91,12 +95,12 @@ func _on_round_timer_timeout():
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats: "
 		round_timer.start(upgrade_length)
-		get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
+		get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:
 		fight_time = true
 		current_round += 1
 		upgrade_menu.visible = false
-		get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
+		get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
 		#command_ui.visible = true
 		call_and_switch_modes()
 		countdown_label.text = "Round ends:" 

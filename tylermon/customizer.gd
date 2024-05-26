@@ -143,7 +143,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if Controller.IsControllerButtonJustPressed(mon.get_parent().controller_port, JOY_BUTTON_A):
+		_on_button_pressed()
 
 func get_mon():
 	mon = get_parent()

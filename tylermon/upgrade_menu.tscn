@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyyxc3uqqve2m"]
+[gd_scene load_steps=4 format=3 uid="uid://cyyxc3uqqve2m"]
 
 [ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="2_obobf"]
+[ext_resource type="Texture2D" uid="uid://dad7xklur0rud" path="res://tylermon/sprites/cursor.png" id="3_qnsce"]
 
 [node name="upgrade_menu" type="Control" groups=["upgrade_menus"]]
 layout_mode = 3
@@ -141,6 +142,14 @@ text = "- VP:"
 layout_mode = 2
 theme = ExtResource("2_obobf")
 text = "0"
+
+[node name="cursor" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 42.0
+offset_right = -5.0
+offset_bottom = 82.0
+texture = ExtResource("3_qnsce")
 
 [connection signal="mouse_entered" from="margin/hbox/buttons/hbox/hp" to="." method="_on_mouse_entered" binds= ["hp"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]

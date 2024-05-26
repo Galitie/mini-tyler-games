@@ -2,9 +2,12 @@ extends Control
 var mon
 var player
 var upgrade_time : bool = false
-var points_to_spend : int = 3
+var points_to_spend : int = 0
 var players_done_upgrading : int = 0
 var current_focus
+
+@onready var cursor = $cursor
+var moved_stick: bool = false
 
 @onready var hp_stat = $margin/hbox/buttons/hbox/stat1
 @onready var str_stat = $margin/hbox/buttons/hbox2/stat2
@@ -28,6 +31,8 @@ var int_desc = "Mon is more likely to make good decisions"
 var type_desc = "Change mon's element to WATER, FIRE or GRASS"
 var gamble_desc = "Feeling down? The more you are losing the luckier you are!"
 
+var upgrade_options: Array = ["hp", "str", "int", "type", "gamble"]
+var upgrade_position: int = 0
 
 signal upgrades_finished
 signal upgraded(type)
@@ -39,6 +44,33 @@ func _ready():
 
 
 func _process(_delta):
+	if points_to_spend > 0:
+		cursor.visible = true
+		var vertical_input: float = round(Controller.GetLeftStick(player.controller_port).y)
+		if !vertical_input:
+			moved_stick = false
+		if !moved_stick:
+			if vertical_input > 0:
+				upgrade_position += 1
+				cursor.position.y += 35
+				moved_stick = true
+			elif vertical_input < 0:
+				upgrade_position -= 1
+				cursor.position.y -= 35
+				moved_stick = true
+		if upgrade_position >= upgrade_options.size():
+			upgrade_position = 0
+			cursor.position.y = 42
+		elif upgrade_position < 0:
+			upgrade_position = upgrade_options.size() - 1
+			cursor.position.y = 182
+		if moved_stick:
+			_on_mouse_entered(upgrade_options[upgrade_position])
+		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
+			_on_button_pressed(upgrade_options[upgrade_position])
+	else:
+		cursor.visible = false
+	
 	if upgrade_time:
 		set_place()
 		hp_stat.text = "HP: " + str(mon.max_health)
@@ -52,7 +84,7 @@ func _process(_delta):
 
 
 func get_mon():
-	mon = get_child(1).get_child(0)
+	mon = get_child(2).get_child(0)
 
 
 func get_player():
@@ -65,7 +97,7 @@ func switch_upgrade_time(fight_time):
 	else:
 		upgrade_time = true
 		points_to_spend = 3
-		upgrade_buttons[0].grab_focus()
+		#upgrade_buttons[0].grab_focus()
 		for button in upgrade_buttons:
 			button.disabled = false
 

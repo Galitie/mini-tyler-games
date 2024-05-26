@@ -64,7 +64,6 @@ shape = SubResource("RectangleShape2D_7tcbf")
 
 [node name="rockman" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
 position = Vector2(628, 598)
-controller_port = 1
 color = Color(1, 0, 0, 1)
 
 [node name="rockman2" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]

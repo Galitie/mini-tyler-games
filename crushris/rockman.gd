@@ -8,6 +8,7 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var kill_zone: StaticBody2D = $kill_zone
 
 @onready var sprite: AnimatedSprite2D = $sprite
+@onready var outline: Sprite2D = $outline
 
 @export var controller_port: int
 @export var color: Color
@@ -18,9 +19,7 @@ func _ready() -> void:
 	sprite.modulate = color
 
 func _physics_process(delta: float) -> void:
-	# BUG: Players still collide with each other and can influence their squish-age.
-	if kill_zone.test_move(global_transform, Vector2.ZERO, null, 0.01):
-		print("squish")
+	if kill_zone.test_move(global_transform, Vector2.ZERO, null):
 		emit_signal("player_killed")
 		queue_free()
 	
@@ -37,8 +36,10 @@ func _physics_process(delta: float) -> void:
 		
 		if velocity.x > 0:
 			sprite.flip_h = false
+			outline.flip_h = false
 		else:
 			sprite.flip_h = true
+			outline.flip_h = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=10 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
@@ -6,6 +6,7 @@
 [ext_resource type="VideoStream" path="res://crushris/embers.ogv" id="4_pk3vh"]
 [ext_resource type="PackedScene" uid="uid://bw0cafqg6opwm" path="res://crushris/rockman.tscn" id="5_8wb2y"]
 [ext_resource type="Texture2D" uid="uid://5cmtkfmkw48h" path="res://crushris/blocks_win.png" id="6_les5k"]
+[ext_resource type="Texture2D" uid="uid://c26amqiswhno7" path="res://crushris/players_win.png" id="7_677f5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
 size = Vector2(250, 25)
@@ -78,7 +79,19 @@ color = Color(0, 0, 1, 1)
 
 [node name="blocks_win" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 texture_filter = 1
 position = Vector2(640, 347)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_les5k")
+
+[node name="players_win" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
+texture_filter = 1
+position = Vector2(640, 347)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_677f5")
+
+[node name="camera" type="Camera2D" parent="."]
+offset = Vector2(640, 360)

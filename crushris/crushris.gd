@@ -41,6 +41,9 @@ var fall_blocks: Array = []
 var game_over: bool = false
 var players_killed: int = 0
 
+@onready var camera: Camera2D = $camera
+var zoom_weight: float = 5
+
 func spawn_piece() -> void:
 	var piece_instance = piece_scenes.pick_random().instantiate()
 	add_child(piece_instance)
@@ -55,6 +58,9 @@ func _ready() -> void:
 	spawn_piece()
 
 func _physics_process(delta) -> void:
+	if game_over:
+		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
+	
 	if death_row.size() != 0:
 		block_killer_timer += 1
 		if block_killer_timer >= block_killer_timer_length:
@@ -114,6 +120,7 @@ func _physics_process(delta) -> void:
 						if col_result && col_result.get_collider().name == "arena_ceiling":
 							game_over = true
 							active_piece = null
+							$players_win.visible = true
 				
 				if !game_over:
 					spawn_piece()

@@ -114,6 +114,9 @@ func build_losers_nodes(winners):
 		container.add_child(vbox)	
 
 func build_final_winners(winners):
+	for winner in winners:
+		winner.wins += 5
+	
 	var losers = get_tree().get_nodes_in_group("player")
 	
 	if winners.size() == 3:

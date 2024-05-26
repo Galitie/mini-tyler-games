@@ -97,7 +97,6 @@ func switch_upgrade_time(fight_time):
 	else:
 		upgrade_time = true
 		points_to_spend = 3
-		#upgrade_buttons[0].grab_focus()
 		for button in upgrade_buttons:
 			button.disabled = false
 

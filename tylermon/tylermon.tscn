@@ -22,6 +22,10 @@ max_rounds = 10
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 z_index = -2
 
+[node name="elements" type="Sprite2D" parent="."]
+position = Vector2(1223.35, 56.5487)
+texture = ExtResource("6_urw4u")
+
 [node name="round_timer" type="Timer" parent="."]
 one_shot = true
 
@@ -257,10 +261,6 @@ offset_bottom = 726.0
 layout_mode = 2
 
 [node name="wait_timer" type="Timer" parent="."]
-
-[node name="elements" type="Sprite2D" parent="."]
-position = Vector2(1223.35, 56.5487)
-texture = ExtResource("6_urw4u")
 
 [node name="audio" type="AudioStreamPlayer2D" parent="."]
 

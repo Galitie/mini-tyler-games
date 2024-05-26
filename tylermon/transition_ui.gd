@@ -63,6 +63,7 @@ func show_final_winners(winners):
 func build_nodes(winners):
 	var container = get_node("center_container/vbox/winners")
 	for winner in winners:
+		winner.wins += 5
 		var image = TextureRect.new()
 		var label = Label.new()
 		label.theme = load("res://tylermon/tylermon_theme.tres")
@@ -114,17 +115,25 @@ func build_losers_nodes(winners):
 
 func build_final_winners(winners):
 	var losers = get_tree().get_nodes_in_group("player")
-	for loser in losers:
-		if winners.size() == 3:
+	
+	if winners.size() == 3:
+		for loser in losers:
 			loser.wins += 3
-		if winners.size() == 2:
+	
+	if winners.size() == 2:
+		for loser in losers:
 			loser.wins += 2
 	
 	for winner in winners:
-		for player in losers:
-			if player.wins == winner.wins:
-				winners.append(player)
+		for loser in losers:
+			if loser == winner:
+				losers.erase(loser)
 	
+	for loser in losers:
+		for winner in winners:
+			if loser.wins == winner.wins:
+				winners.append(loser)
+
 	var winner_container = get_node("center_container/vbox/winners")
 	for winner in winners:
 		var image = TextureRect.new()

@@ -29,7 +29,6 @@ func update_winners(winners):
 	build_nodes(winners)
 	sm_left_confetti.emitting = true
 	sm_right_confetti.emitting = true
-	build_final_winners(winners)
 
 
 func clear_winners():
@@ -58,7 +57,7 @@ func show_final_winners(winners):
 		title_label.text = "✨🏆 GAME WINNER 🏆✨"
 	else:
 		title_label.text = "✨🏆 GAME WINNERS 🏆✨"
-	
+	build_final_winners(winners)
 
 
 func build_nodes(winners):
@@ -124,7 +123,8 @@ func build_final_winners(winners):
 	for winner in winners:
 		for player in losers:
 			if player.wins == winner.wins:
-				winner.append(player)
+				winners.append(player)
+	
 	var winner_container = get_node("center_container/vbox/winners")
 	for winner in winners:
 		var image = TextureRect.new()

@@ -40,7 +40,7 @@ func _ready():
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(0).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
-	countdown_nums.text = "Choose a color then press START when all players are ready!"
+	countdown_nums.text = "Roll a color for your mon - press ENTER when all players are ready!"
 	
 
 func start_game():

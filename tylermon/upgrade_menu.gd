@@ -26,7 +26,7 @@ var hp_desc = "+2 max mon health"
 var str_desc = "Mon's attacks do more damage"
 var int_desc = "Mon is more likely to make good decisions"
 var type_desc = "Change mon's element to WATER, FIRE or GRASS"
-var gamble_desc = "Who knows?! Hint: The more you are losing the luckier you are!"
+var gamble_desc = "Feeling down? The more you are losing the luckier you are!"
 
 
 signal upgrades_finished
@@ -49,7 +49,6 @@ func _process(_delta):
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
 		vp.text = str(player.wins)
-
 
 
 func get_mon():
@@ -115,9 +114,8 @@ func _on_button_pressed(button_name):
 
 func gamble():
 	var random_num = randi_range(0, 7)
-	random_num += player.current_place - 1
-	if random_num < 0:
-		random_num = 0
+	random_num += player.current_place
+
 	match random_num:
 		0:
 			if mon.cursed == false:

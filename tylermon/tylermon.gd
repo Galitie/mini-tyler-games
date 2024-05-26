@@ -122,7 +122,23 @@ func get_end_of_round_winner():
 	for mon in mons:
 		if mon.health == highest_health_mon.health:
 			var player = mon.get_parent()
+			player.wins += 5
 			winners.append(player)
+	
+	var players = get_tree().get_nodes_in_group("player")
+	
+	var losers = []
+	
+	for player in players:
+		if !winners.has(player):
+			losers.append(player)
+	
+	for loser in losers:
+		if winners.size() == 3:
+			loser.wins += 3
+		if winners.size() == 2:
+			loser.wins += 2
+	
 	return winners
 
 

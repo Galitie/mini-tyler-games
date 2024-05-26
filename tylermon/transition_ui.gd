@@ -57,13 +57,12 @@ func show_final_winners(winners):
 		title_label.text = "✨🏆 GAME WINNER 🏆✨"
 	else:
 		title_label.text = "✨🏆 GAME WINNERS 🏆✨"
-	build_final_winners(winners)
+	build_nodes(winners)
 
 
 func build_nodes(winners):
 	var container = get_node("center_container/vbox/winners")
 	for winner in winners:
-		winner.wins += 5
 		var image = TextureRect.new()
 		var label = Label.new()
 		label.theme = load("res://tylermon/tylermon_theme.tres")
@@ -82,17 +81,14 @@ func build_nodes(winners):
 
 
 func build_losers_nodes(winners):
-	var losers = get_tree().get_nodes_in_group("player")
-	for winner in winners:
-		for player in losers:
-			if winner == player:
-				losers.erase(player)
+	var players = get_tree().get_nodes_in_group("player")
+	var losers = []
+	
+	for player in players:
+		if !winners.has(player):
+			losers.append(player)
+	
 	var container = get_node("center_container/vbox/losers")
-	for loser in losers:
-		if winners.size() == 3:
-			loser.wins += 3
-		if winners.size() == 2:
-			loser.wins += 2
 	for loser in losers:
 		var image = TextureRect.new()
 		var label = Label.new()
@@ -113,69 +109,3 @@ func build_losers_nodes(winners):
 		vbox.set("theme_override_constants/separation", -20)
 		container.add_child(vbox)	
 
-func build_final_winners(winners):
-	for winner in winners:
-		winner.wins += 5
-	
-	var losers = get_tree().get_nodes_in_group("player")
-	
-	if winners.size() == 3:
-		for loser in losers:
-			loser.wins += 3
-	
-	if winners.size() == 2:
-		for loser in losers:
-			loser.wins += 2
-	
-	for winner in winners:
-		for loser in losers:
-			if loser == winner:
-				losers.erase(loser)
-	
-	for loser in losers:
-		for winner in winners:
-			if loser.wins == winner.wins:
-				winners.append(loser)
-
-	var winner_container = get_node("center_container/vbox/winners")
-	for winner in winners:
-		var image = TextureRect.new()
-		var label = Label.new()
-		label.theme = load("res://tylermon/tylermon_theme.tres")
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.set("theme_override_colors/font_color", Color("000000"))
-		label.text = "Total VP: " + str(winner.wins)
-		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
-		image.texture = sprite_frame.get_frame_texture("idle",0)
-		image.modulate = winner.get_child(0).custom_color
-		var vbox = VBoxContainer.new()
-		vbox.add_child(label)
-		vbox.add_child(image)
-		vbox.set("theme_override_constants/separation", -60)
-		winner_container.add_child(vbox)
-	
-	for winner in winners:
-		for player in losers:
-			if winner == player:
-				losers.erase(player)
-	
-	var loser_container = get_node("center_container/vbox/losers")
-	for loser in losers:
-		var image = TextureRect.new()
-		var label = Label.new()
-		var sprite_frame = loser.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
-		var texture = sprite_frame.get_frame_texture("idle",0)
-		image.texture = texture
-		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		image.custom_minimum_size = Vector2(100,100)
-		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.set("theme_override_colors/font_color", Color("000000"))
-		label.text = "Total VP: " + str(loser.wins)
-		label.theme = load("res://tylermon/tylermon_theme.tres")
-		image.modulate = loser.get_child(0).custom_color
-		var vbox = VBoxContainer.new()
-		vbox.add_child(label)
-		vbox.add_child(image)
-		vbox.set("theme_override_constants/separation", -20)
-		loser_container.add_child(vbox)

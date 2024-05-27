@@ -25,10 +25,10 @@ var moved_stick: bool = false
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
 
 
-var hp_desc = "+2 max mon health"
-var str_desc = "Mon's attacks do more damage"
-var int_desc = "Mon is more likely to make good decisions"
-var type_desc = "Change mon's element to WATER, FIRE or GRASS"
+var hp_desc = "+2 Tylermon max health 🧀"
+var str_desc = "Tylermon's attacks do more damage"
+var int_desc = "Tylermon is more likely to make good decisions"
+var type_desc = "Change Tylermon's element to WATER, FIRE or GRASS"
 var gamble_desc = "Feeling down? The more you are losing the luckier you are!"
 
 var upgrade_options: Array = ["hp", "str", "int", "type", "gamble"]

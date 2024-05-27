@@ -41,7 +41,7 @@ func _ready():
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
 	countdown_nums.text = "Roll a color for your mon - press ENTER when all players are ready!"
-	
+
 
 func start_game():
 	start_menu_time = false
@@ -49,13 +49,13 @@ func start_game():
 		mon.hp_bar.visible = true
 	for menus in customization_buttons:
 		menus.visible = false
+	fight_time = true
+	countdown_label.text = "Round ends: "
+	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 	$upgrade_ui/margin/GridContainer/upgrade_menu/player0/mon1/customizer.set_process(false)
 	$upgrade_ui/margin/GridContainer/upgrade_menu2/player1/mon2/customizer2.set_process(false)
 	$upgrade_ui/margin/GridContainer/upgrade_menu3/player2/mon3/customizer3.set_process(false)
 	$upgrade_ui/margin/GridContainer/upgrade_menu4/player3/mon4/customizer4.set_process(false)
-	fight_time = true
-	countdown_label.text = "Round ends: "
-	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 	round_timer.start(fight_length)
 	call_and_switch_modes()
 
@@ -94,7 +94,7 @@ func _on_round_timer_timeout():
 		#command_ui.visible = false
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats: "
-		round_timer.start(upgrade_length)
+		round_timer.stop()
 		get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:
 		fight_time = true
@@ -198,6 +198,5 @@ func show_transition(type, content, timer_amount):
 
 func end_upgrades_early():
 	upgrades_counter += 1
-	if upgrades_counter == 4 and round_timer.time_left > 4:
-		round_timer.stop()
+	if upgrades_counter == 4:
 		round_timer.start(4)

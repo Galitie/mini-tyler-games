@@ -33,6 +33,7 @@ theme = ExtResource("1_ehhrm")
 text = "🎨 Change Color"
 
 [node name="cursor" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = -45.0
 offset_top = 16.0
 offset_right = -5.0

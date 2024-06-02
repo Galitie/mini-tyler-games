@@ -64,6 +64,7 @@ shape = SubResource("RectangleShape2D_7tcbf")
 
 [node name="rockman" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
 position = Vector2(628, 598)
+controller_port = 1
 color = Color(1, 0, 0, 1)
 
 [node name="rockman2" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
@@ -94,3 +95,6 @@ texture = ExtResource("7_677f5")
 
 [node name="camera" type="Camera2D" parent="."]
 offset = Vector2(640, 360)
+
+[node name="piece_preview" type="Node2D" parent="."]
+position = Vector2(850, 123)

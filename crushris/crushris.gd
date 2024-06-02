@@ -12,6 +12,8 @@ extends Node2D
 	load("res://crushris/t_piece.tscn")
 ]
 
+var next_piece: Piece = null
+
 const TILE_SIZE: int = 25
 const MAX_COLUMNS: int = 10
 const MAX_ROWS: int = 20
@@ -20,16 +22,19 @@ const PIECE_SPAWN_POINT: Vector2 = Vector2(615, 110)
 const BOTTOM_LEFT_ROW_ORIGIN: Vector2 = Vector2(515, 585)
 
 const PIECE_FALL_SPEED: float = 140
-const PIECE_HORIZONTAL_SPEED: float = 350
+const PIECE_HORIZONTAL_SPEED: float = 200
 var piece_destination: Vector2 = Vector2.ZERO
 
 var active_piece: Piece = null
 
-var snap_timer: int = 0
-var snap_timer_length: int = 18
+var snap_timer: float = 0
+var snap_timer_length: float = 0.4
 
-var block_killer_timer: int = 0
-var block_killer_timer_length: int = 5
+var block_killer_timer: float = 0
+var block_killer_timer_length: float = 0.1
+
+var move_timer: float = 0
+var move_timer_length: float = 0.2
 
 const WORLD_COLLISION_LAYER: int = 1
 
@@ -45,16 +50,22 @@ var players_killed: int = 0
 var zoom_weight: float = 5
 
 func spawn_piece() -> void:
-	var piece_instance = piece_scenes.pick_random().instantiate()
+	var piece_instance = next_piece.duplicate()
 	add_child(piece_instance)
 	piece_instance.position = PIECE_SPAWN_POINT - piece_instance.origin_point
 	active_piece = piece_instance
 	piece_destination = active_piece.position
+	
+	next_piece = piece_scenes.pick_random().instantiate()
+	if $piece_preview.get_child_count() > 0:
+		$piece_preview.get_child(0).queue_free()
+	$piece_preview.add_child(next_piece)
 
 func _ready() -> void:
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("player_killed", _on_player_killed)
 	
+	next_piece = piece_scenes.pick_random().instantiate()
 	spawn_piece()
 
 func _physics_process(delta) -> void:
@@ -62,7 +73,7 @@ func _physics_process(delta) -> void:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
 	
 	if death_row.size() != 0:
-		block_killer_timer += 1
+		block_killer_timer += 1 * delta
 		if block_killer_timer >= block_killer_timer_length:
 			var block: Block = death_row.pop_back()
 			if block != null:
@@ -89,13 +100,19 @@ func _physics_process(delta) -> void:
 			if Input.is_action_just_pressed("rotate_piece_right"):
 				active_piece.turn(PI / 2)
 			
-			if Input.is_action_pressed("move_piece_left"):
+			if move_timer > 0:
+				move_timer -= 1 * delta
+			else:
+				move_timer = 0
+			if Input.is_action_pressed("move_piece_left") && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
+						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x - TILE_SIZE
-			if Input.is_action_pressed("move_piece_right"):
+			if Input.is_action_pressed("move_piece_right") && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
+						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x + TILE_SIZE
 		
 		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
@@ -105,7 +122,7 @@ func _physics_process(delta) -> void:
 		else:
 			active_piece.position.y = snap_piece_position(active_piece.position).y
 			active_piece.set_linear_velocity(Vector2.ZERO)
-			snap_timer += 1
+			snap_timer += 1 * delta
 				
 		if snap_timer >= snap_timer_length:
 			active_piece.position = snap_piece_position(active_piece.position)

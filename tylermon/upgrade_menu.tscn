@@ -57,12 +57,12 @@ layout_mode = 2
 
 [node name="str" type="Button" parent="margin/hbox/buttons/hbox2"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 focus_neighbor_top = NodePath("../../hbox/hp")
 focus_neighbor_bottom = NodePath("../../hbox3/int")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "💪 Workout & be sad"
+text = "💪 Workout and be sad"
 alignment = 0
 
 [node name="stat2" type="Label" parent="margin/hbox/buttons/hbox2"]
@@ -80,7 +80,7 @@ focus_neighbor_top = NodePath("../../hbox2/str")
 focus_neighbor_bottom = NodePath("../../hbox5/type")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "🧠 Make slideshows"
+text = "🧠 Think thoughts"
 alignment = 0
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]
@@ -98,7 +98,7 @@ focus_neighbor_top = NodePath("../../hbox3/int")
 focus_neighbor_bottom = NodePath("../../hbox7/gamble")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = " ♻️ Change it up"
+text = " ♻️ Rock Paper Scissors"
 alignment = 0
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]

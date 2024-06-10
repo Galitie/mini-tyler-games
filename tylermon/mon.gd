@@ -354,7 +354,7 @@ func _on_hurt_box_area_entered(area):
 
 
 func damage(mon, modifier: float, effect):
-	var damage = mon.strength * .45
+	var damage = mon.strength * .35
 	damage *= modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += (mon.strength * .25)

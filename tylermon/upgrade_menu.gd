@@ -145,8 +145,16 @@ func _on_button_pressed(button_name):
 
 
 func gamble():
-	var random_num = randi_range(-1, 7)
-	random_num += player.current_place
+	var random_num = randi_range(0, 7)
+	if player.current_place == 1:
+		if random_num == 0:
+			pass
+		else:
+			random_num -= 1
+	elif player.current_place == 2:
+		random_num
+	else:
+		random_num += player.current_place
 
 	match random_num:
 		0:
@@ -177,12 +185,12 @@ func gamble():
 			description.text = "Mon is speedier!"
 			emit_signal("upgraded", "bad")
 		5:
-			if mon.max_think_time == 1.5:
+			if mon.max_think_time <= 1.5:
 				increase_random_stats(1,1)
 				emit_signal("upgraded", "good")
 			else:
-				mon.max_think_time = 1.5
-				description.text = "Mon has ADHD and will change it's mind quicker"
+				mon.max_think_time -= 1
+				description.text = "Mon will change it's mind quicker"
 				emit_signal("upgraded", "good")
 		6:
 			increase_random_stats(1,1)

@@ -13,7 +13,7 @@ var destination : Vector2
 var default_z_index = 0
 var current_player_command = State.TARGET_AND_ATTACK
 var cursed : bool = false
-var max_think_time : float = 3
+var max_think_time : float = 5
 var fire_material = load("res://tylermon/fire.tres")
 var fire_text = load("res://tylermon/background/flame_text.png")
 var water_material = load("res://tylermon/water.tres")
@@ -128,7 +128,9 @@ func _on_timer_timeout():
 		if state.acc_weight > random_number:
 			set_state(state.state)
 			break
-	var random_wait_time = randf_range(1,max_think_time)
+	var random_wait_time = randf_range(1, max_think_time - (intelligence * .25))
+	if random_wait_time <= 0:
+		random_wait_time = 1
 	timer.start(random_wait_time)
 
 
@@ -354,7 +356,7 @@ func _on_hurt_box_area_entered(area):
 
 
 func damage(mon, modifier: float, effect):
-	var damage = mon.strength * .45
+	var damage = mon.strength * .40
 	damage *= modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
 		damage += (mon.strength * .25)

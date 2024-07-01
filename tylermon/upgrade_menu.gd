@@ -25,7 +25,7 @@ var moved_stick: bool = false
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
 
 
-var hp_desc = "+2 Tylermon max health 🧀"
+var hp_desc = "+1/+2 Tylermon max health 🧀"
 var str_desc = "Tylermon's attacks do more damage"
 var int_desc = "Tylermon is more likely to make good decisions"
 var type_desc = "Change Tylermon's element to WATER, FIRE or GRASS"
@@ -105,7 +105,8 @@ func _on_button_pressed(button_name):
 	match button_name:
 		"hp":
 			points_to_spend -= 1
-			mon.max_health += 2
+			var random_health = randi_range(1,2)
+			mon.max_health += random_health
 			emit_signal("upgraded", "good")
 		"str":
 			points_to_spend -= 1
@@ -145,7 +146,15 @@ func _on_button_pressed(button_name):
 
 func gamble():
 	var random_num = randi_range(0, 7)
-	random_num += player.current_place
+	if player.current_place == 1:
+		if random_num == 0:
+			pass
+		else:
+			random_num -= 1
+	elif player.current_place == 2:
+		random_num
+	else:
+		random_num += player.current_place
 
 	match random_num:
 		0:
@@ -176,12 +185,12 @@ func gamble():
 			description.text = "Mon is speedier!"
 			emit_signal("upgraded", "bad")
 		5:
-			if mon.max_think_time == 1.5:
+			if mon.max_think_time <= 1.5:
 				increase_random_stats(1,1)
 				emit_signal("upgraded", "good")
 			else:
-				mon.max_think_time = 1.5
-				description.text = "Mon has ADHD and will change it's mind quicker"
+				mon.max_think_time -= 1
+				description.text = "Mon will change it's mind quicker"
 				emit_signal("upgraded", "good")
 		6:
 			increase_random_stats(1,1)

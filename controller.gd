@@ -1,5 +1,7 @@
 extends Node
 
+const DEADZONE: float = 0.1
+
 class Gamepad:
 	var device_id: int = -1
 	var connected: bool = false
@@ -39,7 +41,12 @@ func UpdateControllerState(device_id: int) -> void:
 	var gamepad: Gamepad = gamepads[device_id]
 	gamepad.prev_button_states = gamepad.button_states.duplicate()
 	gamepad.left_stick = Vector2(Input.get_joy_axis(device_id, JOY_AXIS_LEFT_X), Input.get_joy_axis(device_id, JOY_AXIS_LEFT_Y))
+	if gamepad.left_stick.x > -DEADZONE && gamepad.left_stick.x < DEADZONE:
+		gamepad.left_stick.x = 0
+	if gamepad.left_stick.y > -DEADZONE && gamepad.left_stick.y < DEADZONE:
+		gamepad.left_stick.y = 0
 	gamepad.right_stick = Vector2(Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X), Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y))
+	
 	for i in range(gamepad.button_states.size()):
 		gamepad.button_states[i] = int(Input.is_joy_button_pressed(gamepad.device_id, i))
 		

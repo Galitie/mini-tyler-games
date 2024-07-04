@@ -406,7 +406,7 @@ y_sort_enabled = true
 navs = [NodePath("../../navs/Node2D"), NodePath("../../navs/Node2D2"), NodePath("../../navs/Node2D3"), NodePath("../../navs/Node2D4")]
 
 [node name="snake" parent="map/entities" instance=ExtResource("2_bkuow")]
-position = Vector2(-1, 34)
+position = Vector2(56, 26)
 
 [node name="navs" type="Node2D" parent="map"]
 

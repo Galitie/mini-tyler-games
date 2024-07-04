@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r3qcwlma6g4l"
-path="res://.godot/imported/enemy_walk_right.png-a426f5e3d9158e78e21c560b2f656ecd.ctex"
+uid="uid://b8208h608m76q"
+path="res://.godot/imported/enemy_shoot_up.png-855925ed79251d7057e4206f2410f5de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://epsilon/sprites/enemy_walk_right.png"
-dest_files=["res://.godot/imported/enemy_walk_right.png-a426f5e3d9158e78e21c560b2f656ecd.ctex"]
+source_file="res://epsilon/sprites/enemy_shoot_up.png"
+dest_files=["res://.godot/imported/enemy_shoot_up.png-855925ed79251d7057e4206f2410f5de.ctex"]
 
 [params]
 

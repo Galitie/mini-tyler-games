@@ -456,7 +456,7 @@ script = ExtResource("1_tcr05")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_243vs")
-animation = &"walk_l"
+animation = &"run_ur"
 offset = Vector2(0, -9)
 
 [node name="collider" type="CollisionShape2D" parent="."]

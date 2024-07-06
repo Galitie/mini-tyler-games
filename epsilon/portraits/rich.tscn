@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://chkbdhv3xppnw"]
+
+[ext_resource type="Texture2D" uid="uid://dh4u78o7jwtm" path="res://epsilon/portraits/rich.png" id="1_ilamt"]
+[ext_resource type="Texture2D" uid="uid://cep7ye5fvunu" path="res://epsilon/portraits/rich_blink.png" id="2_vhpgy"]
+[ext_resource type="Texture2D" uid="uid://ch5dx013neqr1" path="res://epsilon/portraits/rich_talk.png" id="3_q78sm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qh1gn"]
+animations = [{
+"frames": [{
+"duration": 8.0,
+"texture": ExtResource("1_ilamt")
+}, {
+"duration": 0.5,
+"texture": ExtResource("2_vhpgy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ilamt")
+}, {
+"duration": 0.5,
+"texture": ExtResource("3_q78sm")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[node name="Rich" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_qh1gn")
+animation = &"talking"
+frame_progress = 0.476687

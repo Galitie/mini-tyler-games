@@ -1090,6 +1090,7 @@ shape = SubResource("RectangleShape2D_vypnd")
 position = Vector2(0.5, -12.5)
 collision_layer = 0
 collision_mask = 32
+monitoring = false
 monitorable = false
 
 [node name="punch_collider" type="CollisionShape2D" parent="punch_area"]

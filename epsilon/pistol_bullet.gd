@@ -9,6 +9,8 @@ var direction: Vector2
 
 const DAMAGE: int = 2
 
+var emitter
+
 func _ready() -> void:
 	area_entered.connect(_area_entered)
 	body_entered.connect(_body_entered)
@@ -22,8 +24,8 @@ func _physics_process(delta: float) -> void:
 
 func _area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()
-	if entity.is_in_group("entities"):
-		entity.hit(DAMAGE)
+	if entity != emitter && entity.is_in_group("entities"):
+		entity.hit(emitter, DAMAGE)
 		queue_free()
 
 func _body_entered(body: Node2D) -> void:

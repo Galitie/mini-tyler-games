@@ -109,8 +109,9 @@ func update(delta: float) -> void:
 				sprite.play("shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
+				bullet.emitter = self
 				bullet.direction = GetVectorFromDirection(direction)
-				bullet.position = position + Vector2(0, -16) + (bullet.direction * 13)
+				bullet.position = position + Vector2(0, -16) + (bullet.direction * 6)
 				map.add_child(bullet)
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
@@ -138,7 +139,7 @@ func punch() -> void:
 	$punch_area.set_deferred("monitoring", true)
 	$punch_area/punch_collider.position = GetVectorFromDirection(direction) * 6
 			
-func hit(damage: int) -> void:
+func hit(emitter, damage: int) -> void:
 	if state != SnakeState.DEAD:
 		hp -= damage
 		is_hit = true
@@ -148,7 +149,6 @@ func hit(damage: int) -> void:
 			$body.set_deferred("monitorable", false)
 			$collider.set_deferred("disabled", true)
 			state = SnakeState.DEAD
-			z_index = -1
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:
@@ -207,6 +207,8 @@ func _animation_finished():
 			state = SnakeState.IDLE
 			$punch_area.set_deferred("monitoring", false)
 			$punch_area/punch_collider.position = Vector2.ZERO
+		SnakeState.DEAD:
+			z_index = -1
 			
 func _area_entered_punch(area: Area2D) -> void:
 	var entity = area.get_parent()

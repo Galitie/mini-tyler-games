@@ -22,7 +22,7 @@ var state: SoldierState = SoldierState.PATROL
 
 var on_alert: bool = false
 
-@onready var snake = get_parent().get_node("snake")
+var target: Snake = null
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
 
@@ -77,6 +77,7 @@ func _physics_process(delta: float) -> void:
 				var entity = area.get_parent()
 				if entity.is_in_group("snakes"):
 					# NOTE: Janky fix to get the sight cast to look for feet
+					target = entity
 					wall_cast.target_position = to_local(entity.global_position) + Vector2(0, 12)
 					wall_cast.force_raycast_update()
 					if !wall_cast.is_colliding():
@@ -88,7 +89,7 @@ func _physics_process(delta: float) -> void:
 		SoldierState.ALERTED:
 			on_alert = true
 			velocity = Vector2.ZERO
-			var target_dir = (snake.global_position - global_position).normalized()
+			var target_dir = (target.global_position - global_position).normalized()
 			direction = GetDirection(target_dir)
 			SetVisionToDirection()
 			if direction.ends_with("l"):
@@ -97,8 +98,10 @@ func _physics_process(delta: float) -> void:
 				sprite.flip_h = false
 			sprite.play("idle" + "_" + direction)
 		SoldierState.ALERT:
-			var target_dir = (snake.global_position - global_position).normalized()
-			var target_dest = global_position + (target_dir * global_position.distance_to(snake.global_position))
+			# NOTE: Set a desired target at a time for an enemy, and set them back to patrol state
+			# after they lose sight of their last target.
+			var target_dir = (target.global_position - global_position).normalized()
+			var target_dest = global_position + (target_dir * global_position.distance_to(target.global_position))
 			direction = GetDirection(target_dir)
 			SetVisionToDirection()
 			if direction.ends_with("l"):
@@ -110,8 +113,9 @@ func _physics_process(delta: float) -> void:
 				sprite.play("shoot" + "_" + direction)
 				state = SoldierState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
+				bullet.emitter = self
 				bullet.direction = GetVectorFromDirection(direction)
-				bullet.position = position + Vector2(0, -16) + (bullet.direction * 13)
+				bullet.position = position + Vector2(0, -14) + (bullet.direction * 6)
 				map.add_child(bullet)
 				return
 			else:
@@ -141,8 +145,9 @@ func confused() -> void:
 	status.play("huh", 1.0)
 	state = SoldierState.CONFUSED
 	
-func hit(damage: int) -> void:
+func hit(emitter, damage: int) -> void:
 	if state != SoldierState.DEAD:
+		target = emitter
 		hp -= damage
 		is_hit = true
 		if hp <= 0:
@@ -150,7 +155,6 @@ func hit(damage: int) -> void:
 			sprite.play("fall" + "_" + direction)
 			state = SoldierState.DEAD
 			on_alert = false
-			z_index = -1
 		else:
 			if !on_alert:
 				alert()
@@ -224,7 +228,8 @@ func GetVectorFromDirection(_direction: String) -> Vector2:
 func _animation_finished() -> void:
 	if state == SoldierState.SHOOT:
 		state = SoldierState.ALERT
-	if state == SoldierState.DEAD:
+	elif state == SoldierState.DEAD:
+		z_index = -1
 		process_mode = Node.PROCESS_MODE_DISABLED
 		
 func _status_animation_finished() -> void:
@@ -239,6 +244,7 @@ func _area_entered(area: Area2D) -> void:
 	if entity.is_in_group("snakes"):
 		if state != SoldierState.DEAD && !on_alert:
 			if entity.state != Snake.SnakeState.BOX:
+				target = entity
 				alert()
 			else:
 				confused()

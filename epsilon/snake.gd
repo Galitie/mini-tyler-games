@@ -5,43 +5,77 @@
 # 4: PROJECTILES
 # 5: ENEMY FEET
 # 6: ENEMY BODY
+# 7: BOX
 
 extends CharacterBody2D
+class_name Snake
 
-const SPEED = 50.0
+var controller_port: int = 0
+
+const SPEED: float = 50.0
+const BOX_SPEED: float = 10.0
 
 @onready var sprite: AnimatedSprite2D = $sprite
 
 var direction: String = "u"
 
-enum SnakeState {IDLE, MOVE, DRAW, DRAWN, SHOOT}
+enum SnakeState {IDLE, MOVE, BOX, DRAW, DRAWN, SHOOT, DEAD}
 var state: SnakeState = SnakeState.IDLE
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
 
 @onready var map: TileMap = get_parent().get_parent()
 
+var hp = 10
+
+var is_hit: bool = false
+var hit_timer: float = 0.0
+var hit_timer_length: float = 0.1
+
 func _ready() -> void:
+	add_to_group("snakes")
+	add_to_group("entities")
 	$sprite.animation_finished.connect(_animation_finished)
 
 func _physics_process(delta: float) -> void:
-	var move_input: Vector2 = Controller.GetLeftStick(0)
+	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
+	
+	var collision: KinematicCollision2D = move_and_collide(velocity * delta, true)
+	if collision:
+		var entity = collision.get_collider()
+		if entity.is_in_group("enemies"):
+			if !entity.on_alert:
+				entity.alert()
+	
+	if is_hit:
+		modulate = Color.RED
+		hit_timer += 1.0 * delta
+		if hit_timer > hit_timer_length:
+			is_hit = false
+			hit_timer = 0.0
+			modulate = Color.WHITE
 	
 	match state:
 		SnakeState.IDLE:
 			sprite.play("idle" + "_" + direction)
 			if move_input.length() > 0:
 				state = SnakeState.MOVE
-			elif Controller.IsControllerButtonPressed(0, JOY_BUTTON_X):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
 				sprite.play("draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+			elif Controller.GetRightTrigger(controller_port) > 0.5:
+				state = SnakeState.BOX
+				return
 		SnakeState.MOVE:
 			if move_input.length() == 0:
 				state = SnakeState.IDLE
 				return
-			elif Controller.IsControllerButtonPressed(0, JOY_BUTTON_X):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
 				sprite.play("draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				return
+			elif Controller.GetRightTrigger(controller_port) > 0.5:
+				state = SnakeState.BOX
 				return
 			direction = GetDirection(move_input)
 			if direction.ends_with("l"):
@@ -65,7 +99,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				sprite.flip_h = false
 			sprite.play("drawn" + "_" + direction, 1.0)
-			if !Controller.IsControllerButtonPressed(0, JOY_BUTTON_X):
+			if !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
 				sprite.play("shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
@@ -75,28 +109,59 @@ func _physics_process(delta: float) -> void:
 				map.add_child(bullet)
 		SnakeState.SHOOT:
 			return
+		SnakeState.DEAD:
+			return
+		SnakeState.BOX:
+			$box/box_collider.disabled = false
+			if Controller.GetRightTrigger(controller_port) < 0.5:
+				state = SnakeState.IDLE
+				$box/box_collider.disabled = true
+				return
+			direction = GetDirection(move_input)
+			if direction.ends_with("l"):
+				sprite.flip_h = true
+			else:
+				sprite.flip_h = false
+			sprite.play("box" + "_" + direction)
+			velocity = move_input * BOX_SPEED
+			move_and_slide()
+			
+func hit(damage: int) -> void:
+	hp -= damage
+	is_hit = true
+	if hp <= 0:
+		hp = 0
+		sprite.play("fall" + "_" + direction)
+		$body/collider.disabled = true
+		$collider.disabled = true
+		state = SnakeState.DEAD
+		z_index = -1
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:
 		return direction
-	var move_angle: float = rad_to_deg(move_input.angle())
-	if move_angle > (-90 - 22.5) && move_angle < (-90 + 22.5):
-		return "u"
-	elif move_angle > (-45 - 22.5) && move_angle < (-45 + 22.5):
-		return "ur"
-	elif move_angle > (0 - 22.5) && move_angle < (0 + 22.5):
-		return "r"
-	elif move_angle > (45 - 22.5) && move_angle < (45 + 22.5):
-		return "dr"
-	elif move_angle > (90 - 22.5) && move_angle < (90 + 22.5):
-		return "d"
-	elif move_angle > (135 - 22.5) && move_angle < (135 + 22.5):
-		return "dl"
-	elif move_angle > (180 - 22.5) && move_angle < (180 + 22.5):
-		return "l"
-	elif move_angle > (-135 - 22.5) && move_angle < (-135 + 22.5):
-		return "ul"
-	return direction
+	
+	var angle: float = atan2(move_input.y, move_input.x)
+	var octant: int = int(round(8 * angle / (2*PI) + 8)) % 8
+	match octant:
+		0:
+			return "r"
+		1:
+			return "dr"
+		2:
+			return "d"
+		3:
+			return "dl"
+		4:
+			return "l"
+		5:
+			return "ul"
+		6:
+			return "u"
+		7:
+			return "ur"
+			
+	return "N/A"
 	
 func GetVectorFromDirection(direction: String) -> Vector2:
 	match direction:

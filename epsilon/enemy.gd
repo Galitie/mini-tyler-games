@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Enemy
 
 @export var navs: Array[Node2D] = []
 
@@ -8,7 +9,7 @@ const RUN_SPEED: float = 40.0
 var current_nav_index: int = 0
 var direction: String = "l"
 
-enum SoldierState {PATROL, ALERTED, ALERT, SHOOT}
+enum SoldierState {PATROL, ALERTED, ALERT, CONFUSED, SHOOT, DEAD}
 var state: SoldierState = SoldierState.PATROL
 
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -19,18 +20,43 @@ var state: SoldierState = SoldierState.PATROL
 
 @onready var status: AnimatedSprite2D = $status
 
+var on_alert: bool = false
+
 @onready var snake = get_parent().get_node("snake")
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
 
 @onready var map: TileMap = get_parent().get_parent()
 
+var hp: int = 10
+
+var is_hit: bool = false
+var hit_timer: float = 0.0
+var hit_timer_length: float = 0.1
+
 func _ready() -> void:
+	add_to_group("enemies")
+	add_to_group("entities")
 	sprite.animation_finished.connect(_animation_finished)
 	status.visible = false
 	status.animation_finished.connect(_status_animation_finished)
 
 func _physics_process(delta: float) -> void:
+	var collision: KinematicCollision2D = move_and_collide(velocity * delta, true)
+	if collision:
+		var entity = collision.get_collider().get_parent()
+		if entity.is_in_group("snakes"):
+			if !on_alert && entity.state == Snake.SnakeState.BOX:
+				confused()
+	
+	if is_hit:
+		sprite.modulate = Color.RED
+		hit_timer += 1.0 * delta
+		if hit_timer > hit_timer_length:
+			is_hit = false
+			hit_timer = 0.0
+			sprite.modulate = Color.WHITE
+	
 	match state:
 		SoldierState.PATROL:
 			var nav: Node2D = navs[current_nav_index]
@@ -55,11 +81,13 @@ func _physics_process(delta: float) -> void:
 			if vision.move_and_collide(Vector2.ZERO, true):
 				wall_cast.target_position = to_local(snake.global_position)
 				if !wall_cast.is_colliding():
-					status.visible = true
-					status.play("alert", 0.8)
-					state = SoldierState.ALERTED
-					return
+					if snake.state == Snake.SnakeState.BOX && snake.velocity.length() == 0:
+						pass
+					else:
+						alert()
+						return
 		SoldierState.ALERTED:
+			on_alert = true
 			velocity = Vector2.ZERO
 			var target_dir = (snake.global_position - global_position).normalized()
 			direction = GetDirection(target_dir)
@@ -96,8 +124,39 @@ func _physics_process(delta: float) -> void:
 				sprite.set_frame_and_progress(current_frame, current_progress)
 		SoldierState.SHOOT:
 			return
+		SoldierState.DEAD:
+			return
+		SoldierState.CONFUSED:
+			sprite.play("idle" + "_" + direction)
+			return
 
 	move_and_slide()
+	
+func alert() -> void:
+	on_alert = true
+	status.visible = true
+	status.play("alert", 1.0)
+	state = SoldierState.ALERTED
+	
+func confused() -> void:
+	status.visible = true
+	status.play("huh", 1.0)
+	state = SoldierState.CONFUSED
+	
+func hit(damage: int) -> void:
+	hp -= damage
+	is_hit = true
+	if hp <= 0:
+		hp = 0
+		sprite.play("fall" + "_" + direction)
+		$body/collider.disabled = true
+		$collider.disabled = true
+		state = SoldierState.DEAD
+		on_alert = false
+		z_index = -1
+	else:
+		if !on_alert:
+			alert()
 	
 func SetVisionToDirection() -> void:
 	match direction:
@@ -121,24 +180,28 @@ func SetVisionToDirection() -> void:
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:
 		return direction
-	var move_angle: float = rad_to_deg(move_input.angle())
-	if move_angle > (-90 - 22.5) && move_angle < (-90 + 22.5):
-		return "u"
-	elif move_angle > (-45 - 22.5) && move_angle < (-45 + 22.5):
-		return "ur"
-	elif move_angle > (0 - 22.5) && move_angle < (0 + 22.5):
-		return "r"
-	elif move_angle > (45 - 22.5) && move_angle < (45 + 22.5):
-		return "dr"
-	elif move_angle > (90 - 22.5) && move_angle < (90 + 22.5):
-		return "d"
-	elif move_angle > (135 - 22.5) && move_angle < (135 + 22.5):
-		return "dl"
-	elif move_angle > (180 - 22.5) && move_angle < (180 + 22.5):
-		return "l"
-	elif move_angle > (-135 - 22.5) && move_angle < (-135 + 22.5):
-		return "ul"
-	return direction
+	
+	var angle: float = atan2(move_input.y, move_input.x)
+	var octant: int = int(round(8 * angle / (2*PI) + 8)) % 8
+	match octant:
+		0:
+			return "r"
+		1:
+			return "dr"
+		2:
+			return "d"
+		3:
+			return "dl"
+		4:
+			return "l"
+		5:
+			return "ul"
+		6:
+			return "u"
+		7:
+			return "ur"
+			
+	return "N/A"
 
 func GetVectorFromDirection(direction: String) -> Vector2:
 	match direction:
@@ -168,4 +231,6 @@ func _animation_finished() -> void:
 func _status_animation_finished() -> void:
 	if state == SoldierState.ALERTED:
 		state = SoldierState.ALERT
-	status.visible = false
+		status.visible = false
+	elif state == SoldierState.CONFUSED:
+		alert()

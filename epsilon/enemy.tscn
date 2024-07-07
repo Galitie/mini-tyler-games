@@ -1,27 +1,39 @@
-[gd_scene load_steps=85 format=3 uid="uid://bc0ueryft07ta"]
+[gd_scene load_steps=97 format=3 uid="uid://bc0ueryft07ta"]
 
 [ext_resource type="Script" path="res://epsilon/enemy.gd" id="1_tcr05"]
 [ext_resource type="Texture2D" uid="uid://bnp2tyjyxp4tv" path="res://epsilon/sprites/enemy_stand_down.png" id="2_hpmyi"]
+[ext_resource type="Texture2D" uid="uid://6uqntvi1dqjd" path="res://epsilon/sprites/enemy_dying_down_0.png" id="2_s87sj"]
+[ext_resource type="Texture2D" uid="uid://cuihm4hagme1n" path="res://epsilon/sprites/enemy_dying_down_1.png" id="3_auwws"]
 [ext_resource type="Texture2D" uid="uid://dpdvka8xgpbpj" path="res://epsilon/sprites/enemy_stand_right.png" id="3_b432n"]
 [ext_resource type="Texture2D" uid="uid://bqc2lhm7ris41" path="res://epsilon/sprites/enemy_stand_up.png" id="3_oll53"]
 [ext_resource type="Texture2D" uid="uid://qjaunsuks7nb" path="res://epsilon/sprites/enemy_stand_down_right.png" id="3_sguq0"]
 [ext_resource type="Texture2D" uid="uid://dastbesyrvu05" path="res://epsilon/sprites/enemy_walk_down.png" id="4_3cs0x"]
+[ext_resource type="Texture2D" uid="uid://ck7vobp7teht5" path="res://epsilon/sprites/enemy_dying_down_2.png" id="4_folya"]
+[ext_resource type="Texture2D" uid="uid://c2t34ujkq4hqc" path="res://epsilon/sprites/enemy_dying_down_3.png" id="5_gjkbd"]
 [ext_resource type="Texture2D" uid="uid://3p6taro8wj5g" path="res://epsilon/sprites/enemy_walk_up.png" id="5_k6pyr"]
 [ext_resource type="Texture2D" uid="uid://evdiefxkg50j" path="res://epsilon/sprites/enemy_run_down.png" id="5_t2eid"]
 [ext_resource type="Texture2D" uid="uid://clm1c3b7vo7xa" path="res://epsilon/sprites/enemy_run_down_right.png" id="6_bc7xl"]
+[ext_resource type="Texture2D" uid="uid://clrci7yvavlws" path="res://epsilon/sprites/enemy_dying_right_0.png" id="6_u7kf5"]
 [ext_resource type="Texture2D" uid="uid://chbpx8b71je8a" path="res://epsilon/sprites/enemy_stand_up_right.png" id="6_wlekg"]
+[ext_resource type="Texture2D" uid="uid://bc63kg6tsij7n" path="res://epsilon/sprites/enemy_dying_right_1.png" id="7_74ptg"]
 [ext_resource type="Texture2D" uid="uid://bx557jjufg3x" path="res://epsilon/sprites/enemy_run_up.png" id="7_aaai1"]
 [ext_resource type="Texture2D" uid="uid://dtkh78pr4w4yp" path="res://epsilon/sprites/enemy_run_right_0.png" id="7_n2xeg"]
 [ext_resource type="Texture2D" uid="uid://15b0pix3bny5" path="res://epsilon/sprites/enemy_run_right_1.png" id="8_bq4m8"]
 [ext_resource type="Texture2D" uid="uid://b5jdy1lxlp3ek" path="res://epsilon/sprites/enemy_run_up_right.png" id="8_in21q"]
+[ext_resource type="Texture2D" uid="uid://sn3lna46fsvb" path="res://epsilon/sprites/enemy_dying_right_2.png" id="8_m07ux"]
+[ext_resource type="Texture2D" uid="uid://b3h0n1bxc5u7h" path="res://epsilon/sprites/enemy_dying_right_3.png" id="9_apqqd"]
 [ext_resource type="Texture2D" uid="uid://qhsc35bvgin7" path="res://epsilon/sprites/enemy_run_right_2.png" id="9_h8pd2"]
 [ext_resource type="Texture2D" uid="uid://cm35vj3waacrl" path="res://epsilon/sprites/enemy_walk_right_0.png" id="10_5hfn1"]
+[ext_resource type="Texture2D" uid="uid://c4srkynk6wuno" path="res://epsilon/sprites/enemy_dying_up_0.png" id="10_cacn1"]
 [ext_resource type="Texture2D" uid="uid://5ht1foh5yfmm" path="res://epsilon/sprites/enemy_run_right_3.png" id="10_is4ch"]
+[ext_resource type="Texture2D" uid="uid://bs78nkukfe6nh" path="res://epsilon/sprites/enemy_dying_up_1.png" id="11_km1pl"]
 [ext_resource type="Texture2D" uid="uid://b2ocg8usoexrr" path="res://epsilon/sprites/enemy_run_right_4.png" id="11_mwapw"]
 [ext_resource type="Texture2D" uid="uid://dhawwpg8vssr" path="res://epsilon/sprites/enemy_walk_right_1.png" id="11_qugm5"]
 [ext_resource type="Texture2D" uid="uid://cb2satyfvwyda" path="res://epsilon/sprites/enemy_walk_right_2.png" id="12_1voae"]
+[ext_resource type="Texture2D" uid="uid://2lpp04be16sk" path="res://epsilon/sprites/enemy_dying_up_2.png" id="12_6sec0"]
 [ext_resource type="Texture2D" uid="uid://dma02700xt63b" path="res://epsilon/sprites/enemy_run_right_5.png" id="12_yuc3s"]
 [ext_resource type="Texture2D" uid="uid://c333qafv6kbuw" path="res://epsilon/sprites/enemy_walk_right_3.png" id="13_jp1gt"]
+[ext_resource type="Texture2D" uid="uid://cb4v0tcohxag8" path="res://epsilon/sprites/enemy_dying_up_3.png" id="13_t3f6e"]
 [ext_resource type="Texture2D" uid="uid://1u30ao1snitx" path="res://epsilon/sprites/enemy_walk_right_4.png" id="14_ycuq5"]
 [ext_resource type="Texture2D" uid="uid://cwpvngsfet75h" path="res://epsilon/sprites/enemy_walk_right_5.png" id="15_1jvnq"]
 [ext_resource type="Texture2D" uid="uid://cwoc3dpdvnty4" path="res://epsilon/sprites/enemy_shoot_down.png" id="17_d1sxq"]
@@ -226,6 +238,142 @@ region = Rect2(80, 0, 12, 21)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_243vs"]
 animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_s87sj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_auwws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_folya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gjkbd")
+}],
+"loop": false,
+"name": &"fall_d",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_s87sj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_auwws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_folya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gjkbd")
+}],
+"loop": false,
+"name": &"fall_dl",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_s87sj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_auwws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_folya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gjkbd")
+}],
+"loop": false,
+"name": &"fall_dr",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("6_u7kf5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_74ptg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_m07ux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_apqqd")
+}],
+"loop": false,
+"name": &"fall_l",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("6_u7kf5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_74ptg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_m07ux")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_apqqd")
+}],
+"loop": false,
+"name": &"fall_r",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("10_cacn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_km1pl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6sec0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_t3f6e")
+}],
+"loop": false,
+"name": &"fall_u",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("10_cacn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_km1pl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6sec0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_t3f6e")
+}],
+"loop": false,
+"name": &"fall_ul",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("10_cacn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_km1pl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6sec0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_t3f6e")
+}],
+"loop": false,
+"name": &"fall_ur",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_hpmyi")
@@ -635,7 +783,7 @@ animations = [{
 size = Vector2(5, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1f1r1"]
-size = Vector2(7, 9)
+size = Vector2(7, 12)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q5l0o"]
 radius = 26.0
@@ -662,7 +810,7 @@ animations = [{
 
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 16
-collision_mask = 5
+collision_mask = 69
 script = ExtResource("1_tcr05")
 
 [node name="wall_cast" type="RayCast2D" parent="."]
@@ -672,7 +820,7 @@ collision_mask = 4
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_243vs")
-animation = &"idle_d"
+animation = &"fall_dl"
 offset = Vector2(0, -9)
 
 [node name="collider" type="CollisionShape2D" parent="."]
@@ -684,7 +832,7 @@ collision_layer = 32
 collision_mask = 8
 
 [node name="collider" type="CollisionShape2D" parent="body"]
-position = Vector2(-0.5, -14.5)
+position = Vector2(-0.5, -13)
 shape = SubResource("RectangleShape2D_1f1r1")
 
 [node name="anchor" type="Node2D" parent="."]

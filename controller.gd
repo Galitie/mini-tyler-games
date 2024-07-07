@@ -9,11 +9,13 @@ class Gamepad:
 	var left_stick: Vector2 = Vector2.ZERO
 	var right_stick: Vector2 = Vector2.ZERO
 	
+	var right_trigger: float
+	
 	var button_states: PackedByteArray = [
 		0, # JOY_BUTTON_A
 		0, # JOY_BUTTON_B
 		0, # JOY_BUTTON_X
-		0  # JOY_BUTTON_Y
+		0, # JOY_BUTTON_Y
 	]
 	
 	var prev_button_states: PackedByteArray = button_states.duplicate()
@@ -47,6 +49,8 @@ func UpdateControllerState(device_id: int) -> void:
 		gamepad.left_stick.y = 0
 	gamepad.right_stick = Vector2(Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X), Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y))
 	
+	gamepad.right_trigger = Input.get_joy_axis(device_id, JOY_AXIS_TRIGGER_RIGHT)
+	
 	for i in range(gamepad.button_states.size()):
 		gamepad.button_states[i] = int(Input.is_joy_button_pressed(gamepad.device_id, i))
 		
@@ -72,3 +76,6 @@ func GetLeftStick(device_id: int) -> Vector2:
 	
 func GetRightStick(device_id: int) -> Vector2:
 	return gamepads[device_id].right_stick
+
+func GetRightTrigger(device_id: int) -> float:
+	return gamepads[device_id].right_trigger

@@ -147,7 +147,6 @@ func confused() -> void:
 	
 func hit(emitter, damage: int) -> void:
 	if state != SoldierState.DEAD:
-		target = emitter
 		hp -= damage
 		is_hit = true
 		if hp <= 0:
@@ -156,8 +155,10 @@ func hit(emitter, damage: int) -> void:
 			state = SoldierState.DEAD
 			on_alert = false
 		else:
-			if !on_alert:
-				alert()
+			if emitter.is_in_group("snakes"):
+				target = emitter
+				if !on_alert:
+					alert()
 	
 func SetVisionToDirection() -> void:
 	match direction:

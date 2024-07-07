@@ -19,7 +19,7 @@ const BOX_SPEED: float = 10.0
 
 var direction: String = "u"
 
-enum SnakeState {IDLE, MOVE, BOX, DRAW, DRAWN, SHOOT, DEAD}
+enum SnakeState {IDLE, MOVE, BOX, DRAW, DRAWN, PUNCH, SHOOT, DEAD}
 var state: SnakeState = SnakeState.IDLE
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
@@ -27,6 +27,8 @@ var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
 @onready var map: TileMap = get_parent().get_parent()
 
 var hp = 10
+
+const PUNCH_DAMAGE: int = 1
 
 var is_hit: bool = false
 var hit_timer: float = 0.0
@@ -36,16 +38,14 @@ func _ready() -> void:
 	add_to_group("snakes")
 	add_to_group("entities")
 	$sprite.animation_finished.connect(_animation_finished)
+	$punch_area.area_entered.connect(_area_entered_punch)
 
 func _physics_process(delta: float) -> void:
+	update(delta)
+	move_and_slide()
+
+func update(delta: float) -> void:
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
-	
-	var collision: KinematicCollision2D = move_and_collide(velocity * delta, true)
-	if collision:
-		var entity = collision.get_collider()
-		if entity.is_in_group("enemies"):
-			if !entity.on_alert:
-				entity.alert()
 	
 	if is_hit:
 		modulate = Color.RED
@@ -57,12 +57,16 @@ func _physics_process(delta: float) -> void:
 	
 	match state:
 		SnakeState.IDLE:
+			velocity = Vector2.ZERO
 			sprite.play("idle" + "_" + direction)
 			if move_input.length() > 0:
 				state = SnakeState.MOVE
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
 				sprite.play("draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
+				punch()
+				return
 			elif Controller.GetRightTrigger(controller_port) > 0.5:
 				state = SnakeState.BOX
 				return
@@ -73,6 +77,9 @@ func _physics_process(delta: float) -> void:
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
 				sprite.play("draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				return
+			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
+				punch()
 				return
 			elif Controller.GetRightTrigger(controller_port) > 0.5:
 				state = SnakeState.BOX
@@ -89,9 +96,8 @@ func _physics_process(delta: float) -> void:
 			sprite.play("move" + "_" + direction, anim_speed)
 			sprite.set_frame_and_progress(current_frame, current_progress)
 			velocity = move_input * SPEED
-			move_and_slide()
 		SnakeState.DRAW:
-			return
+			velocity = Vector2.ZERO
 		SnakeState.DRAWN:
 			direction = GetDirection(move_input)
 			if direction.ends_with("l"):
@@ -103,19 +109,18 @@ func _physics_process(delta: float) -> void:
 				sprite.play("shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
-				var bullet_direction = GetVectorFromDirection(direction)
-				bullet.velocity = bullet_direction * bullet.SPEED
-				bullet.position = position + Vector2(0, -16) + (bullet_direction * 8)
+				bullet.direction = GetVectorFromDirection(direction)
+				bullet.position = position + Vector2(0, -16) + (bullet.direction * 13)
 				map.add_child(bullet)
 		SnakeState.SHOOT:
-			return
+			velocity = Vector2.ZERO
 		SnakeState.DEAD:
-			return
+			velocity = Vector2.ZERO
 		SnakeState.BOX:
-			$box/box_collider.disabled = false
+			$box.monitorable = true
 			if Controller.GetRightTrigger(controller_port) < 0.5:
 				state = SnakeState.IDLE
-				$box/box_collider.disabled = true
+				$box.monitorable = false
 				return
 			direction = GetDirection(move_input)
 			if direction.ends_with("l"):
@@ -124,18 +129,26 @@ func _physics_process(delta: float) -> void:
 				sprite.flip_h = false
 			sprite.play("box" + "_" + direction)
 			velocity = move_input * BOX_SPEED
-			move_and_slide()
+		SnakeState.PUNCH:
+			velocity = Vector2.ZERO
+			
+func punch() -> void:
+	sprite.play("cqc" + "_" + direction, 1.0)
+	state = SnakeState.PUNCH
+	$punch_area.set_deferred("monitoring", true)
+	$punch_area/punch_collider.position = GetVectorFromDirection(direction) * 6
 			
 func hit(damage: int) -> void:
-	hp -= damage
-	is_hit = true
-	if hp <= 0:
-		hp = 0
-		sprite.play("fall" + "_" + direction)
-		$body/collider.disabled = true
-		$collider.disabled = true
-		state = SnakeState.DEAD
-		z_index = -1
+	if state != SnakeState.DEAD:
+		hp -= damage
+		is_hit = true
+		if hp <= 0:
+			hp = 0
+			sprite.play("fall" + "_" + direction)
+			$body.set_deferred("monitorable", false)
+			$collider.set_deferred("disabled", true)
+			state = SnakeState.DEAD
+			z_index = -1
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:
@@ -163,8 +176,8 @@ func GetDirection(move_input: Vector2) -> String:
 			
 	return "N/A"
 	
-func GetVectorFromDirection(direction: String) -> Vector2:
-	match direction:
+func GetVectorFromDirection(_direction: String) -> Vector2:
+	match _direction:
 		"u":
 			return Vector2.UP
 		"d":
@@ -190,3 +203,14 @@ func _animation_finished():
 			state = SnakeState.DRAWN
 		SnakeState.SHOOT:
 			state = SnakeState.IDLE
+		SnakeState.PUNCH:
+			state = SnakeState.IDLE
+			$punch_area.set_deferred("monitoring", false)
+			$punch_area/punch_collider.position = Vector2.ZERO
+			
+func _area_entered_punch(area: Area2D) -> void:
+	var entity = area.get_parent()
+	if entity.is_in_group("entities"):
+		entity.hit(PUNCH_DAMAGE)
+		$punch_area.set_deferred("monitoring", false)
+		$punch_area/punch_collider.position = Vector2.ZERO

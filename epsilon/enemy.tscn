@@ -810,7 +810,7 @@ animations = [{
 
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 16
-collision_mask = 69
+collision_mask = 85
 script = ExtResource("1_tcr05")
 
 [node name="wall_cast" type="RayCast2D" parent="."]
@@ -820,16 +820,16 @@ collision_mask = 4
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_243vs")
-animation = &"fall_dl"
+animation = &"idle_d"
 offset = Vector2(0, -9)
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -2.5)
 shape = SubResource("RectangleShape2D_id527")
 
-[node name="body" type="CharacterBody2D" parent="."]
+[node name="body" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 8
+collision_mask = 74
 
 [node name="collider" type="CollisionShape2D" parent="body"]
 position = Vector2(-0.5, -13)
@@ -838,9 +838,10 @@ shape = SubResource("RectangleShape2D_1f1r1")
 [node name="anchor" type="Node2D" parent="."]
 position = Vector2(0, -14)
 
-[node name="vision" type="CharacterBody2D" parent="anchor"]
+[node name="vision" type="Area2D" parent="anchor"]
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="collider" type="CollisionShape2D" parent="anchor/vision"]
 position = Vector2(0, 52)

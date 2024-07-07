@@ -15,7 +15,7 @@ var state: SoldierState = SoldierState.PATROL
 @onready var sprite: AnimatedSprite2D = $sprite
 
 @onready var vision_anchor: Node2D = $anchor
-@onready var vision: CharacterBody2D = $anchor/vision
+@onready var vision: Area2D = $anchor/vision
 @onready var wall_cast: RayCast2D = $wall_cast
 
 @onready var status: AnimatedSprite2D = $status
@@ -37,18 +37,12 @@ var hit_timer_length: float = 0.1
 func _ready() -> void:
 	add_to_group("enemies")
 	add_to_group("entities")
+	$body.area_entered.connect(_area_entered)
 	sprite.animation_finished.connect(_animation_finished)
 	status.visible = false
 	status.animation_finished.connect(_status_animation_finished)
 
 func _physics_process(delta: float) -> void:
-	var collision: KinematicCollision2D = move_and_collide(velocity * delta, true)
-	if collision:
-		var entity = collision.get_collider().get_parent()
-		if entity.is_in_group("snakes"):
-			if !on_alert && entity.state == Snake.SnakeState.BOX:
-				confused()
-	
 	if is_hit:
 		sprite.modulate = Color.RED
 		hit_timer += 1.0 * delta
@@ -78,14 +72,19 @@ func _physics_process(delta: float) -> void:
 				if current_nav_index > navs.size() - 1:
 					current_nav_index = 0
 	
-			if vision.move_and_collide(Vector2.ZERO, true):
-				wall_cast.target_position = to_local(snake.global_position)
-				if !wall_cast.is_colliding():
-					if snake.state == Snake.SnakeState.BOX && snake.velocity.length() == 0:
-						pass
-					else:
-						alert()
-						return
+			var areas: Array = vision.get_overlapping_areas()
+			for area in areas:
+				var entity = area.get_parent()
+				if entity.is_in_group("snakes"):
+					# NOTE: Janky fix to get the sight cast to look for feet
+					wall_cast.target_position = to_local(entity.global_position) + Vector2(0, 12)
+					wall_cast.force_raycast_update()
+					if !wall_cast.is_colliding():
+						if entity.state == Snake.SnakeState.BOX && entity.velocity.length() == 0:
+							pass
+						else:
+							alert()
+							return
 		SoldierState.ALERTED:
 			on_alert = true
 			velocity = Vector2.ZERO
@@ -111,9 +110,8 @@ func _physics_process(delta: float) -> void:
 				sprite.play("shoot" + "_" + direction)
 				state = SoldierState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
-				var bullet_direction = GetVectorFromDirection(direction)
-				bullet.velocity = bullet_direction * bullet.SPEED
-				bullet.position = position + Vector2(0, -16) + (bullet_direction * 8)
+				bullet.direction = GetVectorFromDirection(direction)
+				bullet.position = position + Vector2(0, -16) + (bullet.direction * 13)
 				map.add_child(bullet)
 				return
 			else:
@@ -144,19 +142,18 @@ func confused() -> void:
 	state = SoldierState.CONFUSED
 	
 func hit(damage: int) -> void:
-	hp -= damage
-	is_hit = true
-	if hp <= 0:
-		hp = 0
-		sprite.play("fall" + "_" + direction)
-		$body/collider.disabled = true
-		$collider.disabled = true
-		state = SoldierState.DEAD
-		on_alert = false
-		z_index = -1
-	else:
-		if !on_alert:
-			alert()
+	if state != SoldierState.DEAD:
+		hp -= damage
+		is_hit = true
+		if hp <= 0:
+			hp = 0
+			sprite.play("fall" + "_" + direction)
+			state = SoldierState.DEAD
+			on_alert = false
+			z_index = -1
+		else:
+			if !on_alert:
+				alert()
 	
 func SetVisionToDirection() -> void:
 	match direction:
@@ -203,8 +200,8 @@ func GetDirection(move_input: Vector2) -> String:
 			
 	return "N/A"
 
-func GetVectorFromDirection(direction: String) -> Vector2:
-	match direction:
+func GetVectorFromDirection(_direction: String) -> Vector2:
+	match _direction:
 		"u":
 			return Vector2.UP
 		"d":
@@ -227,6 +224,8 @@ func GetVectorFromDirection(direction: String) -> Vector2:
 func _animation_finished() -> void:
 	if state == SoldierState.SHOOT:
 		state = SoldierState.ALERT
+	if state == SoldierState.DEAD:
+		process_mode = Node.PROCESS_MODE_DISABLED
 		
 func _status_animation_finished() -> void:
 	if state == SoldierState.ALERTED:
@@ -234,3 +233,12 @@ func _status_animation_finished() -> void:
 		status.visible = false
 	elif state == SoldierState.CONFUSED:
 		alert()
+
+func _area_entered(area: Area2D) -> void:
+	var entity = area.get_parent()
+	if entity.is_in_group("snakes"):
+		if state != SoldierState.DEAD && !on_alert:
+			if entity.state != Snake.SnakeState.BOX:
+				alert()
+			else:
+				confused()

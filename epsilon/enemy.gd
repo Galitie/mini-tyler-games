@@ -102,8 +102,8 @@ func _physics_process(delta: float) -> void:
 				state = SoldierState.PATROL
 				target = null
 				return
-			var target_dir = (target.global_position - global_position).normalized()
-			var target_dest = global_position + (target_dir * global_position.distance_to(target.global_position))
+			var target_dir: Vector2 = (target.global_position - global_position).normalized()
+			var target_dest: Vector2 = global_position + (target_dir * global_position.distance_to(target.global_position))
 			direction = GetDirection(target_dir)
 			SetVisionToDirection()
 			if direction.ends_with("l"):
@@ -121,8 +121,8 @@ func _physics_process(delta: float) -> void:
 				map.add_child(bullet)
 				return
 			else:
-				var current_frame = sprite.get_frame()
-				var current_progress = sprite.get_frame_progress()
+				var current_frame: int = sprite.get_frame()
+				var current_progress: float = sprite.get_frame_progress()
 				velocity = target_dir.normalized() * RUN_SPEED
 				sprite.play("run" + "_" + direction)
 				sprite.set_frame_and_progress(current_frame, current_progress)

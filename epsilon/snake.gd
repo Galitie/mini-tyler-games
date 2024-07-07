@@ -213,6 +213,6 @@ func _animation_finished():
 func _area_entered_punch(area: Area2D) -> void:
 	var entity = area.get_parent()
 	if entity.is_in_group("entities"):
-		entity.hit(PUNCH_DAMAGE)
+		entity.hit(self, PUNCH_DAMAGE)
 		$punch_area.set_deferred("monitoring", false)
 		$punch_area/punch_collider.position = Vector2.ZERO

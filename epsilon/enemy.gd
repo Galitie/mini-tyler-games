@@ -98,8 +98,10 @@ func _physics_process(delta: float) -> void:
 				sprite.flip_h = false
 			sprite.play("idle" + "_" + direction)
 		SoldierState.ALERT:
-			# NOTE: Set a desired target at a time for an enemy, and set them back to patrol state
-			# after they lose sight of their last target.
+			if target.state == Snake.SnakeState.DEAD:
+				state = SoldierState.PATROL
+				target = null
+				return
 			var target_dir = (target.global_position - global_position).normalized()
 			var target_dest = global_position + (target_dir * global_position.distance_to(target.global_position))
 			direction = GetDirection(target_dir)

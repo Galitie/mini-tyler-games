@@ -110,14 +110,14 @@ func _physics_process(delta: float) -> void:
 				sprite.flip_h = true
 			else:
 				sprite.flip_h = false
-			if global_position.distance_to(target_dest) < 80:
+			if global_position.distance_to(target_dest) < 100:
 				velocity = Vector2.ZERO
 				sprite.play("shoot" + "_" + direction)
 				state = SoldierState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
 				bullet.emitter = self
 				bullet.direction = GetVectorFromDirection(direction)
-				bullet.position = position + Vector2(0, -14) + (bullet.direction * 6)
+				bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
 				map.add_child(bullet)
 				return
 			else:
@@ -156,6 +156,7 @@ func hit(emitter, damage: int) -> void:
 			sprite.play("fall" + "_" + direction)
 			state = SoldierState.DEAD
 			on_alert = false
+			status.visible = false
 		else:
 			if emitter.is_in_group("snakes"):
 				target = emitter

@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://bc0ueryft07ta"]
+[gd_scene load_steps=103 format=3 uid="uid://bc0ueryft07ta"]
 
 [ext_resource type="Script" path="res://epsilon/enemy.gd" id="1_tcr05"]
 [ext_resource type="Texture2D" uid="uid://bnp2tyjyxp4tv" path="res://epsilon/sprites/enemy_stand_down.png" id="2_hpmyi"]
@@ -233,6 +233,30 @@ atlas = ExtResource("5_k6pyr")
 region = Rect2(64, 0, 12, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1q3qt"]
+atlas = ExtResource("5_k6pyr")
+region = Rect2(80, 0, 12, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w0ip"]
+atlas = ExtResource("5_k6pyr")
+region = Rect2(0, 0, 12, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqypv"]
+atlas = ExtResource("5_k6pyr")
+region = Rect2(16, 0, 12, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_absgo"]
+atlas = ExtResource("5_k6pyr")
+region = Rect2(32, 0, 12, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pvip"]
+atlas = ExtResource("5_k6pyr")
+region = Rect2(48, 0, 12, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04fyq"]
+atlas = ExtResource("5_k6pyr")
+region = Rect2(64, 0, 12, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs6fs"]
 atlas = ExtResource("5_k6pyr")
 region = Rect2(80, 0, 12, 21)
 
@@ -777,6 +801,29 @@ animations = [{
 "loop": true,
 "name": &"walk_u",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w0ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqypv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_absgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2pvip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04fyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs6fs")
+}],
+"loop": true,
+"name": &"walk_ur",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_id527"]
@@ -820,7 +867,7 @@ collision_mask = 4
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_243vs")
-animation = &"idle_d"
+animation = &"fall_d"
 offset = Vector2(0, -9)
 
 [node name="collider" type="CollisionShape2D" parent="."]

@@ -12,7 +12,7 @@ const DAMAGE: int = 2
 var emitter
 
 func _ready() -> void:
-	area_entered.connect(_area_entered)
+	$body.area_entered.connect(_area_entered)
 	body_entered.connect(_body_entered)
 
 func _physics_process(delta: float) -> void:

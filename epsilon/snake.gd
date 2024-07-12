@@ -23,16 +23,19 @@ enum SnakeState {IDLE, MOVE, BOX, DRAW, DRAWN, PUNCH, SHOOT, DEAD}
 var state: SnakeState = SnakeState.IDLE
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
+var grenade_scene: PackedScene = load("res://epsilon/grenade.tscn")
 
 @onready var map: TileMap = get_parent().get_parent()
 
-var hp = 10
+var hp = 9999
 
 const PUNCH_DAMAGE: int = 1
 
 var is_hit: bool = false
 var hit_timer: float = 0.0
 var hit_timer_length: float = 0.1
+
+var weapon: String = ""
 
 func _ready() -> void:
 	add_to_group("snakes")
@@ -62,8 +65,15 @@ func update(delta: float) -> void:
 			if move_input.length() > 0:
 				state = SnakeState.MOVE
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
-				sprite.play("draw" + "_" + direction, 1.0)
+				weapon = "pistol"
+				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				return
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
+				weapon = "grenade"
+				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
+				state = SnakeState.DRAW
+				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
 				punch()
 				return
@@ -75,7 +85,13 @@ func update(delta: float) -> void:
 				state = SnakeState.IDLE
 				return
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
-				sprite.play("draw" + "_" + direction, 1.0)
+				weapon = "pistol"
+				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
+				state = SnakeState.DRAW
+				return
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
+				weapon = "grenade"
+				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
@@ -104,15 +120,23 @@ func update(delta: float) -> void:
 				sprite.flip_h = true
 			else:
 				sprite.flip_h = false
-			sprite.play("drawn" + "_" + direction, 1.0)
-			if !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
-				sprite.play("shoot" + "_" + direction, 1.0)
+			sprite.play(weapon + "_" + "drawn" + "_" + direction, 1.0)
+			if weapon == "pistol" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
+				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
 				bullet.emitter = self
 				bullet.direction = GetVectorFromDirection(direction)
-				bullet.position = position + Vector2(0, -16) + (bullet.direction * 6)
+				bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
 				map.add_child(bullet)
+			elif weapon == "grenade" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
+				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
+				state = SnakeState.SHOOT
+				var grenade = grenade_scene.instantiate()
+				grenade.emitter = self
+				grenade.direction = GetVectorFromDirection(direction)
+				grenade.position = position + Vector2(0, -4) + (grenade.direction * 6)
+				map.add_child(grenade)
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
 		SnakeState.DEAD:
@@ -187,13 +211,13 @@ func GetVectorFromDirection(_direction: String) -> Vector2:
 		"r":
 			return Vector2.RIGHT
 		"ur":
-			return Vector2(0.5, -0.5)
+			return Vector2(1, -1).normalized()
 		"dr":
-			return Vector2(0.5, 0.5)
+			return Vector2(1, 1).normalized()
 		"dl":
-			return Vector2(-0.5, 0.5)
+			return Vector2(-1, 1).normalized()
 		"ul":
-			return Vector2(-0.5, -0.5)
+			return Vector2(-1, -1).normalized()
 		_:
 			return Vector2.ZERO
 

@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://djngrv7bcbw00"]
+
+[ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="1_4jl7d"]
+[ext_resource type="Script" path="res://epsilon/grenade.gd" id="1_b08o0"]
+[ext_resource type="Texture2D" uid="uid://dfs1jbeihorol" path="res://epsilon/sprites/explosion_1.png" id="2_wkuqk"]
+[ext_resource type="Texture2D" uid="uid://b4a88xbaa8t4u" path="res://epsilon/sprites/explosion_2.png" id="3_jrie0"]
+[ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="4_3jt48"]
+[ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="5_sdsb8"]
+[ext_resource type="Texture2D" uid="uid://bqih6xa1onc6o" path="res://epsilon/sprites/grenade.png" id="6_7rrpt"]
+[ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="8_68wd1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxl17"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nhi5"]
+size = Vector2(24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h1c3c"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("1_4jl7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wkuqk")
+}, {
+"duration": 1.2,
+"texture": ExtResource("3_jrie0")
+}, {
+"duration": 1.4,
+"texture": ExtResource("4_3jt48")
+}, {
+"duration": 1.8,
+"texture": ExtResource("5_sdsb8")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_7rrpt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="grenade" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_b08o0")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kxl17")
+
+[node name="explosion" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 34
+monitoring = false
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="explosion"]
+shape = SubResource("RectangleShape2D_5nhi5")
+
+[node name="shadow" type="Sprite2D" parent="."]
+z_index = -2
+texture_filter = 1
+texture = ExtResource("8_68wd1")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_h1c3c")
+animation = &"idle"

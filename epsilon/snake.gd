@@ -37,6 +37,9 @@ var hit_timer: float = 0.0
 var hit_timer_length: float = 0.1
 
 var weapon: String = ""
+var pistol_ammo: int = 20
+var grenade_ammo: int = 2
+var stinger_ammo: int = 4
 
 func _ready() -> void:
 	add_to_group("snakes")
@@ -65,17 +68,17 @@ func update(delta: float) -> void:
 			sprite.play("idle" + "_" + direction)
 			if move_input.length() > 0:
 				state = SnakeState.MOVE
-			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X) && pistol_ammo > 0:
 				weapon = "pistol"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
-			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B) && grenade_ammo > 0:
 				weapon = "grenade"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
-			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y) && stinger_ammo > 0:
 				weapon = "stinger"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
@@ -90,17 +93,17 @@ func update(delta: float) -> void:
 			if move_input.length() == 0:
 				state = SnakeState.IDLE
 				return
-			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X) && pistol_ammo > 0:
 				weapon = "pistol"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
-			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B) && grenade_ammo > 0:
 				weapon = "grenade"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
-			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y) && stinger_ammo > 0:
 				weapon = "stinger"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
@@ -133,6 +136,7 @@ func update(delta: float) -> void:
 				sprite.flip_h = false
 			sprite.play(weapon + "_" + "drawn" + "_" + direction, 1.0)
 			if weapon == "pistol" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_X):
+				pistol_ammo -= 1
 				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var bullet = pistol_bullet_scene.instantiate()
@@ -141,6 +145,7 @@ func update(delta: float) -> void:
 				bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
 				map.add_child(bullet)
 			elif weapon == "grenade" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
+				grenade_ammo -= 1
 				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var grenade = grenade_scene.instantiate()
@@ -149,6 +154,7 @@ func update(delta: float) -> void:
 				grenade.position = position + Vector2(0, -4) + (grenade.direction * 6)
 				map.add_child(grenade)
 			elif weapon == "stinger" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
+				stinger_ammo -= 1
 				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
 				var stinger_missile = stinger_missile_scene.instantiate()

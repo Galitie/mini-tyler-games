@@ -1545,7 +1545,7 @@ shape = SubResource("RectangleShape2D_vypnd")
 [node name="punch_area" type="Area2D" parent="."]
 position = Vector2(0.5, -12.5)
 collision_layer = 0
-collision_mask = 32
+collision_mask = 34
 monitoring = false
 monitorable = false
 

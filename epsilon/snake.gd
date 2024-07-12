@@ -162,10 +162,12 @@ func update(delta: float) -> void:
 		SnakeState.DEAD:
 			velocity = Vector2.ZERO
 		SnakeState.BOX:
+			$shadow.visible = false
 			$box.monitorable = true
 			if Controller.GetRightTrigger(controller_port) < 0.5:
 				state = SnakeState.IDLE
 				$box.monitorable = false
+				$shadow.visible = true
 				return
 			direction = GetDirection(move_input)
 			if direction.ends_with("l"):

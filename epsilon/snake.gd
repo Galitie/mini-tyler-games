@@ -32,7 +32,7 @@ var stinger_missile_scene: PackedScene = load("res://epsilon/stinger_missile.tsc
 @onready var map: TileMap = get_parent().get_parent()
 
 const MAX_HP: int = 10
-var hp = 10
+var hp: int = 10
 
 const PUNCH_DAMAGE: int = 1
 
@@ -50,6 +50,8 @@ var revive: float = 0
 var revive_max_time: float = 3.0
 var snake_to_be_helped: Snake = null
 
+@export var badge: Control
+
 func _ready() -> void:
 	sprite.material.set_shader_parameter("new", player_color)
 	
@@ -64,9 +66,17 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	update(delta)
 	move_and_slide()
+	
+func UpdateUI(delta: float) -> void:
+	badge.get_node("hp_bar").size.x = lerp(badge.get_node("hp_bar").size.x, float((float(hp) / float(MAX_HP)) * 24.0), 10.0 * delta)
+	badge.get_node("pistol_ammo").text = "[center]" + str(pistol_ammo) + "[/center]"
+	badge.get_node("stinger_ammo").text = "[center]" + str(stinger_ammo) + "[/center]"
+	badge.get_node("grenade_ammo").text = "[center]" + str(grenade_ammo) + "[/center]"
+	badge.get_node("profile").self_modulate = player_color
 
 func update(delta: float) -> void:
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
+	UpdateUI(delta)
 	
 	if is_hit:
 		sprite.material.set_shader_parameter("is_hit", true)

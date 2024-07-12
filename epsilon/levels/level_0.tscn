@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwowapak47soo"]
+[gd_scene load_steps=7 format=3 uid="uid://bwowapak47soo"]
 
+[ext_resource type="PackedScene" uid="uid://dslvisumginyo" path="res://badge.tscn" id="1_35wfi"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="1_pxm64"]
 [ext_resource type="PackedScene" uid="uid://bc0ueryft07ta" path="res://epsilon/enemy.tscn" id="2_g21eu"]
 [ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="3_ad7jk"]
@@ -282,8 +283,57 @@ sources/1 = SubResource("TileSetAtlasSource_02dc2")
 
 [node name="main" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[node name="ui" type="CanvasLayer" parent="camera"]
+
+[node name="camera_space" type="Control" parent="camera/ui"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="badge" parent="camera/ui/camera_space" instance=ExtResource("1_35wfi")]
+layout_mode = 0
+scale = Vector2(3, 3)
+
+[node name="badge2" parent="camera/ui/camera_space" instance=ExtResource("1_35wfi")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -198.0
+offset_right = -132.0
+grow_horizontal = 0
+scale = Vector2(3, 3)
+
+[node name="badge3" parent="camera/ui/camera_space" instance=ExtResource("1_35wfi")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -78.0
+offset_bottom = -52.0
+grow_vertical = 0
+scale = Vector2(3, 3)
+
+[node name="badge4" parent="camera/ui/camera_space" instance=ExtResource("1_35wfi")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -78.0
+offset_right = -132.0
+offset_bottom = -52.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(3, 3)
 
 [node name="map" type="TileMap" parent="."]
 texture_filter = 1
@@ -299,23 +349,27 @@ y_sort_enabled = true
 position = Vector2(-1, -88)
 navs = [NodePath("../../navs/enemy1_1"), NodePath("../../navs/enemy1_2")]
 
-[node name="snake" parent="map/entities" instance=ExtResource("3_ad7jk")]
+[node name="snake" parent="map/entities" node_paths=PackedStringArray("badge") instance=ExtResource("3_ad7jk")]
 position = Vector2(-24, 109)
+badge = NodePath("../../../camera/ui/camera_space/badge")
 
-[node name="snake2" parent="map/entities" instance=ExtResource("3_ad7jk")]
+[node name="snake2" parent="map/entities" node_paths=PackedStringArray("badge") instance=ExtResource("3_ad7jk")]
 position = Vector2(-9, 109)
 controller_port = 1
 player_color = Color(1, 0, 0, 1)
+badge = NodePath("../../../camera/ui/camera_space/badge2")
 
-[node name="snake3" parent="map/entities" instance=ExtResource("3_ad7jk")]
+[node name="snake3" parent="map/entities" node_paths=PackedStringArray("badge") instance=ExtResource("3_ad7jk")]
 position = Vector2(8, 109)
 controller_port = 2
 player_color = Color(1, 1, 0, 1)
+badge = NodePath("../../../camera/ui/camera_space/badge3")
 
-[node name="snake4" parent="map/entities" instance=ExtResource("3_ad7jk")]
+[node name="snake4" parent="map/entities" node_paths=PackedStringArray("badge") instance=ExtResource("3_ad7jk")]
 position = Vector2(24, 109)
 controller_port = 3
 player_color = Color(0.847059, 0, 0.792157, 1)
+badge = NodePath("../../../camera/ui/camera_space/badge4")
 
 [node name="navs" type="Node2D" parent="map"]
 

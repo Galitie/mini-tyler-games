@@ -1,0 +1,22 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://uixb7xgurvy6"
+path="res://.godot/imported/bm_numbers.png-32f0a4a807002321254574cbe0f42093.fontdata"
+
+[deps]
+
+source_file="res://epsilon/sprites/bm_numbers.png"
+dest_files=["res://.godot/imported/bm_numbers.png-32f0a4a807002321254574cbe0f42093.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("0-127")
+columns=16
+rows=8
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+fallbacks=[]
+compress=true
+scaling_mode=2

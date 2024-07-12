@@ -23,6 +23,9 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if !exploding:
+		if emitter.hp <= 0:
+			explode()
+			return
 		$sprite.play(direction_str)
 		var move_input: Vector2 = Controller.GetLeftStick(emitter.controller_port)
 		direction_str = GetDirection(move_input)
@@ -89,20 +92,20 @@ func _body_area_entered(area: Area2D) -> void:
 	if entity.is_in_group("entities"):
 		if entity == emitter && !can_hurt_emitter:
 			return
-		emitter.state = Snake.SnakeState.IDLE
-		set_deferred("monitoring", false)
-		$explosion.set_deferred("monitoring", true)
-		$sprite.play("explode")
-		$shadow.visible = false
-		exploding = true
+		if emitter.hp > 0:
+			emitter.state = Snake.SnakeState.IDLE
+		explode()
 		
-func _wall_hit(body: Node2D) -> void:
-	emitter.state = Snake.SnakeState.IDLE
+func explode() -> void:
 	set_deferred("monitoring", false)
 	$explosion.set_deferred("monitoring", true)
 	$sprite.play("explode")
 	$shadow.visible = false
 	exploding = true
+		
+func _wall_hit(body: Node2D) -> void:
+	emitter.state = Snake.SnakeState.IDLE
+	explode()
 
 func _area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()
@@ -114,4 +117,5 @@ func _animation_finished() -> void:
 
 func _screen_exited() -> void:
 	queue_free()
-	emitter.state = Snake.SnakeState.IDLE
+	if emitter.hp > 0:
+		emitter.state = Snake.SnakeState.IDLE

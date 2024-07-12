@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=3 uid="uid://c3a0d3vikmu6u"]
+[gd_scene load_steps=160 format=3 uid="uid://c3a0d3vikmu6u"]
 
 [ext_resource type="Script" path="res://epsilon/snake.gd" id="1_l0qjn"]
 [ext_resource type="Texture2D" uid="uid://1u8xc1nlq0rm" path="res://epsilon/sprites/box_up.png" id="2_18w2y"]
@@ -124,6 +124,7 @@
 [ext_resource type="Texture2D" uid="uid://mgcfsp4uugww" path="res://epsilon/sprites/snake_grenade_up_right_0.png" id="64_twd03"]
 [ext_resource type="Texture2D" uid="uid://d070f80vyh5ii" path="res://epsilon/sprites/snake_grenade_down_1.png" id="65_6wd8n"]
 [ext_resource type="Texture2D" uid="uid://6048bv8il0fc" path="res://epsilon/sprites/shoot_ur_2.png" id="65_bu2mg"]
+[ext_resource type="Texture2D" uid="uid://bkd73q8uwcs3f" path="res://epsilon/sprites/snake_codec.png" id="65_fg0mq"]
 [ext_resource type="Texture2D" uid="uid://3d7rjonysw7x" path="res://epsilon/sprites/shoot_ur_3.png" id="66_5qkjy"]
 [ext_resource type="Texture2D" uid="uid://cqmtmlwets6wc" path="res://epsilon/sprites/snake_grenade_down_right_1.png" id="66_7dg5l"]
 [ext_resource type="Texture2D" uid="uid://cym5piwrennpr" path="res://epsilon/sprites/snake_grenade_right_1.png" id="67_nj2yx"]
@@ -145,6 +146,12 @@
 [ext_resource type="Texture2D" uid="uid://badpracfnx8ki" path="res://epsilon/sprites/snake_stinger_up_2.png" id="143_a6wyd"]
 [ext_resource type="Texture2D" uid="uid://ebfnof7ni20p" path="res://epsilon/sprites/snake_stinger_up_right_2.png" id="144_gnhgf"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="145_yk602"]
+[ext_resource type="Texture2D" uid="uid://dk85n2j15gu0o" path="res://epsilon/sprites/help.png" id="146_y6uyh"]
+[ext_resource type="Texture2D" uid="uid://cnawb6yfliwkq" path="res://epsilon/sprites/help_0.png" id="147_ki7y1"]
+[ext_resource type="Texture2D" uid="uid://co0yymesbjujs" path="res://epsilon/sprites/help_1.png" id="148_6qkt6"]
+[ext_resource type="Texture2D" uid="uid://dhqrf8l82nsca" path="res://epsilon/sprites/help_2.png" id="149_eur8g"]
+[ext_resource type="Texture2D" uid="uid://deriqgud5kbvr" path="res://epsilon/sprites/help_3.png" id="150_oblhk"]
+[ext_resource type="Texture2D" uid="uid://dlys17plmsbqi" path="res://epsilon/sprites/help_4.png" id="151_5ducp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dpugb"]
 animations = [{
@@ -719,6 +726,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"grenade_shoot_ur",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("65_fg0mq")
+}],
+"loop": true,
+"name": &"helping",
 "speed": 5.0
 }, {
 "frames": [{
@@ -1509,14 +1524,47 @@ size = Vector2(7, 12)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5hqbt"]
 size = Vector2(7, 7)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_uh3ai"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("146_y6uyh")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("147_ki7y1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("148_6qkt6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("149_eur8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("150_oblhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("151_5ducp")
+}],
+"loop": false,
+"name": &"fill",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evfy4"]
+
 [node name="snake" type="CharacterBody2D"]
-collision_mask = 20
+collision_mask = 148
 script = ExtResource("1_l0qjn")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_dpugb")
-animation = &"idle_u"
+animation = &"helping"
 offset = Vector2(0, -10)
 
 [node name="collider" type="CollisionShape2D" parent="."]
@@ -1557,3 +1605,20 @@ z_index = -2
 texture_filter = 1
 position = Vector2(0, -1)
 texture = ExtResource("145_yk602")
+
+[node name="help" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -29)
+sprite_frames = SubResource("SpriteFrames_uh3ai")
+animation = &"fill"
+frame = 4
+frame_progress = 1.0
+
+[node name="help_area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="help_area"]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_evfy4")

@@ -6,6 +6,7 @@
 # 5: ENEMY FEET
 # 6: ENEMY BODY
 # 7: BOX
+# 8: SNAKE'S DEAD BODYs
 
 extends CharacterBody2D
 class_name Snake
@@ -19,7 +20,7 @@ const BOX_SPEED: float = 10.0
 
 var direction: String = "u"
 
-enum SnakeState {IDLE, MOVE, BOX, DRAW, DRAWN, PUNCH, SHOOT, DEAD}
+enum SnakeState {IDLE, MOVE, BOX, HELPING, DRAW, DRAWN, PUNCH, SHOOT, DEAD}
 var state: SnakeState = SnakeState.IDLE
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
@@ -28,6 +29,7 @@ var stinger_missile_scene: PackedScene = load("res://epsilon/stinger_missile.tsc
 
 @onready var map: TileMap = get_parent().get_parent()
 
+const MAX_HP: int = 10
 var hp = 10
 
 const PUNCH_DAMAGE: int = 1
@@ -41,11 +43,19 @@ var pistol_ammo: int = 20
 var grenade_ammo: int = 2
 var stinger_ammo: int = 4
 
+var being_helped: bool = false
+var revive: float = 0
+var revive_max_time: float = 3.0
+var snake_to_be_helped: Snake = null
+
 func _ready() -> void:
 	add_to_group("snakes")
 	add_to_group("entities")
+	$help_area.area_entered.connect(_help_entered)
+	$help_area.area_exited.connect(_help_exited)
 	$sprite.animation_finished.connect(_animation_finished)
 	$punch_area.area_entered.connect(_area_entered_punch)
+	$help.visible = false
 
 func _physics_process(delta: float) -> void:
 	update(delta)
@@ -84,8 +94,12 @@ func update(delta: float) -> void:
 				state = SnakeState.DRAW
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
-				punch()
-				return
+				if snake_to_be_helped:
+					state = SnakeState.HELPING
+					return
+				else:
+					punch()
+					return
 			elif Controller.GetRightTrigger(controller_port) > 0.5:
 				state = SnakeState.BOX
 				return
@@ -109,8 +123,12 @@ func update(delta: float) -> void:
 				state = SnakeState.DRAW
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
-				punch()
-				return
+				if snake_to_be_helped:
+					state = SnakeState.HELPING
+					return
+				else:
+					punch()
+					return
 			elif Controller.GetRightTrigger(controller_port) > 0.5:
 				state = SnakeState.BOX
 				return
@@ -166,6 +184,23 @@ func update(delta: float) -> void:
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
 		SnakeState.DEAD:
+			if being_helped:
+				revive += 1.0 * delta
+				$help.play("fill", $help.sprite_frames.get_frame_count("fill") / revive_max_time)
+				if revive > revive_max_time:
+					$help.visible = false
+					state = SnakeState.IDLE
+					$help_area.set_deferred("monitorable", false)
+					revive = 0.0
+					being_helped = false
+					z_index = 0
+					hp = MAX_HP
+					$body.set_deferred("monitorable", true)
+					$collider.set_deferred("disabled", false)
+					$shadow.visible = true
+			else:
+				revive = 0.0
+				$help.play("empty")
 			velocity = Vector2.ZERO
 		SnakeState.BOX:
 			$shadow.visible = false
@@ -184,6 +219,14 @@ func update(delta: float) -> void:
 			velocity = move_input * BOX_SPEED
 		SnakeState.PUNCH:
 			velocity = Vector2.ZERO
+		SnakeState.HELPING:
+			sprite.play("helping")
+			velocity = Vector2.ZERO
+			snake_to_be_helped.being_helped = true
+			if Controller.IsControllerButtonJustReleased(controller_port, JOY_BUTTON_A):
+				snake_to_be_helped.being_helped = false
+				state = SnakeState.IDLE
+				return
 			
 func punch() -> void:
 	sprite.play("cqc" + "_" + direction, 1.0)
@@ -202,6 +245,10 @@ func hit(emitter, damage: int) -> void:
 			$collider.set_deferred("disabled", true)
 			state = SnakeState.DEAD
 			$shadow.visible = false
+			$help_area.set_deferred("monitorable", true)
+			$help.play("empty")
+			if snake_to_be_helped:
+				snake_to_be_helped.being_helped = false
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:
@@ -263,6 +310,7 @@ func _animation_finished():
 			$punch_area/punch_collider.position = Vector2.ZERO
 		SnakeState.DEAD:
 			z_index = -2
+			$help.visible = true
 			
 func _area_entered_punch(area: Area2D) -> void:
 	var entity = area.get_parent()
@@ -270,3 +318,11 @@ func _area_entered_punch(area: Area2D) -> void:
 		entity.hit(self, PUNCH_DAMAGE)
 		$punch_area.set_deferred("monitoring", false)
 		$punch_area/punch_collider.position = Vector2.ZERO
+
+func _help_entered(area: Area2D) -> void:
+	snake_to_be_helped = area.get_parent()
+
+func _help_exited(area: Area2D) -> void:
+	if state == SnakeState.HELPING:
+		state = SnakeState.IDLE
+	snake_to_be_helped = null

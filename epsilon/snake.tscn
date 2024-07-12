@@ -1556,6 +1556,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_evfy4"]
+size = Vector2(7, 20)
 
 [node name="snake" type="CharacterBody2D"]
 collision_mask = 148
@@ -1620,5 +1621,5 @@ collision_mask = 128
 monitorable = false
 
 [node name="collider" type="CollisionShape2D" parent="help_area"]
-position = Vector2(0, -10)
+position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_evfy4")

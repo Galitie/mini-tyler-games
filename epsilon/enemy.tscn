@@ -1,6 +1,7 @@
-[gd_scene load_steps=104 format=3 uid="uid://bc0ueryft07ta"]
+[gd_scene load_steps=106 format=3 uid="uid://bc0ueryft07ta"]
 
 [ext_resource type="Script" path="res://epsilon/enemy.gd" id="1_tcr05"]
+[ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="2_34k1a"]
 [ext_resource type="Texture2D" uid="uid://bnp2tyjyxp4tv" path="res://epsilon/sprites/enemy_stand_down.png" id="2_hpmyi"]
 [ext_resource type="Texture2D" uid="uid://6uqntvi1dqjd" path="res://epsilon/sprites/enemy_dying_down_0.png" id="2_s87sj"]
 [ext_resource type="Texture2D" uid="uid://cuihm4hagme1n" path="res://epsilon/sprites/enemy_dying_down_1.png" id="3_auwws"]
@@ -44,6 +45,13 @@
 [ext_resource type="Texture2D" uid="uid://dqb1fao64fj4" path="res://epsilon/sprites/huh.png" id="25_7m2vs"]
 [ext_resource type="Texture2D" uid="uid://b4veoeleaawrn" path="res://epsilon/sprites/alert.png" id="30_s35b8"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="44_54xkb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hlkjx"]
+resource_local_to_scene = true
+shader = ExtResource("2_34k1a")
+shader_parameter/origin = null
+shader_parameter/new = null
+shader_parameter/is_hit = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffbci"]
 atlas = ExtResource("5_t2eid")
@@ -867,6 +875,7 @@ collision_mask = 4
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_hlkjx")
 sprite_frames = SubResource("SpriteFrames_243vs")
 animation = &"idle_d"
 offset = Vector2(0, -9)

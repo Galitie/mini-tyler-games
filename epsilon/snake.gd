@@ -13,6 +13,8 @@ class_name Snake
 
 @export var controller_port: int = 0
 
+@export var player_color: Color = Color("6868d8")
+
 const SPEED: float = 50.0
 const BOX_SPEED: float = 10.0
 
@@ -49,11 +51,12 @@ var revive_max_time: float = 3.0
 var snake_to_be_helped: Snake = null
 
 func _ready() -> void:
+	sprite.material.set_shader_parameter("new", player_color)
 	add_to_group("snakes")
 	add_to_group("entities")
 	$help_area.area_entered.connect(_help_entered)
 	$help_area.area_exited.connect(_help_exited)
-	$sprite.animation_finished.connect(_animation_finished)
+	sprite.animation_finished.connect(_animation_finished)
 	$punch_area.area_entered.connect(_area_entered_punch)
 	$help.visible = false
 
@@ -65,12 +68,12 @@ func update(delta: float) -> void:
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	
 	if is_hit:
-		modulate = Color.RED
+		sprite.material.set_shader_parameter("is_hit", true)
 		hit_timer += 1.0 * delta
 		if hit_timer > hit_timer_length:
 			is_hit = false
 			hit_timer = 0.0
-			modulate = Color.WHITE
+			sprite.material.set_shader_parameter("is_hit", false)
 	
 	match state:
 		SnakeState.IDLE:

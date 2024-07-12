@@ -44,12 +44,12 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_hit:
-		sprite.modulate = Color.RED
+		sprite.material.set_shader_parameter("is_hit", true)
 		hit_timer += 1.0 * delta
 		if hit_timer > hit_timer_length:
 			is_hit = false
 			hit_timer = 0.0
-			sprite.modulate = Color.WHITE
+			sprite.material.set_shader_parameter("is_hit", false)
 	
 	match state:
 		SoldierState.PATROL:

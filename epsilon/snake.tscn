@@ -1,7 +1,8 @@
-[gd_scene load_steps=160 format=3 uid="uid://c3a0d3vikmu6u"]
+[gd_scene load_steps=162 format=3 uid="uid://c3a0d3vikmu6u"]
 
 [ext_resource type="Script" path="res://epsilon/snake.gd" id="1_l0qjn"]
 [ext_resource type="Texture2D" uid="uid://1u8xc1nlq0rm" path="res://epsilon/sprites/box_up.png" id="2_18w2y"]
+[ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="2_lbe7h"]
 [ext_resource type="Texture2D" uid="uid://bvhy1y7s6lksh" path="res://epsilon/sprites/shoot_down_0.png" id="2_nce3v"]
 [ext_resource type="Texture2D" uid="uid://eqfjyhkt18cq" path="res://epsilon/sprites/shoot_down_1.png" id="3_jmiem"]
 [ext_resource type="Texture2D" uid="uid://b8p3up77slpdx" path="res://epsilon/sprites/box_down_right.png" id="3_rlm5x"]
@@ -152,6 +153,13 @@
 [ext_resource type="Texture2D" uid="uid://dhqrf8l82nsca" path="res://epsilon/sprites/help_2.png" id="149_eur8g"]
 [ext_resource type="Texture2D" uid="uid://deriqgud5kbvr" path="res://epsilon/sprites/help_3.png" id="150_oblhk"]
 [ext_resource type="Texture2D" uid="uid://dlys17plmsbqi" path="res://epsilon/sprites/help_4.png" id="151_5ducp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbxkl"]
+resource_local_to_scene = true
+shader = ExtResource("2_lbe7h")
+shader_parameter/origin = Color(0.407843, 0.407843, 0.847059, 1)
+shader_parameter/new = Color(0.407843, 0.407843, 0.847059, 1)
+shader_parameter/is_hit = null
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dpugb"]
 animations = [{
@@ -1564,15 +1572,18 @@ script = ExtResource("1_l0qjn")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_lbxkl")
 sprite_frames = SubResource("SpriteFrames_dpugb")
-animation = &"helping"
+animation = &"idle_d"
 offset = Vector2(0, -10)
 
 [node name="collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, -3)
 shape = SubResource("RectangleShape2D_id527")
 
 [node name="body" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 8
 monitoring = false
@@ -1582,6 +1593,7 @@ position = Vector2(0.5, -14)
 shape = SubResource("RectangleShape2D_1f1r1")
 
 [node name="box" type="Area2D" parent="."]
+visible = false
 collision_layer = 64
 collision_mask = 0
 monitoring = false
@@ -1592,6 +1604,7 @@ position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_vypnd")
 
 [node name="punch_area" type="Area2D" parent="."]
+visible = false
 position = Vector2(0.5, -12.5)
 collision_layer = 0
 collision_mask = 34
@@ -1616,6 +1629,7 @@ frame = 4
 frame_progress = 1.0
 
 [node name="help_area" type="Area2D" parent="."]
+visible = false
 collision_layer = 128
 collision_mask = 128
 monitorable = false

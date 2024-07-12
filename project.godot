@@ -132,7 +132,3 @@ tylermon_target={
 
 2d_physics/layer_2="wall"
 2d_physics/layer_3="hit_boxes"
-
-[rendering]
-
-viewport/hdr_2d=true

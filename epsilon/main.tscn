@@ -381,6 +381,7 @@ position = Vector2(56, 26)
 [node name="snake2" parent="map/entities" instance=ExtResource("2_bkuow")]
 position = Vector2(78, 26)
 controller_port = 1
+player_color = Color(1, 1, 0, 1)
 
 [node name="navs" type="Node2D" parent="map"]
 

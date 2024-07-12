@@ -2,7 +2,7 @@ extends Area2D
 
 var speed: float = 0.0
 var accel: float = 100.0
-var max_speed: float = 100.0
+var max_speed: float = 400.0
 
 var direction_str: String
 var direction: Vector2

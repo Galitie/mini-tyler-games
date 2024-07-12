@@ -35,8 +35,9 @@ func _process(delta: float) -> void:
 			$sprite.flip_h = false
 		direction = GetVectorFromDirection(direction_str)
 		speed += accel * delta
-		if speed > max_speed:
+		if speed > max_speed / 4:
 			can_hurt_emitter = true
+		if speed > max_speed:
 			speed = max_speed
 		global_position += speed * direction * delta
 		

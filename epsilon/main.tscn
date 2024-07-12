@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dekkn17xxwbfu"]
+[gd_scene load_steps=7 format=3 uid="uid://dekkn17xxwbfu"]
 
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="1_jlv88"]
 [ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="2_bkuow"]
 [ext_resource type="PackedScene" uid="uid://bc0ueryft07ta" path="res://epsilon/enemy.tscn" id="3_lwugk"]
+[ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://ammo_pickup.tscn" id="4_wbv2n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_02dc2"]
 texture = ExtResource("1_jlv88")
@@ -402,3 +403,7 @@ position = Vector2(-56, 40)
 
 [node name="Node2D6" type="Node2D" parent="map/navs"]
 position = Vector2(88, 40)
+
+[node name="ammo_pickup" parent="map" instance=ExtResource("4_wbv2n")]
+position = Vector2(39, -17)
+weapon_type = 3

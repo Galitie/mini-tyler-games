@@ -25,6 +25,7 @@ var on_alert: bool = false
 var target: Snake = null
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
+var ammo_pickup_scene: PackedScene = load("res://ammo_pickup.tscn")
 
 @onready var map: TileMap = get_parent().get_parent()
 
@@ -234,6 +235,21 @@ func _animation_finished() -> void:
 	if state == SoldierState.SHOOT:
 		state = SoldierState.ALERT
 	elif state == SoldierState.DEAD:
+		var ammo_pickup = ammo_pickup_scene.instantiate()
+		ammo_pickup.global_position = global_position
+		var rng = RandomNumberGenerator.new()
+		var rng_result = rng.randi_range(1, 50)
+		print(rng_result)
+		if rng_result >= 1 && rng_result < 30:
+			ammo_pickup.weapon_type = AmmoPickup.WeaponType.PISTOL
+		elif rng_result >= 30 && rng_result < 40:
+			ammo_pickup.weapon_type = AmmoPickup.WeaponType.GRENADE
+		elif rng_result >= 40 && rng_result <= 50:
+			ammo_pickup.weapon_type = AmmoPickup.WeaponType.STINGER
+		if ammo_pickup.weapon_type != AmmoPickup.WeaponType.NONE:
+			map.add_child(ammo_pickup)
+		else:
+			ammo_pickup.queue_free()
 		z_index = -2
 		process_mode = Node.PROCESS_MODE_DISABLED
 		

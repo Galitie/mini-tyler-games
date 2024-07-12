@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://dx4cgaqbqn08g"]
+
+[ext_resource type="Script" path="res://ammo_pickup.gd" id="1_0bu52"]
+[ext_resource type="Texture2D" uid="uid://bxhjibnttwsjk" path="res://epsilon/sprites/grenade_ammo.png" id="1_akejc"]
+[ext_resource type="Texture2D" uid="uid://bjb0f68vwyp8s" path="res://epsilon/sprites/pistol_ammo.png" id="2_csxdv"]
+[ext_resource type="Texture2D" uid="uid://vm61cq3oe7uh" path="res://epsilon/sprites/stinger_ammo.png" id="3_1uw0d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_07h6d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_akejc")
+}],
+"loop": true,
+"name": &"grenade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_csxdv")
+}],
+"loop": true,
+"name": &"pistol",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1uw0d")
+}],
+"loop": true,
+"name": &"stinger",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyrgh"]
+size = Vector2(12, 14)
+
+[node name="ammo_pickup" type="Area2D"]
+collision_layer = 256
+monitorable = false
+script = ExtResource("1_0bu52")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_07h6d")
+animation = &"pistol"
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jyrgh")

@@ -6,7 +6,7 @@
 # 5: ENEMY FEET
 # 6: ENEMY BODY
 # 7: BOX
-# 8: SNAKE'S DEAD BODYs
+# 8: DEAD SNAKE
 
 extends CharacterBody2D
 class_name Snake
@@ -52,6 +52,7 @@ var snake_to_be_helped: Snake = null
 
 func _ready() -> void:
 	sprite.material.set_shader_parameter("new", player_color)
+	
 	add_to_group("snakes")
 	add_to_group("entities")
 	$help_area.area_entered.connect(_help_entered)

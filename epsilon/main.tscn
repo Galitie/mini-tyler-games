@@ -378,6 +378,10 @@ navs = [NodePath("../../navs/Node2D5"), NodePath("../../navs/Node2D6")]
 [node name="snake" parent="map/entities" instance=ExtResource("2_bkuow")]
 position = Vector2(56, 26)
 
+[node name="snake2" parent="map/entities" instance=ExtResource("2_bkuow")]
+position = Vector2(78, 26)
+controller_port = 1
+
 [node name="navs" type="Node2D" parent="map"]
 
 [node name="Node2D" type="Node2D" parent="map/navs"]

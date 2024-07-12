@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://bc0ueryft07ta"]
+[gd_scene load_steps=104 format=3 uid="uid://bc0ueryft07ta"]
 
 [ext_resource type="Script" path="res://epsilon/enemy.gd" id="1_tcr05"]
 [ext_resource type="Texture2D" uid="uid://bnp2tyjyxp4tv" path="res://epsilon/sprites/enemy_stand_down.png" id="2_hpmyi"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://b6npdb5w74yx0" path="res://epsilon/sprites/enemy_shoot_up_right.png" id="21_4d3sm"]
 [ext_resource type="Texture2D" uid="uid://dqb1fao64fj4" path="res://epsilon/sprites/huh.png" id="25_7m2vs"]
 [ext_resource type="Texture2D" uid="uid://b4veoeleaawrn" path="res://epsilon/sprites/alert.png" id="30_s35b8"]
+[ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="44_54xkb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ffbci"]
 atlas = ExtResource("5_t2eid")
@@ -867,7 +868,7 @@ collision_mask = 4
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_243vs")
-animation = &"fall_d"
+animation = &"idle_d"
 offset = Vector2(0, -9)
 
 [node name="collider" type="CollisionShape2D" parent="."]
@@ -899,3 +900,8 @@ texture_filter = 1
 position = Vector2(0, -28)
 sprite_frames = SubResource("SpriteFrames_yfwpc")
 animation = &"alert"
+
+[node name="shadow" type="Sprite2D" parent="."]
+z_index = -2
+texture_filter = 1
+texture = ExtResource("44_54xkb")

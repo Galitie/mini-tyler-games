@@ -10,7 +10,7 @@
 extends CharacterBody2D
 class_name Snake
 
-var controller_port: int = 0
+@export var controller_port: int = 0
 
 const SPEED: float = 50.0
 const BOX_SPEED: float = 10.0
@@ -24,10 +24,11 @@ var state: SnakeState = SnakeState.IDLE
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
 var grenade_scene: PackedScene = load("res://epsilon/grenade.tscn")
+var stinger_missile_scene: PackedScene = load("res://epsilon/stinger_missile.tscn")
 
 @onready var map: TileMap = get_parent().get_parent()
 
-var hp = 9999
+var hp = 10
 
 const PUNCH_DAMAGE: int = 1
 
@@ -74,6 +75,11 @@ func update(delta: float) -> void:
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
+				weapon = "stinger"
+				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
+				state = SnakeState.DRAW
+				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
 				punch()
 				return
@@ -91,6 +97,11 @@ func update(delta: float) -> void:
 				return
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
 				weapon = "grenade"
+				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
+				state = SnakeState.DRAW
+				return
+			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
+				weapon = "stinger"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
 				return
@@ -137,6 +148,15 @@ func update(delta: float) -> void:
 				grenade.direction = GetVectorFromDirection(direction)
 				grenade.position = position + Vector2(0, -4) + (grenade.direction * 6)
 				map.add_child(grenade)
+			elif weapon == "stinger" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
+				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
+				state = SnakeState.SHOOT
+				var stinger_missile = stinger_missile_scene.instantiate()
+				stinger_missile.emitter = self
+				stinger_missile.direction_str = direction
+				stinger_missile.direction = GetVectorFromDirection(direction)
+				stinger_missile.position = position + Vector2(0, -4) + (stinger_missile.direction * 7)
+				map.add_child(stinger_missile)
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
 		SnakeState.DEAD:
@@ -173,6 +193,7 @@ func hit(emitter, damage: int) -> void:
 			$body.set_deferred("monitorable", false)
 			$collider.set_deferred("disabled", true)
 			state = SnakeState.DEAD
+			$shadow.visible = false
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:
@@ -226,13 +247,14 @@ func _animation_finished():
 		SnakeState.DRAW:
 			state = SnakeState.DRAWN
 		SnakeState.SHOOT:
-			state = SnakeState.IDLE
+			if weapon != "stinger":
+				state = SnakeState.IDLE
 		SnakeState.PUNCH:
 			state = SnakeState.IDLE
 			$punch_area.set_deferred("monitoring", false)
 			$punch_area/punch_collider.position = Vector2.ZERO
 		SnakeState.DEAD:
-			z_index = -1
+			z_index = -2
 			
 func _area_entered_punch(area: Area2D) -> void:
 	var entity = area.get_parent()

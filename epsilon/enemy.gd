@@ -157,6 +157,7 @@ func hit(emitter, damage: int) -> void:
 			state = SoldierState.DEAD
 			on_alert = false
 			status.visible = false
+			$shadow.visible = false
 		else:
 			if emitter.is_in_group("snakes"):
 				target = emitter
@@ -233,7 +234,7 @@ func _animation_finished() -> void:
 	if state == SoldierState.SHOOT:
 		state = SoldierState.ALERT
 	elif state == SoldierState.DEAD:
-		z_index = -1
+		z_index = -2
 		process_mode = Node.PROCESS_MODE_DISABLED
 		
 func _status_animation_finished() -> void:

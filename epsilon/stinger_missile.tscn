@@ -1,0 +1,150 @@
+[gd_scene load_steps=17 format=3 uid="uid://dd51upknvqq3o"]
+
+[ext_resource type="Script" path="res://epsilon/stinger_missile.gd" id="1_bgqw4"]
+[ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="2_l6o41"]
+[ext_resource type="Texture2D" uid="uid://b388lqxuunmuc" path="res://epsilon/sprites/stinger_down.png" id="3_4yaw6"]
+[ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="3_64rxb"]
+[ext_resource type="Texture2D" uid="uid://cs2foe2urogcx" path="res://epsilon/sprites/stinger_down_right.png" id="4_hc77j"]
+[ext_resource type="Texture2D" uid="uid://dfs1jbeihorol" path="res://epsilon/sprites/explosion_1.png" id="4_ljuxg"]
+[ext_resource type="Texture2D" uid="uid://b4a88xbaa8t4u" path="res://epsilon/sprites/explosion_2.png" id="5_6oqpt"]
+[ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="6_nk6rn"]
+[ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="7_4rviy"]
+[ext_resource type="Texture2D" uid="uid://c7bb8xvf7jkkb" path="res://epsilon/sprites/stinger_right.png" id="10_7v7v2"]
+[ext_resource type="Texture2D" uid="uid://b4f44rpvjrnas" path="res://epsilon/sprites/stinger_up.png" id="11_w62x2"]
+[ext_resource type="Texture2D" uid="uid://cwkoth1uqqo57" path="res://epsilon/sprites/stinger_up_right.png" id="12_gwl0q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxl17"]
+size = Vector2(4, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nhi5"]
+size = Vector2(24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h1c3c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4yaw6")
+}],
+"loop": true,
+"name": &"d",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hc77j")
+}],
+"loop": true,
+"name": &"dl",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_hc77j")
+}],
+"loop": true,
+"name": &"dr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("3_64rxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ljuxg")
+}, {
+"duration": 1.2,
+"texture": ExtResource("5_6oqpt")
+}, {
+"duration": 1.4,
+"texture": ExtResource("6_nk6rn")
+}, {
+"duration": 1.8,
+"texture": ExtResource("7_4rviy")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_7v7v2")
+}],
+"loop": true,
+"name": &"l",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_7v7v2")
+}],
+"loop": true,
+"name": &"r",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_w62x2")
+}],
+"loop": true,
+"name": &"u",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_gwl0q")
+}],
+"loop": true,
+"name": &"ul",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_gwl0q")
+}],
+"loop": true,
+"name": &"ur",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee4xw"]
+size = Vector2(10, 10)
+
+[node name="stinger_missile" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_bgqw4")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kxl17")
+
+[node name="explosion" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 34
+monitoring = false
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="explosion"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_5nhi5")
+
+[node name="shadow" type="Sprite2D" parent="."]
+z_index = -2
+texture_filter = 1
+texture = ExtResource("2_l6o41")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 2)
+sprite_frames = SubResource("SpriteFrames_h1c3c")
+animation = &"u"
+offset = Vector2(0, -14)
+
+[node name="body" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 34
+
+[node name="collider" type="CollisionShape2D" parent="body"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_ee4xw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

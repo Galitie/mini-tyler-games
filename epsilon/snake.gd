@@ -68,11 +68,15 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func UpdateUI(delta: float) -> void:
-	badge.get_node("hp_bar").size.x = lerp(badge.get_node("hp_bar").size.x, float((float(hp) / float(MAX_HP)) * 24.0), 10.0 * delta)
+	badge.get_node("hp_bar").size.x = move_toward(badge.get_node("hp_bar").size.x, float((float(hp) / float(MAX_HP)) * 24.0), 20.0 * delta)
 	badge.get_node("pistol_ammo").text = "[center]" + str(pistol_ammo) + "[/center]"
 	badge.get_node("stinger_ammo").text = "[center]" + str(stinger_ammo) + "[/center]"
 	badge.get_node("grenade_ammo").text = "[center]" + str(grenade_ammo) + "[/center]"
 	badge.get_node("profile").self_modulate = player_color
+	if state == SnakeState.DEAD:
+		badge.get_node("anim_player").play("dead")
+	else:
+		badge.get_node("anim_player").play("alive")
 
 func update(delta: float) -> void:
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)

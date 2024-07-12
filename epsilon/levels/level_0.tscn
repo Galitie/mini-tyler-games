@@ -298,6 +298,10 @@ grow_vertical = 2
 
 [node name="badge" parent="camera/ui/camera_space" instance=ExtResource("1_35wfi")]
 layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 70.0
+offset_bottom = 30.0
 scale = Vector2(3, 3)
 
 [node name="badge2" parent="camera/ui/camera_space" instance=ExtResource("1_35wfi")]
@@ -305,8 +309,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -198.0
-offset_right = -132.0
+offset_left = -202.0
+offset_top = 4.0
+offset_right = -136.0
+offset_bottom = 30.0
 grow_horizontal = 0
 scale = Vector2(3, 3)
 
@@ -315,8 +321,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -78.0
-offset_bottom = -52.0
+offset_left = 4.0
+offset_top = -82.0
+offset_right = 70.0
+offset_bottom = -56.0
 grow_vertical = 0
 scale = Vector2(3, 3)
 
@@ -327,10 +335,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -198.0
-offset_top = -78.0
-offset_right = -132.0
-offset_bottom = -52.0
+offset_left = -202.0
+offset_top = -82.0
+offset_right = -136.0
+offset_bottom = -56.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(3, 3)

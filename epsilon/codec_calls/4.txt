@@ -8,7 +8,9 @@ load vo
 res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
 res://epsilon/vo/4_hello.mp3 hello
 res://epsilon/vo/4_on.mp3 on
-res://epsilon/vo/4_rescue.mp3 rescue
+res://epsilon/vo/4_who_the.mp3 who_the
+res://epsilon/vo/4_snake_right.mp3 snake_right
+res://epsilon/vo/4_help.mp3 help
 res://epsilon/vo/4_wow.mp3 wow
 res://epsilon/vo/4_kill_me.mp3 kill_me
 res://epsilon/vo/4_jews.mp3 jews
@@ -33,14 +35,14 @@ port add static snake
 msg left default hello "Hello? Can you hear me?"
 msg left default on "Is this thing on?"
 msg right talking loud "...Loud and clear."
-msg left default rescue "Whoooooooo the fuck is this?"
+msg left default who_the "Whoooooooo the fuck is this?"
 msg right talking called "You called me, who the fuck are you?"
 port add tyler NULL
-msg left talking wow "It's me! Tyler! I need help!"
-msg left talking doozy_huh "You're Snake, right?"
+msg left talking help "It's me! Tyler! I need help!"
+msg left talking snake_right "You're Snake, right?"
 msg left talking kill_me "I was afraid you wouldn't get here in time and they would, uh, you know, kill me and stuff."
 msg right talking they "Who's 'they'?"
-msg left talking doozy_huh "The Jews."
+msg left talking jews "The Jews."
 msg right default silence "..."
 msg right talking guy "Otacon, are you sure we got the right guy?"
 port add otacon NULL

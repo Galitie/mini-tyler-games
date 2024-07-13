@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://bc0ueryft07ta"]
+[gd_scene load_steps=100 format=3 uid="uid://bc0ueryft07ta"]
 
 [ext_resource type="Script" path="res://epsilon/enemy.gd" id="1_tcr05"]
 [ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="2_34k1a"]
@@ -242,30 +242,6 @@ atlas = ExtResource("5_k6pyr")
 region = Rect2(64, 0, 12, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1q3qt"]
-atlas = ExtResource("5_k6pyr")
-region = Rect2(80, 0, 12, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1w0ip"]
-atlas = ExtResource("5_k6pyr")
-region = Rect2(0, 0, 12, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oqypv"]
-atlas = ExtResource("5_k6pyr")
-region = Rect2(16, 0, 12, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_absgo"]
-atlas = ExtResource("5_k6pyr")
-region = Rect2(32, 0, 12, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pvip"]
-atlas = ExtResource("5_k6pyr")
-region = Rect2(48, 0, 12, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_04fyq"]
-atlas = ExtResource("5_k6pyr")
-region = Rect2(64, 0, 12, 21)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gs6fs"]
 atlas = ExtResource("5_k6pyr")
 region = Rect2(80, 0, 12, 21)
 
@@ -762,6 +738,52 @@ animations = [{
 "texture": ExtResource("15_1jvnq")
 }],
 "loop": true,
+"name": &"walk_dl",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_5hfn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qugm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_1voae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jp1gt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ycuq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jp1gt")
+}],
+"loop": true,
+"name": &"walk_dr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_5hfn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qugm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_1voae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jp1gt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ycuq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_1jvnq")
+}],
+"loop": true,
 "name": &"walk_l",
 "speed": 5.0
 }, {
@@ -813,22 +835,45 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1w0ip")
+"texture": ExtResource("10_5hfn1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oqypv")
+"texture": ExtResource("11_qugm5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_absgo")
+"texture": ExtResource("12_1voae")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2pvip")
+"texture": ExtResource("13_jp1gt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_04fyq")
+"texture": ExtResource("14_ycuq5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gs6fs")
+"texture": ExtResource("15_1jvnq")
+}],
+"loop": true,
+"name": &"walk_ul",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_5hfn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qugm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_1voae")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jp1gt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ycuq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_1jvnq")
 }],
 "loop": true,
 "name": &"walk_ur",
@@ -842,7 +887,7 @@ size = Vector2(5, 5)
 size = Vector2(7, 12)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q5l0o"]
-radius = 26.0
+radius = 11.0
 height = 104.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yfwpc"]
@@ -877,14 +922,16 @@ collision_mask = 4
 texture_filter = 1
 material = SubResource("ShaderMaterial_hlkjx")
 sprite_frames = SubResource("SpriteFrames_243vs")
-animation = &"idle_d"
+animation = &"walk_dr"
 offset = Vector2(0, -9)
 
 [node name="collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, -2.5)
 shape = SubResource("RectangleShape2D_id527")
 
 [node name="body" type="Area2D" parent="."]
+visible = false
 collision_layer = 32
 collision_mask = 74
 
@@ -905,6 +952,7 @@ position = Vector2(0, 52)
 shape = SubResource("CapsuleShape2D_q5l0o")
 
 [node name="status" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(0, -28)
 sprite_frames = SubResource("SpriteFrames_yfwpc")
@@ -914,3 +962,8 @@ animation = &"alert"
 z_index = -2
 texture_filter = 1
 texture = ExtResource("44_54xkb")
+
+[node name="nav_agent" type="NavigationAgent2D" parent="."]
+path_desired_distance = 1.0
+path_postprocessing = 1
+debug_enabled = true

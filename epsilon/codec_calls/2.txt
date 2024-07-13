@@ -23,6 +23,9 @@ res://epsilon/vo/2_got_it.mp3 got_it
 res://epsilon/vo/2_forget.mp3 forget
 res://epsilon/vo/2_cqc.mp3 cqc
 res://epsilon/vo/2_weapons.mp3 weapons
+res://epsilon/vo/2_count_on.mp3 count_on
+res://epsilon/vo/2_be_like_that.mp3 be_like_that
+res://epsilon/vo/2_out_of_life.mp3 out_of_life
 res://epsilon/vo/2_backup.mp3 backup
 end
 port add otacon snake
@@ -39,12 +42,16 @@ msg right talking forget "..."
 msg left talking what_now "What now, Snake?"
 msg right talking cqc "I can't remember the basics of CQC."
 msg right talking weapons "...Or how to use my weapons."
-msg left talking annoyed "...Snake..."
+msg left talking annoyed "Snake..."
 msg left talking a_button "Your CQC techniques are bound to the A button."
 msg left talking x_and_b_button "You can fire your pistol with the X button, and throw a grenade with the B button."
 msg left talking y_button "Lastly, your stinger missiles are equipped to the Y button."
 msg left talking right_bumper "Oh, and one more thing. You can hide in a cardboard box if you hold the right bumper."
-msg right talking backup "And if I need back up?"
-msg left talking start_button "The other players can join by pressing the START button."
+msg right talking backup "I've got just one question."
+msg right talking backup "Who are these phonies? They're cramping my style."
+msg left talking count_on "They're the other players, Snake. People you can count on."
+msg right talking backup "Sorry, but I work alone."
+msg left talking be_like_that "Don't be like that."
+msg left talking out_of_life "If you find yourself out of LIFE, you can pick each other up by holding the A button."
 msg left talking friends "It's nice having friends, isn't it, Snake?"
 port remove otacon snake

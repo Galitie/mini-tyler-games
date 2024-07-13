@@ -384,7 +384,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("17_2hqo8")
 }, {
 "duration": 1.0,
@@ -407,7 +407,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("17_2hqo8")
 }, {
 "duration": 1.0,
@@ -430,7 +430,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("23_5dt0s")
 }, {
 "duration": 1.0,
@@ -453,7 +453,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("23_5dt0s")
 }, {
 "duration": 1.0,
@@ -476,7 +476,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("29_m2e0y")
 }, {
 "duration": 1.0,
@@ -499,7 +499,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("35_h1nub")
 }, {
 "duration": 1.0,
@@ -522,7 +522,7 @@ animations = [{
 "speed": 15.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("35_h1nub")
 }, {
 "duration": 1.0,
@@ -1621,6 +1621,7 @@ position = Vector2(0, -1)
 texture = ExtResource("145_yk602")
 
 [node name="help" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(0, -29)
 sprite_frames = SubResource("SpriteFrames_uh3ai")

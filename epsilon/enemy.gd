@@ -36,12 +36,20 @@ var hit_timer: float = 0.0
 var hit_timer_length: float = 0.1
 
 func _ready() -> void:
+	# NOTE: To sync navigation agent with server
+	set_physics_process(false)
+	call_deferred("agent_setup")
+	
 	add_to_group("enemies")
 	add_to_group("entities")
 	$body.area_entered.connect(_area_entered)
 	sprite.animation_finished.connect(_animation_finished)
 	status.visible = false
 	status.animation_finished.connect(_status_animation_finished)
+	
+func agent_setup() -> void:
+	await get_tree().physics_frame
+	set_physics_process(true)
 
 func _physics_process(delta: float) -> void:
 	if is_hit:
@@ -54,24 +62,24 @@ func _physics_process(delta: float) -> void:
 	
 	match state:
 		SoldierState.PATROL:
-			var nav: Node2D = navs[current_nav_index]
-		
-			if global_position.distance_to(nav.global_position) > 1:
-				velocity = (nav.global_position - global_position).normalized() * WALK_SPEED
-				direction = GetDirection(velocity)
-				if direction.ends_with("l"):
-					sprite.flip_h = true
-				else:
-					sprite.flip_h = false
-				SetVisionToDirection()
-				var current_frame = sprite.get_frame()
-				var current_progress = sprite.get_frame_progress()
-				sprite.play("walk" + "_" + direction)
-				sprite.set_frame_and_progress(current_frame, current_progress)
+			$nav_agent.target_position = navs[current_nav_index].global_position
+			var t_direction = to_local($nav_agent.get_next_path_position()).normalized()
+			direction = GetDirection(t_direction)
+			if direction.ends_with("l"):
+				sprite.flip_h = true
 			else:
+				sprite.flip_h = false
+			SetVisionToDirection()
+			var current_frame = sprite.get_frame()
+			var current_progress = sprite.get_frame_progress()
+			sprite.play("walk" + "_" + direction)
+			sprite.set_frame_and_progress(current_frame, current_progress)
+			velocity = t_direction * WALK_SPEED
+			if $nav_agent.is_target_reached():
 				current_nav_index += 1
 				if current_nav_index > navs.size() - 1:
 					current_nav_index = 0
+			var nav: Node2D = navs[current_nav_index]
 	
 			var areas: Array = vision.get_overlapping_areas()
 			for area in areas:
@@ -90,8 +98,9 @@ func _physics_process(delta: float) -> void:
 		SoldierState.ALERTED:
 			on_alert = true
 			velocity = Vector2.ZERO
-			var target_dir = (target.global_position - global_position).normalized()
-			direction = GetDirection(target_dir)
+			$nav_agent.target_position = target.global_position
+			var t_direction = to_local($nav_agent.get_next_path_position()).normalized()
+			direction = GetDirection(t_direction)
 			SetVisionToDirection()
 			if direction.ends_with("l"):
 				sprite.flip_h = true
@@ -103,30 +112,36 @@ func _physics_process(delta: float) -> void:
 				state = SoldierState.PATROL
 				target = null
 				return
-			var target_dir: Vector2 = (target.global_position - global_position).normalized()
-			var target_dest: Vector2 = global_position + (target_dir * global_position.distance_to(target.global_position))
-			direction = GetDirection(target_dir)
+			$nav_agent.target_position = target.global_position
+			var t_direction = to_local($nav_agent.get_next_path_position()).normalized()
+			direction = GetDirection(t_direction)
 			SetVisionToDirection()
 			if direction.ends_with("l"):
 				sprite.flip_h = true
 			else:
 				sprite.flip_h = false
-			if global_position.distance_to(target_dest) < 100:
-				velocity = Vector2.ZERO
-				sprite.play("shoot" + "_" + direction)
-				state = SoldierState.SHOOT
-				var bullet = pistol_bullet_scene.instantiate()
-				bullet.emitter = self
-				bullet.direction = GetVectorFromDirection(direction)
-				bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
-				map.add_child(bullet)
-				return
-			else:
-				var current_frame: int = sprite.get_frame()
-				var current_progress: float = sprite.get_frame_progress()
-				velocity = target_dir.normalized() * RUN_SPEED
-				sprite.play("run" + "_" + direction)
-				sprite.set_frame_and_progress(current_frame, current_progress)
+				
+			var areas: Array = vision.get_overlapping_areas()
+			for area in areas:
+				var entity = area.get_parent()
+				if entity.is_in_group("snakes"):
+					wall_cast.target_position = to_local(entity.global_position)
+					wall_cast.force_raycast_update()
+					if !wall_cast.is_colliding():
+						velocity = Vector2.ZERO
+						sprite.play("shoot" + "_" + direction)
+						state = SoldierState.SHOOT
+						var bullet = pistol_bullet_scene.instantiate()
+						bullet.emitter = self
+						bullet.direction = GetVectorFromDirection(direction)
+						bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
+						map.add_child(bullet)
+						return
+			var current_frame: int = sprite.get_frame()
+			var current_progress: float = sprite.get_frame_progress()
+			velocity = t_direction * RUN_SPEED
+			sprite.play("run" + "_" + direction)
+			sprite.set_frame_and_progress(current_frame, current_progress)
 		SoldierState.SHOOT:
 			return
 		SoldierState.DEAD:
@@ -239,7 +254,6 @@ func _animation_finished() -> void:
 		ammo_pickup.global_position = global_position
 		var rng = RandomNumberGenerator.new()
 		var rng_result = rng.randi_range(1, 50)
-		print(rng_result)
 		if rng_result >= 1 && rng_result < 30:
 			ammo_pickup.weapon_type = AmmoPickup.WeaponType.PISTOL
 		elif rng_result >= 30 && rng_result < 40:

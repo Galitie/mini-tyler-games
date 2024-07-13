@@ -1,12 +1,12 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var navs: Array[Node2D] = []
+@export var patrols: Array[Node2D] = []
 
 const WALK_SPEED: float = 20.0
 const RUN_SPEED: float = 40.0
 
-var current_nav_index: int = 0
+var current_patrol_index: int = 0
 var direction: String = "l"
 
 enum SoldierState {PATROL, ALERTED, ALERT, CONFUSED, SHOOT, DEAD}
@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	
 	match state:
 		SoldierState.PATROL:
-			$nav_agent.target_position = navs[current_nav_index].global_position
+			$nav_agent.target_position = patrols[current_patrol_index].global_position
 			var t_direction = to_local($nav_agent.get_next_path_position()).normalized()
 			direction = GetDirection(t_direction)
 			if direction.ends_with("l"):
@@ -76,10 +76,9 @@ func _physics_process(delta: float) -> void:
 			sprite.set_frame_and_progress(current_frame, current_progress)
 			velocity = t_direction * WALK_SPEED
 			if $nav_agent.is_target_reached():
-				current_nav_index += 1
-				if current_nav_index > navs.size() - 1:
-					current_nav_index = 0
-			var nav: Node2D = navs[current_nav_index]
+				current_patrol_index += 1
+				if current_patrol_index > patrols.size() - 1:
+					current_patrol_index = 0
 	
 			var areas: Array = vision.get_overlapping_areas()
 			for area in areas:

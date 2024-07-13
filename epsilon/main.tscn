@@ -368,13 +368,11 @@ layer_0/tile_data = PackedInt32Array(0, 262145, 6, 65536, 262145, 6, 131071, 262
 [node name="entities" type="Node2D" parent="map"]
 y_sort_enabled = true
 
-[node name="enemy" parent="map/entities" node_paths=PackedStringArray("navs") instance=ExtResource("3_lwugk")]
+[node name="enemy" parent="map/entities" instance=ExtResource("3_lwugk")]
 position = Vector2(0, -7)
-navs = [NodePath("../../navs/Node2D"), NodePath("../../navs/Node2D2"), NodePath("../../navs/Node2D3"), NodePath("../../navs/Node2D4")]
 
-[node name="enemy2" parent="map/entities" node_paths=PackedStringArray("navs") instance=ExtResource("3_lwugk")]
+[node name="enemy2" parent="map/entities" instance=ExtResource("3_lwugk")]
 position = Vector2(0, 43)
-navs = [NodePath("../../navs/Node2D5"), NodePath("../../navs/Node2D6")]
 
 [node name="snake" parent="map/entities" instance=ExtResource("2_bkuow")]
 position = Vector2(56, 26)

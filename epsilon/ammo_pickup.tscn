@@ -73,6 +73,7 @@ offset_top = -15.0
 offset_right = 92.0
 offset_bottom = 25.0
 scale = Vector2(0.3, 0.3)
+theme_override_colors/default_color = Color(0.976471, 0.721569, 0.219608, 1)
 bbcode_enabled = true
 text = "[center]+10 PISTOL[/center]"
 fit_content = true

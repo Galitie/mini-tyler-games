@@ -2,7 +2,8 @@ extends Camera2D
 
 func _ready() -> void:
 	$ui.visible = true
-
+	RenderingServer.set_default_clear_color(Color("102830"))
+	
 func _process(delta: float) -> void:
 	var snake_total_position: Vector2 = Vector2.ZERO
 	var snake_positions: int = 0

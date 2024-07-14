@@ -245,6 +245,14 @@ func update(delta: float) -> void:
 				snake_to_be_helped.being_helped = false
 				state = SnakeState.IDLE
 				return
+	
+	if state != SnakeState.DEAD:
+		var camera: Camera2D = get_viewport().get_camera_2d()
+		var screen_center: Vector2 = camera.get_screen_center_position()
+		var camera_width: float = get_viewport_rect().end.x / camera.zoom.x
+		var camera_height: float = get_viewport_rect().end.y / camera.zoom.y
+		global_position.x = clampf(global_position.x, screen_center.x + 10 - camera_width / 2, screen_center.x - 10 + camera_width / 2)
+		global_position.y = clampf(global_position.y, screen_center.y + 20 - camera_height / 2, screen_center.y + camera_height / 2)
 			
 func punch() -> void:
 	sprite.play("cqc" + "_" + direction, 1.0)

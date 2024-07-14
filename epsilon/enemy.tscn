@@ -911,7 +911,7 @@ animations = [{
 
 [node name="enemy" type="CharacterBody2D"]
 collision_layer = 16
-collision_mask = 85
+collision_mask = 69
 script = ExtResource("1_tcr05")
 
 [node name="wall_cast" type="RayCast2D" parent="."]

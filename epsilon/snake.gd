@@ -62,10 +62,6 @@ func _ready() -> void:
 	sprite.animation_finished.connect(_animation_finished)
 	$punch_area.area_entered.connect(_area_entered_punch)
 	$help.visible = false
-
-func _physics_process(delta: float) -> void:
-	update(delta)
-	move_and_slide()
 	
 func UpdateUI(delta: float) -> void:
 	badge.get_node("hp_bar").size.x = move_toward(badge.get_node("hp_bar").size.x, float((float(hp) / float(MAX_HP)) * 24.0), 20.0 * delta)
@@ -78,7 +74,7 @@ func UpdateUI(delta: float) -> void:
 	else:
 		badge.get_node("anim_player").play("alive")
 
-func update(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	UpdateUI(delta)
 	
@@ -245,6 +241,8 @@ func update(delta: float) -> void:
 				snake_to_be_helped.being_helped = false
 				state = SnakeState.IDLE
 				return
+				
+	move_and_slide()
 	
 	if state != SnakeState.DEAD:
 		var camera: Camera2D = get_viewport().get_camera_2d()

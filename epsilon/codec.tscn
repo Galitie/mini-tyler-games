@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bp8b8uet70caq"]
+[gd_scene load_steps=12 format=3 uid="uid://bp8b8uet70caq"]
 
 [ext_resource type="Script" path="res://epsilon/codec.gd" id="1_83qyy"]
 [ext_resource type="Texture2D" uid="uid://k3qn8jo55wob" path="res://epsilon/backgrounds/codec.png" id="1_cv5fk"]
@@ -15,7 +15,6 @@ glow_blend_mode = 1
 
 [sub_resource type="Animation" id="Animation_qoacg"]
 resource_name = "codec_close"
-length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -39,6 +38,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(93, -16), Vector2(600, -16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_pkvhs"]
@@ -68,9 +79,37 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(600, -16), Vector2(93, -16)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x4sai"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_skmvc"]
 _data = {
+"RESET": SubResource("Animation_x4sai"),
 "codec_close": SubResource("Animation_qoacg"),
 "codec_open": SubResource("Animation_pkvhs")
 }
@@ -88,7 +127,8 @@ shader_parameter/scan_size = 2.0
 shader_parameter/scanline_alpha = 0.95
 shader_parameter/lines_velocity = 10.0
 
-[node name="Epsilon" type="Node2D"]
+[node name="codec" type="Node2D"]
+visible = false
 script = ExtResource("1_83qyy")
 
 [node name="env" type="WorldEnvironment" parent="."]

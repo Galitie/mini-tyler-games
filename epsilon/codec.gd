@@ -17,6 +17,8 @@ extends Node2D
 var voice_lines: Dictionary = {}
 var characters: Dictionary = {}
 
+var interrupted: bool = false
+
 func load_assets(file: FileAccess, dict: Dictionary, instantiate: bool = false) -> void:
 	var line: String = file.get_line()
 	while line != "end":
@@ -31,21 +33,13 @@ func load_assets(file: FileAccess, dict: Dictionary, instantiate: bool = false) 
 func _ready():
 	text_container.text= "" #reset textbox
 	
-	#await play_file("res://epsilon/codec_calls/1.txt")
-	#await play_file("res://epsilon/codec_calls/2.txt")
-	#await play_file("res://epsilon/codec_calls/3.txt")
-	await play_file("res://epsilon/codec_calls/4.txt")
-	
 func play_file(file_path: String) -> void:
 	var regex: RegEx = RegEx.new()
 	regex.compile('"(.*?)"')
 	
 	await codec_anim("codec_open")
-	audio_player.stream = codec_ring
-	audio_player.play()
-	await audio_player.finished
 	var codec_file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
-	while !codec_file.eof_reached():
+	while !interrupted && !codec_file.eof_reached():
 		var line: String = codec_file.get_line()
 		var args: PackedStringArray = line.split(" ")
 		match args[0]:
@@ -63,6 +57,10 @@ func play_file(file_path: String) -> void:
 				await char_speaks(args, voice_lines[args[3]], text)
 			_:
 				pass
+	
+	if interrupted:
+		await port(["port", "remove", "1", "2"])
+		interrupted = false
 	await codec_anim("codec_close")
 	
 func codec_anim(animation):

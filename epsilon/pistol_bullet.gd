@@ -12,6 +12,7 @@ const DAMAGE: int = 2
 var emitter
 
 func _ready() -> void:
+	add_to_group("projectiles")
 	$body.area_entered.connect(_area_entered)
 	body_entered.connect(_body_entered)
 

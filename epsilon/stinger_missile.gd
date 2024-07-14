@@ -15,13 +15,14 @@ var exploding: bool = false
 var can_hurt_emitter: bool = false
 
 func _ready():
+	add_to_group("projectiles")
 	$VisibleOnScreenNotifier2D.screen_exited.connect(_screen_exited)
 	body_entered.connect(_wall_hit)
 	$explosion.area_entered.connect(_area_entered)
 	$body.area_entered.connect(_body_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !exploding:
 		if emitter.hp <= 0:
 			explode()

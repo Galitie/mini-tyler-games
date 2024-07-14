@@ -18,10 +18,11 @@ var emitter
 var bounced: bool = false
 
 func _ready():
+	add_to_group("projectiles")
 	$explosion.area_entered.connect(_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
 
-func _process(delta):
+func _physics_process(delta: float) -> void:
 	if life > LIFESPAN:
 		speed = 0
 		set_deferred("monitoring", false)

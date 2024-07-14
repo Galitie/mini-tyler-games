@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_rdre0"]
 [ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="3_m27x4"]
 [ext_resource type="PackedScene" uid="uid://bc0ueryft07ta" path="res://epsilon/enemy.tscn" id="4_nuois"]
-[ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://ammo_pickup.tscn" id="5_ttfpk"]
+[ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://epsilon/ammo_pickup.tscn" id="5_ttfpk"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i3ddf"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)

@@ -10,6 +10,7 @@ var amount: int = 0
 func _ready() -> void:
 	body_entered.connect(_body_entered)
 	SetWeaponType(weapon_type)
+	$anim_player.play("float")
 
 func SetWeaponType(type: WeaponType) -> void:
 	match type:

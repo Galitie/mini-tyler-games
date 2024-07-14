@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_xhkvj"]
 [ext_resource type="Script" path="res://epsilon/camera.gd" id="2_rlmm8"]
-[ext_resource type="PackedScene" uid="uid://dslvisumginyo" path="res://badge.tscn" id="3_xwyk4"]
+[ext_resource type="PackedScene" uid="uid://dslvisumginyo" path="res://epsilon/badge.tscn" id="3_xwyk4"]
 [ext_resource type="Texture2D" uid="uid://btref7md1tthw" path="res://epsilon/sprites/call.png" id="4_15l60"]
 [ext_resource type="PackedScene" uid="uid://bp8b8uet70caq" path="res://epsilon/codec.tscn" id="5_cdts0"]
 [ext_resource type="PackedScene" uid="uid://mx8f7uy0hbdp" path="res://epsilon/game_over.tscn" id="6_rlaxr"]

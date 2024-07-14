@@ -10,6 +10,7 @@ var amount: int = 0
 func _ready() -> void:
 	body_entered.connect(_body_entered)
 	SetWeaponType(weapon_type)
+	show_ammo_details(weapon_type)
 	$anim_player.play("float")
 
 func SetWeaponType(type: WeaponType) -> void:
@@ -33,3 +34,6 @@ func _body_entered(body: Node2D) -> void:
 		WeaponType.STINGER:
 			body.stinger_ammo += amount
 	queue_free()
+
+func show_ammo_details(type: WeaponType) -> void:
+	$sprite/ammo_amount.text = "+" + str(amount) + " " + str(WeaponType.keys()[weapon_type])

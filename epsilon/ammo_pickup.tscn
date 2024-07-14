@@ -64,9 +64,20 @@ script = ExtResource("1_5rgnh")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 z_index = -1
 texture_filter = 1
-position = Vector2(0, 0.995435)
 sprite_frames = SubResource("SpriteFrames_07h6d")
 animation = &"grenade"
+
+[node name="ammo_amount" type="RichTextLabel" parent="sprite"]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 92.0
+offset_bottom = 25.0
+scale = Vector2(0.3, 0.3)
+bbcode_enabled = true
+text = "[center]+10 PISTOL[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jyrgh")

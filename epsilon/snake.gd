@@ -11,6 +11,8 @@
 extends CharacterBody2D
 class_name Snake
 
+signal dead
+
 @export var controller_port: int = 0
 
 @export var player_color: Color = Color("6868d8")
@@ -264,6 +266,7 @@ func hit(emitter, damage: int) -> void:
 		is_hit = true
 		if hp <= 0:
 			hp = 0
+			emit_signal("dead")
 			sprite.play("fall" + "_" + direction)
 			$body.set_deferred("monitorable", false)
 			$collider.set_deferred("disabled", true)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://mx8f7uy0hbdp"]
+
+[ext_resource type="Shader" path="res://epsilon/chroma_key.gdshader" id="1_4d1e1"]
+[ext_resource type="Script" path="res://epsilon/game_over.gd" id="1_wnviw"]
+[ext_resource type="AudioStream" uid="uid://dhvrcl0pxqtdh" path="res://epsilon/sound_effects/game_over.mp3" id="3_f7blp"]
+[ext_resource type="AudioStream" uid="uid://c5swj0jl2vjwt" path="res://epsilon/vo/argh.mp3" id="3_g3e3s"]
+[ext_resource type="AudioStream" uid="uid://byd6jmx1nrl7b" path="res://epsilon/sound_effects/codec_ring.mp3" id="4_pxra5"]
+[ext_resource type="AudioStream" uid="uid://c5bh2gqosmrli" path="res://epsilon/sound_effects/continue_shot.mp3" id="6_ufim8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n6eos"]
+shader = ExtResource("1_4d1e1")
+shader_parameter/chroma_key_color = Color(0, 0, 0, 1)
+shader_parameter/pickup_range = 0.1
+shader_parameter/fade_amount = 0.1
+
+[node name="game_over" type="VideoStreamPlayer"]
+material = SubResource("ShaderMaterial_n6eos")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wnviw")
+
+[node name="argh" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_g3e3s")
+bus = &"Reverb"
+
+[node name="text_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f7blp")
+
+[node name="codec_ring" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_pxra5")
+
+[node name="vo" type="AudioStreamPlayer" parent="."]
+volume_db = 18.0
+
+[node name="gunshot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ufim8")

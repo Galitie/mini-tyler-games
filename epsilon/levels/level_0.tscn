@@ -303,9 +303,10 @@ sources/1 = SubResource("TileSetAtlasSource_02dc2")
 sources/0 = SubResource("TileSetAtlasSource_cy74d")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52tjy"]
-size = Vector2(30, 30)
+size = Vector2(32, 32)
 
 [node name="level_0" type="TileMap"]
+process_mode = 1
 texture_filter = 1
 tile_set = SubResource("TileSet_leymn")
 format = 2
@@ -442,7 +443,7 @@ weapon_type = 3
 [node name="triggers" type="Node" parent="."]
 
 [node name="next_level_trigger" type="Area2D" parent="triggers"]
-position = Vector2(160, -720)
+position = Vector2(160, -736)
 collision_layer = 0
 monitoring = false
 monitorable = false

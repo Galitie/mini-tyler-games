@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cr6sljq0rnw0e"]
+[gd_scene load_steps=14 format=3 uid="uid://cr6sljq0rnw0e"]
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_xhkvj"]
 [ext_resource type="Script" path="res://epsilon/camera.gd" id="2_rlmm8"]
 [ext_resource type="PackedScene" uid="uid://dslvisumginyo" path="res://epsilon/badge.tscn" id="3_xwyk4"]
 [ext_resource type="Texture2D" uid="uid://btref7md1tthw" path="res://epsilon/sprites/call.png" id="4_15l60"]
+[ext_resource type="FontFile" uid="uid://uixb7xgurvy6" path="res://epsilon/sprites/bm_numbers.png" id="5_5nldb"]
 [ext_resource type="PackedScene" uid="uid://bp8b8uet70caq" path="res://epsilon/codec.tscn" id="5_cdts0"]
 [ext_resource type="PackedScene" uid="uid://mx8f7uy0hbdp" path="res://epsilon/game_over.tscn" id="6_rlaxr"]
 [ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="7_ubn78"]
@@ -104,9 +105,11 @@ _data = {
 }
 
 [node name="main" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_xhkvj")
 
 [node name="game" type="Node" parent="."]
+process_mode = 1
 
 [node name="camera" type="Camera2D" parent="game"]
 position = Vector2(0, 104)
@@ -201,6 +204,31 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(3, 3)
 texture = ExtResource("4_15l60")
+
+[node name="paused" type="RichTextLabel" parent="game/camera/ui/camera_space"]
+process_mode = 3
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -10.0
+offset_right = 48.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/normal_font = ExtResource("5_5nldb")
+bbcode_enabled = true
+text = "[center]PAUSED[/center]"
+fit_content = true
 
 [node name="anim_player" type="AnimationPlayer" parent="game/camera/ui"]
 process_mode = 3

@@ -17,3 +17,4 @@ func _ready() -> void:
 
 func _body_entered(body: Node2D) -> void:
 	emit_signal("triggered", path)
+	set_deferred("monitoring", false)

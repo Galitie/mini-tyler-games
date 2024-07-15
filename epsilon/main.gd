@@ -16,47 +16,43 @@ var current_level: TileMap = null
 var current_level_path: String = "res://epsilon/levels/level_0.tscn"
 
 func _ready():
+	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	var snakes = get_tree().get_nodes_in_group("snakes")
 	for i in range(snakes.size()):
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	LoadLevel("res://epsilon/levels/level_0.tscn")
+	await LoadLevel("res://epsilon/levels/level_0.tscn")
 	
 	#await get_tree().process_frame
 	#paused = true
-	#in_call = true
-	#await codec.play_file("res://epsilon/codec_calls/1.txt")
-	#ui_anim.play("fade_in")
-	#await ui_anim.animation_finished
+	#can_pause = false
 	#await get_tree().create_timer(3.0).timeout
-	#await _trigger_codec_call("res://epsilon/codec_calls/2.txt")
-	#paused = false
-	#can_pause = true
+	#await _codec_triggered("res://epsilon/codec_calls/2.txt")
 
 func _physics_process(delta: float) -> void:
+	get_tree().paused = paused
+	
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		if in_call:
 			codec.interrupted = true
 		elif can_pause:
 			paused = !paused
 			if paused:
+				$game/camera/ui/camera_space/paused.visible = true
 				$game/camera/ui/camera_space/fade.color.a = 0.5
 			else:
+				$game/camera/ui/camera_space/paused.visible = false
 				$game/camera/ui/camera_space/fade.color.a = 0.0
 				
 	if wait_to_continue:
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 			wait_to_continue = false
 			await $game/camera/ui/game_over.Continue()
-			LoadLevel(current_level_path)
-		
-	if paused:
-		$game.process_mode = Node.PROCESS_MODE_DISABLED
-	else:
-		$game.process_mode = Node.PROCESS_MODE_INHERIT
+			await LoadLevel(current_level_path)
 
-func _trigger_codec_call(call_path: String) -> void:
+func _codec_triggered(call_path: String) -> void:
 	can_pause = false
 	in_call = true
 	paused = true
@@ -129,6 +125,3 @@ func _level_triggered(path: String) -> void:
 	ui_anim.play("fade_out")
 	await ui_anim.animation_finished
 	LoadLevel(path)
-	
-func _codec_triggered(path: String) -> void:
-	pass

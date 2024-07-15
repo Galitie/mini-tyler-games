@@ -11,11 +11,13 @@ var random_vo: Array = [
 	#preload("res://epsilon/vo/2_feel.mp3") TOO LOUD. Need to balance out all vo lines at 0 db
 ]
 
-func GameOver() -> void:
+func GameOverDeath() -> void:
 	$argh.play()
+	await get_tree().create_timer(4.0).timeout
+
+func GameOver() -> void:
 	stream = game_over
 	play()
-	await get_tree().create_timer(1.0).timeout
 	$text_sfx.play()
 	await get_tree().create_timer(3.0).timeout
 	$codec_ring.play()

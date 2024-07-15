@@ -12,6 +12,8 @@ var in_call: bool = false
 
 var wait_to_continue: bool = false
 
+var current_level_path: String = "res://epsilon/levels/level_0.tscn"
+
 func _ready():
 	var snakes = get_tree().get_nodes_in_group("snakes")
 	for i in range(4):
@@ -45,11 +47,7 @@ func _physics_process(delta: float) -> void:
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 			wait_to_continue = false
 			await $game/camera/ui/game_over.Continue()
-			ReloadLevel()
-			ui_anim.play("fade_in")
-			await ui_anim.animation_finished
-			paused = false
-			can_pause = true
+			LoadLevel(current_level_path)
 		
 	if paused:
 		$game.process_mode = Node.PROCESS_MODE_DISABLED
@@ -75,17 +73,18 @@ func _trigger_codec_call(call_path: String) -> void:
 
 func GameOver() -> void:
 	can_pause = false
-	ui_anim.play("fade_out", -1, 0.1)
+	await $game/camera/ui/game_over.GameOverDeath()
+	ui_anim.play("fade_out", -1, 0.25)
 	await $game/camera/ui/game_over.GameOver()
 	wait_to_continue = true
 	
-func ReloadLevel() -> void:
+func LoadLevel(level_path: String) -> void:
 	$game/level.free()
-	var level_instance = load("res://epsilon/levels/level_0.tscn").instantiate()
+	var level_instance = load(level_path).instantiate()
 	level_instance.name = "level"
 	$game.add_child(level_instance)
 	var snakes = get_tree().get_nodes_in_group("snakes")
-	for i in range(4):
+	for i in range(snakes.size()):
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 	$game/camera.global_position = $game/camera.GetDestination()
@@ -94,6 +93,10 @@ func ReloadLevel() -> void:
 	$game/camera.reset_smoothing()
 	await get_tree().process_frame
 	paused = true
+	ui_anim.play("fade_in")
+	await ui_anim.animation_finished
+	paused = false
+	can_pause = true
 
 func _on_snake_death() -> void:
 	var total_snake_deaths: int = 0

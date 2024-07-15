@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://btref7md1tthw" path="res://epsilon/sprites/call.png" id="4_15l60"]
 [ext_resource type="PackedScene" uid="uid://bp8b8uet70caq" path="res://epsilon/codec.tscn" id="5_cdts0"]
 [ext_resource type="PackedScene" uid="uid://mx8f7uy0hbdp" path="res://epsilon/game_over.tscn" id="6_rlaxr"]
-[ext_resource type="PackedScene" uid="uid://b4w87al44sq8i" path="res://epsilon/levels/level_0.tscn" id="7_4u53t"]
+[ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="7_ubn78"]
 
 [sub_resource type="Animation" id="Animation_kow5m"]
 length = 0.001
@@ -218,4 +218,16 @@ process_mode = 3
 process_mode = 3
 scale = Vector2(2, 2)
 
-[node name="level" parent="game" instance=ExtResource("7_4u53t")]
+[node name="snake" parent="game" instance=ExtResource("7_ubn78")]
+
+[node name="snake2" parent="game" instance=ExtResource("7_ubn78")]
+controller_port = 1
+player_color = Color(1, 0, 0, 1)
+
+[node name="snake3" parent="game" instance=ExtResource("7_ubn78")]
+controller_port = 2
+player_color = Color(1, 1, 0, 1)
+
+[node name="snake4" parent="game" instance=ExtResource("7_ubn78")]
+controller_port = 3
+player_color = Color(0.847059, 0, 0.792157, 1)

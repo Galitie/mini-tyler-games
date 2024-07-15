@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4w87al44sq8i"]
+[gd_scene load_steps=11 format=3 uid="uid://b4w87al44sq8i"]
 
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_umpob"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_rdre0"]
-[ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="3_m27x4"]
 [ext_resource type="PackedScene" uid="uid://bc0ueryft07ta" path="res://epsilon/enemy.tscn" id="4_nuois"]
 [ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://epsilon/ammo_pickup.tscn" id="5_ttfpk"]
+[ext_resource type="Script" path="res://epsilon/trigger.gd" id="6_2grbb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i3ddf"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -302,6 +302,9 @@ navigation_layer_0/layers = 1
 sources/1 = SubResource("TileSetAtlasSource_02dc2")
 sources/0 = SubResource("TileSetAtlasSource_cy74d")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52tjy"]
+size = Vector2(30, 30)
+
 [node name="level_0" type="TileMap"]
 texture_filter = 1
 tile_set = SubResource("TileSet_leymn")
@@ -311,24 +314,6 @@ layer_0/tile_data = PackedInt32Array(458751, 0, 0, 393216, 0, 0, 393215, 0, 0, 3
 
 [node name="entities" type="Node2D" parent="."]
 y_sort_enabled = true
-
-[node name="snake" parent="entities" instance=ExtResource("3_m27x4")]
-position = Vector2(-24, 104)
-
-[node name="snake2" parent="entities" instance=ExtResource("3_m27x4")]
-position = Vector2(-8, 104)
-controller_port = 1
-player_color = Color(1, 0, 0, 1)
-
-[node name="snake3" parent="entities" instance=ExtResource("3_m27x4")]
-position = Vector2(8, 104)
-controller_port = 2
-player_color = Color(1, 1, 0, 1)
-
-[node name="snake4" parent="entities" instance=ExtResource("3_m27x4")]
-position = Vector2(24, 104)
-controller_port = 3
-player_color = Color(0.847059, 0, 0.792157, 1)
 
 [node name="enemy1" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_nuois")]
 position = Vector2(-8, -88)
@@ -422,6 +407,20 @@ position = Vector2(1064, -536)
 [node name="enemy5_6" type="Node2D" parent="patrols"]
 position = Vector2(936, -536)
 
+[node name="spawns" type="Node" parent="."]
+
+[node name="spawn1" type="Node2D" parent="spawns"]
+position = Vector2(-24, 104)
+
+[node name="spawn2" type="Node2D" parent="spawns"]
+position = Vector2(-8, 104)
+
+[node name="spawn3" type="Node2D" parent="spawns"]
+position = Vector2(8, 104)
+
+[node name="spawn4" type="Node2D" parent="spawns"]
+position = Vector2(24, 104)
+
 [node name="pickups" type="Node" parent="."]
 
 [node name="ammo_pickup" parent="pickups" instance=ExtResource("5_ttfpk")]
@@ -439,3 +438,16 @@ weapon_type = 1
 [node name="ammo_pickup4" parent="pickups" instance=ExtResource("5_ttfpk")]
 position = Vector2(1016, -584)
 weapon_type = 3
+
+[node name="triggers" type="Node" parent="."]
+
+[node name="next_level_trigger" type="Area2D" parent="triggers"]
+position = Vector2(160, -720)
+collision_layer = 0
+monitoring = false
+monitorable = false
+script = ExtResource("6_2grbb")
+path = "res://epsilon/levels/level_0.tscn"
+
+[node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
+shape = SubResource("RectangleShape2D_52tjy")

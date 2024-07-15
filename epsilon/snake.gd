@@ -31,7 +31,7 @@ var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
 var grenade_scene: PackedScene = load("res://epsilon/grenade.tscn")
 var stinger_missile_scene: PackedScene = load("res://epsilon/stinger_missile.tscn")
 
-@onready var map: TileMap = get_parent().get_parent()
+var map: TileMap = null
 
 const MAX_HP: int = 10
 var hp: int = 10
@@ -43,9 +43,12 @@ var hit_timer: float = 0.0
 var hit_timer_length: float = 0.1
 
 var weapon: String = ""
-var pistol_ammo: int = 20
-var grenade_ammo: int = 2
-var stinger_ammo: int = 4
+const STARTING_PISTOL_AMMO: int = 20
+const STARTING_GRENADE_AMMO: int = 2
+const STARTING_STINGER_AMMO: int = 4
+var pistol_ammo: int = STARTING_PISTOL_AMMO
+var grenade_ammo: int = STARTING_GRENADE_AMMO
+var stinger_ammo: int = STARTING_STINGER_AMMO
 
 var being_helped: bool = false
 var revive: float = 0
@@ -64,6 +67,22 @@ func _ready() -> void:
 	sprite.animation_finished.connect(_animation_finished)
 	$punch_area.area_entered.connect(_area_entered_punch)
 	$help.visible = false
+	
+func Reset(revive: bool) -> void:
+	state = SnakeState.IDLE
+	sprite.play("idle_u")
+	direction = "u"
+	$help.visible = false
+	$body.set_deferred("monitorable", true)
+	$shadow.visible = true
+	$help_area.set_deferred("monitorable", false)
+	$collider.set_deferred("disabled", false)
+	
+	if revive:
+		hp = MAX_HP
+		pistol_ammo = STARTING_PISTOL_AMMO
+		stinger_ammo = STARTING_STINGER_AMMO
+		grenade_ammo = STARTING_GRENADE_AMMO
 	
 func UpdateUI(delta: float) -> void:
 	badge.get_node("hp_bar").size.x = move_toward(badge.get_node("hp_bar").size.x, float((float(hp) / float(MAX_HP)) * 24.0), 20.0 * delta)

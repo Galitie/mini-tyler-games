@@ -36,4 +36,4 @@ func _body_entered(body: Node2D) -> void:
 	queue_free()
 
 func show_ammo_details(type: WeaponType) -> void:
-	$sprite/ammo_amount.text = "+" + str(amount) + " " + str(WeaponType.keys()[weapon_type])
+	$sprite/ammo_amount.text = "[center]" + str(WeaponType.keys()[weapon_type]) + "[/center]"

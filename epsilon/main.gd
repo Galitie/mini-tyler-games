@@ -21,12 +21,12 @@ func _ready():
 	
 	await get_tree().process_frame
 	paused = true
-	in_call = true
-	await codec.play_file("res://epsilon/codec_calls/1.txt")
+	#in_call = true
+	#await codec.play_file("res://epsilon/codec_calls/1.txt")
 	ui_anim.play("fade_in")
 	await ui_anim.animation_finished
-	await get_tree().create_timer(3.0).timeout
-	await _trigger_codec_call("res://epsilon/codec_calls/2.txt")
+	#await get_tree().create_timer(3.0).timeout
+	#await _trigger_codec_call("res://epsilon/codec_calls/2.txt")
 	paused = false
 	can_pause = true
 

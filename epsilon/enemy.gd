@@ -25,7 +25,7 @@ var on_alert: bool = false
 var target: Snake = null
 
 var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
-var ammo_pickup_scene: PackedScene = load("res://ammo_pickup.tscn")
+var ammo_pickup_scene: PackedScene = load("res://epsilon/ammo_pickup.tscn")
 
 @onready var map: TileMap = get_parent().get_parent()
 

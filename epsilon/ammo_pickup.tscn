@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dx4cgaqbqn08g"]
+[gd_scene load_steps=10 format=3 uid="uid://dx4cgaqbqn08g"]
 
 [ext_resource type="Script" path="res://epsilon/ammo_pickup.gd" id="1_5rgnh"]
 [ext_resource type="Texture2D" uid="uid://bxhjibnttwsjk" path="res://epsilon/sprites/grenade_ammo.png" id="2_lc4lv"]
 [ext_resource type="Texture2D" uid="uid://bjb0f68vwyp8s" path="res://epsilon/sprites/pistol_ammo.png" id="3_hymf0"]
 [ext_resource type="Texture2D" uid="uid://vm61cq3oe7uh" path="res://epsilon/sprites/stinger_ammo.png" id="4_6ghy7"]
+[ext_resource type="FontFile" uid="uid://uixb7xgurvy6" path="res://epsilon/sprites/bm_numbers.png" id="5_teip0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_07h6d"]
 animations = [{
@@ -68,14 +69,17 @@ sprite_frames = SubResource("SpriteFrames_07h6d")
 animation = &"grenade"
 
 [node name="ammo_amount" type="RichTextLabel" parent="sprite"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 92.0
-offset_bottom = 25.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 91.0
+offset_bottom = 24.0
 scale = Vector2(0.3, 0.3)
-theme_override_colors/default_color = Color(0.976471, 0.721569, 0.219608, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/normal_font = ExtResource("5_teip0")
 bbcode_enabled = true
-text = "[center]+10 PISTOL[/center]"
+text = "[center]PISTOL[/center]"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0

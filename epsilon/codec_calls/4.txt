@@ -59,6 +59,6 @@ msg right default silence "..."
 msg left talking pcr "Okay...at that point, even under PCR regulations, um, uh..."
 msg left talking giving_up "Fuck it...Metal Gear!"
 msg right talking metal "...Metal...Gear?!"
-msg left talking doozy_huh "So are you still going to save me? They won't let me use the bathroom, so I'm trying to not to drink any liquids-"
+msg left talking doozy_huh "You still working on that "saving me" thing? They won't let me use the bathroom, so I'm trying to not to drink any liquids-"
 msg right talking liquid "GRAHHH LIQUIIIIIIIIIIIIIIIID!!!"
 port remove tyler snake

@@ -351,9 +351,11 @@ patrols = [NodePath("../../patrols/enemy8_1"), NodePath("../../patrols/enemy8_2"
 
 [node name="keycard_door" parent="entities" instance=ExtResource("4_dprxc")]
 position = Vector2(776, -408)
+rotation = 1.5708
 
 [node name="keycard_door2" parent="entities" instance=ExtResource("4_dprxc")]
 position = Vector2(776, -392)
+rotation = 1.5708
 
 [node name="patrols" type="Node" parent="."]
 

@@ -88,6 +88,7 @@ func LoadLevel(level_path: String) -> void:
 		# NOTE: Might have to disconnect trigger signals here
 		$game/level.queue_free()
 		await get_tree().process_frame
+	current_level_path = level_path
 	current_level = load(level_path).instantiate()
 	current_level.name = "level"
 	$game.add_child(current_level)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx4cgaqbqn08g"]
+[gd_scene load_steps=11 format=3 uid="uid://dx4cgaqbqn08g"]
 
-[ext_resource type="Script" path="res://epsilon/ammo_pickup.gd" id="1_5rgnh"]
+[ext_resource type="Script" path="res://epsilon/pickup.gd" id="1_5rgnh"]
 [ext_resource type="Texture2D" uid="uid://bxhjibnttwsjk" path="res://epsilon/sprites/grenade_ammo.png" id="2_lc4lv"]
 [ext_resource type="Texture2D" uid="uid://bjb0f68vwyp8s" path="res://epsilon/sprites/pistol_ammo.png" id="3_hymf0"]
+[ext_resource type="Texture2D" uid="uid://d2j6k6hbg5cww" path="res://epsilon/sprites/keycard.png" id="3_o1ch8"]
 [ext_resource type="Texture2D" uid="uid://vm61cq3oe7uh" path="res://epsilon/sprites/stinger_ammo.png" id="4_6ghy7"]
 [ext_resource type="FontFile" uid="uid://uixb7xgurvy6" path="res://epsilon/sprites/bm_numbers.png" id="5_teip0"]
 
@@ -14,6 +15,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"grenade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_o1ch8")
+}],
+"loop": true,
+"name": &"keycard",
 "speed": 5.0
 }, {
 "frames": [{
@@ -57,7 +66,7 @@ _data = {
 "float": SubResource("Animation_mwdo5")
 }
 
-[node name="ammo_pickup" type="Area2D"]
+[node name="pickup" type="Area2D"]
 collision_layer = 256
 monitorable = false
 script = ExtResource("1_5rgnh")
@@ -66,9 +75,9 @@ script = ExtResource("1_5rgnh")
 z_index = -1
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_07h6d")
-animation = &"grenade"
+animation = &"keycard"
 
-[node name="ammo_amount" type="RichTextLabel" parent="sprite"]
+[node name="description" type="RichTextLabel" parent="sprite"]
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 91.0

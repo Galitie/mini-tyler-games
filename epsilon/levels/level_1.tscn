@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_b2hj3"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_js5f2"]
 [ext_resource type="PackedScene" uid="uid://bc0ueryft07ta" path="res://epsilon/enemy.tscn" id="3_u8y5a"]
-[ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://epsilon/ammo_pickup.tscn" id="4_wuwtj"]
+[ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://epsilon/pickup.tscn" id="4_wuwtj"]
 [ext_resource type="Script" path="res://epsilon/trigger.gd" id="5_21fp5"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i3ddf"]
@@ -479,15 +479,15 @@ position = Vector2(-8, 104)
 
 [node name="ammo_pickup" parent="pickups" instance=ExtResource("4_wuwtj")]
 position = Vector2(144, 112)
-weapon_type = 2
+pickup_type = 4
 
 [node name="ammo_pickup2" parent="pickups" instance=ExtResource("4_wuwtj")]
 position = Vector2(608, -72)
-weapon_type = 3
+pickup_type = 2
 
 [node name="ammo_pickup3" parent="pickups" instance=ExtResource("4_wuwtj")]
 position = Vector2(352, -80)
-weapon_type = 1
+pickup_type = 1
 
 [node name="triggers" type="Node" parent="."]
 

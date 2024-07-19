@@ -961,3 +961,4 @@ texture = ExtResource("44_54xkb")
 [node name="nav_agent" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
 path_postprocessing = 1
+debug_enabled = true

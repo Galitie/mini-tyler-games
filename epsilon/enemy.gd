@@ -9,7 +9,7 @@ const RUN_SPEED: float = 40.0
 var current_patrol_index: int = 0
 var direction: String = "l"
 
-enum SoldierState {PATROL, ALERTED, ALERT, CONFUSED, SHOOT, DEAD}
+enum SoldierState {PATROL, ALERTED, ALERT, CONFUSED, LOOK_AROUND, SHOOT, DEAD}
 var state: SoldierState = SoldierState.PATROL
 
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -35,6 +35,13 @@ var is_hit: bool = false
 var hit_timer: float = 0.0
 var hit_timer_length: float = 0.1
 
+var look_timer: float = 0
+var look_timer_length: float = 1.5
+var number_of_looks: int = 0
+var max_amount_of_looks: int = 2
+
+var is_cautious: bool = false
+
 func _ready() -> void:
 	# NOTE: To sync navigation agent with server
 	set_physics_process(false)
@@ -59,6 +66,13 @@ func _physics_process(delta: float) -> void:
 			is_hit = false
 			hit_timer = 0.0
 			sprite.material.set_shader_parameter("is_hit", false)
+			
+	if state != SoldierState.DEAD && !on_alert:
+		if FoundEntity("snakes"):
+			if target.state == Snake.SnakeState.BOX && target.velocity.length() == 0:
+				pass
+			else:
+				alert()
 	
 	match state:
 		SoldierState.PATROL:
@@ -72,32 +86,26 @@ func _physics_process(delta: float) -> void:
 			SetVisionToDirection()
 			var current_frame = sprite.get_frame()
 			var current_progress = sprite.get_frame_progress()
-			sprite.play("walk" + "_" + direction)
+			if is_cautious:
+				sprite.play("run" + "_" + direction)
+			else:
+				sprite.play("walk" + "_" + direction)
 			sprite.set_frame_and_progress(current_frame, current_progress)
-			velocity = t_direction * WALK_SPEED
+			if is_cautious:
+				velocity = t_direction * RUN_SPEED
+			else:
+				velocity = t_direction * WALK_SPEED
 			if $nav_agent.is_target_reached():
 				current_patrol_index += 1
 				if current_patrol_index > patrols.size() - 1:
 					current_patrol_index = 0
-	
-			var areas: Array = vision.get_overlapping_areas()
-			for area in areas:
-				var entity = area.get_parent()
-				if entity.is_in_group("snakes"):
-					# NOTE: Janky fix to get the sight cast to look for feet
-					target = entity
-					wall_cast.target_position = to_local(entity.global_position) + Vector2(0, 12)
-					wall_cast.force_raycast_update()
-					if !wall_cast.is_colliding():
-						if entity.state == Snake.SnakeState.BOX && entity.velocity.length() == 0:
-							pass
-						else:
-							alert()
-							return
+				state = SoldierState.LOOK_AROUND
+				return
 		SoldierState.ALERTED:
 			on_alert = true
 			velocity = Vector2.ZERO
-			$nav_agent.target_position = target.global_position
+			if !WallBetweenTarget():
+				$nav_agent.target_position = target.global_position
 			var t_direction = to_local($nav_agent.get_next_path_position()).normalized()
 			direction = GetDirection(t_direction)
 			SetVisionToDirection()
@@ -111,7 +119,15 @@ func _physics_process(delta: float) -> void:
 				state = SoldierState.PATROL
 				target = null
 				return
-			$nav_agent.target_position = target.global_position
+			if $nav_agent.is_target_reached():
+				if global_position.distance_to(target.global_position) > 100.0:
+					confused()
+					state = SoldierState.CONFUSED
+					return
+				else:
+					$nav_agent.target_position = target.global_position
+			if !WallBetweenTarget():
+				$nav_agent.target_position = target.global_position
 			var t_direction = to_local($nav_agent.get_next_path_position()).normalized()
 			direction = GetDirection(t_direction)
 			SetVisionToDirection()
@@ -148,6 +164,28 @@ func _physics_process(delta: float) -> void:
 		SoldierState.CONFUSED:
 			sprite.play("idle" + "_" + direction)
 			return
+		SoldierState.LOOK_AROUND:
+			velocity = Vector2.ZERO
+			look_timer += 1.0 * delta
+			if look_timer > look_timer_length:
+				look_timer = 0
+				number_of_looks += 1
+				if number_of_looks > max_amount_of_looks:
+					number_of_looks = 0
+					if !on_alert:
+						state = SoldierState.PATROL
+						return
+				var directions: Array = ["u", "d", "l", "r"]
+				var random_direction = directions.pick_random()
+				while direction == random_direction:
+					random_direction = directions.pick_random()
+				direction = random_direction
+				SetVisionToDirection()
+				if direction.ends_with("l"):
+					sprite.flip_h = true
+				else:
+					sprite.flip_h = false
+			sprite.play("idle" + "_" + direction)
 
 	move_and_slide()
 	
@@ -161,6 +199,27 @@ func confused() -> void:
 	status.visible = true
 	status.play("huh", 1.0)
 	state = SoldierState.CONFUSED
+	
+func FoundEntity(group: String) -> bool:
+	var areas: Array = vision.get_overlapping_areas()
+	for area in areas:
+		var entity = area.get_parent()
+		if entity.is_in_group(group):
+			# NOTE: Janky fix to get the sight cast to look for feet
+			target = entity
+			wall_cast.target_position = to_local(entity.global_position) + Vector2(0, 12)
+			wall_cast.force_raycast_update()
+			if !wall_cast.is_colliding():
+				return true
+	return false
+	
+func WallBetweenTarget() -> bool:
+	wall_cast.target_position = to_local(target.global_position) + Vector2(0, 12)
+	wall_cast.force_raycast_update()
+	if !wall_cast.is_colliding():
+		return false
+	else:
+		return true
 	
 func hit(emitter, damage: int) -> void:
 	if state != SoldierState.DEAD:
@@ -177,6 +236,7 @@ func hit(emitter, damage: int) -> void:
 			if emitter.is_in_group("snakes"):
 				target = emitter
 				if !on_alert:
+					$nav_agent.target_position = target.global_position
 					alert()
 	
 func SetVisionToDirection() -> void:
@@ -254,12 +314,12 @@ func _animation_finished() -> void:
 		var rng = RandomNumberGenerator.new()
 		var rng_result = rng.randi_range(1, 50)
 		if rng_result >= 1 && rng_result < 30:
-			pickup.pickup_type = pickup.PickUpType.PISTOL
+			pickup.pickup_type = Pickup.PickupType.PISTOL
 		elif rng_result >= 30 && rng_result < 40:
-			pickup.pickup_type = pickup.PickUpType.GRENADE
+			pickup.pickup_type = Pickup.PickupType.GRENADE
 		elif rng_result >= 40 && rng_result <= 50:
-			pickup.pickup_type = pickup.PickUpType.STINGER
-		if pickup.pickup_type != pickup.PickUpType.NONE:
+			pickup.pickup_type = Pickup.PickupType.STINGER
+		if pickup.pickup_type != Pickup.PickupType.NONE:
 			map.add_child(pickup)
 		else:
 			pickup.queue_free()
@@ -271,7 +331,16 @@ func _status_animation_finished() -> void:
 		state = SoldierState.ALERT
 		status.visible = false
 	elif state == SoldierState.CONFUSED:
-		alert()
+		if on_alert:
+			state = SoldierState.PATROL
+			status.visible = false
+			on_alert = false
+			target = null
+			is_cautious = true
+			max_amount_of_looks = 3
+			look_timer_length = 0.5
+		else:
+			alert()
 
 func _area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()

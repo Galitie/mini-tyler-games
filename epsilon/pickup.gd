@@ -5,6 +5,7 @@ class_name Pickup
 
 enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD }
 @export var pickup_type: PickupType = PickupType.NONE
+@export var access_level: int
 var amount: int = 0
 
 func _ready() -> void:
@@ -36,4 +37,9 @@ func _body_entered(body: Node2D) -> void:
 			body.grenade_ammo += amount
 		PickupType.STINGER:
 			body.stinger_ammo += amount
+		PickupType.KEYCARD:
+			var doors = get_tree().get_nodes_in_group("keycard door")
+			for door in doors:
+				if access_level == door.door_level:
+					door.locked = false
 	queue_free()

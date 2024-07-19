@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bcba72q61msu1"]
+[gd_scene load_steps=12 format=3 uid="uid://bcba72q61msu1"]
 
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_b2hj3"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_js5f2"]
 [ext_resource type="PackedScene" uid="uid://bc0ueryft07ta" path="res://epsilon/enemy.tscn" id="3_u8y5a"]
+[ext_resource type="PackedScene" uid="uid://bsj50sc28axhs" path="res://epsilon/keycard_door.tscn" id="4_dprxc"]
 [ext_resource type="PackedScene" uid="uid://dx4cgaqbqn08g" path="res://epsilon/pickup.tscn" id="4_wuwtj"]
 [ext_resource type="Script" path="res://epsilon/trigger.gd" id="5_21fp5"]
 
@@ -347,6 +348,12 @@ patrols = [NodePath("../../patrols/enemy7_1"), NodePath("../../patrols/enemy7_2"
 [node name="enemy8" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("3_u8y5a")]
 position = Vector2(696, -400)
 patrols = [NodePath("../../patrols/enemy8_1"), NodePath("../../patrols/enemy8_2")]
+
+[node name="keycard_door" parent="entities" instance=ExtResource("4_dprxc")]
+position = Vector2(776, -408)
+
+[node name="keycard_door2" parent="entities" instance=ExtResource("4_dprxc")]
+position = Vector2(776, -392)
 
 [node name="patrols" type="Node" parent="."]
 

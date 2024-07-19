@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://bsj50sc28axhs"]
+
+[ext_resource type="Script" path="res://epsilon/keycard_door.gd" id="1_1v8wr"]
+[ext_resource type="Texture2D" uid="uid://cjfll8vxdaf0c" path="res://epsilon/sprites/door.png" id="1_l37bl"]
+[ext_resource type="Texture2D" uid="uid://waihelkg8wwr" path="res://epsilon/sprites/door_1.png" id="3_htqgy"]
+[ext_resource type="Texture2D" uid="uid://bg4uuc7l10k0t" path="res://epsilon/sprites/door_2.png" id="4_ljnr1"]
+[ext_resource type="Texture2D" uid="uid://b1ybmbyq7spus" path="res://epsilon/sprites/door_3.png" id="5_dcmb4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ww2mj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l37bl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_htqgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ljnr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dcmb4")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hnc6p"]
+size = Vector2(16, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cu5c5"]
+size = Vector2(16, 3)
+
+[node name="keycard_door" type="StaticBody2D"]
+collision_layer = 4
+script = ExtResource("1_1v8wr")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ww2mj")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_hnc6p")
+
+[node name="area2d" type="Area2D" parent="."]
+
+[node name="collider" type="CollisionShape2D" parent="area2d"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_cu5c5")

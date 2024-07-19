@@ -22,6 +22,8 @@ func _ready():
 	for i in range(snakes.size()):
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
+		
+	await LoadLevel("res://epsilon/levels/level_1.tscn")
 	
 	#await get_tree().process_frame
 	#paused = true

@@ -25,7 +25,7 @@ var moved_stick: bool = false
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
 
 
-var hp_desc = "+1/+2 Tylermon max health 🧀"
+var hp_desc = "+1 Tylermon max health 🧀"
 var str_desc = "Tylermon's attacks do more damage"
 var int_desc = "Tylermon is more likely to make good decisions"
 var type_desc = "Change Tylermon's element to WATER, FIRE or GRASS"
@@ -105,8 +105,7 @@ func _on_button_pressed(button_name):
 	match button_name:
 		"hp":
 			points_to_spend -= 1
-			var random_health = randi_range(1,2)
-			mon.max_health += random_health
+			mon.max_health += 1
 			emit_signal("upgraded", "good")
 		"str":
 			points_to_spend -= 1

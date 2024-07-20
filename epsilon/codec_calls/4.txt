@@ -13,7 +13,6 @@ res://epsilon/vo/4_snake_right.mp3 snake_right
 res://epsilon/vo/4_help.mp3 help
 res://epsilon/vo/4_wow.mp3 wow
 res://epsilon/vo/4_kill_me.mp3 kill_me
-res://epsilon/vo/4_jews.mp3 jews
 res://epsilon/vo/4_silence.mp3 silence
 res://epsilon/vo/4_no_doubt.mp3 no_doubt
 res://epsilon/vo/4_monopoly.mp3 monopoly

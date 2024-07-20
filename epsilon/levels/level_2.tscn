@@ -482,7 +482,7 @@ position = Vector2(304, 112)
 pickup_type = 4
 
 [node name="keycard_pickup2" parent="pickups" instance=ExtResource("5_o5peh")]
-position = Vector2(64, -80)
+position = Vector2(96, -64)
 pickup_type = 4
 access_level = 1
 
@@ -502,6 +502,10 @@ pickup_type = 1
 position = Vector2(96, 400)
 pickup_type = 4
 access_level = 2
+
+[node name="ammo_pickup5" parent="pickups" instance=ExtResource("5_o5peh")]
+position = Vector2(64, -80)
+pickup_type = 2
 
 [node name="triggers" type="Node" parent="."]
 

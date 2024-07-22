@@ -13,7 +13,7 @@ var in_call: bool = false
 var wait_to_continue: bool = false
 
 var current_level: TileMap = null
-var current_level_path: String = "res://epsilon/levels/level_0.tscn"
+var current_level_path: String = "res://epsilon/levels/level_2.tscn"
 
 func _ready():
 	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -23,7 +23,7 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	await LoadLevel("res://epsilon/levels/level_2.tscn")
+	await LoadLevel(current_level_path)
 	
 	#await get_tree().process_frame
 	#paused = true

@@ -17,6 +17,7 @@ res://epsilon/vo/3_frequency.mp3 frequency
 res://epsilon/vo/3_say.mp3 say
 res://epsilon/vo/3_fine.mp3 fine
 res://epsilon/vo/3_snanus.mp3 snanus
+res://epsilon/vo/3_dicksnake.mp3 dicksnake
 end
 port add anus snake
 msg left default watch "Snake, you better watch your step."
@@ -31,6 +32,6 @@ msg left default feel "I'm certain you feel the same, Snake."
 msg right talking fine "Fine. What do I call you, then?"
 msg left default call_me "You can call me..."
 msg left default silence "...Dick."
-msg right talking silence "Dick?"
+msg right talking dicksnake "Dick?"
 msg left default silence "Dick."
 port remove anus snake

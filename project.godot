@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="tmini"
-run/main_scene="res://epsilon/codec.tscn"
+run/main_scene="res://epsilon/start_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

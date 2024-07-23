@@ -13,7 +13,7 @@ var in_call: bool = false
 var wait_to_continue: bool = false
 
 var current_level: TileMap = null
-var current_level_path: String = "res://epsilon/levels/level_2.tscn"
+var current_level_path: String = "res://epsilon/levels/level_0.tscn"
 
 func _ready():
 	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -23,19 +23,19 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	await LoadLevel(current_level_path)
+	#await LoadLevel(current_level_path)
 	
-	#await get_tree().process_frame
-	#paused = true
-	#can_pause = false
-	#in_call = true
-	#await codec.play_file("res://epsilon/codec_calls/1.txt")
-	#await LoadLevel("res://epsilon/levels/level_1.tscn")
-	#paused = true
-	#can_pause = false
-	#in_call = false
-	#await get_tree().create_timer(3.0).timeout
-	#await _codec_triggered("res://epsilon/codec_calls/2.txt")
+	await get_tree().process_frame
+	paused = true
+	can_pause = false
+	in_call = true
+	await codec.play_file("res://epsilon/codec_calls/1.txt")
+	await LoadLevel(current_level_path)
+	paused = true
+	can_pause = false
+	in_call = false
+	await get_tree().create_timer(3.0).timeout
+	await _codec_triggered("res://epsilon/codec_calls/2.txt")
 
 func _physics_process(delta: float) -> void:
 	get_tree().paused = paused

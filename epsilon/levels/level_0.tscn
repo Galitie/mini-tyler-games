@@ -426,6 +426,7 @@ position = Vector2(24, 104)
 
 [node name="ammo_pickup" parent="pickups" instance=ExtResource("5_ttfpk")]
 position = Vector2(-40, -216)
+pickup_type = 1
 
 [node name="ammo_pickup2" parent="pickups" instance=ExtResource("5_ttfpk")]
 position = Vector2(-344, -344)
@@ -447,7 +448,7 @@ collision_layer = 0
 monitoring = false
 monitorable = false
 script = ExtResource("6_2grbb")
-path = "res://epsilon/levels/level_0.tscn"
+path = "res://epsilon/levels/level_3.tscn"
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")

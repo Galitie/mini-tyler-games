@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://c4sp7heilpaiw"]
+
+[ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="1_b0oui"]
+[ext_resource type="Script" path="res://epsilon/mine.gd" id="1_n602i"]
+[ext_resource type="Texture2D" uid="uid://dfs1jbeihorol" path="res://epsilon/sprites/explosion_1.png" id="2_0pnm6"]
+[ext_resource type="Texture2D" uid="uid://b4a88xbaa8t4u" path="res://epsilon/sprites/explosion_2.png" id="3_3fg2t"]
+[ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="4_jfo06"]
+[ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="5_ly12v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oa72i"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysolj"]
+size = Vector2(24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ml2l"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("1_b0oui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0pnm6")
+}, {
+"duration": 1.2,
+"texture": ExtResource("3_3fg2t")
+}, {
+"duration": 1.4,
+"texture": ExtResource("4_jfo06")
+}, {
+"duration": 1.8,
+"texture": ExtResource("5_ly12v")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 25.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c14ik"]
+size = Vector2(16, 16)
+
+[node name="mine" type="Area2D"]
+collision_layer = 256
+monitorable = false
+script = ExtResource("1_n602i")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oa72i")
+
+[node name="explosion" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 34
+monitoring = false
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="explosion"]
+shape = SubResource("RectangleShape2D_ysolj")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_6ml2l")
+animation = &"explode"
+
+[node name="danger_zone" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+monitoring = false
+
+[node name="collider" type="CollisionShape2D" parent="danger_zone"]
+shape = SubResource("RectangleShape2D_c14ik")

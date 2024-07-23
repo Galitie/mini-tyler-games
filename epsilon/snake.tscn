@@ -1,4 +1,4 @@
-[gd_scene load_steps=162 format=3 uid="uid://c3a0d3vikmu6u"]
+[gd_scene load_steps=163 format=3 uid="uid://c3a0d3vikmu6u"]
 
 [ext_resource type="Script" path="res://epsilon/snake.gd" id="1_l0qjn"]
 [ext_resource type="Texture2D" uid="uid://1u8xc1nlq0rm" path="res://epsilon/sprites/box_up.png" id="2_18w2y"]
@@ -149,6 +149,7 @@
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="145_yk602"]
 [ext_resource type="Texture2D" uid="uid://dk85n2j15gu0o" path="res://epsilon/sprites/help.png" id="146_y6uyh"]
 [ext_resource type="Texture2D" uid="uid://cnawb6yfliwkq" path="res://epsilon/sprites/help_0.png" id="147_ki7y1"]
+[ext_resource type="Texture2D" uid="uid://b4veoeleaawrn" path="res://epsilon/sprites/alert.png" id="148_0njbt"]
 [ext_resource type="Texture2D" uid="uid://co0yymesbjujs" path="res://epsilon/sprites/help_1.png" id="148_6qkt6"]
 [ext_resource type="Texture2D" uid="uid://dhqrf8l82nsca" path="res://epsilon/sprites/help_2.png" id="149_eur8g"]
 [ext_resource type="Texture2D" uid="uid://deriqgud5kbvr" path="res://epsilon/sprites/help_3.png" id="150_oblhk"]
@@ -1536,6 +1537,14 @@ size = Vector2(7, 7)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("148_0njbt")
+}],
+"loop": true,
+"name": &"alert",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("146_y6uyh")
 }],
 "loop": true,
@@ -1585,8 +1594,7 @@ shape = SubResource("RectangleShape2D_id527")
 [node name="body" type="Area2D" parent="."]
 visible = false
 collision_layer = 2
-collision_mask = 8
-monitoring = false
+collision_mask = 264
 
 [node name="collider" type="CollisionShape2D" parent="body"]
 position = Vector2(0.5, -14)
@@ -1625,9 +1633,13 @@ visible = false
 texture_filter = 1
 position = Vector2(0, -29)
 sprite_frames = SubResource("SpriteFrames_uh3ai")
-animation = &"fill"
-frame = 4
-frame_progress = 1.0
+animation = &"alert"
+
+[node name="alert" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -29)
+texture = ExtResource("148_0njbt")
 
 [node name="help_area" type="Area2D" parent="."]
 visible = false

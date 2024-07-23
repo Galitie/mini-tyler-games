@@ -7,6 +7,7 @@
 # 6: ENEMY BODY
 # 7: BOX
 # 8: DEAD SNAKE
+# 9: MINES
 
 extends CharacterBody2D
 class_name Snake
@@ -98,6 +99,13 @@ func UpdateUI(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	UpdateUI(delta)
+	
+	var areas: Array = $body.get_overlapping_areas()
+	var near_mine: bool = false
+	for area in areas:
+		if area.get_parent().is_in_group("mines"):
+			near_mine = true
+	$alert.visible = near_mine
 	
 	if is_hit:
 		sprite.material.set_shader_parameter("is_hit", true)

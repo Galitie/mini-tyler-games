@@ -45,7 +45,7 @@ msg right default silence "..."
 msg right talking guy "Otacon, are you sure we got the right guy?"
 port add otacon NULL
 msg left talking no_doubt "There's no doubt about it, Snake. That's him."
-msg right talking silence "Great...so what are...they... planning?"
+msg right talking planning "Great...so what are...they... planning?"
 port add tyler NULL
 msg left talking monopoly "Uhhhh, they're looking to seize a monopoly on molecular cloning."
 msg right talking cloning "...Molecular cloning?"

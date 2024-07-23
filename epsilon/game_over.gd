@@ -4,11 +4,9 @@ extends VideoStreamPlayer
 @onready var continue_game = preload("res://epsilon/backgrounds/continue.ogv")
 
 var random_vo: Array = [
-	preload("res://epsilon/vo/2_snake_annoyed.mp3"),
-	preload("res://epsilon/vo/3_watch.mp3"),
-	preload("res://epsilon/vo/2_friends.mp3"),
-	preload("res://epsilon/vo/1_osha.mp3"),
-	#preload("res://epsilon/vo/2_feel.mp3") TOO LOUD. Need to balance out all vo lines at 0 db
+	preload("res://epsilon/vo/2_grah.mp3"),
+	preload("res://epsilon/vo/4_liquid.mp3"),
+	preload("res://epsilon/vo/2_feel.mp3") #TOO LOUD. Need to balance out all vo lines at 0 db
 ]
 
 func GameOverDeath() -> void:

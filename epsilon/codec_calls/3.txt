@@ -12,7 +12,6 @@ res://epsilon/vo/3_name.mp3 name
 res://epsilon/vo/3_keep_it.mp3 keep_it
 res://epsilon/vo/3_feel.mp3 feel
 res://epsilon/vo/3_call_me.mp3 call_me
-res://epsilon/vo/3_anus.mp3 anus
 res://epsilon/vo/4_silence.mp3 silence
 res://epsilon/vo/3_frequency.mp3 frequency
 res://epsilon/vo/3_say.mp3 say
@@ -31,7 +30,7 @@ msg left default keep_it "I'd just like to keep it."
 msg left default feel "I'm certain you feel the same, Snake."
 msg right talking fine "Fine. What do I call you, then?"
 msg left default call_me "You can call me..."
-msg left default anus "...Dick."
-msg right talking snanus "Dick?"
-msg left default anus "Dick."
+msg left default silence "...Dick."
+msg right talking silence "Dick?"
+msg left default silence "Dick."
 port remove anus snake

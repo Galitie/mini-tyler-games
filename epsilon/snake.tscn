@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=3 uid="uid://c3a0d3vikmu6u"]
+[gd_scene load_steps=164 format=3 uid="uid://c3a0d3vikmu6u"]
 
 [ext_resource type="Script" path="res://epsilon/snake.gd" id="1_l0qjn"]
 [ext_resource type="Texture2D" uid="uid://1u8xc1nlq0rm" path="res://epsilon/sprites/box_up.png" id="2_18w2y"]
@@ -154,6 +154,7 @@
 [ext_resource type="Texture2D" uid="uid://dhqrf8l82nsca" path="res://epsilon/sprites/help_2.png" id="149_eur8g"]
 [ext_resource type="Texture2D" uid="uid://deriqgud5kbvr" path="res://epsilon/sprites/help_3.png" id="150_oblhk"]
 [ext_resource type="Texture2D" uid="uid://dlys17plmsbqi" path="res://epsilon/sprites/help_4.png" id="151_5ducp"]
+[ext_resource type="AudioStream" uid="uid://cn20rxx20y866" path="res://epsilon/sound_effects/revived.wav" id="155_im1ge"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lbxkl"]
 resource_local_to_scene = true
@@ -1650,3 +1651,6 @@ monitorable = false
 [node name="collider" type="CollisionShape2D" parent="help_area"]
 position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_evfy4")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("155_im1ge")

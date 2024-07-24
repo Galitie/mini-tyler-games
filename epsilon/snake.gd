@@ -241,6 +241,7 @@ func _physics_process(delta: float) -> void:
 					$body.set_deferred("monitorable", true)
 					$collider.set_deferred("disabled", false)
 					$shadow.visible = true
+					$sfx.play()
 			else:
 				revive = 0.0
 				$help.play("empty")

@@ -199,6 +199,7 @@ func alert() -> void:
 	status.visible = true
 	status.play("alert", 1.0)
 	state = SoldierState.ALERTED
+	$sfx.play()
 	emit_signal("enemy_alerted")
 	
 func confused() -> void:

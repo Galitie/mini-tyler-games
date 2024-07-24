@@ -1,6 +1,9 @@
 extends CharacterBody2D
 class_name Enemy
 
+signal enemy_alerted
+signal enemy_lost_alert
+
 @export var patrols: Array[Node2D] = []
 
 const WALK_SPEED: float = 20.0
@@ -118,6 +121,8 @@ func _physics_process(delta: float) -> void:
 			if target.state == Snake.SnakeState.DEAD:
 				state = SoldierState.PATROL
 				target = null
+				on_alert = false
+				emit_signal("enemy_lost_alert")
 				return
 			if $nav_agent.is_target_reached():
 				if global_position.distance_to(target.global_position) > 100.0:
@@ -194,6 +199,7 @@ func alert() -> void:
 	status.visible = true
 	status.play("alert", 1.0)
 	state = SoldierState.ALERTED
+	emit_signal("enemy_alerted")
 	
 func confused() -> void:
 	status.visible = true
@@ -309,6 +315,7 @@ func _animation_finished() -> void:
 	if state == SoldierState.SHOOT:
 		state = SoldierState.ALERT
 	elif state == SoldierState.DEAD:
+		emit_signal("enemy_lost_alert")
 		var pickup = pickup_scene.instantiate()
 		pickup.global_position = global_position
 		var rng = RandomNumberGenerator.new()
@@ -339,6 +346,7 @@ func _status_animation_finished() -> void:
 			is_cautious = true
 			max_amount_of_looks = 3
 			look_timer_length = 0.5
+			emit_signal("enemy_lost_alert")
 		else:
 			alert()
 

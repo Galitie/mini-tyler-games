@@ -7,6 +7,7 @@ enum TriggerType { LEVEL, CODEC }
 @export var type: TriggerType
 
 @export var path: String
+@export var music_path: String
 
 func _ready() -> void:
 	add_to_group("triggers")
@@ -16,5 +17,5 @@ func _ready() -> void:
 	set_deferred("monitoring", true)
 
 func _body_entered(body: Node2D) -> void:
-	emit_signal("triggered", path)
+	emit_signal("triggered", path, music_path)
 	set_deferred("monitoring", false)

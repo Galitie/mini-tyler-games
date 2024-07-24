@@ -259,3 +259,6 @@ player_color = Color(1, 1, 0, 1)
 [node name="snake4" parent="game" instance=ExtResource("7_ubn78")]
 controller_port = 3
 player_color = Color(0.847059, 0, 0.792157, 1)
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0

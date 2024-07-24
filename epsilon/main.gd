@@ -8,6 +8,10 @@ var in_call: bool = false
 @onready var ui_anim = $game/camera/ui/anim_player
 @onready var ui_audio = $game/camera/ui/audio_player
 
+var current_music_path = ""
+var encounter_theme = preload("res://epsilon/music/encounter.mp3")
+var alert: bool = false
+
 @onready var codec_ring = preload("res://epsilon/sound_effects/codec_ring.mp3")
 
 var wait_to_continue: bool = false
@@ -30,12 +34,12 @@ func _ready():
 	can_pause = false
 	in_call = true
 	await codec.play_file("res://epsilon/codec_calls/1.txt")
-	await LoadLevel(current_level_path)
+	await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
 	paused = true
 	can_pause = false
 	in_call = false
 	await get_tree().create_timer(3.0).timeout
-	await _codec_triggered("res://epsilon/codec_calls/2.txt")
+	await _codec_triggered("res://epsilon/codec_calls/2.txt", "")
 
 func _physics_process(delta: float) -> void:
 	get_tree().paused = paused
@@ -56,9 +60,9 @@ func _physics_process(delta: float) -> void:
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 			wait_to_continue = false
 			await $game/camera/ui/game_over.Continue()
-			await LoadLevel(current_level_path)
+			await LoadLevel(current_level_path, current_music_path, 0.0)
 
-func _codec_triggered(call_path: String) -> void:
+func _codec_triggered(call_path: String, music_path: String) -> void:
 	can_pause = false
 	in_call = true
 	paused = true
@@ -82,7 +86,12 @@ func GameOver() -> void:
 	await $game/camera/ui/game_over.GameOver()
 	wait_to_continue = true
 	
-func LoadLevel(level_path: String) -> void:
+func LoadLevel(level_path: String, music_path: String, music_playback_pos: float) -> void:
+	if !music_path.is_empty() && music_path != current_music_path:
+		current_music_path = music_path
+	$music.stream = load(current_music_path)
+	$music.play(music_playback_pos)
+	
 	var snakes = get_tree().get_nodes_in_group("snakes")
 	for snake in snakes:
 		snake.get_parent().remove_child(snake)
@@ -111,12 +120,35 @@ func LoadLevel(level_path: String) -> void:
 	# NOTE: Have to call it twice to work, Spaghodot
 	$game/camera.reset_smoothing()
 	$game/camera.reset_smoothing()
+	
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.enemy_alerted.connect(_enemy_alerted)
+		enemy.enemy_lost_alert.connect(_enemy_lost_alert)
+	
 	await get_tree().process_frame
 	paused = true
 	ui_anim.play("fade_in")
 	await ui_anim.animation_finished
 	paused = false
 	can_pause = true
+	
+func _enemy_alerted() -> void:
+	if !alert:
+		$music.stream = encounter_theme
+		$music.play()
+		alert = true
+	
+func _enemy_lost_alert() -> void:
+	if alert:
+		var no_enemies_alerted: bool = true
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			if enemy.on_alert:
+				no_enemies_alerted = false
+				break
+		if no_enemies_alerted:
+			alert = false
+			$music.stream = load(current_music_path)
+			$music.play()
 
 func _on_snake_death() -> void:
 	var total_snake_deaths: int = 0
@@ -125,10 +157,13 @@ func _on_snake_death() -> void:
 			total_snake_deaths += 1
 	if total_snake_deaths == get_tree().get_nodes_in_group("snakes").size() - 1:
 		GameOver()
+		$music.stop()
+		alert = false
 
-func _level_triggered(path: String) -> void:
+func _level_triggered(path: String, music_path: String) -> void:
 	can_pause = false
 	paused = true
 	ui_anim.play("fade_out")
 	await ui_anim.animation_finished
-	LoadLevel(path)
+	var music_playback_pos: float = $music.get_playback_position()
+	LoadLevel(path, music_path, music_playback_pos)

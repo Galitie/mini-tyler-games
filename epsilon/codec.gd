@@ -9,7 +9,6 @@ extends Node2D
 @onready var right_portrait = $right_portrait
 @onready var codec_background = $codec_background
 
-@onready var alert_sound = load("res://epsilon/sound_effects/alert.mp3")
 @onready var codec_ring = load("res://epsilon/sound_effects/codec_ring.mp3")
 @onready var portrait_close = load("res://epsilon/sound_effects/portrait_close.mp3")
 @onready var portrait_open = load("res://epsilon/sound_effects/portrait_open.mp3")

@@ -261,4 +261,4 @@ controller_port = 3
 player_color = Color(0.847059, 0, 0.792157, 1)
 
 [node name="music" type="AudioStreamPlayer" parent="."]
-volume_db = -20.0
+volume_db = -25.0

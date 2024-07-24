@@ -33,7 +33,7 @@ func _ready():
 	paused = true
 	can_pause = false
 	in_call = true
-	await codec.play_file("res://epsilon/codec_calls/1.txt")
+	await codec.play_file("res://epsilon/codec_calls/3.txt")
 	await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
 	paused = true
 	can_pause = false

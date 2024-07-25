@@ -1634,7 +1634,7 @@ visible = false
 texture_filter = 1
 position = Vector2(0, -29)
 sprite_frames = SubResource("SpriteFrames_uh3ai")
-animation = &"fill"
+animation = &"alert"
 
 [node name="alert" type="Sprite2D" parent="."]
 visible = false

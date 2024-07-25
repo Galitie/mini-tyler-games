@@ -136,6 +136,9 @@ func LoadLevel(level_path: String, music_path: String, music_playback_pos: float
 	
 func _enemy_alerted() -> void:
 	if !alert:
+		for snake in get_tree().get_nodes_in_group("snakes"):
+			snake.can_be_revived = false
+		
 		$music.stream = encounter_theme
 		$music.play()
 		alert = true
@@ -148,6 +151,8 @@ func _enemy_lost_alert() -> void:
 				no_enemies_alerted = false
 				break
 		if no_enemies_alerted:
+			for snake in get_tree().get_nodes_in_group("snakes"):
+				snake.can_be_revived = true
 			alert = false
 			$music.stream = load(current_music_path)
 			$music.play()

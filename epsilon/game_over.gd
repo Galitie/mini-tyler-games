@@ -21,7 +21,7 @@ func GameOver() -> void:
 	$text_sfx.play()
 	await get_tree().create_timer(3.0).timeout
 	$codec_ring.play()
-	await get_tree().create_timer(0.6).timeout
+	await get_tree().create_timer(1.1).timeout
 	if counter < starting_counter - 1:
 		counter += 1
 	else:

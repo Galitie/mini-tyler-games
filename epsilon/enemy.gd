@@ -27,8 +27,12 @@ var on_alert: bool = false
 
 var target: Snake = null
 
-var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
-var pickup_scene: PackedScene = load("res://epsilon/pickup.tscn")
+var pistol_bullet_scene: PackedScene = preload("res://epsilon/pistol_bullet.tscn")
+var pickup_scene: PackedScene = preload("res://epsilon/pickup.tscn")
+
+var found_sfx = preload("res://epsilon/sound_effects/found.mp3")
+var drop_sfx = preload("res://epsilon/sound_effects/item_drop.wav")
+var pistol_sfx = preload("res://epsilon/sound_effects/pistol.mp3")
 
 @onready var map: TileMap = get_parent().get_parent()
 
@@ -156,6 +160,8 @@ func _physics_process(delta: float) -> void:
 						bullet.direction = GetVectorFromDirection(direction)
 						bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
 						map.add_child(bullet)
+						$sfx.stream = pistol_sfx
+						$sfx.play()
 						return
 			var current_frame: int = sprite.get_frame()
 			var current_progress: float = sprite.get_frame_progress()
@@ -199,6 +205,7 @@ func alert() -> void:
 	status.visible = true
 	status.play("alert", 1.0)
 	state = SoldierState.ALERTED
+	$sfx.stream = found_sfx
 	$sfx.play()
 	emit_signal("enemy_alerted")
 	
@@ -328,11 +335,13 @@ func _animation_finished() -> void:
 		elif rng_result >= 45 && rng_result <= 50:
 			pickup.pickup_type = Pickup.PickupType.STINGER
 		if pickup.pickup_type != Pickup.PickupType.NONE:
+			$sfx.stream = drop_sfx
+			$sfx.play()
 			map.add_child(pickup)
 		else:
 			pickup.queue_free()
 		z_index = -2
-		process_mode = Node.PROCESS_MODE_DISABLED
+		$collider.set_deferred("disabled", true)
 		await get_tree().create_timer(3.0).timeout
 		queue_free()
 		

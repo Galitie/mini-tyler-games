@@ -5,3 +5,4 @@ func _ready() -> void:
 
 func _on_timeout() -> void:
 	$anim_player.play("ping")
+	$sfx.play()

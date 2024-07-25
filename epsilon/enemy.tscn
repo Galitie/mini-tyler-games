@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://bc0ueryft07ta"]
+[gd_scene load_steps=99 format=3 uid="uid://bc0ueryft07ta"]
 
 [ext_resource type="Script" path="res://epsilon/enemy.gd" id="1_tcr05"]
 [ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="2_34k1a"]
@@ -45,7 +45,6 @@
 [ext_resource type="Texture2D" uid="uid://dqb1fao64fj4" path="res://epsilon/sprites/huh.png" id="25_7m2vs"]
 [ext_resource type="Texture2D" uid="uid://b4veoeleaawrn" path="res://epsilon/sprites/alert.png" id="30_s35b8"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="44_54xkb"]
-[ext_resource type="AudioStream" uid="uid://b1wfpunwe8ibi" path="res://epsilon/sound_effects/found.wav" id="46_lc1s1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hlkjx"]
 resource_local_to_scene = true
@@ -964,4 +963,3 @@ path_desired_distance = 1.0
 path_postprocessing = 1
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("46_lc1s1")

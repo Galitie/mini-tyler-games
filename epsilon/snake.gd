@@ -28,9 +28,16 @@ var direction: String = "u"
 enum SnakeState {IDLE, MOVE, BOX, HELPING, DRAW, DRAWN, PUNCH, SHOOT, DEAD}
 var state: SnakeState = SnakeState.IDLE
 
-var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
-var grenade_scene: PackedScene = load("res://epsilon/grenade.tscn")
-var stinger_missile_scene: PackedScene = load("res://epsilon/stinger_missile.tscn")
+var pistol_bullet_scene: PackedScene = preload("res://epsilon/pistol_bullet.tscn")
+var grenade_scene: PackedScene = preload("res://epsilon/grenade.tscn")
+var stinger_missile_scene: PackedScene = preload("res://epsilon/stinger_missile.tscn")
+
+var revive_sfx = preload("res://epsilon/sound_effects/revived.wav")
+var pistol_sfx = preload("res://epsilon/sound_effects/pistol.mp3")
+var grenade_draw_sfx = preload("res://epsilon/sound_effects/grenade_draw.wav")
+var stinger_draw_sfx = preload("res://epsilon/sound_effects/stinger_draw.wav")
+var stinger_shoot_sfx = preload("res://epsilon/sound_effects/stinger_shoot.wav")
+var cqc_sfx = preload("res://epsilon/sound_effects/cqc.wav")
 
 var map: TileMap = null
 
@@ -126,17 +133,23 @@ func _physics_process(delta: float) -> void:
 				weapon = "grenade"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				$sfx.stream = grenade_draw_sfx
+				$sfx.play()
 				return
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y) && stinger_ammo > 0:
 				weapon = "stinger"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				$sfx.stream = stinger_draw_sfx
+				$sfx.play()
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
 				if snake_to_be_helped && snake_to_be_helped.can_be_revived:
 					state = SnakeState.HELPING
 					return
 				else:
+					$sfx.stream = cqc_sfx
+					$sfx.play()
 					punch()
 					return
 			elif Controller.GetRightTrigger(controller_port) > 0.5:
@@ -155,17 +168,23 @@ func _physics_process(delta: float) -> void:
 				weapon = "grenade"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				$sfx.stream = grenade_draw_sfx
+				$sfx.play()
 				return
 			elif Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y) && stinger_ammo > 0:
 				weapon = "stinger"
 				sprite.play(weapon + "_" + "draw" + "_" + direction, 1.0)
 				state = SnakeState.DRAW
+				$sfx.stream = stinger_draw_sfx
+				$sfx.play()
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
 				if snake_to_be_helped && snake_to_be_helped.can_be_revived:
 					state = SnakeState.HELPING
 					return
 				else:
+					$sfx.stream = cqc_sfx
+					$sfx.play()
 					punch()
 					return
 			elif Controller.GetRightTrigger(controller_port) > 0.5:
@@ -201,6 +220,8 @@ func _physics_process(delta: float) -> void:
 				bullet.direction = GetVectorFromDirection(direction)
 				bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
 				map.add_child(bullet)
+				$sfx.stream = pistol_sfx
+				$sfx.play()
 			elif weapon == "grenade" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_B):
 				grenade_ammo -= 1
 				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
@@ -220,6 +241,8 @@ func _physics_process(delta: float) -> void:
 				stinger_missile.direction = GetVectorFromDirection(direction)
 				stinger_missile.position = position + Vector2(0, -4) + (stinger_missile.direction * 7)
 				map.add_child(stinger_missile)
+				$sfx.stream = stinger_shoot_sfx
+				$sfx.play()
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
 		SnakeState.DEAD:
@@ -274,6 +297,7 @@ func BeingHelped(delta: float) -> void:
 		$body.set_deferred("monitorable", true)
 		$collider.set_deferred("disabled", false)
 		$shadow.visible = true
+		$sfx.stream = revive_sfx
 		$sfx.play()
 
 func punch() -> void:

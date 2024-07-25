@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://drk81k7gsxe2q"]
+[gd_scene load_steps=17 format=3 uid="uid://drk81k7gsxe2q"]
 
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_pqp8y"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_rn3j1"]
 [ext_resource type="PackedScene" uid="uid://c4sp7heilpaiw" path="res://epsilon/mine.tscn" id="4_fqcqo"]
 [ext_resource type="Script" path="res://epsilon/trigger.gd" id="5_ljs8w"]
 [ext_resource type="Script" path="res://epsilon/sonar.gd" id="5_od4n5"]
+[ext_resource type="AudioStream" uid="uid://djnge862croct" path="res://epsilon/sound_effects/sonar.wav" id="6_cxcuo"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i3ddf"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -834,3 +835,6 @@ libraries = {
 [node name="timer" type="Timer" parent="sonar"]
 wait_time = 5.0
 autostart = true
+
+[node name="sfx" type="AudioStreamPlayer" parent="sonar"]
+stream = ExtResource("6_cxcuo")

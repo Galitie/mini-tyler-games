@@ -27,8 +27,11 @@ var on_alert: bool = false
 
 var target: Snake = null
 
-var pistol_bullet_scene: PackedScene = load("res://epsilon/pistol_bullet.tscn")
-var pickup_scene: PackedScene = load("res://epsilon/pickup.tscn")
+var pistol_bullet_scene: PackedScene = preload("res://epsilon/pistol_bullet.tscn")
+var pickup_scene: PackedScene = preload("res://epsilon/pickup.tscn")
+
+var found_sfx = preload("res://epsilon/sound_effects/found.mp3")
+var drop_sfx = preload("res://epsilon/sound_effects/item_drop.wav")
 
 @onready var map: TileMap = get_parent().get_parent()
 
@@ -199,6 +202,7 @@ func alert() -> void:
 	status.visible = true
 	status.play("alert", 1.0)
 	state = SoldierState.ALERTED
+	$sfx.stream = found_sfx
 	$sfx.play()
 	emit_signal("enemy_alerted")
 	
@@ -328,11 +332,13 @@ func _animation_finished() -> void:
 		elif rng_result >= 45 && rng_result <= 50:
 			pickup.pickup_type = Pickup.PickupType.STINGER
 		if pickup.pickup_type != Pickup.PickupType.NONE:
+			$sfx.stream = drop_sfx
+			$sfx.play()
 			map.add_child(pickup)
 		else:
 			pickup.queue_free()
 		z_index = -2
-		process_mode = Node.PROCESS_MODE_DISABLED
+		$collider.set_deferred("disabled", true)
 		await get_tree().create_timer(3.0).timeout
 		queue_free()
 		

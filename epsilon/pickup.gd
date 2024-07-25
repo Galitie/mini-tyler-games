@@ -9,6 +9,7 @@ enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD }
 var amount: int = 0
 
 func _ready() -> void:
+	$sfx.finished.connect(_sfx_finished)
 	body_entered.connect(_body_entered)
 	SetPickupType(pickup_type)
 	$sprite/description.text = "[center]" + str(PickupType.keys()[pickup_type]) + "[/center]"
@@ -42,4 +43,10 @@ func _body_entered(body: Node2D) -> void:
 			for door in doors:
 				if access_level == door.door_level:
 					door.locked = false
+					
+	set_deferred("monitoring", false)
+	visible = false
+	$sfx.play()
+	
+func _sfx_finished() -> void:
 	queue_free()

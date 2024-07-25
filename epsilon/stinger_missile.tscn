@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dd51upknvqq3o"]
+[gd_scene load_steps=18 format=3 uid="uid://dd51upknvqq3o"]
 
 [ext_resource type="Script" path="res://epsilon/stinger_missile.gd" id="1_bgqw4"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="2_l6o41"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c7bb8xvf7jkkb" path="res://epsilon/sprites/stinger_right.png" id="10_7v7v2"]
 [ext_resource type="Texture2D" uid="uid://b4f44rpvjrnas" path="res://epsilon/sprites/stinger_up.png" id="11_w62x2"]
 [ext_resource type="Texture2D" uid="uid://cwkoth1uqqo57" path="res://epsilon/sprites/stinger_up_right.png" id="12_gwl0q"]
+[ext_resource type="AudioStream" uid="uid://c5gwk7o8jhtqp" path="res://epsilon/sound_effects/explosion.mp3" id="13_n6eaq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxl17"]
 size = Vector2(4, 4)
@@ -148,3 +149,6 @@ position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ee4xw")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_n6eaq")

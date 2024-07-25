@@ -45,7 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://dqb1fao64fj4" path="res://epsilon/sprites/huh.png" id="25_7m2vs"]
 [ext_resource type="Texture2D" uid="uid://b4veoeleaawrn" path="res://epsilon/sprites/alert.png" id="30_s35b8"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="44_54xkb"]
-[ext_resource type="AudioStream" uid="uid://b1wfpunwe8ibi" path="res://epsilon/sound_effects/found.wav" id="46_lc1s1"]
+[ext_resource type="AudioStream" path="res://epsilon/sound_effects/found.wav" id="46_lc1s1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hlkjx"]
 resource_local_to_scene = true

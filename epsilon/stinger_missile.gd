@@ -21,6 +21,7 @@ func _ready():
 	$explosion.area_entered.connect(_area_entered)
 	$body.area_entered.connect(_body_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
+	$sfx.finished.connect(_sfx_finished)
 
 func _physics_process(delta: float) -> void:
 	if !exploding:
@@ -104,6 +105,7 @@ func explode() -> void:
 	$sprite.play("explode")
 	$shadow.visible = false
 	exploding = true
+	$sfx.play()
 		
 func _wall_hit(body: Node2D) -> void:
 	emitter.state = Snake.SnakeState.IDLE
@@ -115,6 +117,10 @@ func _area_entered(area: Area2D) -> void:
 		entity.hit(emitter, DAMAGE)
 
 func _animation_finished() -> void:
+	$explosion.set_deferred("monitoring", false)
+	$sprite.visible = false
+	
+func _sfx_finished() -> void:
 	queue_free()
 
 func _screen_exited() -> void:

@@ -5,6 +5,8 @@ const DAMAGE: int = 3
 var revealed: bool = false
 
 func _ready():
+	await get_tree().process_frame
+	
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	var rng_result = rng.randi_range(0, 1)
 	revealed = rng_result
@@ -13,6 +15,7 @@ func _ready():
 	area_entered.connect(_area_entered)
 	$explosion.area_entered.connect(_area_entered_explosion)
 	$sprite.animation_finished.connect(_animation_finished)
+	$sfx.finished.connect(_sfx_finished)
 	
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("entities"):
@@ -23,6 +26,7 @@ func _body_entered(body: Node2D) -> void:
 		$sprite.play("explode")
 		set_deferred("monitoring", false)
 		$explosion.set_deferred("monitoring", true)
+		$sfx.play()
 		
 func _area_entered(area: Area2D) -> void:
 	if revealed:
@@ -38,4 +42,8 @@ func _area_entered_explosion(area: Area2D) -> void:
 		entity.hit(entity, DAMAGE)
 
 func _animation_finished() -> void:
+	$explosion.set_deferred("monitoring", false)
+	$sprite.visible = false
+	
+func _sfx_finished() -> void:
 	queue_free()

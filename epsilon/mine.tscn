@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4sp7heilpaiw"]
+[gd_scene load_steps=15 format=3 uid="uid://c4sp7heilpaiw"]
 
 [ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="1_b0oui"]
 [ext_resource type="Script" path="res://epsilon/mine.gd" id="1_n602i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="4_jfo06"]
 [ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="5_ly12v"]
 [ext_resource type="Texture2D" uid="uid://o6y83vpuy7se" path="res://epsilon/sprites/ping_0.png" id="7_w2atx"]
+[ext_resource type="AudioStream" uid="uid://c5gwk7o8jhtqp" path="res://epsilon/sound_effects/explosion.mp3" id="8_8gc8l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oa72i"]
 size = Vector2(8, 8)
@@ -108,3 +109,6 @@ texture = ExtResource("7_w2atx")
 libraries = {
 "": SubResource("AnimationLibrary_4msvl")
 }
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_8gc8l")

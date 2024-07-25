@@ -52,6 +52,7 @@ var grenade_ammo: int = STARTING_GRENADE_AMMO
 var stinger_ammo: int = STARTING_STINGER_AMMO
 
 var revive: float = 0
+var can_be_revived: bool = true
 var revive_max_time: float = 3.0
 var snake_to_be_helped: Snake = null
 
@@ -73,6 +74,8 @@ func Reset(_revive: bool) -> void:
 	sprite.play("idle_u")
 	direction = "u"
 	revive = 0.0
+	z_index = 0
+	can_be_revived = true
 	$help.visible = false
 	$body.set_deferred("monitorable", true)
 	$shadow.visible = true
@@ -137,7 +140,7 @@ func _physics_process(delta: float) -> void:
 				state = SnakeState.DRAW
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
-				if snake_to_be_helped:
+				if snake_to_be_helped && snake_to_be_helped.can_be_revived:
 					state = SnakeState.HELPING
 					return
 				else:
@@ -166,7 +169,7 @@ func _physics_process(delta: float) -> void:
 				state = SnakeState.DRAW
 				return
 			elif Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
-				if snake_to_be_helped:
+				if snake_to_be_helped && snake_to_be_helped.can_be_revived:
 					state = SnakeState.HELPING
 					return
 				else:
@@ -227,6 +230,7 @@ func _physics_process(delta: float) -> void:
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
 		SnakeState.DEAD:
+			$help.visible = can_be_revived
 			velocity = Vector2.ZERO
 		SnakeState.BOX:
 			$shadow.visible = false

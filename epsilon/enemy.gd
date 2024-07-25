@@ -321,11 +321,11 @@ func _animation_finished() -> void:
 		pickup.global_position = global_position
 		var rng = RandomNumberGenerator.new()
 		var rng_result = rng.randi_range(1, 50)
-		if rng_result >= 1 && rng_result < 30:
+		if rng_result >= 25 && rng_result < 40:
 			pickup.pickup_type = Pickup.PickupType.PISTOL
-		elif rng_result >= 30 && rng_result < 40:
+		elif rng_result >= 40 && rng_result < 45:
 			pickup.pickup_type = Pickup.PickupType.GRENADE
-		elif rng_result >= 40 && rng_result <= 50:
+		elif rng_result >= 45 && rng_result <= 50:
 			pickup.pickup_type = Pickup.PickupType.STINGER
 		if pickup.pickup_type != Pickup.PickupType.NONE:
 			map.add_child(pickup)

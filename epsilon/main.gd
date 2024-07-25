@@ -27,7 +27,7 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	#await LoadLevel(current_level_path)
+	#await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
 	
 	await get_tree().process_frame
 	paused = true

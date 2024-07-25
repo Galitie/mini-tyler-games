@@ -384,7 +384,7 @@ collision_layer = 0
 monitoring = false
 monitorable = false
 script = ExtResource("5_ljs8w")
-path = "res://epsilon/levels/level_1.tscn"
+path = "res://epsilon/levels/level_2.tscn"
 music_path = "res://epsilon/music/intruder2.mp3"
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]

@@ -506,7 +506,7 @@ collision_layer = 0
 monitoring = false
 monitorable = false
 script = ExtResource("5_21fp5")
-path = "res://epsilon/levels/level_2.tscn"
+path = "res://epsilon/levels/level_3.tscn"
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")

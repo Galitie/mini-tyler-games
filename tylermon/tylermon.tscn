@@ -266,6 +266,6 @@ layout_mode = 2
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_suxut")
-volume_db = -7.0
+volume_db = -10.0
 
 [connection signal="timeout" from="round_timer" to="." method="_on_round_timer_timeout"]

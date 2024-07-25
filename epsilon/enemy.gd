@@ -333,6 +333,8 @@ func _animation_finished() -> void:
 			pickup.queue_free()
 		z_index = -2
 		process_mode = Node.PROCESS_MODE_DISABLED
+		await get_tree().create_timer(3.0).timeout
+		queue_free()
 		
 func _status_animation_finished() -> void:
 	if state == SoldierState.ALERTED:

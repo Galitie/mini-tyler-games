@@ -141,7 +141,7 @@ func set_state(state):
 		State.WALK_RANDOM:
 			sprite.play("move")
 			hat.play("move")
-			chance_to_say_phrase(cursed_phrases, 3)
+			chance_to_say_phrase(cursed_phrases, 4)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
 		State.BASIC_ATTACK:
@@ -191,7 +191,7 @@ func set_state(state):
 			_on_attack_timer_timeout()
 			hurt_box.get_child(0).disabled = true
 			play_audio(death_sounds)
-			chance_to_say_phrase(cursed_phrases, 4)
+			chance_to_say_phrase(cursed_phrases, 1)
 			hat.play("knocked_out")
 			sprite.play("just_knocked_out")
 			timer.stop()
@@ -255,7 +255,7 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 
 		State.PLAYER_COMMAND:
-			chance_to_say_phrase(cursed_phrases, 1)
+			chance_to_say_phrase(cursed_phrases, 4)
 			set_state(current_player_command)
 			
 	if state == State.PLAYER_COMMAND:
@@ -334,7 +334,6 @@ func check_how_many_other_mons_knocked_out():
 
 func _on_hurt_box_area_entered(area):
 	if area == basic_atk_box or area == special_atk_box : return
-	#chance_to_say_phrase(hurt_phrases, 2)
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent().get_parent()
@@ -378,9 +377,9 @@ func damage(mon, modifier: float, effect):
 
 func chance_to_say_phrase(array, chance : int):
 	var rand_num = randi_range(1,chance)
-	if cursed:
+	if cursed && rand_num == 1:
 		var rand_phrase = cursed_phrases.pick_random()
-		phrase.get_node("phrase_timer").start(2)
+		phrase.get_node("phrase_timer").start(3)
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""

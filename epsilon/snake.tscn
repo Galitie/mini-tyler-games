@@ -1631,6 +1631,8 @@ texture = ExtResource("145_yk602")
 
 [node name="help" type="AnimatedSprite2D" parent="."]
 visible = false
+z_index = 2
+z_as_relative = false
 texture_filter = 1
 position = Vector2(0, -29)
 sprite_frames = SubResource("SpriteFrames_uh3ai")

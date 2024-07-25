@@ -140,11 +140,11 @@ const GODOT_COLORS = [
 ]
 signal set_element
 
+
 func _ready():
 	player_label.text = player_name
 	get_mon()
-	get_player()
-	
+	get_player()	
 
 
 func _process(delta):

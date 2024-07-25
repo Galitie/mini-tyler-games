@@ -234,13 +234,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
-resource_local_to_scene = true
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
-resource_local_to_scene = true
-radius = 5.76907
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_4inlb"]
 animations = [{
 "frames": [{
@@ -400,6 +393,13 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
+resource_local_to_scene = true
+radius = 5.76907
+
 [sub_resource type="Animation" id="Animation_lk8iw"]
 resource_name = "damage_amount"
 tracks/0/type = "value"
@@ -506,6 +506,12 @@ sprite_frames = SubResource("SpriteFrames_scvj0")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="witch_hat" type="AnimatedSprite2D" parent="scalable_nodes"]
+visible = false
+position = Vector2(-11, -41)
+sprite_frames = SubResource("SpriteFrames_4inlb")
+animation = &"dead"
+
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
 rotation = -0.0788491
 collision_layer = 0
@@ -553,12 +559,6 @@ position = Vector2(0, 48)
 emitting = false
 explosiveness = 0.04
 randomness = 0.03
-
-[node name="witch_hat" type="AnimatedSprite2D" parent="scalable_nodes"]
-visible = false
-position = Vector2(-11, -41)
-sprite_frames = SubResource("SpriteFrames_4inlb")
-animation = &"idle"
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0

@@ -102,6 +102,8 @@ func _body_area_entered(area: Area2D) -> void:
 func explode() -> void:
 	set_deferred("monitoring", false)
 	$explosion.set_deferred("monitoring", true)
+	$body.set_deferred("monitorable", false)
+	$body.set_deferred("monitoring", false)
 	$sprite.play("explode")
 	$shadow.visible = false
 	exploding = true

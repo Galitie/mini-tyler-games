@@ -32,6 +32,7 @@ var pickup_scene: PackedScene = preload("res://epsilon/pickup.tscn")
 
 var found_sfx = preload("res://epsilon/sound_effects/found.mp3")
 var drop_sfx = preload("res://epsilon/sound_effects/item_drop.wav")
+var pistol_sfx = preload("res://epsilon/sound_effects/pistol.mp3")
 
 @onready var map: TileMap = get_parent().get_parent()
 
@@ -159,6 +160,8 @@ func _physics_process(delta: float) -> void:
 						bullet.direction = GetVectorFromDirection(direction)
 						bullet.position = position + Vector2(0, -2) + (bullet.direction * 6)
 						map.add_child(bullet)
+						$sfx.stream = pistol_sfx
+						$sfx.play()
 						return
 			var current_frame: int = sprite.get_frame()
 			var current_progress: float = sprite.get_frame_progress()

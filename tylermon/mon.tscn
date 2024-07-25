@@ -706,6 +706,7 @@ libraries = {
 }
 
 [node name="audio_player" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
 
 [connection signal="area_entered" from="scalable_nodes/hurt_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]

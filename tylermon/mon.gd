@@ -8,6 +8,7 @@ var intelligence: int = 1
 var strength: int = 1
 var strength_mod: float = .20
 var elm_type = "NONE"
+var possible_elm_types = ["FIRE", "WATER", "GRASS"]
 var current_state
 var destination : Vector2
 var default_z_index = 0
@@ -103,7 +104,7 @@ var block_sound = ["res://tylermon/sfx/block.wav"]
 func _ready():
 	phrase.text = ""
 	set_state(State.IDLE)
-	#get_parent().connect("send_command", get_command)
+	set_starting_element()
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
 	get_parent().get_parent().connect("set_element", show_element_effect)
@@ -336,12 +337,10 @@ func _on_hurt_box_area_entered(area):
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent().get_parent()
-		if elm_type == "WATER" && attacking_mon.elm_type == "GRASS" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "GRASS" && attacking_mon.elm_type == "FIRE":
-			damage(attacking_mon, 1.25, "super")
+		if elm_type == "WATER" && attacking_mon.elm_type == "GRASS" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "GRASS" && attacking_mon.elm_type == "FIRE" or elm_type == "NONE" && attacking_mon.elm_type != "NONE":
+			damage(attacking_mon, 1.50, "super")
 		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "GRASS"  or elm_type == "GRASS" && attacking_mon.elm_type == "WATER":
 			damage(attacking_mon, .85, "not")
-		elif elm_type == "NONE" && attacking_mon.elm_type != "NONE":
-			damage(attacking_mon, 1.25, "super")
 		else:
 			damage(attacking_mon, 1, null)
 	health_label.text = str(health)
@@ -529,3 +528,7 @@ func play_audio(arr):
 	var audio = load(arr.pick_random())
 	audio_player.stream = audio
 	audio_player.play()
+
+func set_starting_element():
+	elm_type = possible_elm_types.pick_random()
+	show_element_effect(elm_type)

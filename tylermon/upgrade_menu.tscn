@@ -98,7 +98,7 @@ focus_neighbor_top = NodePath("../../hbox3/int")
 focus_neighbor_bottom = NodePath("../../hbox7/gamble")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "♻️ Change Element Type"
+text = "♻️ Change element type"
 alignment = 0
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]

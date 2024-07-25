@@ -1,8 +1,13 @@
 extends Control
 
-@onready var player_label = $margin/vbox/Label
+@onready var player_label = $margin/vbox/vbox2/Label
 @export var player_name : String
 var mon
+var player
+var upgrade_options: Array = ["color", "elm_type"]
+var upgrade_position: int = 0
+var moved_stick: bool = false
+@onready var cursor = $cursor
 # List of all constant Godot colors with uppercase names
 const GODOT_COLORS = [
 	Color.ALICE_BLUE,
@@ -133,23 +138,56 @@ const GODOT_COLORS = [
 	Color.YELLOW,
 	Color.YELLOW_GREEN
 ]
+signal set_element
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	player_label.text = player_name
 	get_mon()
+	get_player()
+	
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Controller.IsControllerButtonJustPressed(mon.get_parent().controller_port, JOY_BUTTON_A):
-		_on_button_pressed()
+	var vertical_input: float = round(Controller.GetLeftStick(player.controller_port).y)
+	if !vertical_input:
+		moved_stick = false
+	if !moved_stick:
+		if vertical_input > 0:
+			upgrade_position += 1
+			cursor.position.y += 35
+			moved_stick = true
+		elif vertical_input < 0:
+			upgrade_position -= 1
+			cursor.position.y -= 35
+			moved_stick = true
+	if upgrade_position >= upgrade_options.size():
+		upgrade_position = 0
+		cursor.position.y = 20
+	elif upgrade_position < 0:
+		upgrade_position = upgrade_options.size() - 1
+		cursor.position.y = 58
+	if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
+		_on_button_pressed(upgrade_options[upgrade_position])
 
 func get_mon():
 	mon = get_parent()
 
+func get_player():
+	player = mon.get_parent()
 
-func _on_button_pressed():
-	var random_color = GODOT_COLORS.pick_random()
-	mon.custom_color = random_color
+func _on_button_pressed(button_name):
+	match button_name:
+		"color":
+			var random_color = GODOT_COLORS.pick_random()
+			mon.custom_color = random_color
+		"elm_type":
+			match mon.elm_type:				
+				"FIRE":
+					mon.elm_type = "WATER"
+					mon.show_element_effect("WATER")
+				"WATER":
+					mon.elm_type = "GRASS"
+					mon.show_element_effect("GRASS")
+				"GRASS":
+					mon.elm_type = "FIRE"
+					mon.show_element_effect("FIRE")

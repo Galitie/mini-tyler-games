@@ -20,24 +20,36 @@ offset_bottom = 40.0
 
 [node name="vbox" type="VBoxContainer" parent="margin"]
 layout_mode = 2
+theme_override_constants/separation = 9
 
-[node name="Label" type="Label" parent="margin/vbox"]
+[node name="vbox2" type="VBoxContainer" parent="margin/vbox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="margin/vbox/vbox2"]
 layout_mode = 2
 theme = ExtResource("1_ehhrm")
 text = "Player #"
 
-[node name="Button" type="Button" parent="margin/vbox"]
+[node name="color" type="Button" parent="margin/vbox"]
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("1_ehhrm")
-text = "🎨 Change Color"
+text = "🎨 Change color"
+alignment = 0
+
+[node name="elm_type" type="Button" parent="margin/vbox"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_ehhrm")
+text = "♻️ Change element"
+alignment = 0
 
 [node name="cursor" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -45.0
-offset_top = 16.0
+offset_top = 21.0
 offset_right = -5.0
-offset_bottom = 56.0
+offset_bottom = 61.0
 texture = ExtResource("3_yeq46")
 
-[connection signal="pressed" from="margin/vbox/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="margin/vbox/color" to="." method="_on_button_pressed" binds= [&"color"]]

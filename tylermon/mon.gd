@@ -105,10 +105,11 @@ func _ready():
 	phrase.text = ""
 	set_state(State.IDLE)
 	set_starting_element()
+	toggle_particle(true)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
 	get_parent().get_parent().connect("set_element", show_element_effect)
-
+	
 
 func _physics_process(delta):
 	if health <= 0 and current_state != State.KNOCKED_OUT:

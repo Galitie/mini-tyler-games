@@ -51,7 +51,6 @@ var pistol_ammo: int = STARTING_PISTOL_AMMO
 var grenade_ammo: int = STARTING_GRENADE_AMMO
 var stinger_ammo: int = STARTING_STINGER_AMMO
 
-var being_helped: bool = false
 var revive: float = 0
 var revive_max_time: float = 3.0
 var snake_to_be_helped: Snake = null
@@ -69,17 +68,18 @@ func _ready() -> void:
 	$punch_area.area_entered.connect(_area_entered_punch)
 	$help.visible = false
 	
-func Reset(revive: bool) -> void:
+func Reset(_revive: bool) -> void:
 	state = SnakeState.IDLE
 	sprite.play("idle_u")
 	direction = "u"
+	revive = 0.0
 	$help.visible = false
 	$body.set_deferred("monitorable", true)
 	$shadow.visible = true
 	$help_area.set_deferred("monitorable", false)
 	$collider.set_deferred("disabled", false)
 	
-	if revive:
+	if _revive:
 		hp = MAX_HP
 		pistol_ammo = STARTING_PISTOL_AMMO
 		stinger_ammo = STARTING_STINGER_AMMO
@@ -227,24 +227,6 @@ func _physics_process(delta: float) -> void:
 		SnakeState.SHOOT:
 			velocity = Vector2.ZERO
 		SnakeState.DEAD:
-			if being_helped:
-				revive += 1.0 * delta
-				$help.play("fill", $help.sprite_frames.get_frame_count("fill") / revive_max_time)
-				if revive > revive_max_time:
-					$help.visible = false
-					state = SnakeState.IDLE
-					$help_area.set_deferred("monitorable", false)
-					revive = 0.0
-					being_helped = false
-					z_index = 0
-					hp = MAX_HP
-					$body.set_deferred("monitorable", true)
-					$collider.set_deferred("disabled", false)
-					$shadow.visible = true
-					$sfx.play()
-			else:
-				revive = 0.0
-				$help.play("empty")
 			velocity = Vector2.ZERO
 		SnakeState.BOX:
 			$shadow.visible = false
@@ -266,11 +248,11 @@ func _physics_process(delta: float) -> void:
 		SnakeState.HELPING:
 			sprite.play("helping")
 			velocity = Vector2.ZERO
-			snake_to_be_helped.being_helped = true
+			snake_to_be_helped.BeingHelped(delta)
 			if Controller.IsControllerButtonJustReleased(controller_port, JOY_BUTTON_A):
-				snake_to_be_helped.being_helped = false
+				snake_to_be_helped.get_node("help").play("empty")
+				snake_to_be_helped.revive = 0.0
 				state = SnakeState.IDLE
-				return
 				
 	move_and_slide()
 	
@@ -281,7 +263,22 @@ func _physics_process(delta: float) -> void:
 		var camera_height: float = get_viewport_rect().end.y / camera.zoom.y
 		global_position.x = clampf(global_position.x, screen_center.x + 10 - camera_width / 2, screen_center.x - 10 + camera_width / 2)
 		global_position.y = clampf(global_position.y, screen_center.y + 20 - camera_height / 2, screen_center.y + camera_height / 2)
-			
+
+func BeingHelped(delta: float) -> void:
+	revive += 1.0 * delta
+	$help.play("fill", $help.sprite_frames.get_frame_count("fill") / revive_max_time)
+	if revive > revive_max_time:
+		$help.visible = false
+		state = SnakeState.IDLE
+		$help_area.set_deferred("monitorable", false)
+		revive = 0.0
+		z_index = 0
+		hp = MAX_HP
+		$body.set_deferred("monitorable", true)
+		$collider.set_deferred("disabled", false)
+		$shadow.visible = true
+		$sfx.play()
+
 func punch() -> void:
 	sprite.play("cqc" + "_" + direction, 1.0)
 	state = SnakeState.PUNCH
@@ -303,7 +300,7 @@ func hit(emitter, damage: int) -> void:
 			$help_area.set_deferred("monitorable", true)
 			$help.play("empty")
 			if snake_to_be_helped:
-				snake_to_be_helped.being_helped = false
+				snake_to_be_helped = null
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:

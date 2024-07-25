@@ -27,13 +27,13 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	#await LoadLevel(current_level_path)
+	#await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
 	
 	await get_tree().process_frame
 	paused = true
 	can_pause = false
 	in_call = true
-	await codec.play_file("res://epsilon/codec_calls/0.txt")
+	await codec.play_file("res://epsilon/codec_calls/1.txt")
 	await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
 	paused = true
 	can_pause = false
@@ -71,9 +71,11 @@ func _codec_triggered(call_path: String, music_path: String) -> void:
 	ui_audio.play()
 	await ui_audio.finished
 	ui_anim.play("fade_out")
+	$music.volume_db = -20
 	await ui_anim.animation_finished
 	await codec.play_file(call_path)
 	ui_anim.play("fade_in")
+	$music.volume_db = -15
 	await ui_anim.animation_finished
 	paused = false
 	in_call = false

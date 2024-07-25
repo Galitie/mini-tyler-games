@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4sp7heilpaiw"]
+[gd_scene load_steps=14 format=3 uid="uid://c4sp7heilpaiw"]
 
 [ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="1_b0oui"]
 [ext_resource type="Script" path="res://epsilon/mine.gd" id="1_n602i"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b4a88xbaa8t4u" path="res://epsilon/sprites/explosion_2.png" id="3_3fg2t"]
 [ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="4_jfo06"]
 [ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="5_ly12v"]
+[ext_resource type="Texture2D" uid="uid://o6y83vpuy7se" path="res://epsilon/sprites/ping_0.png" id="7_w2atx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oa72i"]
 size = Vector2(8, 8)
@@ -36,12 +37,45 @@ animations = [{
 "speed": 25.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c14ik"]
-size = Vector2(16, 16)
+[sub_resource type="Animation" id="Animation_6qe1p"]
+resource_name = "ping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ping:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vfuxx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ping:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4msvl"]
+_data = {
+"RESET": SubResource("Animation_vfuxx"),
+"ping": SubResource("Animation_6qe1p")
+}
 
 [node name="mine" type="Area2D"]
-collision_layer = 256
-monitorable = false
+collision_layer = 0
+collision_mask = 257
 script = ExtResource("1_n602i")
 
 [node name="collider" type="CollisionShape2D" parent="."]
@@ -63,10 +97,14 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_6ml2l")
 animation = &"explode"
 
-[node name="danger_zone" type="Area2D" parent="."]
-collision_layer = 256
-collision_mask = 0
-monitoring = false
+[node name="ping" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+z_as_relative = false
+texture_filter = 1
+texture = ExtResource("7_w2atx")
 
-[node name="collider" type="CollisionShape2D" parent="danger_zone"]
-shape = SubResource("RectangleShape2D_c14ik")
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4msvl")
+}

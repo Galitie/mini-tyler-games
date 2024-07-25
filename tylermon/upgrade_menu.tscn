@@ -80,7 +80,7 @@ focus_neighbor_top = NodePath("../../hbox2/str")
 focus_neighbor_bottom = NodePath("../../hbox5/type")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "🧠 Think thoughts"
+text = "🧠 Git smarter"
 alignment = 0
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]
@@ -98,7 +98,7 @@ focus_neighbor_top = NodePath("../../hbox3/int")
 focus_neighbor_bottom = NodePath("../../hbox7/gamble")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = " ♻️ Rock Paper Scissors"
+text = "♻️ Change Element Type"
 alignment = 0
 
 [node name="stat4" type="Label" parent="margin/hbox/buttons/hbox5"]

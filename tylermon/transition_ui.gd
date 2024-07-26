@@ -67,6 +67,7 @@ func build_nodes(winners):
 		var label = Label.new()
 		var image_mon = TextureRect.new()
 		var image_hat = TextureRect.new()
+		var image_glasses = TextureRect.new()
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
@@ -78,9 +79,13 @@ func build_nodes(winners):
 		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		if winner.get_child(0).cursed == true:
-			var sprite_frame_hat = winner.get_child(0).get_node("scalable_nodes").get_child(1).get_sprite_frames()
+			var sprite_frame_hat = winner.get_child(0).get_node("scalable_nodes").get_child(2).get_sprite_frames()
 			image_hat.texture = sprite_frame_hat.get_frame_texture("idle",0)
 			images.add_child(image_hat)
+		if winner.get_child(0).smart == true:
+			var sprite_frame_glasses = winner.get_child(0).get_node("scalable_nodes").get_child(1).get_sprite_frames()
+			image_glasses.texture = sprite_frame_glasses.get_frame_texture("idle",0)
+			images.add_child(image_glasses)
 		vbox.add_child(label)
 		vbox.add_child(images)
 		vbox.set("theme_override_constants/separation", -60)
@@ -102,6 +107,7 @@ func build_losers_nodes(winners):
 		var label = Label.new()
 		var image_mon = TextureRect.new()
 		var image_hat = TextureRect.new()
+		var image_glasses = TextureRect.new()
 		var sprite_frame = loser.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		var texture = sprite_frame.get_frame_texture("idle",0)
 		images.texture = texture
@@ -120,12 +126,19 @@ func build_losers_nodes(winners):
 		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		if loser.get_child(0).cursed == true:
-			var sprite_frame_hat = loser.get_child(0).get_node("scalable_nodes").get_child(1).get_sprite_frames()
+			var sprite_frame_hat = loser.get_child(0).get_node("scalable_nodes").get_child(2).get_sprite_frames()
 			image_hat.texture = sprite_frame_hat.get_frame_texture("idle",0)
 			image_hat.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			image_hat.custom_minimum_size = Vector2(100,100)
 			image_hat.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 			images.add_child(image_hat)
+		if loser.get_child(0).smart == true:
+			var sprite_frame_glasses = loser.get_child(0).get_node("scalable_nodes").get_child(1).get_sprite_frames()
+			image_glasses.texture = sprite_frame_glasses.get_frame_texture("idle",0)
+			image_glasses.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			image_glasses.custom_minimum_size = Vector2(100,100)
+			image_glasses.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+			images.add_child(image_glasses)
 		vbox.add_child(label)
 		vbox.add_child(images)
 		vbox.set("theme_override_constants/separation", -20)

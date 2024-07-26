@@ -115,6 +115,10 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			mon.intelligence += 1
 			emit_signal("upgraded", "good")
+			if mon.intelligence >= 10 && mon.smart == false:
+				mon.smart = true
+				mon.glasses.visible = true
+				
 		"gamble":
 			points_to_spend -= 1
 			gamble()

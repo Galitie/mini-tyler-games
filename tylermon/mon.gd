@@ -141,9 +141,7 @@ func _on_timer_timeout():
 func set_state(state):
 	match state:
 		State.WALK_RANDOM:
-			sprite.play("move")
-			hat.play("move")
-			glasses.play("move")
+			play_anims("move")
 			chance_to_say_phrase(cursed_phrases, 4)
 			destination = Vector2(randi_range(100,1000), randi_range(100, 500))
 		
@@ -152,9 +150,7 @@ func set_state(state):
 			velocity = Vector2()
 			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
-			sprite.play("basic_atk")
-			hat.play("basic_atk")
-			glasses.play("basic_atk")
+			play_anims("basic_atk")
 			play_audio(basic_attack_sound)
 			basic_atk_box.get_child(0).disabled = false
 			attack_timer.start(.2)
@@ -163,9 +159,7 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			timer.paused = true
 			velocity = Vector2()
-			hat.play("charge")
-			glasses.play("charge")
-			sprite.play("charge")
+			play_anims("charge")
 			play_audio(charge_sound)
 			charge_timer.start(2)
 			z_index = default_z_index + 1
@@ -175,9 +169,7 @@ func set_state(state):
 			velocity = Vector2()
 			chance_to_say_phrase(cursed_phrases, 4)
 			z_index = default_z_index + 1
-			hat.play("special_atk")
-			glasses.play("special_atk")
-			sprite.play("special_atk")
+			play_anims("special_atk")
 			play_audio(special_sound)
 			var special_attack = special_atk_box.get_children()
 			for hitbox in special_attack:
@@ -187,9 +179,7 @@ func set_state(state):
 		State.IDLE:
 			audio_player.stop()
 			chance_to_say_phrase(cursed_phrases, 4)
-			hat.play("idle")
-			glasses.play("idle")
-			sprite.play("idle")
+			play_anims("idle")
 			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
@@ -199,9 +189,7 @@ func set_state(state):
 			hurt_box.get_child(0).disabled = true
 			play_audio(death_sounds)
 			chance_to_say_phrase(cursed_phrases, 1)
-			hat.play("knocked_out")
-			glasses.play("knocked_out")
-			sprite.play("just_knocked_out")
+			play_anims("knocked_out")
 			timer.stop()
 			z_index = default_z_index - 2
 			get_node("collision").disabled = true
@@ -216,44 +204,32 @@ func set_state(state):
 			$knockout_timer.start(1.25)
 
 		State.TARGET_AND_GO:
-			sprite.play("move")
-			hat.play("move")
-			glasses.play("move")
+			play_anims("move")
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 				audio_player.stop()
-				hat.play("idle")
-				glasses.play("idle")
-				sprite.play("idle")
+				play_anims("idle")
 			else:
 				destination = random_mon.position
 		
 		State.TARGET_AND_ATTACK:
-			sprite.play("move")
-			hat.play("move")
-			glasses.play("move")
+			play_anims("move")
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 				audio_player.stop()
-				hat.play("idle")
-				glasses.play("idle")
-				sprite.play("idle")
+				play_anims("idle")
 			else:
 				destination = random_mon.position
 
 		State.TARGET_AND_SPECIAL:
-			sprite.play("move")
-			hat.play("move")
-			glasses.play("move")
+			play_anims("move")
 			chance_to_say_phrase(cursed_phrases, 4)
 			var random_mon = get_other_random_mon()
 			if random_mon == null:
 				audio_player.stop()
-				hat.play("idle")
-				glasses.play("idle")
-				sprite.play("idle")
+				play_anims("idle")
 			else:
 				destination = random_mon.position
 		
@@ -262,9 +238,7 @@ func set_state(state):
 			play_audio(block_sound)
 			velocity = Vector2()
 			block_timer.start(2)
-			hat.play("block")
-			sprite.play("block")
-			glasses.play("block")
+			play_anims("block")
 			timer.paused = true
 			z_index = default_z_index + 1
 			hurt_box.get_child(0).disabled = true
@@ -363,9 +337,7 @@ func _on_hurt_box_area_entered(area):
 	velocity = Vector2()
 	play_audio(hurt_sounds)
 	anim_player.play("hurt")
-	hat.play("hurt")
-	glasses.play("hurt")
-	sprite.play("hurt")
+	play_anims("hurt")
 	if health <= roundi(max_health * .25):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
 
@@ -437,9 +409,7 @@ func switch_round_modes(fight_time):
 		set_state(State.IDLE)
 		timer.stop()
 		hp_bar.visible = true
-		hat.play("upgrade_idle")
-		glasses.play("upgrade_idle")
-		sprite.play("upgrade_idle")
+		play_anims("upgrade_idle")
 		health = max_health
 		health_label.text = str(max_health)
 		hp_bar.max_value = max_health
@@ -500,14 +470,10 @@ func _on_charge_timer_timeout():
 
 func upgrade_react(reaction):
 	if reaction == "good":
-		hat.play("upgrade_good")
-		glasses.play("upgrade_good")
-		sprite.play("upgrade_react_good")
+		play_anims("upgrade_good")
 		play_audio(happy_sounds)
 	if reaction == "bad":
-		hat.play("upgrade_bad")
-		glasses.play("upgrade_bad")
-		sprite.play("upgrade_react_bad")
+		play_anims("upgrade_bad")
 		play_audio(hurt_sounds)
 
 
@@ -541,9 +507,7 @@ func _on_knockout_timer_timeout():
 
 
 func _on_dead_anim_timer_timeout():
-	sprite.play("dead")
-	hat.play("dead")
-	glasses.play("dead")
+	play_anims("dead")
 
 
 func play_audio(arr):
@@ -554,3 +518,8 @@ func play_audio(arr):
 func set_starting_element():
 	elm_type = possible_elm_types.pick_random()
 	show_element_effect(elm_type)
+
+func play_anims(anim_name):
+	sprite.play(anim_name)
+	hat.play(anim_name)
+	glasses.play(anim_name)

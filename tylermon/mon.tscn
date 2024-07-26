@@ -173,7 +173,7 @@ animations = [{
 "texture": ExtResource("18_7kvut")
 }],
 "loop": false,
-"name": &"just_knocked_out",
+"name": &"knocked_out",
 "speed": 5.0
 }, {
 "frames": [{
@@ -212,14 +212,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_ph7ik")
-}],
-"loop": true,
-"name": &"upgrade_idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("2_2adcg")
 }, {
 "duration": 1.0,
@@ -235,7 +227,7 @@ animations = [{
 "texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
-"name": &"upgrade_react_bad",
+"name": &"upgrade_bad",
 "speed": 5.0
 }, {
 "frames": [{
@@ -246,7 +238,15 @@ animations = [{
 "texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
-"name": &"upgrade_react_good",
+"name": &"upgrade_good",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ph7ik")
+}],
+"loop": true,
+"name": &"upgrade_idle",
 "speed": 5.0
 }]
 
@@ -687,7 +687,7 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.894118, 0.290196, 0.305882, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"upgrade_react_bad"
+animation = &"knocked_out"
 autoplay = "idle"
 
 [node name="glasses" type="AnimatedSprite2D" parent="scalable_nodes"]

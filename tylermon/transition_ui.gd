@@ -63,23 +63,26 @@ func show_final_winners(winners):
 func build_nodes(winners):
 	var container = get_node("center_container/vbox/winners")
 	for winner in winners:
-		var image = TextureRect.new()
+		var images = TextureRect.new()
 		var label = Label.new()
+		var image_mon = TextureRect.new()
 		var image_hat = TextureRect.new()
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label.text = "Total VP: " + str(winner.wins)
 		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
-		image.texture = sprite_frame.get_frame_texture("idle",0)
-		image.modulate = winner.get_child(0).custom_color
+		images.texture = sprite_frame.get_frame_texture("idle",0)
+		image_mon.texture = sprite_frame.get_frame_texture("idle",0)
+		image_mon.modulate = winner.get_child(0).custom_color
+		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		if winner.get_child(0).cursed == true:
 			var sprite_frame_hat = winner.get_child(0).get_node("scalable_nodes").get_child(1).get_sprite_frames()
 			image_hat.texture = sprite_frame_hat.get_frame_texture("idle",0)
-			image.add_child(image_hat)
+			images.add_child(image_hat)
 		vbox.add_child(label)
-		vbox.add_child(image)
+		vbox.add_child(images)
 		vbox.set("theme_override_constants/separation", -60)
 		container.add_child(vbox)
 	build_losers_nodes(winners)
@@ -95,27 +98,36 @@ func build_losers_nodes(winners):
 	
 	var container = get_node("center_container/vbox/losers")
 	for loser in losers:
-		var image = TextureRect.new()
+		var images = TextureRect.new()
 		var label = Label.new()
+		var image_mon = TextureRect.new()
 		var image_hat = TextureRect.new()
 		var sprite_frame = loser.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		var texture = sprite_frame.get_frame_texture("idle",0)
-		image.texture = texture
-		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		image.custom_minimum_size = Vector2(100,100)
-		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		images.texture = texture
+		images.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		images.custom_minimum_size = Vector2(100,100)
+		images.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label.text = "Total VP: " + str(loser.wins)
 		label.theme = load("res://tylermon/tylermon_theme.tres")
-		image.modulate = loser.get_child(0).custom_color
+		image_mon.texture = sprite_frame.get_frame_texture("idle",0)
+		image_mon.modulate = loser.get_child(0).custom_color
+		image_mon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		image_mon.custom_minimum_size = Vector2(100,100)
+		image_mon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		if loser.get_child(0).cursed == true:
 			var sprite_frame_hat = loser.get_child(0).get_node("scalable_nodes").get_child(1).get_sprite_frames()
 			image_hat.texture = sprite_frame_hat.get_frame_texture("idle",0)
-			image.add_child(image_hat)
+			image_hat.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			image_hat.custom_minimum_size = Vector2(100,100)
+			image_hat.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+			images.add_child(image_hat)
 		vbox.add_child(label)
-		vbox.add_child(image)
+		vbox.add_child(images)
 		vbox.set("theme_override_constants/separation", -20)
 		container.add_child(vbox)	
 

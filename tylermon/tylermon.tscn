@@ -15,7 +15,7 @@
 [node name="tylermon" type="Node2D"]
 scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 10
+fight_length = 60
 upgrade_length = 60
 max_rounds = 10
 

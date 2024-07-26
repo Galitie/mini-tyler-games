@@ -4,7 +4,7 @@ var tyler_type: String
 var max_health: int = 2
 var health: int = max_health
 var speed: int = 75
-var intelligence: int = 9
+var intelligence: int = 1
 var strength: int = 1
 var strength_mod: float = .20
 var elm_type = "NONE"

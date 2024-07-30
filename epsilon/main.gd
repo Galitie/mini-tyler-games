@@ -27,21 +27,26 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	#await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
-	
-	await get_tree().process_frame
-	paused = true
-	can_pause = false
-	in_call = true
-	await codec.play_file("res://epsilon/codec_calls/1.txt")
 	await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
-	paused = true
-	can_pause = false
-	in_call = false
-	await get_tree().create_timer(3.0).timeout
-	await _codec_triggered("res://epsilon/codec_calls/2.txt", "")
+	
+	#await get_tree().process_frame
+	#paused = true
+	#can_pause = false
+	#in_call = true
+	#await codec.play_file("res://epsilon/codec_calls/1.txt")
+	#await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
+	#paused = true
+	#can_pause = false
+	#in_call = false
+	#await get_tree().create_timer(3.0).timeout
+	#await _codec_triggered("res://epsilon/codec_calls/2.txt", "")
 
 func _physics_process(delta: float) -> void:
+	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
+		for snake in get_tree().get_nodes_in_group("snakes"):
+			if snake.controller_port != 0:
+				snake.hit(self, 100)
+	
 	get_tree().paused = paused
 	
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):

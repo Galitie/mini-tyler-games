@@ -8,7 +8,7 @@ enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD }
 @export var access_level: int
 var amount: int = 0
 
-func _ready() -> void:
+func _ready() -> void:	
 	$sfx.finished.connect(_sfx_finished)
 	body_entered.connect(_body_entered)
 	SetPickupType(pickup_type)

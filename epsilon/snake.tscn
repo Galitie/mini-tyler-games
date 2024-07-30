@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=3 uid="uid://c3a0d3vikmu6u"]
+[gd_scene load_steps=164 format=3 uid="uid://c3a0d3vikmu6u"]
 
 [ext_resource type="Script" path="res://epsilon/snake.gd" id="1_l0qjn"]
 [ext_resource type="Texture2D" uid="uid://1u8xc1nlq0rm" path="res://epsilon/sprites/box_up.png" id="2_18w2y"]
@@ -154,6 +154,7 @@
 [ext_resource type="Texture2D" uid="uid://dhqrf8l82nsca" path="res://epsilon/sprites/help_2.png" id="149_eur8g"]
 [ext_resource type="Texture2D" uid="uid://deriqgud5kbvr" path="res://epsilon/sprites/help_3.png" id="150_oblhk"]
 [ext_resource type="Texture2D" uid="uid://dlys17plmsbqi" path="res://epsilon/sprites/help_4.png" id="151_5ducp"]
+[ext_resource type="PackedScene" uid="uid://un7o8puckrab" path="res://epsilon/sonar.tscn" id="155_pd3xb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lbxkl"]
 resource_local_to_scene = true
@@ -1648,3 +1649,6 @@ position = Vector2(0.5, -10)
 shape = SubResource("RectangleShape2D_evfy4")
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
+
+[node name="sonar" parent="." instance=ExtResource("155_pd3xb")]
+position = Vector2(0, -8)

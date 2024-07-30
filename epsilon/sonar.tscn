@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://un7o8puckrab"]
+
+[ext_resource type="Script" path="res://epsilon/sonar.gd" id="1_8h3tu"]
+[ext_resource type="AudioStream" uid="uid://djnge862croct" path="res://epsilon/sound_effects/sonar.wav" id="2_yy4x0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rptpb"]
+radius = 0.01
+
+[sub_resource type="Animation" id="Animation_gvskm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collider:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.01]
+}
+
+[sub_resource type="Animation" id="Animation_iftt2"]
+resource_name = "ping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collider:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.297302, 1),
+"update": 0,
+"values": [0.01, 25.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wtol"]
+_data = {
+"RESET": SubResource("Animation_gvskm"),
+"ping": SubResource("Animation_iftt2")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1mgd4"]
+radius = 25.0
+
+[node name="sonar" type="Area2D"]
+position = Vector2(0, -64)
+collision_layer = 256
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_8h3tu")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rptpb")
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8wtol")
+}
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_yy4x0")
+
+[node name="detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="detection"]
+shape = SubResource("CircleShape2D_1mgd4")

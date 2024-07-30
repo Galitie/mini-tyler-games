@@ -149,7 +149,6 @@ func _enemy_alerted() -> void:
 		$music.stream = encounter_theme
 		$music.play()
 		alert = true
-		print("yo")
 	
 func _enemy_lost_alert() -> void:
 	if alert:

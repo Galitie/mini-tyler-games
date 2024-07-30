@@ -2,15 +2,11 @@ extends Area2D
 
 const DAMAGE: int = 3
 
-var revealed: bool = false
-
 func _ready():
+	add_to_group("mines")
+	
 	await get_tree().create_timer(1.0).timeout
 	
-	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-	var rng_result = rng.randi_range(0, 1)
-	revealed = rng_result
-	add_to_group("mines")
 	body_entered.connect(_body_entered)
 	area_entered.connect(_area_entered)
 	$explosion.area_entered.connect(_area_entered_explosion)
@@ -29,12 +25,7 @@ func _body_entered(body: Node2D) -> void:
 		$sfx.play()
 		
 func _area_entered(area: Area2D) -> void:
-	if revealed:
-		revealed = false
-		return
-	if !revealed:
-		$anim_player.play("ping")
-		revealed = true
+	$anim_player.play("ping")
 
 func _area_entered_explosion(area: Area2D) -> void:
 	var entity = area.get_parent()

@@ -79,6 +79,7 @@ sprite_frames = SubResource("SpriteFrames_07h6d")
 animation = &"keycard"
 
 [node name="description" type="RichTextLabel" parent="sprite"]
+z_index = 5
 offset_left = -16.0
 offset_top = -16.0
 offset_right = 91.0

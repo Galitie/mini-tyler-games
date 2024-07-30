@@ -75,7 +75,7 @@ _data = {
 }
 
 [node name="mine" type="Area2D"]
-collision_layer = 0
+collision_layer = 512
 collision_mask = 257
 script = ExtResource("1_n602i")
 

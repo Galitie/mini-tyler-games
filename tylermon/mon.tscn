@@ -687,20 +687,20 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.894118, 0.290196, 0.305882, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"knocked_out"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="glasses" type="AnimatedSprite2D" parent="scalable_nodes"]
 visible = false
 position = Vector2(0, -42)
 sprite_frames = SubResource("SpriteFrames_dxsx7")
-animation = &"upgrade_bad"
+animation = &"idle"
 
 [node name="witch_hat" type="AnimatedSprite2D" parent="scalable_nodes"]
 visible = false
 position = Vector2(-11, -41)
 sprite_frames = SubResource("SpriteFrames_4inlb")
-animation = &"upgrade_bad"
+animation = &"idle"
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
 rotation = -0.0788491

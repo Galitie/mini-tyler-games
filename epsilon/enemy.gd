@@ -49,19 +49,22 @@ var max_amount_of_looks: int = 2
 
 var is_cautious: bool = false
 
-func _ready() -> void:
+func _ready() -> void:	
+	add_to_group("enemies")
+	add_to_group("entities")
+	
 	# NOTE: To sync navigation agent with server
 	set_physics_process(false)
 	call_deferred("agent_setup")
 	
-	add_to_group("enemies")
-	add_to_group("entities")
 	$body.area_entered.connect(_area_entered)
 	sprite.animation_finished.connect(_animation_finished)
 	status.visible = false
 	status.animation_finished.connect(_status_animation_finished)
 	
 func agent_setup() -> void:
+	# NOTE: HA HA SPAGHET
+	await get_tree().physics_frame
 	await get_tree().physics_frame
 	set_physics_process(true)
 

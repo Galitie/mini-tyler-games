@@ -5,7 +5,7 @@ const DAMAGE: int = 3
 var revealed: bool = false
 
 func _ready():
-	await get_tree().process_frame
+	await get_tree().create_timer(1.0).timeout
 	
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	var rng_result = rng.randi_range(0, 1)

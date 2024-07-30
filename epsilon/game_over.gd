@@ -21,14 +21,14 @@ func GameOver() -> void:
 	$text_sfx.play()
 	await get_tree().create_timer(3.0).timeout
 	$codec_ring.play()
-	await get_tree().create_timer(1.1).timeout
+	await get_tree().create_timer(1.8).timeout
 	if counter < starting_counter - 1:
 		counter += 1
 	else:
 		counter = 0
 	$vo.stream = random_vo[counter - 1]
 	$vo.play()
-	await get_tree().create_timer(2.5).timeout
+	await get_tree().create_timer(1.5).timeout
 	paused = true
 	
 func Continue() -> void:

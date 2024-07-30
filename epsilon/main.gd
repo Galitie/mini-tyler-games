@@ -89,9 +89,11 @@ func _codec_triggered(call_path: String, music_path: String) -> void:
 func GameOver() -> void:
 	can_pause = false
 	await $game/camera/ui/game_over.GameOverDeath()
+	paused = true
 	ui_anim.play("fade_out", -1, 0.25)
 	await $game/camera/ui/game_over.GameOver()
 	wait_to_continue = true
+	await ui_anim.animation_finished
 	
 func LoadLevel(level_path: String, music_path: String, music_playback_pos: float) -> void:
 	if !music_path.is_empty() && music_path != current_music_path:
@@ -147,6 +149,7 @@ func _enemy_alerted() -> void:
 		$music.stream = encounter_theme
 		$music.play()
 		alert = true
+		print("yo")
 	
 func _enemy_lost_alert() -> void:
 	if alert:

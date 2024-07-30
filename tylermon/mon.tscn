@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=66 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -24,20 +24,36 @@
 [ext_resource type="Texture2D" uid="uid://b66mxbmixgxfu" path="res://tylermon/sprites/mon_base_knocked_out3.png" id="18_7kvut"]
 [ext_resource type="Texture2D" uid="uid://e6c4xabx00ep" path="res://tylermon/sprites/mon_base_special.png" id="18_050gi"]
 [ext_resource type="Texture2D" uid="uid://cdjijr0duew8y" path="res://tylermon/sprites/mon_base_special2.png" id="19_v6lq8"]
+[ext_resource type="Texture2D" uid="uid://wqweu4nmkpy7" path="res://tylermon/sprites/gasses_attack_1.png" id="25_5dtpn"]
 [ext_resource type="Texture2D" uid="uid://hckkwtxwonq2" path="res://tylermon/sprites/acc_witch_hat_hurt.png" id="25_fho1q"]
 [ext_resource type="Texture2D" uid="uid://gove44yuv6cn" path="res://tylermon/sprites/acc_witch_hat_block1.png" id="25_jnnku"]
 [ext_resource type="Texture2D" uid="uid://b7ath3ni4hlvk" path="res://tylermon/sprites/acc_witch_hat_move1.png" id="25_rnkkf"]
+[ext_resource type="Texture2D" uid="uid://drj3a0bn8jifq" path="res://tylermon/sprites/glasses_knocked_out_3.png" id="25_s2g4f"]
+[ext_resource type="Texture2D" uid="uid://d1r06w378n55h" path="res://tylermon/sprites/glasses_idle_1.png" id="26_3gnay"]
 [ext_resource type="Texture2D" uid="uid://batc21dgs8lpj" path="res://tylermon/sprites/acc_witch_hat_idle2.png" id="26_d87c2"]
 [ext_resource type="Texture2D" uid="uid://dmr3ertotj53j" path="res://tylermon/sprites/witch_hat_block2.png" id="26_i5jbf"]
+[ext_resource type="Texture2D" uid="uid://xqpgbwhw2sxp" path="res://tylermon/sprites/glasses_attack_2.png" id="26_murxo"]
 [ext_resource type="Texture2D" uid="uid://bbipao4tejmkr" path="res://tylermon/sprites/acc_witch_hat_move2.png" id="26_qivfu"]
 [ext_resource type="Texture2D" uid="uid://csewdbj0ndqxs" path="res://tylermon/sprites/acc_witch_hat_idle1.png" id="27_mv3sv"]
+[ext_resource type="Texture2D" uid="uid://b38jpnpjh2j6" path="res://tylermon/sprites/glasses_hurt.png" id="27_ofh3t"]
+[ext_resource type="Texture2D" uid="uid://dl4yjumiscyct" path="res://tylermon/sprites/glasses_attack_3.png" id="27_rhrni"]
+[ext_resource type="Texture2D" uid="uid://mf4o6aar8rrh" path="res://tylermon/sprites/glasses_move_1.png" id="28_0md2h"]
 [ext_resource type="Texture2D" uid="uid://cclk8cohqlsw" path="res://tylermon/sprites/acc_witch_hat_charge.png" id="28_vc1qp"]
+[ext_resource type="Texture2D" uid="uid://clknt4x4ijtql" path="res://tylermon/sprites/glasses_move_2.png" id="29_5e333"]
+[ext_resource type="Texture2D" uid="uid://dbffkr7trxkst" path="res://tylermon/sprites/glasses_knocked_out_1.png" id="29_751de"]
+[ext_resource type="Texture2D" uid="uid://2sodwrml86mr" path="res://tylermon/sprites/glasses_charge.png" id="29_cnwq0"]
+[ext_resource type="Texture2D" uid="uid://cyoj1p8l4vii8" path="res://tylermon/sprites/glasses_block_1.png" id="29_o6ybj"]
 [ext_resource type="Texture2D" uid="uid://dwqfw74odc0sk" path="res://tylermon/sprites/acc_witch_hat_dead.png" id="29_xuq3y"]
+[ext_resource type="Texture2D" uid="uid://bfuryyrocl21p" path="res://tylermon/sprites/glasses_knocked_out_2.png" id="30_ouxky"]
+[ext_resource type="Texture2D" uid="uid://dxxtrypog41sw" path="res://tylermon/sprites/glasses_block_2.png" id="30_po85m"]
 [ext_resource type="Texture2D" uid="uid://dod64sf12cik6" path="res://tylermon/sprites/acc_witch_hat_knockedout1.png" id="31_pc4xg"]
 [ext_resource type="Texture2D" uid="uid://c1k8n7i86ypol" path="res://tylermon/sprites/acc_witch_hat_knockedout2.png" id="32_dy6l2"]
 [ext_resource type="Texture2D" uid="uid://ctnl28ayx72h6" path="res://tylermon/sprites/acc_witch_hat_knockedout3.png" id="33_g5jjv"]
 [ext_resource type="Texture2D" uid="uid://bdrhephyl61ni" path="res://tylermon/sprites/acc_witch_hat_special2.png" id="33_got07"]
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="38_5lyhm"]
+[ext_resource type="Texture2D" uid="uid://c2sf5wwvrv7k2" path="res://tylermon/sprites/glasses_idle_0.png" id="38_hnft8"]
+[ext_resource type="Texture2D" uid="uid://42dvsl3y05wa" path="res://tylermon/sprites/glasses_special_attack_1.png" id="39_umxlo"]
+[ext_resource type="Texture2D" uid="uid://jo4c6ju8p0j1" path="res://tylermon/sprites/glasses_special_attack_2.png" id="40_ng5mf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
 resource_local_to_scene = true
@@ -157,7 +173,7 @@ animations = [{
 "texture": ExtResource("18_7kvut")
 }],
 "loop": false,
-"name": &"just_knocked_out",
+"name": &"knocked_out",
 "speed": 5.0
 }, {
 "frames": [{
@@ -196,14 +212,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_ph7ik")
-}],
-"loop": true,
-"name": &"upgrade_idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("2_2adcg")
 }, {
 "duration": 1.0,
@@ -219,7 +227,7 @@ animations = [{
 "texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
-"name": &"upgrade_react_bad",
+"name": &"upgrade_bad",
 "speed": 5.0
 }, {
 "frames": [{
@@ -230,16 +238,185 @@ animations = [{
 "texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
-"name": &"upgrade_react_good",
+"name": &"upgrade_good",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ph7ik")
+}],
+"loop": true,
+"name": &"upgrade_idle",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
-resource_local_to_scene = true
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
-resource_local_to_scene = true
-radius = 5.76907
+[sub_resource type="SpriteFrames" id="SpriteFrames_dxsx7"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("25_5dtpn")
+}, {
+"duration": 2.0,
+"texture": ExtResource("26_murxo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_rhrni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": false,
+"name": &"basic_atk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_o6ybj")
+}, {
+"duration": 1.5,
+"texture": ExtResource("30_po85m")
+}, {
+"duration": 1.5,
+"texture": ExtResource("30_po85m")
+}, {
+"duration": 1.5,
+"texture": ExtResource("30_po85m")
+}, {
+"duration": 1.5,
+"texture": ExtResource("30_po85m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_o6ybj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": false,
+"name": &"block",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_cnwq0")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_s2g4f")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_ofh3t")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_3gnay")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_751de")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_ouxky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_s2g4f")
+}],
+"loop": false,
+"name": &"knocked_out",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_0md2h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_5e333")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("39_umxlo")
+}, {
+"duration": 2.0,
+"texture": ExtResource("40_ng5mf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_umxlo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_cnwq0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": false,
+"name": &"special_atk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_ofh3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ofh3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ofh3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_ofh3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": false,
+"name": &"upgrade_bad",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_3gnay")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": false,
+"name": &"upgrade_good",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_hnft8")
+}],
+"loop": true,
+"name": &"upgrade_idle",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4inlb"]
 animations = [{
@@ -374,7 +551,7 @@ animations = [{
 "texture": ExtResource("25_fho1q")
 }, {
 "duration": 1.0,
-"texture": ExtResource("25_fho1q")
+"texture": ExtResource("27_mv3sv")
 }],
 "loop": false,
 "name": &"upgrade_bad",
@@ -399,6 +576,13 @@ animations = [{
 "name": &"upgrade_idle",
 "speed": 5.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_glbfy"]
+resource_local_to_scene = true
+radius = 5.76907
 
 [sub_resource type="Animation" id="Animation_lk8iw"]
 resource_name = "damage_amount"
@@ -503,8 +687,20 @@ shape = SubResource("CapsuleShape2D_u036k")
 modulate = Color(0.894118, 0.290196, 0.305882, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"idle"
+animation = &"knocked_out"
 autoplay = "idle"
+
+[node name="glasses" type="AnimatedSprite2D" parent="scalable_nodes"]
+visible = false
+position = Vector2(0, -42)
+sprite_frames = SubResource("SpriteFrames_dxsx7")
+animation = &"upgrade_bad"
+
+[node name="witch_hat" type="AnimatedSprite2D" parent="scalable_nodes"]
+visible = false
+position = Vector2(-11, -41)
+sprite_frames = SubResource("SpriteFrames_4inlb")
+animation = &"upgrade_bad"
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
 rotation = -0.0788491
@@ -553,12 +749,6 @@ position = Vector2(0, 48)
 emitting = false
 explosiveness = 0.04
 randomness = 0.03
-
-[node name="witch_hat" type="AnimatedSprite2D" parent="scalable_nodes"]
-visible = false
-position = Vector2(-11, -41)
-sprite_frames = SubResource("SpriteFrames_4inlb")
-animation = &"idle"
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0

@@ -40,6 +40,7 @@ func _physics_process(delta: float) -> void:
 			$sprite.offset.y = y_offset + sin(arc_progress) * throw_arc
 			global_position += speed * direction * delta
 			
+			# BUG: Throwing a grenade at a door crashes it. Whoopeeeeeee!
 			if !bounced && has_overlapping_bodies():
 				var bodies = get_overlapping_bodies()
 				var body = bodies[0]

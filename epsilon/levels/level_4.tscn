@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://pny0esrlxi5j"]
+[gd_scene load_steps=14 format=3 uid="uid://dm6oh5sq01g8t"]
 
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_ccev7"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_o1bn8"]
@@ -306,6 +306,9 @@ sources/0 = SubResource("TileSetAtlasSource_cy74d")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52tjy"]
 size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcakf"]
+size = Vector2(16, 16)
 
 [node name="level_4" type="TileMap"]
 process_mode = 1
@@ -631,6 +634,18 @@ music_path = "res://epsilon/music/intruder2.mp3"
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")
+
+[node name="codec_trigger" type="Area2D" parent="triggers"]
+position = Vector2(168, -40)
+collision_layer = 0
+monitoring = false
+monitorable = false
+script = ExtResource("3_xy43v")
+type = 1
+path = "res://epsilon/codec_calls/4.txt"
+
+[node name="collider" type="CollisionShape2D" parent="triggers/codec_trigger"]
+shape = SubResource("RectangleShape2D_rcakf")
 
 [node name="mine" parent="." instance=ExtResource("4_wfr7d")]
 position = Vector2(136, -40)

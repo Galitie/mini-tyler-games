@@ -6,6 +6,7 @@ class_name Pickup
 enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD }
 @export var pickup_type: PickupType = PickupType.NONE
 @export var access_level: int
+@export var color: Color
 var amount: int = 0
 
 func _ready() -> void:	
@@ -29,6 +30,8 @@ func SetPickupType(type: PickupType) -> void:
 		PickupType.KEYCARD:
 			amount = 1
 			$sprite.play("keycard")
+			$sprite.material.set_shader_parameter("new", color)
+			
 	
 func _body_entered(body: Node2D) -> void:
 	match pickup_type:

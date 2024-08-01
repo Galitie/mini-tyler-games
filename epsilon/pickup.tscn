@@ -105,7 +105,6 @@ scroll_active = false
 autowrap_mode = 0
 
 [node name="collider" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_jyrgh")
 
 [node name="anim_player" type="AnimationPlayer" parent="."]

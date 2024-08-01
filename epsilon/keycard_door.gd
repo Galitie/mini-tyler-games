@@ -2,8 +2,10 @@ extends StaticBody2D
 @export var door_level: int
 var locked = true
 var opened = false
+@export var color: Color
 
 func _ready():
+	$sprite.material.set_shader_parameter("new", color)
 	add_to_group("keycard door")
 	$area2d.body_entered.connect(_body_entered)	
 

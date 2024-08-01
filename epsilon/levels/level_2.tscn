@@ -318,30 +318,20 @@ layer_0/tile_data = PackedInt32Array(458751, 0, 0, 524287, 0, 0, 393216, 0, 0, 4
 y_sort_enabled = true
 
 [node name="keycard_door" parent="entities" instance=ExtResource("3_j2usi")]
-position = Vector2(88, -24)
-
-[node name="keycard_door2" parent="entities" instance=ExtResource("3_j2usi")]
-position = Vector2(104, -24)
+position = Vector2(96, -16)
+color = Color(1, 0.462745, 0.698039, 1)
 
 [node name="keycard_door3" parent="entities" instance=ExtResource("3_j2usi")]
-position = Vector2(88, 136)
+position = Vector2(96, 144)
 rotation = 3.14159
 door_level = 1
-
-[node name="keycard_door4" parent="entities" instance=ExtResource("3_j2usi")]
-position = Vector2(104, 136)
-rotation = 3.14159
-door_level = 1
+color = Color(0.439216, 1, 0.345098, 1)
 
 [node name="keycard_door5" parent="entities" instance=ExtResource("3_j2usi")]
-position = Vector2(328, 104)
+position = Vector2(328, 112)
 rotation = 1.5708
 door_level = 2
-
-[node name="keycard_door6" parent="entities" instance=ExtResource("3_j2usi")]
-position = Vector2(328, 120)
-rotation = 1.5708
-door_level = 2
+color = Color(0.372549, 0.313726, 1, 1)
 
 [node name="enemy1" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_o31l1")]
 position = Vector2(24, 384)
@@ -504,7 +494,7 @@ pickup_type = 1
 position = Vector2(96, 400)
 pickup_type = 4
 access_level = 2
-color = Color(0.372549, 0.392157, 1, 1)
+color = Color(0.372549, 0.313726, 1, 1)
 
 [node name="ammo_pickup5" parent="pickups" instance=ExtResource("5_o5peh")]
 position = Vector2(64, -80)

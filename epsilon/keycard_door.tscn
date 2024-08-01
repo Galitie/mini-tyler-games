@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsj50sc28axhs"]
+[gd_scene load_steps=11 format=3 uid="uid://bsj50sc28axhs"]
 
 [ext_resource type="Script" path="res://epsilon/keycard_door.gd" id="1_1v8wr"]
 [ext_resource type="Texture2D" uid="uid://cjfll8vxdaf0c" path="res://epsilon/sprites/door.png" id="1_l37bl"]
 [ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="2_ty686"]
+[ext_resource type="Texture2D" uid="uid://waihelkg8wwr" path="res://epsilon/sprites/door_1.png" id="3_htqgy"]
+[ext_resource type="Texture2D" uid="uid://bg4uuc7l10k0t" path="res://epsilon/sprites/door_2.png" id="4_ljnr1"]
+[ext_resource type="Texture2D" uid="uid://b1ybmbyq7spus" path="res://epsilon/sprites/door_3.png" id="5_dcmb4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7uln"]
 resource_local_to_scene = true
@@ -24,6 +27,15 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_l37bl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_htqgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ljnr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dcmb4")
 }],
 "loop": false,
 "name": &"open",
@@ -31,7 +43,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hnc6p"]
-size = Vector2(32, 24)
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cu5c5"]
 size = Vector2(32, 8)
@@ -47,11 +59,10 @@ sprite_frames = SubResource("SpriteFrames_ww2mj")
 animation = &"open"
 
 [node name="collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_hnc6p")
 
 [node name="area2d" type="Area2D" parent="."]
 
 [node name="collider" type="CollisionShape2D" parent="area2d"]
-position = Vector2(0, 12)
+position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_cu5c5")

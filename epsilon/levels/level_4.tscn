@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dm6oh5sq01g8t"]
+[gd_scene load_steps=14 format=3 uid="uid://pny0esrlxi5j"]
 
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_ccev7"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_o1bn8"]
@@ -373,27 +373,27 @@ patrols = [NodePath("../../patrols/enemy6_1"), NodePath("../../patrols/enemy6_2"
 
 [node name="enemy7" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_2d6se")]
 position = Vector2(-200, -64)
-patrols = [NodePath("../../patrols/enemy7_1"), NodePath("../../patrols/enemy7_2")]
+patrols = [NodePath("../../patrols/enemy7_1"), NodePath("../../patrols/enemy7_2"), NodePath("../../patrols/enemy7_3")]
 
 [node name="enemy8" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_2d6se")]
 position = Vector2(-168, -64)
-patrols = [NodePath("../../patrols/enemy8_1"), NodePath("../../patrols/enemy8_2")]
+patrols = [NodePath("../../patrols/enemy8_1"), NodePath("../../patrols/enemy8_2"), NodePath("../../patrols/enemy8_3")]
 
 [node name="enemy9" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_2d6se")]
 position = Vector2(-136, -64)
-patrols = [NodePath("../../patrols/enemy9_1"), NodePath("../../patrols/enemy9_2")]
+patrols = [NodePath("../../patrols/enemy9_1"), NodePath("../../patrols/enemy9_2"), NodePath("../../patrols/enemy9_3")]
 
 [node name="enemy10" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_2d6se")]
 position = Vector2(-184, 56)
-patrols = [NodePath("../../patrols/enemy10_1"), NodePath("../../patrols/enemy10_2")]
+patrols = [NodePath("../../patrols/enemy10_1"), NodePath("../../patrols/enemy10_2"), NodePath("../../patrols/enemy10_3")]
 
 [node name="enemy11" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_2d6se")]
 position = Vector2(-152, 56)
-patrols = [NodePath("../../patrols/enemy11_1"), NodePath("../../patrols/enemy11_2")]
+patrols = [NodePath("../../patrols/enemy11_1"), NodePath("../../patrols/enemy11_2"), NodePath("../../patrols/enemy11_3")]
 
 [node name="enemy12" parent="entities" node_paths=PackedStringArray("patrols") instance=ExtResource("4_2d6se")]
 position = Vector2(-120, 56)
-patrols = [NodePath("../../patrols/enemy12_1"), NodePath("../../patrols/enemy12_2")]
+patrols = [NodePath("../../patrols/enemy12_1"), NodePath("../../patrols/enemy12_2"), NodePath("../../patrols/enemy12_3")]
 
 [node name="patrols" type="Node" parent="."]
 
@@ -505,11 +505,17 @@ position = Vector2(-200, 56)
 [node name="enemy7_2" type="Node2D" parent="patrols"]
 position = Vector2(-200, -72)
 
+[node name="enemy7_3" type="Node2D" parent="patrols"]
+position = Vector2(-200, -40)
+
 [node name="enemy8_1" type="Node2D" parent="patrols"]
 position = Vector2(-168, 56)
 
 [node name="enemy8_2" type="Node2D" parent="patrols"]
 position = Vector2(-168, -72)
+
+[node name="enemy8_3" type="Node2D" parent="patrols"]
+position = Vector2(-168, -24)
 
 [node name="enemy9_1" type="Node2D" parent="patrols"]
 position = Vector2(-136, 56)
@@ -517,11 +523,17 @@ position = Vector2(-136, 56)
 [node name="enemy9_2" type="Node2D" parent="patrols"]
 position = Vector2(-136, -72)
 
+[node name="enemy9_3" type="Node2D" parent="patrols"]
+position = Vector2(-136, -40)
+
 [node name="enemy10_1" type="Node2D" parent="patrols"]
 position = Vector2(-184, -72)
 
 [node name="enemy10_2" type="Node2D" parent="patrols"]
 position = Vector2(-184, 56)
+
+[node name="enemy10_3" type="Node2D" parent="patrols"]
+position = Vector2(-184, -24)
 
 [node name="enemy11_1" type="Node2D" parent="patrols"]
 position = Vector2(-152, -72)
@@ -529,11 +541,17 @@ position = Vector2(-152, -72)
 [node name="enemy11_2" type="Node2D" parent="patrols"]
 position = Vector2(-152, 56)
 
+[node name="enemy11_3" type="Node2D" parent="patrols"]
+position = Vector2(-152, -40)
+
 [node name="enemy12_1" type="Node2D" parent="patrols"]
 position = Vector2(-120, -72)
 
 [node name="enemy12_2" type="Node2D" parent="patrols"]
 position = Vector2(-120, 56)
+
+[node name="enemy12_3" type="Node2D" parent="patrols"]
+position = Vector2(-120, -24)
 
 [node name="spawns" type="Node" parent="."]
 

@@ -12,6 +12,12 @@ animations = [{
 }, {
 "duration": 0.5,
 "texture": ExtResource("2_vhpgy")
+}, {
+"duration": 12.0,
+"texture": ExtResource("1_ilamt")
+}, {
+"duration": 0.5,
+"texture": ExtResource("2_vhpgy")
 }],
 "loop": true,
 "name": &"default",
@@ -31,5 +37,5 @@ animations = [{
 
 [node name="Rich" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_qh1gn")
-animation = &"talking"
-frame_progress = 0.476687
+frame = 2
+frame_progress = 0.314897

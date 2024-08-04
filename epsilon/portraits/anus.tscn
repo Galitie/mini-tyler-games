@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cduornu7sxsfk"]
+[gd_scene load_steps=12 format=3 uid="uid://cduornu7sxsfk"]
 
 [ext_resource type="Texture2D" uid="uid://dfcxcn3gus8bl" path="res://epsilon/portraits/anus.png" id="1_jtg4a"]
+[ext_resource type="Texture2D" uid="uid://dgp1s73m662sv" path="res://epsilon/portraits/anus_reveal.png" id="2_lt2jw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mhum"]
 atlas = ExtResource("1_jtg4a")
@@ -16,6 +17,22 @@ region = Rect2(104, 0, 52, 89)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mcavi"]
 atlas = ExtResource("1_jtg4a")
+region = Rect2(156, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjimt"]
+atlas = ExtResource("2_lt2jw")
+region = Rect2(0, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyb2h"]
+atlas = ExtResource("2_lt2jw")
+region = Rect2(52, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32h08"]
+atlas = ExtResource("2_lt2jw")
+region = Rect2(104, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_575mm"]
+atlas = ExtResource("2_lt2jw")
 region = Rect2(156, 0, 52, 89)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tx8hg"]
@@ -36,11 +53,30 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_fjimt")
+}, {
+"duration": 1.8,
+"texture": SubResource("AtlasTexture_cyb2h")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_32h08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_575mm")
+}],
+"loop": false,
+"name": &"reveal",
+"speed": 8.0
 }]
 
 [node name="anus_portrait" type="AnimatedSprite2D"]
 modulate = Color(1, 1.1, 1, 1)
 scale = Vector2(3.95892, 3.95892)
 sprite_frames = SubResource("SpriteFrames_tx8hg")
-frame_progress = 0.317787
+animation = &"reveal"
+frame = 3
+frame_progress = 1.0
 centered = false

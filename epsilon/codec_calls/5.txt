@@ -22,44 +22,62 @@ res://epsilon/vo/5_sick.mp3 sick
 res://epsilon/vo/5_monster.mp3 monster
 res://epsilon/vo/5_ticket.mp3 ticket
 res://epsilon/vo/5_hell.mp3 hell
+res://epsilon/vo/5_bipedal.mp3 bipedal
+res://epsilon/vo/5_handicapped.mp3 handicapped
+res://epsilon/vo/5_idid.mp3 idid
+res://epsilon/vo/5_impressed.mp3 impressed
+res://epsilon/vo/5_itsme.mp3 itsme
+res://epsilon/vo/5_killyou.mp3 killyou
+res://epsilon/vo/5_lot.mp3 lot
+res://epsilon/vo/5_moron.mp3 moron
+res://epsilon/vo/5_move.mp3 move
+res://epsilon/vo/5_parked.mp3 parked
+res://epsilon/vo/5_parking_spots.mp3 parking_spots
+res://epsilon/vo/5_pay.mp3 pay
+res://epsilon/vo/5_person.mp3 person
+res://epsilon/vo/5_reborn.mp3 reborn
+res://epsilon/vo/5_right.mp3 right
+res://epsilon/vo/5_wait.mp3 wait
+res://epsilon/vo/5_whatsup.mp3 whatsup
+res://epsilon/vo/5_wtf.mp3 wtf
 end
 port add anus snake
-msg left default silence "I'm impressed, Snake. To think you'd get this far..."
+msg left default impressed "I'm impressed, Snake. To think you'd get this far..."
 msg right talking crap "Cut the crap! Who the hell are you?"
-msg left default silence "If you must know before I kill you..."
+msg left default killyou "If you must know before I kill you..."
 port add otacon NULL
-msg left talking silence "Wait, Snake, that's..."
+msg left talking wait "Wait, Snake, that's..."
 port add rich NULL
 msg left reveal silence "..."
 msg right talking meryl "Meryl?!"
-msg left talking silence "What the fuck? What are you--"
+msg left talking wtf "What the fuck? What are you--"
 msg right talking grayfox "Gray Fox?!"
-msg left talking silence "Snake, you absolute moron. It's me--"
+msg left talking moron "Snake, you absolute moron. It's me--"
 msg right talking shadow "Shadow...Moses...!"
-msg left talking silence "Snake, that's not even a person--"
+msg left talking person "Snake, that's not even a person--"
 msg right talking kernal "Colonel!!!"
 port add static NULL
-msg left default silence "Hey, what's up, Snake?"
+msg left default whatsup "Hey, what's up, Snake?"
 port add rich NULL
-msg left talking silence "Snake, it's me, Richard!"
+msg left talking itsme "Snake, it's me, Richard!"
 msg right talking richard "RICHAAAAAAAAARD!!"
 msg right talking impossible "Impossible! You died back in Zanzibar!"
-msg left talking silence "I did, Snake."
+msg left talking idid "I did, Snake."
 msg right default silence "..."
-msg left talking silence "But I was reborn. By them, Snake."
-msg left talking silence "And I've acquired the nuclear bipedal tank known as Metal Gear."
+msg left talking reborn "But I was reborn. By them, Snake."
+msg left talking bipedal "And I've acquired the nuclear bipedal tank known as Metal Gear."
 msg right talking metalgear "METAL...GEAR?!"
-msg left talking silence "That's right, Snake."
-msg right talking silence "First try."
-msg left talking silence "In fact, it's parked outside."
+msg left talking right "That's right, Snake."
+msg right talking firstry "First try."
+msg left talking parked "In fact, it's parked outside."
 msg right talking park "You put it in park?"
-msg left talking silence "Not only that, Snake. I've taken up three parking spots, and I'm looking to take more."
+msg left talking parking_spots "Not only that, Snake. I've taken up three parking spots, and I'm looking to take more."
 msg right talking sick "You sick fuck! At least not the handicap--"
-msg left talking silence "Including the handicapped spots, Snake."
+msg left talking handicapped "Including the handicapped spots, Snake."
 msg right talking monster "You monster!"
-msg left talking silence "I'll be waiting for you in the lot."
-msg left talking silence "Move quickly, Snake. I've been idling for hours."
+msg left talking lot "I'll be waiting for you in the lot."
+msg left talking move "Move quickly, Snake. I've been idling for hours."
 msg right talking ticket "You could get a ticket for that, you know!"
-msg left talking silence "Oh, I already have, Snake. And I'm not going to pay for them."
+msg left talking pay "Oh, I already have, Snake. And I'm not going to pay for them."
 msg right talking hell "There's a parking spot for you in hell!"
 port remove rich snake

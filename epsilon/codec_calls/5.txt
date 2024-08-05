@@ -9,10 +9,9 @@ end
 load vo
 res://epsilon/vo/4_silence.mp3 silence
 end
-port add static snake
+port add anus snake
 msg left default silence "I didn't think you'd get this far Snake."
 msg right default silence "Cut the crap Dick, who the hell are you really?"
-port add anus NULL
 msg left default silence "If you must know before I kill you..."
 msg left reveal silence "..."
 port add rich NULL
@@ -24,11 +23,11 @@ msg left default silence "Snake, you stupid fuck, it's me, Rich-"
 msg right default silence "SHADOW MOSES"
 msg left default silence "That's not even a person-"
 msg right default silence "COLONEL"
-port add colonel NULL
+port add static NULL
 msg left default silence "Hey what's up Snake"
 port add rich NULL
 msg left default silence "Jesus Christ, you're not even in this game!"
-port add colonel NULL
+port add static NULL
 msg left default silence "I mean, it is kind of a mashup up of all the games-"
 port add rich NULL
 msg left default silence "It's me RICHARD"

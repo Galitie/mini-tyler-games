@@ -12,10 +12,10 @@ end
 port add static snake
 msg left default silence "I didn't think you'd get this far Snake."
 msg right default silence "Cut the crap Dick, who the hell are you really?"
-port add anus
+port add anus NULL
 msg left default silence "If you must know before I kill you..."
-msg left reveal silence ""
-port add rich
+msg left reveal silence "..."
+port add rich NULL
 msg left default silence "IT WAS ME ALL ALONG!"
 msg right default silence "MERYL?!"
 msg left default silence "What no-"
@@ -24,13 +24,13 @@ msg left default silence "Snake, you stupid fuck, it's me, Rich-"
 msg right default silence "SHADOW MOSES"
 msg left default silence "That's not even a person-"
 msg right default silence "COLONEL"
-port add colonel
+port add colonel NULL
 msg left default silence "Hey what's up Snake"
-port add rich
+port add rich NULL
 msg left default silence "Jesus Christ, you're not even in this game!"
-port add colonel
+port add colonel NULL
 msg left default silence "I mean, it is kind of a mashup up of all the games-"
-port add rich
+port add rich NULL
 msg left default silence "It's me RICHARD"
 msg right default silence "RICHARD"
 msg right default silence "Impossible...but you died back in Zanzibar..."

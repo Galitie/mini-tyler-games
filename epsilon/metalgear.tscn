@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xxplkskw55ul"]
+[gd_scene load_steps=21 format=3 uid="uid://xxplkskw55ul"]
 
 [ext_resource type="Script" path="res://epsilon/metalgear.gd" id="1_40r7c"]
 [ext_resource type="Texture2D" uid="uid://dq2le7kc1x17d" path="res://epsilon/sprites/metalgear.png" id="1_ec37q"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://h3nskvhmm0d0" path="res://epsilon/sprites/metalgear_hatch_open.png" id="6_5kejt"]
 [ext_resource type="Texture2D" uid="uid://cmtyuhbdxtsao" path="res://epsilon/sprites/metalgear_module_closed.png" id="9_7uibi"]
 [ext_resource type="Texture2D" uid="uid://ca3gk4om878br" path="res://epsilon/sprites/metalgear_module_open.png" id="10_0qkp0"]
+[ext_resource type="AudioStream" uid="uid://bo7r3qywcp880" path="res://epsilon/sound_effects/grenade_draw.wav" id="11_i16j1"]
+[ext_resource type="AudioStream" uid="uid://bi7eyd775y1xv" path="res://epsilon/sound_effects/stinger_shoot.wav" id="12_ksbnw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axybh"]
 size = Vector2(20, 16.5)
@@ -61,8 +63,45 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_x4qpg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_smpk4"]
+resource_name = "charge"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 0.052556),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.99, 0.99)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ce5p"]
+_data = {
+"RESET": SubResource("Animation_x4qpg"),
+"charge": SubResource("Animation_smpk4")
+}
+
 [node name="metalgear" type="CharacterBody2D"]
-position = Vector2(0, -32)
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("1_40r7c")
@@ -75,10 +114,12 @@ texture = ExtResource("1_ec37q")
 texture = ExtResource("2_7a7hg")
 
 [node name="right_foot" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-34, 64.25)
 shape = SubResource("RectangleShape2D_axybh")
 
 [node name="left_foot" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(34, 64.25)
 shape = SubResource("RectangleShape2D_axybh")
 
@@ -98,6 +139,7 @@ collision_layer = 1024
 collision_mask = 8
 
 [node name="collider" type="CollisionShape2D" parent="face_hitbox"]
+visible = false
 position = Vector2(0, 16.5)
 shape = SubResource("RectangleShape2D_88jhq")
 
@@ -128,3 +170,14 @@ position = Vector2(24, -56)
 
 [node name="Node2D6" type="Node2D" parent="module"]
 position = Vector2(24, -48)
+
+[node name="grenade_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_i16j1")
+
+[node name="missile_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ksbnw")
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5ce5p")
+}

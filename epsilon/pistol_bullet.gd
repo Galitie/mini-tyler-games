@@ -1,6 +1,6 @@
 extends Area2D
 
-const SPEED = 300.0
+var speed = 300.0
 
 const LIFESPAN: float = 3.0
 var life: float = 0.0
@@ -17,7 +17,7 @@ func _ready() -> void:
 	body_entered.connect(_body_entered)
 
 func _physics_process(delta: float) -> void:
-	global_position += direction * SPEED * delta
+	global_position += direction * speed * delta
 	
 	life += delta * 1.0
 	if life > LIFESPAN:

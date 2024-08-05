@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cr6sljq0rnw0e"]
+[gd_scene load_steps=15 format=3 uid="uid://cr6sljq0rnw0e"]
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_xhkvj"]
 [ext_resource type="Script" path="res://epsilon/camera.gd" id="2_rlmm8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://btref7md1tthw" path="res://epsilon/sprites/call.png" id="4_15l60"]
 [ext_resource type="FontFile" uid="uid://uixb7xgurvy6" path="res://epsilon/sprites/bm_numbers.png" id="5_5nldb"]
 [ext_resource type="PackedScene" uid="uid://bp8b8uet70caq" path="res://epsilon/codec.tscn" id="5_cdts0"]
+[ext_resource type="Texture2D" uid="uid://bscbpc4wnnyj1" path="res://epsilon/sprites/boss_lifebar.png" id="6_c4feg"]
 [ext_resource type="PackedScene" uid="uid://mx8f7uy0hbdp" path="res://epsilon/game_over.tscn" id="6_rlaxr"]
 [ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="7_ubn78"]
 
@@ -174,6 +175,33 @@ offset_bottom = -56.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(3, 3)
+
+[node name="boss_life" type="TextureRect" parent="game/camera/ui/camera_space"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(100, 7)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 26.0
+offset_right = 50.0
+offset_bottom = 33.0
+grow_horizontal = 2
+scale = Vector2(3, 3)
+pivot_offset = Vector2(50, 3.5)
+texture = ExtResource("6_c4feg")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="hp" type="ColorRect" parent="game/camera/ui/camera_space/boss_life"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 2.0
+offset_right = 98.0
+offset_bottom = 5.0
+color = Color(0.00392157, 0.85098, 0.470588, 1)
 
 [node name="fade" type="ColorRect" parent="game/camera/ui/camera_space"]
 process_mode = 3

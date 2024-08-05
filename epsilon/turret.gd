@@ -4,7 +4,7 @@ var bullet_scene = preload("res://epsilon/pistol_bullet.tscn")
 
 var pistol_sfx = preload("res://epsilon/sound_effects/pistol.mp3")
 
-var hp: int = 10
+var hp: int = 25
 
 var is_destroyed: bool = false
 
@@ -14,7 +14,7 @@ var hit_timer_length: float = 0.1
 
 var direction: String = "d"
 
-var cooldown_length: float = 3.0
+var cooldown_length: float = 7.0
 var cooldown: float = cooldown_length
 var bullet_rate_length: float = 0.2
 var bullets_per_round: int = 3
@@ -64,6 +64,7 @@ func _physics_process(delta: float) -> void:
 func FireBullet() -> void:
 	var bullet = bullet_scene.instantiate()
 	bullet.emitter = self
+	bullet.speed = 150.0
 	bullet.direction = ($sprite/raycast.to_global($sprite/raycast.target_position) - $sprite/raycast.to_global(Vector2.ZERO)).normalized()
 	map.add_child(bullet)
 	bullet.global_position = $bullet_spawn.global_position

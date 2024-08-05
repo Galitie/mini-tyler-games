@@ -37,7 +37,8 @@ func seek():
 func _physics_process(delta):
 	if !exploded:
 		if seeking:
-			acceleration += seek()
+			if target.hp > 0:
+				acceleration += seek()
 		else:
 			acceleration += velocity * 100 * delta
 			if velocity.length() >= speed:

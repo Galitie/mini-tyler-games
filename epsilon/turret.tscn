@@ -97,6 +97,7 @@ sprite_frames = SubResource("SpriteFrames_j3h2j")
 animation = &"idle_d"
 
 [node name="raycast" type="RayCast2D" parent="anchor/sprite"]
+visible = false
 rotation = 1.5708
 target_position = Vector2(150, 0)
 
@@ -106,6 +107,7 @@ collision_layer = 1024
 collision_mask = 8
 
 [node name="collider" type="CollisionShape2D" parent="anchor/body"]
+visible = false
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_q0p5d")
 
@@ -119,6 +121,7 @@ collision_mask = 2
 monitorable = false
 
 [node name="collider" type="CollisionPolygon2D" parent="vision"]
+visible = false
 polygon = PackedVector2Array(0, 0, 90, 150, -90, 150)
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]

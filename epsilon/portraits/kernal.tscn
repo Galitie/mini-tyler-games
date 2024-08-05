@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvojwqhekeas"]
+
+[ext_resource type="Texture2D" uid="uid://cc0q07ai6ov3l" path="res://epsilon/portraits/kernal.png" id="1_0hdx5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vdh6"]
+atlas = ExtResource("1_0hdx5")
+region = Rect2(0, 0, 52, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bw4p"]
+atlas = ExtResource("1_0hdx5")
+region = Rect2(52, 0, 52, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qh1gn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vdh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bw4p")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[node name="kernal" type="AnimatedSprite2D"]
+scale = Vector2(3.959, 3.959)
+sprite_frames = SubResource("SpriteFrames_qh1gn")
+animation = &"talking"
+frame_progress = 0.930917
+centered = false

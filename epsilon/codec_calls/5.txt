@@ -1,10 +1,10 @@
 load char
 res://epsilon/portraits/snake.tscn snake
-res://epsilon/portraits/static.tscn static
 res://epsilon/portraits/tyler.tscn tyler
 res://epsilon/portraits/otacon.tscn otacon
 res://epsilon/portraits/rich.tscn rich
 res://epsilon/portraits/anus.tscn anus
+res://epsilon/portraits/kernal.tscn kernal
 end
 load vo
 res://epsilon/vo/4_silence.mp3 silence
@@ -56,8 +56,8 @@ msg left talking moron "Snake, you absolute moron. It's me--"
 msg right talking shadow "Shadow...Moses...!"
 msg left talking person "Snake, that's not even a person--"
 msg right talking kernal "Colonel!!!"
-port add static NULL
-msg left default whatsup "Hey, what's up, Snake?"
+port add kernal NULL
+msg left talking whatsup "Hey, what's up, Snake?"
 port add rich NULL
 msg left talking itsme "Snake, it's me, Richard!"
 msg right talking richard "RICHAAAAAAAAARD!!"

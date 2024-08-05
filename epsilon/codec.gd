@@ -81,9 +81,9 @@ func port(args: PackedStringArray):
 		right = true
 			
 	if left:
-		left_portrait.get_node("anim_player").play("close")
+		left_portrait.get_node("anim_player").play("close", -1, 1.5)
 	if right:
-		right_portrait.get_node("anim_player").play("close")
+		right_portrait.get_node("anim_player").play("close", -1, 1.5)
 	
 	if !adding:
 		audio_player.stream = portrait_close
@@ -111,9 +111,9 @@ func port(args: PackedStringArray):
 			right_portrait.get_node("char").add_child(characters[args[3]])
 			
 		if left:
-			left_portrait.get_node("anim_player").play("open")
+			left_portrait.get_node("anim_player").play("open", -1, 1.5)
 		if right:
-			right_portrait.get_node("anim_player").play("open")
+			right_portrait.get_node("anim_player").play("open", -1, 1.5)
 			
 		audio_player.stream = portrait_open
 		audio_player.play()

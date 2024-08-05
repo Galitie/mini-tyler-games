@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 		missile_cooldown = missile_cooldown_length
 		$module.play("open")
 		await get_tree().create_timer(1.0).timeout
-		LaunchMissiles()
+		await LaunchMissiles()
 		await get_tree().create_timer(1.0).timeout
 		$module.play("close")
 	missile_cooldown -= 1.0 * delta
@@ -66,17 +66,19 @@ func _physics_process(delta: float) -> void:
 			$face.material.set_shader_parameter("is_hit", false)
 			
 func LaunchMissiles() -> void:
-	for i in range($module.get_child_count()):
-		var spawn = $module.get_child(i)
-		var missile_instance = missile_scene.instantiate()
-		map.add_child(missile_instance)
-		if i < 3:
-			missile_instance.start_left = true
-		var snakes: Array = []
-		for snake in get_tree().get_nodes_in_group("snakes"):
-			if snake.state != Snake.SnakeState.DEAD:
-				snakes.append(snake)
-		missile_instance.start(spawn.global_position, snakes.pick_random())
+	var snakes: Array = []
+	for snake in get_tree().get_nodes_in_group("snakes"):
+		if snake.state != Snake.SnakeState.DEAD:
+			snakes.append(snake)
+	if snakes.size() > 0:
+		for i in range($module.get_child_count()):
+			await get_tree().create_timer(0.2).timeout
+			var spawn = $module.get_child(i)
+			var missile_instance = missile_scene.instantiate()
+			map.add_child(missile_instance)
+			if i < 3:
+				missile_instance.start_left = true
+			missile_instance.start(spawn.global_position, snakes.pick_random())
 
 func hit(emitter, damage: int) -> void:
 	if hp >= 1:

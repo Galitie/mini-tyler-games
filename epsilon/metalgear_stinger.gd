@@ -17,6 +17,7 @@ func _ready() -> void:
 	body_entered.connect(_wall_hit)
 	$explosion.area_entered.connect(_entered_explosion)
 	$sprite.animation_finished.connect(_animation_finished)
+	$particles.emitting = false
 
 func start(_position, _target):
 	global_position = _position
@@ -41,6 +42,7 @@ func _physics_process(delta):
 			acceleration += velocity * 100 * delta
 			if velocity.length() >= speed:
 				seeking = true
+				$particles.emitting = true
 		velocity += acceleration * delta
 		velocity = velocity.limit_length(speed)
 		rotation = velocity.angle()

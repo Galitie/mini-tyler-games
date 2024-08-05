@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://de26v7as3cict"]
+[gd_scene load_steps=16 format=3 uid="uid://de26v7as3cict"]
 
 [ext_resource type="Script" path="res://epsilon/metalgear_stinger.gd" id="1_i44u0"]
 [ext_resource type="Texture2D" uid="uid://c74e4onunk6hn" path="res://epsilon/sprites/metalgear_stinger.png" id="2_u28xb"]
@@ -47,9 +47,17 @@ size = Vector2(12, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thp46"]
 size = Vector2(24, 24)
 
+[sub_resource type="Gradient" id="Gradient_spv5h"]
+offsets = PackedFloat32Array(0, 0.517766, 0.883249, 0.997462)
+colors = PackedColorArray(0.858824, 0.827451, 0.560784, 1, 0.858824, 0.568627, 0.423529, 1, 0.572549, 0.262745, 0.227451, 1, 0.572549, 0.262745, 0.227451, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ucpw1"]
+gradient = SubResource("Gradient_spv5h")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_boyy7"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_ucpw1")
 
 [node name="metalgear_stinger" type="Area2D"]
 z_index = 4

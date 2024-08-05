@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://de26v7as3cict"]
+[gd_scene load_steps=17 format=3 uid="uid://de26v7as3cict"]
 
 [ext_resource type="Script" path="res://epsilon/metalgear_stinger.gd" id="1_i44u0"]
 [ext_resource type="Texture2D" uid="uid://c74e4onunk6hn" path="res://epsilon/sprites/metalgear_stinger.png" id="2_u28xb"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="6_0sdcp"]
 [ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="7_g42nw"]
 [ext_resource type="Texture2D" uid="uid://cijtry40yb1ie" path="res://epsilon/sprites/metalgear_stinger_particle.png" id="8_b283q"]
+[ext_resource type="AudioStream" uid="uid://bqebeleniyhlp" path="res://epsilon/sound_effects/item_drop.wav" id="9_nb8d1"]
 [ext_resource type="AudioStream" uid="uid://c5gwk7o8jhtqp" path="res://epsilon/sound_effects/explosion.mp3" id="9_oftii"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8wa8"]
@@ -86,5 +87,8 @@ process_material = SubResource("ParticleProcessMaterial_boyy7")
 texture = ExtResource("8_b283q")
 lifetime = 0.7
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
+[node name="drop_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_nb8d1")
+
+[node name="explosion_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_oftii")

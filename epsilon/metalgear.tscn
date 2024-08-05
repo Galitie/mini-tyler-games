@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://xxplkskw55ul"]
+[gd_scene load_steps=22 format=3 uid="uid://xxplkskw55ul"]
 
 [ext_resource type="Script" path="res://epsilon/metalgear.gd" id="1_40r7c"]
 [ext_resource type="Texture2D" uid="uid://dq2le7kc1x17d" path="res://epsilon/sprites/metalgear.png" id="1_ec37q"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ca3gk4om878br" path="res://epsilon/sprites/metalgear_module_open.png" id="10_0qkp0"]
 [ext_resource type="AudioStream" uid="uid://bo7r3qywcp880" path="res://epsilon/sound_effects/grenade_draw.wav" id="11_i16j1"]
 [ext_resource type="AudioStream" uid="uid://bi7eyd775y1xv" path="res://epsilon/sound_effects/stinger_shoot.wav" id="12_ksbnw"]
+[ext_resource type="AudioStream" uid="uid://cb2ji504javau" path="res://epsilon/sound_effects/engine.ogg" id="13_nbjmn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axybh"]
 size = Vector2(20, 16.5)
@@ -68,37 +69,181 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("feet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hatch:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("face:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("module:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("turret:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-28, 26)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("turret2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(28, 25)]
 }
 
 [sub_resource type="Animation" id="Animation_smpk4"]
-resource_name = "charge"
-length = 0.1
+resource_name = "idle"
+length = 0.2
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 0.052556),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.99, 0.99)]
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("feet:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hatch:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("face:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("module:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("turret:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-28, 26), Vector2(-28, 27), Vector2(-28, 26)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("turret2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(28, 26), Vector2(28, 27), Vector2(28, 26)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ce5p"]
 _data = {
 "RESET": SubResource("Animation_x4qpg"),
-"charge": SubResource("Animation_smpk4")
+"idle": SubResource("Animation_smpk4")
 }
 
 [node name="metalgear" type="CharacterBody2D"]
@@ -127,7 +272,7 @@ shape = SubResource("RectangleShape2D_axybh")
 position = Vector2(-28, 26)
 
 [node name="turret2" parent="." instance=ExtResource("3_fjv7w")]
-position = Vector2(28, 26)
+position = Vector2(28, 25)
 
 [node name="hatch" type="AnimatedSprite2D" parent="."]
 z_index = 3
@@ -176,6 +321,10 @@ stream = ExtResource("11_i16j1")
 
 [node name="missile_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_ksbnw")
+
+[node name="engine_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_nbjmn")
+volume_db = -5.0
 
 [node name="anim_player" type="AnimationPlayer" parent="."]
 libraries = {

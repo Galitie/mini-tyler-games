@@ -2,6 +2,9 @@ extends Area2D
 
 const DAMAGE: int = 3
 
+var pickup_scene = preload("res://epsilon/pickup.tscn")
+var drop_sfx = preload("res://epsilon/sound_effects/item_drop.wav")
+
 var speed = 100
 var steer_force = 30.0
 
@@ -11,6 +14,8 @@ var start_left: bool = false
 var velocity: Vector2 = Vector2.ZERO
 var acceleration = Vector2.ZERO
 var target = null
+
+@onready var map = get_parent()
 
 func _ready() -> void:
 	area_entered.connect(_area_entered)
@@ -56,7 +61,7 @@ func explode() -> void:
 	$sprite.play("explode")
 	exploded = true
 	$particles.emitting = false
-	$sfx.play()
+	$explosion_sfx.play()
 		
 func _wall_hit(body: Node2D) -> void:
 	explode()
@@ -73,8 +78,25 @@ func _animation_finished() -> void:
 	$explosion.set_deferred("monitoring", false)
 	$sprite.visible = false
 	
-func _sfx_finished() -> void:
-	queue_free()
+	var pickup = pickup_scene.instantiate()
+	pickup.global_position = global_position
+	var rng = RandomNumberGenerator.new()
+	var rng_result = rng.randi_range(1, 50)
+	if rng_result >= 35 && rng_result < 40:
+		pickup.pickup_type = Pickup.PickupType.PISTOL
+	elif rng_result >= 40 && rng_result < 45:
+		pickup.pickup_type = Pickup.PickupType.GRENADE
+	elif rng_result >= 45 && rng_result <= 50:
+		pickup.pickup_type = Pickup.PickupType.STINGER
+	if pickup.pickup_type != Pickup.PickupType.NONE:
+		$drop_sfx.play()
+		map.add_child(pickup)
+		await $explosion_sfx.finished
+		queue_free()
+	else:
+		pickup.queue_free()
+		await $explosion_sfx.finished
+		queue_free()
 
 #func explode() -> void:
 	#$Particles2D.emitting = false

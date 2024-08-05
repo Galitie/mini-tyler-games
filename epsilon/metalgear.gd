@@ -25,7 +25,8 @@ func _ready() -> void:
 	add_to_group("entities")
 	boss_hp_bar.visible = true
 	boss_hp.size.x = float((float(hp) / float(MAX_HP)) * 77.0)
-	$anim_player.play("charge", -1.0, 1.0)
+	$anim_player.play("idle", -1.0, 1.5)
+	$engine_sfx.play()
 
 func _physics_process(delta: float) -> void:
 	boss_hp.size.x = move_toward(boss_hp.size.x, float((float(hp) / float(MAX_HP)) * 77.0), 20.0 * delta)

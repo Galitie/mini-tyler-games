@@ -1,0 +1,53 @@
+load char
+res://epsilon/portraits/snake.tscn snake
+res://epsilon/portraits/static.tscn static
+res://epsilon/portraits/tyler.tscn tyler
+res://epsilon/portraits/otacon.tscn otacon
+res://epsilon/portraits/rich.tscn rich
+res://epsilon/portraits/anus.tscn anus
+end
+load vo
+res://epsilon/vo/4_silence.mp3 silence
+end
+port add static snake
+msg left default silence "I didn't think you'd get this far Snake."
+msg right default silence "Cut the crap Dick, who the hell are you really?"
+port add anus
+msg left default silence "If you must know before I kill you..."
+msg left reveal silence ""
+port add rich
+msg left default silence "IT WAS ME ALL ALONG!"
+msg right default silence "MERYL?!"
+msg left default silence "What no-"
+msg right default silence "GRAYFOX"
+msg left default silence "Snake, you stupid fuck, it's me, Rich-"
+msg right default silence "SHADOW MOSES"
+msg left default silence "That's not even a person-"
+msg right default silence "COLONEL"
+port add colonel
+msg left default silence "Hey what's up Snake"
+port add rich
+msg left default silence "Jesus Christ, you're not even in this game!"
+port add colonel
+msg left default silence "I mean, it is kind of a mashup up of all the games-"
+port add rich
+msg left default silence "It's me RICHARD"
+msg right default silence "RICHARD"
+msg right default silence "Impossible...but you died back in Zanzibar..."
+msg left default silence "I did Snake, but I was reborn."
+msg right default silence "..."
+msg left default silence "Reborn to fufill my ultimate purpose."
+msg right default silence "METAL...GEAR?"
+msg left default silence "That's right Snake."
+msg left default silence "For once."
+msg right default silence "I'm so fucking smart"
+msg right default silence "What will you use Metal Gear for? Revenge on the Patriots? World war?"
+msg left default silence "Parking."
+msg right default silence "Parking?"
+msg left default silence "Three spots at a time."
+msg right default silence "You sick fuck!"
+msg left default silence "Including handicapped spots."
+msg right default silence "You'll never get away with this."
+msg left default silence "I'll be waiting for you in the lot...with the engine running."
+msg right default silence "GRAH THE OZONE"
+port remove rich snake

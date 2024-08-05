@@ -1,3 +1,16 @@
+# LAYERS
+# 1: SNAKE'S FEET
+# 2: SNAKE'S BODY
+# 3: WALLS
+# 4: PROJECTILES
+# 5: ENEMY FEET
+# 6: ENEMY BODY
+# 7: BOX
+# 8: DEAD SNAKE
+# 9: MINES
+# 10: LOW OBJECT (METAL GEAR)
+# 11: HIGH OBJECT (METAL GEAR)
+
 extends Node2D
 
 var paused: bool = false
@@ -17,7 +30,7 @@ var alert: bool = false
 var wait_to_continue: bool = false
 
 var current_level: TileMap = null
-var current_level_path: String = "res://epsilon/levels/level_0.tscn"
+var current_level_path: String = "res://epsilon/levels/metalgear_level.tscn"
 
 func _ready():
 	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -27,7 +40,7 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0)
+	await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0)
 	
 	#await get_tree().process_frame
 	#paused = true

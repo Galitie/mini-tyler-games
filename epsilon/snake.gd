@@ -1,14 +1,3 @@
-# LAYERS
-# 1: SNAKE'S FEET
-# 2: SNAKE'S BODY
-# 3: WALLS
-# 4: PROJECTILES
-# 5: ENEMY FEET
-# 6: ENEMY BODY
-# 7: BOX
-# 8: DEAD SNAKE
-# 9: MINES
-
 extends CharacterBody2D
 class_name Snake
 

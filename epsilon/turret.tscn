@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://d01r6kwti5kh8"]
+
+[ext_resource type="Script" path="res://epsilon/turret.gd" id="1_28nux"]
+[ext_resource type="Texture2D" uid="uid://bkhiq1dohgls5" path="res://epsilon/sprites/mg_turret_d.png" id="1_dti3a"]
+[ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="2_spqux"]
+[ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="3_upprf"]
+[ext_resource type="Texture2D" uid="uid://dfs1jbeihorol" path="res://epsilon/sprites/explosion_1.png" id="4_ve4yw"]
+[ext_resource type="Texture2D" uid="uid://b4a88xbaa8t4u" path="res://epsilon/sprites/explosion_2.png" id="5_dn5xq"]
+[ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="6_165gs"]
+[ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="7_abbk6"]
+[ext_resource type="Texture2D" uid="uid://cxxt47gi4qubm" path="res://epsilon/sprites/mg_turret_dl.png" id="8_0oe4w"]
+[ext_resource type="Texture2D" uid="uid://c2i18kh2f8ew5" path="res://epsilon/sprites/mg_turret_l.png" id="10_6rdn4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sf1no"]
+resource_local_to_scene = true
+shader = ExtResource("2_spqux")
+shader_parameter/origin = Color(0.988235, 0.00784314, 1, 1)
+shader_parameter/new = null
+shader_parameter/is_hit = null
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3h2j"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("3_upprf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ve4yw")
+}, {
+"duration": 1.2,
+"texture": ExtResource("5_dn5xq")
+}, {
+"duration": 1.4,
+"texture": ExtResource("6_165gs")
+}, {
+"duration": 1.8,
+"texture": ExtResource("7_abbk6")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dti3a")
+}],
+"loop": true,
+"name": &"idle_d",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_0oe4w")
+}],
+"loop": true,
+"name": &"idle_dl",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_0oe4w")
+}],
+"loop": true,
+"name": &"idle_dr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_6rdn4")
+}],
+"loop": true,
+"name": &"idle_l",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_6rdn4")
+}],
+"loop": true,
+"name": &"idle_r",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0p5d"]
+size = Vector2(12, 18)
+
+[node name="turret" type="Node2D"]
+z_index = 3
+
+[node name="anchor" type="Node2D" parent="."]
+script = ExtResource("1_28nux")
+
+[node name="sprite" type="AnimatedSprite2D" parent="anchor"]
+material = SubResource("ShaderMaterial_sf1no")
+position = Vector2(0, 5)
+sprite_frames = SubResource("SpriteFrames_j3h2j")
+animation = &"idle_d"
+
+[node name="raycast" type="RayCast2D" parent="anchor/sprite"]
+rotation = 1.5708
+target_position = Vector2(150, 0)
+
+[node name="body" type="Area2D" parent="anchor"]
+z_index = 3
+collision_layer = 1024
+collision_mask = 8
+
+[node name="collider" type="CollisionShape2D" parent="anchor/body"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_q0p5d")
+
+[node name="bullet_spawn" type="Node2D" parent="anchor"]
+position = Vector2(0, 30)
+
+[node name="vision" type="Area2D" parent="."]
+position = Vector2(0, -4)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="collider" type="CollisionPolygon2D" parent="vision"]
+polygon = PackedVector2Array(0, 0, 90, 150, -90, 150)
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]

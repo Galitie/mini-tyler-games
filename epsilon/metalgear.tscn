@@ -1,0 +1,130 @@
+[gd_scene load_steps=16 format=3 uid="uid://xxplkskw55ul"]
+
+[ext_resource type="Script" path="res://epsilon/metalgear.gd" id="1_40r7c"]
+[ext_resource type="Texture2D" uid="uid://dq2le7kc1x17d" path="res://epsilon/sprites/metalgear.png" id="1_ec37q"]
+[ext_resource type="Texture2D" uid="uid://3dqs8e0x8042" path="res://epsilon/sprites/metalgear_feet.png" id="2_7a7hg"]
+[ext_resource type="PackedScene" uid="uid://d01r6kwti5kh8" path="res://epsilon/turret.tscn" id="3_fjv7w"]
+[ext_resource type="Texture2D" uid="uid://c8ys0vbxtimcr" path="res://epsilon/sprites/metalgear_face.png" id="4_76blp"]
+[ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="5_ilwag"]
+[ext_resource type="Texture2D" uid="uid://dyj5u4bqmgcnc" path="res://epsilon/sprites/metalgear_hatch_close.png" id="5_t58i3"]
+[ext_resource type="Texture2D" uid="uid://h3nskvhmm0d0" path="res://epsilon/sprites/metalgear_hatch_open.png" id="6_5kejt"]
+[ext_resource type="Texture2D" uid="uid://cmtyuhbdxtsao" path="res://epsilon/sprites/metalgear_module_closed.png" id="9_7uibi"]
+[ext_resource type="Texture2D" uid="uid://ca3gk4om878br" path="res://epsilon/sprites/metalgear_module_open.png" id="10_0qkp0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axybh"]
+size = Vector2(20, 16.5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lxg56"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_t58i3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_5kejt")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88jhq"]
+size = Vector2(30, 23)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oim5u"]
+shader = ExtResource("5_ilwag")
+shader_parameter/origin = Color(0.941176, 0, 1, 1)
+shader_parameter/new = null
+shader_parameter/is_hit = null
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2df4r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7uibi")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_0qkp0")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="metalgear" type="CharacterBody2D"]
+position = Vector2(0, -32)
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("1_40r7c")
+
+[node name="body" type="Sprite2D" parent="."]
+z_index = 3
+texture = ExtResource("1_ec37q")
+
+[node name="feet" type="Sprite2D" parent="."]
+texture = ExtResource("2_7a7hg")
+
+[node name="right_foot" type="CollisionShape2D" parent="."]
+position = Vector2(-34, 64.25)
+shape = SubResource("RectangleShape2D_axybh")
+
+[node name="left_foot" type="CollisionShape2D" parent="."]
+position = Vector2(34, 64.25)
+shape = SubResource("RectangleShape2D_axybh")
+
+[node name="turret" parent="." instance=ExtResource("3_fjv7w")]
+position = Vector2(-28, 26)
+
+[node name="turret2" parent="." instance=ExtResource("3_fjv7w")]
+position = Vector2(28, 26)
+
+[node name="hatch" type="AnimatedSprite2D" parent="."]
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_lxg56")
+
+[node name="face_hitbox" type="Area2D" parent="."]
+z_index = 3
+collision_layer = 1024
+collision_mask = 8
+
+[node name="collider" type="CollisionShape2D" parent="face_hitbox"]
+position = Vector2(0, 16.5)
+shape = SubResource("RectangleShape2D_88jhq")
+
+[node name="face" type="Sprite2D" parent="."]
+z_index = 3
+material = SubResource("ShaderMaterial_oim5u")
+texture = ExtResource("4_76blp")
+
+[node name="module" type="AnimatedSprite2D" parent="."]
+z_index = 3
+sprite_frames = SubResource("SpriteFrames_2df4r")
+animation = &"close"
+
+[node name="Node2D" type="Node2D" parent="module"]
+position = Vector2(-24, -64)
+
+[node name="Node2D2" type="Node2D" parent="module"]
+position = Vector2(-24, -56)
+
+[node name="Node2D3" type="Node2D" parent="module"]
+position = Vector2(-24, -48)
+
+[node name="Node2D4" type="Node2D" parent="module"]
+position = Vector2(24, -64)
+
+[node name="Node2D5" type="Node2D" parent="module"]
+position = Vector2(24, -56)
+
+[node name="Node2D6" type="Node2D" parent="module"]
+position = Vector2(24, -48)

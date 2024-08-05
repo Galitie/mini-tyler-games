@@ -1,0 +1,81 @@
+[gd_scene load_steps=14 format=3 uid="uid://de26v7as3cict"]
+
+[ext_resource type="Script" path="res://epsilon/metalgear_stinger.gd" id="1_i44u0"]
+[ext_resource type="Texture2D" uid="uid://c74e4onunk6hn" path="res://epsilon/sprites/metalgear_stinger.png" id="2_u28xb"]
+[ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="3_66jby"]
+[ext_resource type="Texture2D" uid="uid://dfs1jbeihorol" path="res://epsilon/sprites/explosion_1.png" id="4_nqa15"]
+[ext_resource type="Texture2D" uid="uid://b4a88xbaa8t4u" path="res://epsilon/sprites/explosion_2.png" id="5_rq5vl"]
+[ext_resource type="Texture2D" uid="uid://1k3woh7bus23" path="res://epsilon/sprites/explosion_3.png" id="6_0sdcp"]
+[ext_resource type="Texture2D" uid="uid://cinffj184vhob" path="res://epsilon/sprites/explosion_4.png" id="7_g42nw"]
+[ext_resource type="Texture2D" uid="uid://cijtry40yb1ie" path="res://epsilon/sprites/metalgear_stinger_particle.png" id="8_b283q"]
+[ext_resource type="AudioStream" uid="uid://c5gwk7o8jhtqp" path="res://epsilon/sound_effects/explosion.mp3" id="9_oftii"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8wa8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_u28xb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": ExtResource("3_66jby")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nqa15")
+}, {
+"duration": 1.2,
+"texture": ExtResource("5_rq5vl")
+}, {
+"duration": 1.4,
+"texture": ExtResource("6_0sdcp")
+}, {
+"duration": 1.8,
+"texture": ExtResource("7_g42nw")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 25.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h46th"]
+size = Vector2(12, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thp46"]
+size = Vector2(24, 24)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_boyy7"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+
+[node name="metalgear_stinger" type="Area2D"]
+z_index = 4
+collision_layer = 8
+collision_mask = 38
+script = ExtResource("1_i44u0")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v8wa8")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h46th")
+
+[node name="explosion" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 1058
+monitoring = false
+monitorable = false
+
+[node name="collider" type="CollisionShape2D" parent="explosion"]
+shape = SubResource("RectangleShape2D_thp46")
+
+[node name="particles" type="GPUParticles2D" parent="."]
+position = Vector2(-9, 0)
+process_material = SubResource("ParticleProcessMaterial_boyy7")
+texture = ExtResource("8_b283q")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_oftii")

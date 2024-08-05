@@ -111,6 +111,7 @@ animations = [{
 size = Vector2(10, 10)
 
 [node name="stinger_missile" type="Area2D"]
+z_index = 4
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_bgqw4")
@@ -120,7 +121,7 @@ shape = SubResource("RectangleShape2D_kxl17")
 
 [node name="explosion" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 34
+collision_mask = 1058
 monitoring = false
 monitorable = false
 
@@ -142,7 +143,7 @@ offset = Vector2(0, -14)
 
 [node name="body" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 34
+collision_mask = 1058
 
 [node name="collider" type="CollisionShape2D" parent="body"]
 position = Vector2(0, -12)

@@ -16,10 +16,11 @@ const DAMAGE: int = 10
 var emitter
 
 var exploded: bool = false
-var bounced: bool = false
+var stopped: bool = false
 
 func _ready():
 	add_to_group("projectiles")
+	body_entered.connect(_body_entered)
 	$explosion.area_entered.connect(_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
 	$sfx.finished.connect(_sfx_finished)
@@ -27,28 +28,25 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if !exploded:
 		if life > LIFESPAN:
-			exploded = true
-			speed = 0
-			set_deferred("monitoring", false)
-			$explosion.set_deferred("monitoring", true)
-			$sprite.play("explode")
-			$sfx.play()
-			$shadow.visible = false
+			explode()
 		else:
 			life += 1.0 * delta
 			arc_progress += fall_speed * delta
 			$sprite.offset.y = y_offset + sin(arc_progress) * throw_arc
-			global_position += speed * direction * delta
+			if !stopped:
+				global_position += speed * direction * delta
 			
-			# BUG: Throwing a grenade at a door crashes it. Whoopeeeeeee!
-			if !bounced && has_overlapping_bodies():
-				var bodies = get_overlapping_bodies()
-				var body = bodies[0]
-				var tile_local = body.local_to_map(global_position)
-				var tile_data = body.get_cell_tile_data(0, tile_local)
-				var tile_normal = tile_data.get_constant_linear_velocity(0).normalized()
-				direction = direction.bounce(tile_normal).normalized()
-				bounced = true
+func _body_entered(body: Node2D) -> void:
+	stopped = true
+	
+func explode() -> void:
+	exploded = true
+	speed = 0
+	set_deferred("monitoring", false)
+	$explosion.set_deferred("monitoring", true)
+	$sprite.play("explode")
+	$sfx.play()
+	$shadow.visible = false
 
 func _area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()

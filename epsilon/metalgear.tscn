@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://xxplkskw55ul"]
+[gd_scene load_steps=25 format=3 uid="uid://xxplkskw55ul"]
 
 [ext_resource type="Script" path="res://epsilon/metalgear.gd" id="1_40r7c"]
 [ext_resource type="Texture2D" uid="uid://dq2le7kc1x17d" path="res://epsilon/sprites/metalgear.png" id="1_ec37q"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://bo7r3qywcp880" path="res://epsilon/sound_effects/grenade_draw.wav" id="11_i16j1"]
 [ext_resource type="AudioStream" uid="uid://bi7eyd775y1xv" path="res://epsilon/sound_effects/stinger_shoot.wav" id="12_ksbnw"]
 [ext_resource type="AudioStream" uid="uid://cb2ji504javau" path="res://epsilon/sound_effects/engine.ogg" id="13_nbjmn"]
+[ext_resource type="Texture2D" uid="uid://dy0l1bjiyy8aw" path="res://epsilon/sprites/explosion_all.png" id="14_rkwvj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axybh"]
 size = Vector2(20, 16.5)
@@ -246,6 +247,22 @@ _data = {
 "idle": SubResource("Animation_smpk4")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_omqb5"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5exy3"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 70.53
+angle_max = 94.7
+gravity = Vector3(0, 0, 0)
+scale_max = 1.25
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
 [node name="metalgear" type="CharacterBody2D"]
 collision_layer = 512
 collision_mask = 0
@@ -330,3 +347,12 @@ volume_db = -5.0
 libraries = {
 "": SubResource("AnimationLibrary_5ce5p")
 }
+
+[node name="explosion" type="GPUParticles2D" parent="."]
+z_index = 3
+material = SubResource("CanvasItemMaterial_omqb5")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_5exy3")
+texture = ExtResource("14_rkwvj")
+lifetime = 0.5
+randomness = 0.17

@@ -162,6 +162,7 @@ monitoring = false
 monitorable = false
 script = ExtResource("6_2grbb")
 path = "res://epsilon/levels/level_1.tscn"
+music_path = "res://epsilon/music/intruder.mp3"
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")

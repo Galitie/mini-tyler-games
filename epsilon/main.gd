@@ -21,6 +21,7 @@ var in_call: bool = false
 @onready var ui_anim = $game/camera/ui/anim_player
 @onready var ui_audio = $game/camera/ui/audio_player
 
+var current_music = null
 var current_music_path = ""
 var encounter_theme = preload("res://epsilon/music/encounter.mp3")
 var alert: bool = false
@@ -31,6 +32,8 @@ var wait_to_continue: bool = false
 
 var current_level: TileMap = null
 var current_level_path: String = "res://epsilon/levels/metalgear_level.tscn"
+
+var music_playback_pos: float = 0
 
 func _ready():
 	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -109,9 +112,11 @@ func GameOver() -> void:
 	await ui_anim.animation_finished
 	
 func LoadLevel(level_path: String, music_path: String, music_playback_pos: float) -> void:
-	if !music_path.is_empty() && music_path != current_music_path:
+	if music_path != current_music_path:
 		current_music_path = music_path
-	$music.stream = load(current_music_path)
+		music_playback_pos = 0
+		current_music = load(current_music_path)
+	$music.stream = current_music
 	$music.play(music_playback_pos)
 	
 	var snakes = get_tree().get_nodes_in_group("snakes")
@@ -159,6 +164,7 @@ func _enemy_alerted() -> void:
 		for snake in get_tree().get_nodes_in_group("snakes"):
 			snake.can_be_revived = false
 		
+		music_playback_pos = $music.get_playback_position()
 		$music.stream = encounter_theme
 		$music.play()
 		alert = true
@@ -174,8 +180,8 @@ func _enemy_lost_alert() -> void:
 			for snake in get_tree().get_nodes_in_group("snakes"):
 				snake.can_be_revived = true
 			alert = false
-			$music.stream = load(current_music_path)
-			$music.play()
+			$music.stream = current_music
+			$music.play(music_playback_pos)
 
 func _on_snake_death() -> void:
 	var total_snake_deaths: int = 0
@@ -192,5 +198,5 @@ func _level_triggered(path: String, music_path: String) -> void:
 	paused = true
 	ui_anim.play("fade_out")
 	await ui_anim.animation_finished
-	var music_playback_pos: float = $music.get_playback_position()
+	music_playback_pos = $music.get_playback_position()
 	LoadLevel(path, music_path, music_playback_pos)

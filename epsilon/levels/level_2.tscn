@@ -214,6 +214,7 @@ monitoring = false
 monitorable = false
 script = ExtResource("5_bib1h")
 path = "res://epsilon/levels/level_4.tscn"
+music_path = "res://epsilon/music/intruder2.mp3"
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")

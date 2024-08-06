@@ -27,6 +27,7 @@ var grenade_draw_sfx = preload("res://epsilon/sound_effects/grenade_draw.wav")
 var stinger_draw_sfx = preload("res://epsilon/sound_effects/stinger_draw.wav")
 var stinger_shoot_sfx = preload("res://epsilon/sound_effects/stinger_shoot.wav")
 var cqc_sfx = preload("res://epsilon/sound_effects/cqc.wav")
+var died_sfx = [preload("res://epsilon/sound_effects/died_fuck.mp3"), preload("res://epsilon/sound_effects/died_help.mp3"), preload("res://epsilon/sound_effects/died_jesus.mp3"), preload("res://epsilon/sound_effects/died_shit.mp3")]
 
 var map: TileMap = null
 
@@ -302,6 +303,8 @@ func hit(emitter, damage: int) -> void:
 		if hp <= 0:
 			hp = 0
 			emit_signal("dead")
+			$sfx.stream = died_sfx.pick_random()
+			$sfx.play()
 			sprite.play("fall" + "_" + direction)
 			$body.set_deferred("monitorable", false)
 			$collider.set_deferred("disabled", true)

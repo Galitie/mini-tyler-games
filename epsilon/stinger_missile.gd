@@ -98,6 +98,9 @@ func _body_area_entered(area: Area2D) -> void:
 		if emitter.hp > 0:
 			emitter.state = Snake.SnakeState.IDLE
 		explode()
+	else:
+		explode()
+		emitter.state = Snake.SnakeState.IDLE
 		
 func explode() -> void:
 	set_deferred("monitoring", false)

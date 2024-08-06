@@ -25,9 +25,12 @@ func _physics_process(delta: float) -> void:
 
 func _area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()
-	if entity != emitter && entity.is_in_group("entities"):
-		entity.hit(emitter, DAMAGE)
-		queue_free()
+	if entity != emitter:
+		if entity.is_in_group("entities"):
+			entity.hit(emitter, DAMAGE)
+			queue_free()
+		else:
+			queue_free()
 
 func _body_entered(body: Node2D) -> void:
 	queue_free()

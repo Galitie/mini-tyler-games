@@ -216,11 +216,12 @@ func _physics_process(delta: float) -> void:
 				grenade_ammo -= 1
 				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)
 				state = SnakeState.SHOOT
-				var grenade = grenade_scene.instantiate()
+				var grenade_instance = grenade_scene.instantiate()
+				var grenade = grenade_instance.get_node("grenade")
 				grenade.emitter = self
 				grenade.direction = GetVectorFromDirection(direction)
 				grenade.position = position + Vector2(0, -4) + (grenade.direction * 6)
-				map.add_child(grenade)
+				map.add_child(grenade_instance)
 			elif weapon == "stinger" && !Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_Y):
 				stinger_ammo -= 1
 				sprite.play(weapon + "_" + "shoot" + "_" + direction, 1.0)

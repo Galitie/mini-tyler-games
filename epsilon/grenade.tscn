@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djngrv7bcbw00"]
+[gd_scene load_steps=14 format=3 uid="uid://djngrv7bcbw00"]
 
 [ext_resource type="Texture2D" uid="uid://bgg85jxdl4rxs" path="res://epsilon/sprites/explosion_0.png" id="1_4jl7d"]
 [ext_resource type="Script" path="res://epsilon/grenade.gd" id="1_b08o0"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bqih6xa1onc6o" path="res://epsilon/sprites/grenade.png" id="6_7rrpt"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="8_68wd1"]
 [ext_resource type="AudioStream" uid="uid://c5gwk7o8jhtqp" path="res://epsilon/sound_effects/explosion.mp3" id="9_hathb"]
+[ext_resource type="Texture2D" uid="uid://dwhmx5yh30pr6" path="res://epsilon/sprites/target.png" id="10_hy5sj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxl17"]
 size = Vector2(4, 4)
@@ -47,33 +48,40 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="grenade" type="Area2D"]
+[node name="grenade" type="Node2D"]
+
+[node name="grenade" type="Area2D" parent="."]
 z_index = 4
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_b08o0")
 
-[node name="collider" type="CollisionShape2D" parent="."]
+[node name="collider" type="CollisionShape2D" parent="grenade"]
 shape = SubResource("RectangleShape2D_kxl17")
 
-[node name="explosion" type="Area2D" parent="."]
+[node name="explosion" type="Area2D" parent="grenade"]
 collision_layer = 4
 collision_mask = 1058
 monitoring = false
 monitorable = false
 
-[node name="collider" type="CollisionShape2D" parent="explosion"]
+[node name="collider" type="CollisionShape2D" parent="grenade/explosion"]
 shape = SubResource("RectangleShape2D_5nhi5")
 
-[node name="shadow" type="Sprite2D" parent="."]
+[node name="shadow" type="Sprite2D" parent="grenade"]
 z_index = -2
 texture_filter = 1
 texture = ExtResource("8_68wd1")
 
-[node name="sprite" type="AnimatedSprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="grenade"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_h1c3c")
 animation = &"idle"
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_hathb")
+
+[node name="marker" type="Sprite2D" parent="."]
+visible = false
+z_index = -2
+texture = ExtResource("10_hy5sj")

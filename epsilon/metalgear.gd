@@ -37,7 +37,9 @@ func _physics_process(delta: float) -> void:
 		await get_tree().create_timer(0.4).timeout
 		$grenade_sfx.play()
 		await get_tree().create_timer(0.6).timeout
-		var grenade = grenade_scene.instantiate()
+		var grenade_instance = grenade_scene.instantiate()
+		var grenade = grenade_instance.get_node("grenade")
+		grenade.marker = true
 		grenade.emitter = self
 		var snakes: Array = []
 		for snake in get_tree().get_nodes_in_group("snakes"):
@@ -48,7 +50,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			grenade.direction = Vector2(0, 1)
 		grenade.global_position = $face.global_position + Vector2(0, 2) + (grenade.direction * 6)
-		map.add_child(grenade)
+		map.add_child(grenade_instance)
 		await get_tree().create_timer(1.0).timeout
 		$hatch.play("default")
 		

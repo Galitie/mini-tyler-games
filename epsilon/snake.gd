@@ -303,8 +303,13 @@ func hit(emitter, damage: int) -> void:
 		if hp <= 0:
 			hp = 0
 			emit_signal("dead")
-			$sfx.stream = died_sfx.pick_random()
-			$sfx.play()
+			var alive_snakes: Array = []
+			for snake in get_tree().get_nodes_in_group("snakes"):
+				if snake.state != SnakeState.DEAD:
+					alive_snakes.append(snake)
+			if alive_snakes.size() > 1:
+				$sfx.stream = died_sfx.pick_random()
+				$sfx.play()
 			sprite.play("fall" + "_" + direction)
 			$body.set_deferred("monitorable", false)
 			$collider.set_deferred("disabled", true)

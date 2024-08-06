@@ -66,3 +66,5 @@ shape = SubResource("RectangleShape2D_hnc6p")
 [node name="collider" type="CollisionShape2D" parent="area2d"]
 position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_cu5c5")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]

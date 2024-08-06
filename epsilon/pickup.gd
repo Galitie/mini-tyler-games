@@ -9,12 +9,18 @@ enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD }
 @export var color: Color
 var amount: int = 0
 
-func _ready() -> void:	
+var temporary: bool = false
+
+func _ready() -> void:
 	$sfx.finished.connect(_sfx_finished)
 	body_entered.connect(_body_entered)
 	SetPickupType(pickup_type)
 	$sprite/description.text = "[center]" + str(PickupType.keys()[pickup_type]) + "[/center]"
 	$anim_player.play("float")
+	
+	if temporary:
+		await get_tree().create_timer(30.0).timeout
+		queue_free()
 
 func SetPickupType(type: PickupType) -> void:
 	match type:

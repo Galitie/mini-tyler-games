@@ -329,6 +329,7 @@ func _animation_finished() -> void:
 		emit_signal("enemy_lost_alert")
 		var pickup = pickup_scene.instantiate()
 		pickup.global_position = global_position
+		pickup.temporary = true
 		var rng = RandomNumberGenerator.new()
 		var rng_result = rng.randi_range(1, 50)
 		if rng_result >= 25 && rng_result < 40:

@@ -2,7 +2,6 @@ extends Camera2D
 
 func _ready() -> void:
 	$ui.visible = true
-	RenderingServer.set_default_clear_color(Color("102830"))
 	global_position = GetDestination()
 	# NOTE: Have to call it twice to work, Spaghodot
 	reset_smoothing()

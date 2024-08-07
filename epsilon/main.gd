@@ -32,18 +32,20 @@ var wait_to_continue: bool = false
 
 var current_level: TileMap = null
 var current_level_path: String = "res://epsilon/levels/metalgear_level.tscn"
+var current_level_bg_color = Color("978C80")
 
 var music_playback_pos: float = 0
 
 func _ready():
 	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
+	RenderingServer.set_default_clear_color(current_level_bg_color)
 	
 	var snakes = get_tree().get_nodes_in_group("snakes")
 	for i in range(snakes.size()):
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0)
+	await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0, current_level_bg_color)
 	
 	#await get_tree().process_frame
 	#paused = true
@@ -81,9 +83,9 @@ func _physics_process(delta: float) -> void:
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 			wait_to_continue = false
 			await $game/camera/ui/game_over.Continue()
-			await LoadLevel(current_level_path, current_music_path, 0.0)
+			await LoadLevel(current_level_path, current_music_path, 0.0, current_level_bg_color)
 
-func _codec_triggered(call_path: String, music_path: String) -> void:
+func _codec_triggered(call_path: String, music_path: String, bg_color: Color) -> void:
 	can_pause = false
 	in_call = true
 	paused = true
@@ -111,7 +113,10 @@ func GameOver() -> void:
 	wait_to_continue = true
 	await ui_anim.animation_finished
 	
-func LoadLevel(level_path: String, music_path: String, music_playback_pos: float) -> void:
+func LoadLevel(level_path: String, music_path: String, music_playback_pos: float, color: Color) -> void:
+	current_level_bg_color = color
+	RenderingServer.set_default_clear_color(current_level_bg_color)
+	
 	if music_path != current_music_path:
 		current_music_path = music_path
 		music_playback_pos = 0
@@ -193,10 +198,10 @@ func _on_snake_death() -> void:
 		$music.stop()
 		alert = false
 
-func _level_triggered(path: String, music_path: String) -> void:
+func _level_triggered(path: String, music_path: String, color: Color) -> void:
 	can_pause = false
 	paused = true
 	ui_anim.play("fade_out")
 	await ui_anim.animation_finished
 	music_playback_pos = $music.get_playback_position()
-	LoadLevel(path, music_path, music_playback_pos)
+	LoadLevel(path, music_path, music_playback_pos, color)

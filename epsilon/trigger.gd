@@ -9,6 +9,8 @@ enum TriggerType { LEVEL, CODEC }
 @export var path: String
 @export var music_path: String
 
+@export var bg_color: Color = Color("102830")
+
 func _ready() -> void:
 	add_to_group("triggers")
 	body_entered.connect(_body_entered)
@@ -17,5 +19,5 @@ func _ready() -> void:
 	set_deferred("monitoring", true)
 
 func _body_entered(body: Node2D) -> void:
-	emit_signal("triggered", path, music_path)
+	emit_signal("triggered", path, music_path, bg_color)
 	set_deferred("monitoring", false)

@@ -374,6 +374,7 @@ monitorable = false
 script = ExtResource("6_whkvc")
 path = "res://epsilon/levels/metalgear_level.tscn"
 music_path = "res://epsilon/music/duel.mp3"
+bg_color = Color(0.592157, 0.54902, 0.501961, 1)
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")

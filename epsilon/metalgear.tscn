@@ -529,3 +529,4 @@ monitorable = false
 script = ExtResource("16_rmd6y")
 path = "res://epsilon/levels/metalgear_level.tscn"
 music_path = "res://epsilon/music/duel2.mp3"
+bg_color = Color(0.592157, 0.54902, 0.501961, 1)

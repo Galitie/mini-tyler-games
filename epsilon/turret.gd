@@ -78,8 +78,8 @@ func hit(emitter, damage: int) -> void:
 		if hp <= 0:
 			is_destroyed = true
 			$sprite.play("explode")
-			set_deferred("monitoring", false)
-			set_deferred("monitorable", false)
+			$body.set_deferred("monitoring", false)
+			$body.set_deferred("monitorable", false)
 			return
 		is_hit = true
 		

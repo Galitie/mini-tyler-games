@@ -111,6 +111,9 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			mon.strength += 1
 			emit_signal("upgraded", "good")
+			if mon.strength >= 10 && mon.buff == false:
+				mon.buff = true
+				mon.hair.visible = true
 		"int":
 			points_to_spend -= 1
 			mon.intelligence += 1
@@ -210,7 +213,12 @@ func gamble():
 		_:
 			increase_random_stats(1,3)
 			emit_signal("upgraded", "good")
-
+	if mon.strength >= 10 && mon.buff == false:
+		mon.buff = true
+		mon.hair.visible = true
+	if mon.intelligence >= 10 && mon.smart == false:
+		mon.smart = true
+		mon.glasses.visible = true
 
 func increase_random_stats(stats:int, alter_by:int):
 	var possible_stats = [1, 2, 3]

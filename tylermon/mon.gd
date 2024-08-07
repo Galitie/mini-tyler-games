@@ -15,6 +15,7 @@ var default_z_index = 0
 var current_player_command = State.TARGET_AND_ATTACK
 var cursed : bool = false
 var smart : bool = false
+var buff : bool = false
 var max_think_time : float = 5
 var fire_material = load("res://tylermon/fire.tres")
 var fire_text = load("res://tylermon/background/flame_text.png")
@@ -67,6 +68,7 @@ var state_weights = [
 @onready var audio_player = $audio_player
 @onready var hat = $scalable_nodes/witch_hat
 @onready var glasses = $scalable_nodes/glasses
+@onready var hair = $scalable_nodes/hair
 
 var cursed_phrases = [
 	"fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", 
@@ -430,10 +432,12 @@ func move_to_destination(delta):
 		sprite.flip_h = false
 		hat.flip_h = false
 		glasses.flip_h = false
+		hair.flip_h = false
 	else:
 		sprite.flip_h = true
 		hat.flip_h = true
 		glasses.flip_h = true
+		hair.flip_h = true
 	if !timer.is_stopped():
 		position = position.move_toward(destination, speed * delta)
 
@@ -523,3 +527,4 @@ func play_anims(anim_name):
 	sprite.play(anim_name)
 	hat.play(anim_name)
 	glasses.play(anim_name)
+	hair.play(anim_name)

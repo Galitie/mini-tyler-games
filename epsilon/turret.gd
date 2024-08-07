@@ -78,12 +78,14 @@ func hit(emitter, damage: int) -> void:
 		if hp <= 0:
 			is_destroyed = true
 			$sprite.play("explode")
+			set_deferred("monitoring", false)
+			set_deferred("monitorable", false)
 			return
 		is_hit = true
 		
 func _animation_finished() -> void:
 	if hp <= 0:
-		get_parent().queue_free()
+		visible = false
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:

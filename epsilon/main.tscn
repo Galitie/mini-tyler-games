@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cr6sljq0rnw0e"]
+[gd_scene load_steps=16 format=3 uid="uid://cr6sljq0rnw0e"]
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_xhkvj"]
 [ext_resource type="Script" path="res://epsilon/camera.gd" id="2_rlmm8"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bp8b8uet70caq" path="res://epsilon/codec.tscn" id="5_cdts0"]
 [ext_resource type="Texture2D" uid="uid://bscbpc4wnnyj1" path="res://epsilon/sprites/boss_lifebar.png" id="6_c4feg"]
 [ext_resource type="PackedScene" uid="uid://mx8f7uy0hbdp" path="res://epsilon/game_over.tscn" id="6_rlaxr"]
+[ext_resource type="FontFile" uid="uid://bk14ysvkf67au" path="res://epsilon/Dosis-Regular.ttf" id="7_fsrsp"]
 [ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="7_ubn78"]
 
 [sub_resource type="Animation" id="Animation_kow5m"]
@@ -176,6 +177,31 @@ grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(3, 3)
 
+[node name="text_container" type="MarginContainer" parent="game/camera/ui/camera_space"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -272.5
+offset_top = -61.0
+offset_right = 272.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="text" type="RichTextLabel" parent="game/camera/ui/camera_space/text_container"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/normal_font = ExtResource("7_fsrsp")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
 [node name="boss_life" type="TextureRect" parent="game/camera/ui/camera_space"]
 visible = false
 texture_filter = 1
@@ -273,6 +299,9 @@ process_mode = 3
 [node name="game_over" parent="game/camera/ui" instance=ExtResource("6_rlaxr")]
 process_mode = 3
 scale = Vector2(2, 2)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="game/camera"]
+current = true
 
 [node name="snake" parent="game" instance=ExtResource("7_ubn78")]
 

@@ -32,7 +32,7 @@ var died_sfx = [preload("res://epsilon/sound_effects/died_fuck.mp3"), preload("r
 var map: TileMap = null
 
 const MAX_HP: int = 10
-var hp: int = 10
+var hp: int = MAX_HP
 
 const PUNCH_DAMAGE: int = 1
 

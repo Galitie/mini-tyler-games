@@ -10,6 +10,7 @@
 # 9: MINES
 # 10: LOW OBJECT (METAL GEAR)
 # 11: HIGH OBJECT (METAL GEAR)
+# 12: RICHARD
 
 extends Node2D
 
@@ -31,7 +32,7 @@ var alert: bool = false
 var wait_to_continue: bool = false
 
 var current_level: TileMap = null
-var current_level_path: String = "res://epsilon/levels/metalgear_level.tscn"
+var current_level_path: String = "res://epsilon/levels/metalgear_level2.tscn"
 var current_level_bg_color = Color("978C80")
 
 var music_playback_pos: float = 0
@@ -45,7 +46,7 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0, current_level_bg_color)
+	await LoadLevel(current_level_path, "res://epsilon/music/duel2.mp3", 0.0, current_level_bg_color)
 	
 	#await get_tree().process_frame
 	#paused = true
@@ -62,8 +63,10 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
 		for snake in get_tree().get_nodes_in_group("snakes"):
+			if snake.controller_port == 0:
+				snake.hp = 5000
 			if snake.controller_port != 0:
-				snake.hit(self, 100)
+				snake.hit(self, 9999)
 	
 	get_tree().paused = paused
 	
@@ -109,6 +112,7 @@ func GameOver() -> void:
 	await $game/camera/ui/game_over.GameOverDeath()
 	paused = true
 	ui_anim.play("fade_out", -1, 0.25)
+	$game/camera/ui/codec/text_container/text.text = ""
 	await $game/camera/ui/game_over.GameOver()
 	wait_to_continue = true
 	await ui_anim.animation_finished

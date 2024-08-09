@@ -63,6 +63,8 @@ var can_speak: bool = false
 func _ready() -> void:
 	add_to_group("entities")
 	
+	Input.start_joy_vibration(0, 1.0, 1.0, 0.0)
+	
 	boss_hp_bar.visible = true
 	boss_hp.size.x = float((float(hp) / float(MAX_HP)) * 77.0)
 	

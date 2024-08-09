@@ -16,6 +16,7 @@ func _ready():
 func _body_entered(body: Node2D) -> void:
 	if body.is_in_group("entities"):
 		if body.is_in_group("snakes"):
+			Input.start_joy_vibration(body.controller_port, 1.0, 1.0, 1.0)
 			if body.state == Snake.SnakeState.BOX:
 				return
 		$sprite.visible = true

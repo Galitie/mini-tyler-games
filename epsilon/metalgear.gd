@@ -102,7 +102,7 @@ func hit(emitter, damage: int) -> void:
 		hp -= damage
 		if hp <= 0:
 			for i in range(4):
-				Input.start_joy_vibration(i, 1.0, 1.0, 5.6)
+				Input.start_joy_vibration(i, 1.0, 1.0, 7.0)
 			boss_hp_bar.visible = false
 			$turret.get_node("anchor").hit(self, 999)
 			$turret2.get_node("anchor").hit(self, 999)

@@ -1,7 +1,7 @@
 extends Area2D
 
 var cooldown: float = 0.0
-var cooldown_length: float = 5.0
+var cooldown_length: float = 2.0
 
 func _ready() -> void:
 	$anim_player.animation_finished.connect(_animation_finished)

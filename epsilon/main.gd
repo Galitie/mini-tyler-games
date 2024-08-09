@@ -63,8 +63,6 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
 		for snake in get_tree().get_nodes_in_group("snakes"):
-			if snake.controller_port == 0:
-				snake.hp = 5000
 			if snake.controller_port != 0:
 				snake.hit(self, 9999)
 	

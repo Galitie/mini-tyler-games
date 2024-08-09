@@ -80,6 +80,11 @@ func agent_setup() -> void:
 	await get_tree().physics_frame
 	set_physics_process(true)
 	
+	for snake in get_tree().get_nodes_in_group("snakes"):
+		snake.pistol_ammo = 0
+		snake.stinger_ammo = 0
+		snake.grenade_ammo = 0
+	
 	$nav_agent.target_position = global_position
 	$sfx.stream = opening_line
 	$sfx.play()
@@ -117,12 +122,14 @@ func _physics_process(delta: float) -> void:
 				$sprite.play("run" + "_" + direction, 1.3)
 				global_position += t_direction * run_speed * delta
 				
-				var mine_chance = rng.randi_range(0, 200)
-				if mine_chance > 199:
+				var mine_chance = rng.randi_range(0, 100)
+				if mine_chance > 99:
 					placing_mine = true
-					$sprite.play("place_mine")
+					$sprite.play("place_mine", 2.0)
 			else:
 				$sprite.play("idle_d")
+				if $timer.is_stopped():
+					$timer.start()
 
 func hit(emitter, damage: int) -> void:
 	if hp > 0:
@@ -136,6 +143,7 @@ func hit(emitter, damage: int) -> void:
 			$timer.stop()
 			$vo_timer.stop()
 			$sfx.bus = "Reverb"
+			$sfx.stop()
 			$sfx.stream = dead_line
 			$sfx.play()
 			vo_text.text = "[center]Augh...![/center]"
@@ -146,8 +154,6 @@ func hit(emitter, damage: int) -> void:
 			await $sfx.finished
 			vo_text.text = ""
 			return
-		if $nav_agent.is_target_reached() && $timer.is_stopped():
-			$timer.start()
 
 func GetDirection(move_input: Vector2) -> String:
 	if move_input.length() == 0:

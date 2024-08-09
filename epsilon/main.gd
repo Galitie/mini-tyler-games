@@ -207,3 +207,15 @@ func _level_triggered(path: String, music_path: String, color: Color) -> void:
 	await ui_anim.animation_finished
 	music_playback_pos = $music.get_playback_position()
 	LoadLevel(path, music_path, music_playback_pos, color)
+
+func End() -> void:
+	ui_anim.play("fade_out")
+	paused = true
+	can_pause = false
+	await ui_anim.animation_finished
+	$music.stop()
+	await codec.play_file("res://epsilon/codec_calls/6.txt")
+	$music.volume_db = 0
+	$music.stream = load("res://epsilon/music/snake_eater_easter_egg_ver.ogg")
+	$music.play()
+	# play ending video + song

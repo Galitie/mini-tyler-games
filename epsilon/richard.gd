@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const MAX_HP: int = 40
+const MAX_HP: int = 2
 var hp: int = MAX_HP
 
 var hiding_spots: Array = [
@@ -277,4 +277,4 @@ func _animation_finished() -> void:
 		z_index = -1
 		await $sfx.finished
 		await get_tree().create_timer(3.0).timeout
-		print("boss over")
+		get_tree().root.get_node("main").End()

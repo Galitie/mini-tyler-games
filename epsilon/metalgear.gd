@@ -14,7 +14,7 @@ var cooldown: float = cooldown_length
 var missile_cooldown_length: float = 14.0
 var missile_cooldown: float = missile_cooldown_length
 
-const MAX_HP: int = 5
+const MAX_HP: int = 150
 var hp: int = MAX_HP
 
 var is_hit: bool = false

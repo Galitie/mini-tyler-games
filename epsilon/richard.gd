@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const MAX_HP: int = 2
+const MAX_HP: int = 40
 var hp: int = MAX_HP
 
 var hiding_spots: Array = [

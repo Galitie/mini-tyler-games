@@ -14,7 +14,7 @@ var cooldown: float = cooldown_length
 var missile_cooldown_length: float = 14.0
 var missile_cooldown: float = missile_cooldown_length
 
-const MAX_HP: int = 150
+const MAX_HP: int = 5
 var hp: int = MAX_HP
 
 var is_hit: bool = false
@@ -101,6 +101,8 @@ func hit(emitter, damage: int) -> void:
 	if hp >= 1:
 		hp -= damage
 		if hp <= 0:
+			for i in range(4):
+				Input.start_joy_vibration(i, 1.0, 1.0, 5.6)
 			boss_hp_bar.visible = false
 			$turret.get_node("anchor").hit(self, 999)
 			$turret2.get_node("anchor").hit(self, 999)

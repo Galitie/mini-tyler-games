@@ -5,13 +5,20 @@ end
 load vo
 res://epsilon/vo/4_silence.mp3 silence
 res://epsilon/vo/kept_you_waiting_2.mp3 waiting
+res://epsilon/vo/6_hello.mp3 hello
+res://epsilon/vo/6_saving_me.mp3 saving_me
+res://epsilon/vo/6_long_time.mp3 long_time
+res://epsilon/vo/6_hello2.mp3 hello2
+res://epsilon/vo/6_all_over.mp3 all_over
 end
 port add tyler NULL
-msg left talking silence "Hello...?"
-msg left talking silence "Is anyone still saving me?"
-msg left talking silence "I've been holding it for a long time."
-msg left talking silence "Hello?"
-msg left talking silence "Oh, there it goes. It's going. It's all over."
+msg left talking hello "Hello...?"
+msg left talking saving_me "Is anyone still saving me?"
+msg left talking long_time "I've been holding it for a long time."
+msg left default silence "..."
+msg left talking hello2 "Hello?"
+msg left default silence ""
+msg left talking all_over "Oh, there it goes. It's going. It's all over."
 port add NULL snake
 msg right talking waiting "Kept you waiting, huh?"
 port remove tyler snake

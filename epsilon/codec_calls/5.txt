@@ -1,6 +1,5 @@
 load char
 res://epsilon/portraits/snake.tscn snake
-res://epsilon/portraits/tyler.tscn tyler
 res://epsilon/portraits/otacon.tscn otacon
 res://epsilon/portraits/rich.tscn rich
 res://epsilon/portraits/anus.tscn anus
@@ -50,18 +49,18 @@ msg left talking wait "Wait, Snake, that's..."
 port add rich NULL
 msg left reveal silence "..."
 msg right talking meryl "Meryl?!"
-msg left talking wtf "What the fuck? What are you--"
+msg left talking wtf "What the fuck? What are you—"
 msg right talking grayfox "Gray Fox?!"
-msg left talking moron "Snake, you absolute moron. It's me--"
-msg right talking shadow "Shadow...Moses...!"
-msg left talking person "Snake, that's not even a person--"
+msg left talking moron "Snake, you absolute moron. It's me—"
+msg right talking shadow "Shadow...Moses...?"
+msg left talking person "Snake, that's not even a person—"
 msg right talking kernal "Colonel!!!"
 port add kernal NULL
 msg left talking whatsup "Hey, what's up, Snake?"
 port add rich NULL
 msg left talking itsme "Snake, it's me, Richard!"
 msg right talking richard "RICHAAAAAAAAARD!!"
-msg right talking impossible "Impossible! You died back in Zanzibar!"
+msg right talking impossible "Impossible...! You died back in Zanzibar!"
 msg left talking idid "I did, Snake."
 msg right default silence "..."
 msg left talking reborn "But I was reborn. By them, Snake."
@@ -72,12 +71,12 @@ msg right talking firstry "First try."
 msg left talking parked "In fact, it's parked outside."
 msg right talking park "You put it in park?"
 msg left talking parking_spots "Not only that, Snake. I've taken up three parking spots, and I'm looking to take more."
-msg right talking sick "You sick fuck! At least not the handicap--"
+msg right talking sick "You sick fuck! At least not the handicap—"
 msg left talking handicapped "Including the handicapped spots, Snake."
 msg right talking monster "You monster!"
 msg left talking lot "I'll be waiting for you in the lot."
 msg left talking move "Move quickly, Snake. I've been idling for hours."
 msg right talking ticket "You could get a ticket for that, you know!"
 msg left talking pay "Oh, I already have, Snake. And I'm not going to pay for them."
-msg right talking hell "There's a parking spot for you in hell!"
+msg right talking hell "There's a parking spot for you...in hell!"
 port remove rich snake

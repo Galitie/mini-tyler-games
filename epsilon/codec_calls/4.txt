@@ -5,7 +5,6 @@ res://epsilon/portraits/tyler.tscn tyler
 res://epsilon/portraits/otacon.tscn otacon
 end
 load vo
-res://epsilon/vo/1_doozyhuh.mp3 doozy_huh
 res://epsilon/vo/4_hello.mp3 hello
 res://epsilon/vo/4_on.mp3 on
 res://epsilon/vo/4_who_the.mp3 who_the
@@ -29,13 +28,18 @@ res://epsilon/vo/4_proteins.mp3 proteins
 res://epsilon/vo/4_bio.mp3 bio
 res://epsilon/vo/4_metal.mp3 metal
 res://epsilon/vo/4_liquid.mp3 liquid
+res://epsilon/vo/4_expressing.mp3 expressing
+res://epsilon/vo/4_bioinformatics.mp3 bioinformatics
+res://epsilon/vo/4_repeating.mp3 repeating
+res://epsilon/vo/4_saving_me.mp3 saving_me
+res://epsilon/vo/4_bathroom.mp3 bathroom
 end
 port add static snake
 msg left default hello "Hello? Can you hear me?"
 msg left default on "Is this thing on?"
-msg right talking loud "...Loud and clear."
+msg right talking loud "Loud and clear."
 msg left default who_the "Whoooooooo the fuck is this?"
-msg right talking called "You called me, who the fuck are you?"
+msg right talking called "You called me. Who the fuck are you!?"
 port add tyler NULL
 msg left talking help "It's me! Tyler! I need help!"
 msg left talking snake_right "You're Snake, right?"
@@ -45,19 +49,20 @@ msg right default silence "..."
 msg right talking guy "Otacon, are you sure we got the right guy?"
 port add otacon NULL
 msg left talking no_doubt "There's no doubt about it, Snake. That's him."
-msg right talking planning "Great...so what are...they... planning?"
+msg right talking planning "Great. So what are 'they' planning?"
 port add tyler NULL
 msg left talking monopoly "Uhhhh, they're looking to seize a monopoly on molecular cloning."
-msg right talking cloning "...Molecular cloning?"
-msg left talking silence "Yep. By expressing and purifying proteins-"
-msg right talking proteins "Proteins..." 
-msg left talking silence "...they can essentially gain control over everyone's bioinformatics-"
-msg right talking bio "BIOINFORMATICS?!"
-msg left talking silence "Are you just going to repeat everything I say?"
+msg right talking cloning "Molecular cloning?"
+msg left talking expressing "Yep. By expressing and purifying proteins-"
+msg right talking proteins "Proteins?" 
+msg left talking bioinformatics "...they can essentially gain control over everyone's bioinformatics—"
+msg right talking bio "Bioinformatics?!"
+msg left talking repeating "Are you just going to keep repeating everything I say?"
 msg right default silence "..."
-msg left talking pcr "Okay...at that point, even under PCR regulations, um, uh..."
-msg left talking giving_up "uh...Metal Gear!"
+msg left talking pcr "Okay. At that point, even under PCR regulations, um, uh..."
+msg left talking giving_up "Metal Gear!"
 msg right talking metal "...Metal...Gear?!"
-msg left talking silence "You still working on that 'saving me' thing? They won't let me use the bathroom, so I'm trying to not to drink any liquids-"
+msg left talking saving_me "You still working on that saving me thing?"
+msg left talking bathroom "They won't let me use the bathroom, so I'm trying to not to drink any liquids—"
 msg right talking liquid "GRAHHH LIQUIIIIIIIIIIIIIIIID!!!"
 port remove tyler snake

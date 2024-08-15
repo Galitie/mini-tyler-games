@@ -78,6 +78,9 @@ func _physics_process(delta) -> void:
 		
 	if game_over:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
+		if Input.is_action_pressed("start"):
+			get_tree().reload_current_scene()
+		
 	
 	if death_row.size() != 0:
 		$camera.apply_shake()

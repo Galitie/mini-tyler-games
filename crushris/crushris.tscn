@@ -114,3 +114,18 @@ offset_top = 608.0
 offset_right = 956.0
 offset_bottom = 631.0
 text = "x 6"
+
+[node name="countdown" type="Label" parent="."]
+visible = false
+offset_left = 618.0
+offset_top = 294.0
+offset_right = 659.0
+offset_bottom = 393.0
+theme_override_font_sizes/font_size = 72
+text = "3"
+
+[node name="countdown_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="countdown_timer" to="." method="_on_countdown_timer_timeout"]

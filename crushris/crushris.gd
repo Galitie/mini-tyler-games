@@ -71,6 +71,8 @@ func _ready() -> void:
 	
 
 func _physics_process(delta) -> void:
+	$countdown.text = str(round($countdown_timer.time_left))
+	
 	if game_paused && Input.is_action_pressed("start"):
 		start_game()
 		
@@ -205,6 +207,12 @@ func _on_player_killed(rockman) -> void:
 	
 
 func start_game() -> void:
+	$countdown.visible = true
+	$countdown_timer.start()
+
+
+func _on_countdown_timer_timeout():
+	$countdown.visible = false
 	game_paused = false
 	next_piece = piece_scenes.pick_random().instantiate()
 	spawn_piece()

@@ -45,6 +45,8 @@ var fall_blocks: Array = []
 
 var game_over: bool = false
 var game_paused: bool = true
+var player_max_lives: int = 6
+var player_current_lives: int = player_max_lives
 var players_killed: int = 0
 
 @onready var camera: Camera2D = $camera
@@ -65,6 +67,7 @@ func spawn_piece() -> void:
 func _ready() -> void:
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("player_killed", _on_player_killed)
+	$lives_text.text = "x " + str(player_max_lives)
 	
 
 func _physics_process(delta) -> void:
@@ -186,10 +189,12 @@ func check_rows() -> void:
 
 func _on_player_killed(rockman) -> void:
 	players_killed += 1
-	if players_killed >= 6:
+	player_current_lives -= 1
+	if players_killed >= player_max_lives:
 		game_over = true
 		$blocks_win.visible = true
 	else:
+		$lives_text.text = "x " + str(player_current_lives)
 		var player = load("res://crushris/rockman.tscn").instantiate()
 		player.position = Vector2(randi_range(532, 736), 55)
 		player.controller_port = rockman.controller_port

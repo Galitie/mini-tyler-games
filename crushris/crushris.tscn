@@ -101,7 +101,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_677f5")
 
 [node name="camera" type="Camera2D" parent="."]
-anchor_mode = 0
+offset = Vector2(640, 360)
 script = ExtResource("8_08yhf")
 
 [node name="piece_preview" type="Node2D" parent="."]

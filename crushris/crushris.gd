@@ -70,15 +70,13 @@ func _ready() -> void:
 	
 
 func _physics_process(delta) -> void:
-	check_for_game_over()
+	check_for_player_game_over()
 	$countdown.text = str(round($countdown_timer.time_left))
 	
 	if game_paused && Input.is_action_pressed("start"):
 		start_game()
 		
 	if game_over:
-		camera.set_anchor_mode(Camera2D.ANCHOR_MODE_DRAG_CENTER)
-		camera.offset = Vector2(640,360)
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
 	
 	if death_row.size() != 0:
@@ -223,11 +221,10 @@ func _on_countdown_timer_timeout():
 	next_piece = piece_scenes.pick_random().instantiate()
 	spawn_piece()
 
-func check_for_game_over():
-	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 :
+func check_for_player_game_over():
+	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 && !camera.shaking:
 		game_over = true
 		$blocks_win.visible = true
-		$embers.modulate.a = 1
 
 func _on_ember_timer_timeout():
 	$embers.modulate.a = .13

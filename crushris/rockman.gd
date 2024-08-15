@@ -20,7 +20,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if kill_zone.test_move(global_transform, Vector2.ZERO, null):
-		emit_signal("player_killed")
+		var rockman = self
+		emit_signal("player_killed", rockman)
 		queue_free()
 	
 	if not is_on_floor():

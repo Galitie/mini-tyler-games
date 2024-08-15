@@ -38,6 +38,7 @@ texture = ExtResource("1_k5tsg")
 
 [node name="arena_ceiling" type="StaticBody2D" parent="."]
 position = Vector2(0, -525)
+collision_layer = 8
 
 [node name="shape" type="CollisionShape2D" parent="arena_ceiling"]
 position = Vector2(640, 622.5)
@@ -62,17 +63,20 @@ shape = SubResource("RectangleShape2D_7tcbf")
 position = Vector2(777.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
 
-[node name="rockman" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
+[node name="players" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="rockman" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
 position = Vector2(628, 598)
 controller_port = 1
 color = Color(1, 0, 0, 1)
 
-[node name="rockman2" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
+[node name="rockman2" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
 position = Vector2(653, 598)
 controller_port = 2
 color = Color(1, 1, 0, 1)
 
-[node name="rockman3" parent="." groups=["players"] instance=ExtResource("5_8wb2y")]
+[node name="rockman3" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
 position = Vector2(602, 598)
 controller_port = 3
 color = Color(0, 0, 1, 1)

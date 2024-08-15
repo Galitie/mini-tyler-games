@@ -184,11 +184,20 @@ func check_rows() -> void:
 	else:
 		fall_blocks.clear()
 
-func _on_player_killed() -> void:
+func _on_player_killed(rockman) -> void:
 	players_killed += 1
-	if players_killed >= 3:
+	if players_killed >= 6:
 		game_over = true
 		$blocks_win.visible = true
+	else:
+		var player = load("res://crushris/rockman.tscn").instantiate()
+		player.position = Vector2(randi_range(532, 736), 55)
+		player.controller_port = rockman.controller_port
+		player.color = rockman.color
+		player.add_to_group("players")
+		player.connect("player_killed", _on_player_killed)
+		get_node("players").add_child(player)
+	
 
 func start_game() -> void:
 	game_paused = false

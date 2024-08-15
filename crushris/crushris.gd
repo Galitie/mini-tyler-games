@@ -12,6 +12,12 @@ extends Node2D
 	load("res://crushris/t_piece.tscn")
 ]
 
+@onready var music: Array = [
+	["Diary of Jane", "Breaking Benjamin", load("res://crushris/The Diary Of Jane.mp3")],
+	]
+
+var current_song
+
 var next_piece: Piece = null
 
 const TILE_SIZE: int = 25
@@ -80,7 +86,6 @@ func _physics_process(delta) -> void:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
 		if Input.is_action_pressed("start"):
 			get_tree().reload_current_scene()
-		
 	
 	if death_row.size() != 0:
 		$camera.apply_shake()
@@ -217,6 +222,7 @@ func _on_player_killed(rockman) -> void:
 func start_game() -> void:
 	$countdown.visible = true
 	$countdown_timer.start()
+	play_song()
 
 func _on_countdown_timer_timeout():
 	$countdown.visible = false
@@ -231,3 +237,12 @@ func check_for_player_game_over():
 
 func _on_ember_timer_timeout():
 	$embers.modulate.a = .13
+
+func play_song():
+	current_song = music.pick_random()
+	$music.stream = current_song[2]
+	$current_song.text = '\"' + current_song[0] + '\"'+ "\n" + current_song[1]
+	$music.play()
+
+func _on_music_finished():
+	play_song()

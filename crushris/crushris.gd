@@ -58,7 +58,6 @@ func spawn_piece() -> void:
 	piece_instance.position = PIECE_SPAWN_POINT - piece_instance.origin_point
 	active_piece = piece_instance
 	piece_destination = active_piece.position
-	
 	next_piece = piece_scenes.pick_random().instantiate()
 	if $piece_preview.get_child_count() > 0:
 		$piece_preview.get_child(0).queue_free()
@@ -78,9 +77,12 @@ func _physics_process(delta) -> void:
 		start_game()
 		
 	if game_over:
+		camera.set_anchor_mode(Camera2D.ANCHOR_MODE_DRAG_CENTER)
+		camera.offset = Vector2(640,360)
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
 	
 	if death_row.size() != 0:
+		$camera.apply_shake()
 		block_killer_timer += 1 * delta
 		if block_killer_timer >= block_killer_timer_length:
 			var block: Block = death_row.pop_back()
@@ -127,6 +129,7 @@ func _physics_process(delta) -> void:
 					PIECE_FALL_SPEED = 200
 			if Input.is_action_just_released("move_piece_down"):
 				PIECE_FALL_SPEED = 100
+				
 		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
 			active_piece.position.y += PIECE_FALL_SPEED * delta
 			active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
@@ -195,6 +198,8 @@ func check_rows() -> void:
 		fall_blocks.clear()
 
 func _on_player_killed(rockman) -> void:
+	$ember_timer.start()
+	$embers.modulate.a = .50
 	players_killed += 1
 	player_current_lives -= 1
 	
@@ -222,3 +227,7 @@ func check_for_game_over():
 	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 :
 		game_over = true
 		$blocks_win.visible = true
+		$embers.modulate.a = 1
+
+func _on_ember_timer_timeout():
+	$embers.modulate.a = .13

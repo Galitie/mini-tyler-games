@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const SPEED: float = 250.0
 const JUMP_VELOCITY: float = -450.0
+const DASH_VELOCITY: float = 500.0
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var invincible: bool = true
@@ -25,13 +26,13 @@ func _physics_process(delta: float) -> void:
 		var rockman = self
 		emit_signal("player_killed", rockman)
 		queue_free()
-	
+
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
 		if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
 			velocity.y = JUMP_VELOCITY
-
+	
 	var direction: float = Controller.GetLeftStick(controller_port).x
 	if direction:
 		velocity.x = direction * SPEED
@@ -44,7 +45,7 @@ func _physics_process(delta: float) -> void:
 			outline.flip_h = true
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+		
 	move_and_slide()
 
 

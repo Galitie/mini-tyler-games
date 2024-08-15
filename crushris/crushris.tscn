@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=13 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bw0cafqg6opwm" path="res://crushris/rockman.tscn" id="5_8wb2y"]
 [ext_resource type="Texture2D" uid="uid://5cmtkfmkw48h" path="res://crushris/blocks_win.png" id="6_les5k"]
 [ext_resource type="Texture2D" uid="uid://c26amqiswhno7" path="res://crushris/players_win.png" id="7_677f5"]
+[ext_resource type="Script" path="res://crushris/camera.gd" id="8_08yhf"]
 [ext_resource type="Texture2D" uid="uid://rf0xxypn1mqw" path="res://crushris/rockman.png" id="8_q42x8"]
 [ext_resource type="FontFile" uid="uid://b0p16qbql5q3g" path="res://crushris/Sketchathon.ttf" id="9_ivtey"]
 
@@ -26,7 +27,7 @@ texture = ExtResource("2_y6e6l")
 centered = false
 
 [node name="embers" type="VideoStreamPlayer" parent="."]
-modulate = Color(1, 1, 1, 0.0235294)
+modulate = Color(1, 1, 1, 0.137255)
 offset_right = 1280.0
 offset_bottom = 720.0
 stream = ExtResource("4_pk3vh")
@@ -100,7 +101,8 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("7_677f5")
 
 [node name="camera" type="Camera2D" parent="."]
-offset = Vector2(640, 360)
+anchor_mode = 0
+script = ExtResource("8_08yhf")
 
 [node name="piece_preview" type="Node2D" parent="."]
 position = Vector2(850, 123)
@@ -133,4 +135,9 @@ horizontal_alignment = 1
 wait_time = 3.0
 one_shot = true
 
+[node name="ember_timer" type="Timer" parent="."]
+wait_time = 1.25
+one_shot = true
+
 [connection signal="timeout" from="countdown_timer" to="." method="_on_countdown_timer_timeout"]
+[connection signal="timeout" from="ember_timer" to="." method="_on_ember_timer_timeout"]

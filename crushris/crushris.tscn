@@ -69,17 +69,17 @@ shape = SubResource("RectangleShape2D_7tcbf")
 unique_name_in_owner = true
 
 [node name="rockman" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
-position = Vector2(628, 598)
+position = Vector2(639, 137)
 controller_port = 1
 color = Color(1, 0, 0, 1)
 
 [node name="rockman2" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
-position = Vector2(653, 598)
+position = Vector2(664, 137)
 controller_port = 2
 color = Color(1, 1, 0, 1)
 
 [node name="rockman3" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
-position = Vector2(602, 598)
+position = Vector2(613, 137)
 controller_port = 3
 color = Color(0, 0, 1, 1)
 

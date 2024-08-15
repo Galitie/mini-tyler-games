@@ -21,8 +21,8 @@ const MAX_ROWS: int = 20
 const PIECE_SPAWN_POINT: Vector2 = Vector2(615, 110)
 const BOTTOM_LEFT_ROW_ORIGIN: Vector2 = Vector2(515, 585)
 
-const PIECE_FALL_SPEED: float = 140
-const PIECE_HORIZONTAL_SPEED: float = 200
+var PIECE_FALL_SPEED: float = 100
+const PIECE_HORIZONTAL_SPEED: float = 300
 var piece_destination: Vector2 = Vector2.ZERO
 
 var active_piece: Piece = null
@@ -34,7 +34,7 @@ var block_killer_timer: float = 0
 var block_killer_timer_length: float = 0.1
 
 var move_timer: float = 0
-var move_timer_length: float = 0.2
+var move_timer_length: float = 0.15
 
 const WORLD_COLLISION_LAYER: int = 1
 
@@ -122,7 +122,11 @@ func _physics_process(delta) -> void:
 					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x + TILE_SIZE
-		
+			if Input.is_action_pressed("move_piece_down"):
+				if active_piece.global_position.x == piece_destination.x:
+					PIECE_FALL_SPEED = 200
+			if Input.is_action_just_released("move_piece_down"):
+				PIECE_FALL_SPEED = 100
 		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
 			active_piece.position.y += PIECE_FALL_SPEED * delta
 			active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))

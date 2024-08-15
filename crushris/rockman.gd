@@ -20,6 +20,7 @@ func _ready() -> void:
 	sprite.modulate = color
 
 func _physics_process(delta: float) -> void:
+	
 	if kill_zone.test_move(global_transform, Vector2.ZERO, null) and not invincible:
 		var rockman = self
 		emit_signal("player_killed", rockman)

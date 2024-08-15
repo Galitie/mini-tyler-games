@@ -45,7 +45,7 @@ var fall_blocks: Array = []
 
 var game_over: bool = false
 var game_paused: bool = true
-var player_max_lives: int = 6
+var player_max_lives: int = 3
 var player_current_lives: int = player_max_lives
 var players_killed: int = 0
 
@@ -71,6 +71,7 @@ func _ready() -> void:
 	
 
 func _physics_process(delta) -> void:
+	check_for_game_over()
 	$countdown.text = str(round($countdown_timer.time_left))
 	
 	if game_paused && Input.is_action_pressed("start"):
@@ -192,10 +193,8 @@ func check_rows() -> void:
 func _on_player_killed(rockman) -> void:
 	players_killed += 1
 	player_current_lives -= 1
-	if players_killed >= player_max_lives:
-		game_over = true
-		$blocks_win.visible = true
-	else:
+	
+	if player_current_lives >= 0:
 		$lives_text.text = "x " + str(player_current_lives)
 		var player = load("res://crushris/rockman.tscn").instantiate()
 		player.position = Vector2(randi_range(532, 736), 55)
@@ -204,15 +203,18 @@ func _on_player_killed(rockman) -> void:
 		player.add_to_group("players")
 		player.connect("player_killed", _on_player_killed)
 		get_node("players").add_child(player)
-	
 
 func start_game() -> void:
 	$countdown.visible = true
 	$countdown_timer.start()
-
 
 func _on_countdown_timer_timeout():
 	$countdown.visible = false
 	game_paused = false
 	next_piece = piece_scenes.pick_random().instantiate()
 	spawn_piece()
+
+func check_for_game_over():
+	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 :
+		game_over = true
+		$blocks_win.visible = true

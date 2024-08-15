@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=12 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://5cmtkfmkw48h" path="res://crushris/blocks_win.png" id="6_les5k"]
 [ext_resource type="Texture2D" uid="uid://c26amqiswhno7" path="res://crushris/players_win.png" id="7_677f5"]
 [ext_resource type="Texture2D" uid="uid://rf0xxypn1mqw" path="res://crushris/rockman.png" id="8_q42x8"]
+[ext_resource type="FontFile" uid="uid://b0p16qbql5q3g" path="res://crushris/Sketchathon.ttf" id="9_ivtey"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
 size = Vector2(250, 25)
@@ -109,20 +110,24 @@ position = Vector2(823, 607)
 texture = ExtResource("8_q42x8")
 
 [node name="lives_text" type="Label" parent="."]
-offset_left = 855.0
-offset_top = 608.0
-offset_right = 956.0
-offset_bottom = 631.0
+offset_left = 852.0
+offset_top = 598.0
+offset_right = 953.0
+offset_bottom = 634.0
+theme_override_fonts/font = ExtResource("9_ivtey")
+theme_override_font_sizes/font_size = 32
 text = "x 6"
 
 [node name="countdown" type="Label" parent="."]
 visible = false
-offset_left = 618.0
-offset_top = 294.0
-offset_right = 659.0
-offset_bottom = 393.0
-theme_override_font_sizes/font_size = 72
+offset_left = 603.0
+offset_top = 279.0
+offset_right = 672.0
+offset_bottom = 405.0
+theme_override_fonts/font = ExtResource("9_ivtey")
+theme_override_font_sizes/font_size = 112
 text = "3"
+horizontal_alignment = 1
 
 [node name="countdown_timer" type="Timer" parent="."]
 wait_time = 3.0

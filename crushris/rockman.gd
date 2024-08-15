@@ -4,7 +4,7 @@ const SPEED: float = 250.0
 const JUMP_VELOCITY: float = -450.0
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-
+var invincible: bool = true
 @onready var kill_zone: StaticBody2D = $kill_zone
 
 @onready var sprite: AnimatedSprite2D = $sprite
@@ -16,10 +16,11 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 signal player_killed
 
 func _ready() -> void:
+	$timer.start()
 	sprite.modulate = color
 
 func _physics_process(delta: float) -> void:
-	if kill_zone.test_move(global_transform, Vector2.ZERO, null):
+	if kill_zone.test_move(global_transform, Vector2.ZERO, null) and not invincible:
 		var rockman = self
 		emit_signal("player_killed", rockman)
 		queue_free()
@@ -44,3 +45,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_timer_timeout():
+	invincible = false

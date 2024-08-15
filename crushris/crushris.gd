@@ -44,6 +44,7 @@ var death_row: Array = []
 var fall_blocks: Array = []
 
 var game_over: bool = false
+var game_paused: bool = true
 var players_killed: int = 0
 
 @onready var camera: Camera2D = $camera
@@ -65,10 +66,11 @@ func _ready() -> void:
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("player_killed", _on_player_killed)
 	
-	next_piece = piece_scenes.pick_random().instantiate()
-	spawn_piece()
 
 func _physics_process(delta) -> void:
+	if game_paused && Input.is_action_pressed("start"):
+		start_game()
+		
 	if game_over:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
 	
@@ -88,13 +90,13 @@ func _physics_process(delta) -> void:
 		if !still_falling:
 			fall_blocks.clear()
 			check_rows()
-	elif !game_over && active_piece == null:
+	elif !game_over && active_piece == null && !game_paused:
 		spawn_piece()
 	
 	if active_piece:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
-		if !game_over:
+		if !game_over and !game_paused:
 			if Input.is_action_just_pressed("rotate_piece_left"):
 				active_piece.turn(-PI / 2)
 			if Input.is_action_just_pressed("rotate_piece_right"):
@@ -139,7 +141,7 @@ func _physics_process(delta) -> void:
 							active_piece = null
 							$players_win.visible = true
 				
-				if !game_over:
+				if !game_over and !game_paused:
 					spawn_piece()
 			else:
 				active_piece = null
@@ -187,3 +189,8 @@ func _on_player_killed() -> void:
 	if players_killed >= 3:
 		game_over = true
 		$blocks_win.visible = true
+
+func start_game() -> void:
+	game_paused = false
+	next_piece = piece_scenes.pick_random().instantiate()
+	spawn_piece()

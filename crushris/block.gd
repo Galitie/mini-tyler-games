@@ -28,6 +28,8 @@ func fall(tile_size: int, grid_origin: Vector2, delta: float) -> void:
 func kill() -> void:
 	shape.disabled = true
 	sprite.play("disappear")
+	$sfx.stream = load("res://crushris/explosion2.ogg")
+	$sfx.play()
 	killed = true
 	
 func _on_animation_finished() -> void:

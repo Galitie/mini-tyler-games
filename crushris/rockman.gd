@@ -17,6 +17,8 @@ var invincible: bool = true
 signal player_killed
 
 func _ready() -> void:
+	$sfx.stream = load("res://crushris/riff.ogg")
+	$sfx.play()
 	$timer.start()
 	sprite.modulate = color
 

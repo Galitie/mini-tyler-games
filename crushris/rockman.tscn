@@ -49,4 +49,6 @@ shape = SubResource("RectangleShape2D_sxj2p")
 [node name="timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

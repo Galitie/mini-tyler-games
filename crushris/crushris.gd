@@ -13,7 +13,8 @@ extends Node2D
 ]
 
 @onready var music: Array = [
-	["Diary of Jane", "Breaking Benjamin", load("res://crushris/The Diary Of Jane.mp3")],
+	["Diary of Jane", "Breaking Benjamin", load("res://crushris/The Diary Of Jane.ogg")],
+	["The Rumbling", "SiM", load("res://crushris/rumbling.ogg")]
 	]
 
 var current_song
@@ -73,6 +74,7 @@ func _ready() -> void:
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("player_killed", _on_player_killed)
 	$lives_text.text = "x " + str(player_max_lives)
+	$current_song.text = ""
 	
 
 func _physics_process(delta) -> void:

@@ -14,7 +14,11 @@ extends Node2D
 
 @onready var music: Array = [
 	["Diary of Jane", "Breaking Benjamin", load("res://crushris/The Diary Of Jane.ogg")],
-	["The Rumbling", "SiM", load("res://crushris/rumbling.ogg")]
+	["The Rumbling", "SiM", load("res://crushris/rumbling.ogg")],
+	["Crawling in My Crawl", "Linkin Crawl", load("res://crushris/crawl.ogg")],
+	["Say it Aint So", "Carl Weezer", load("res://crushris/weezer.ogg")],
+	["Toxicity", "System of a Down", load("res://crushris/toxcicity.ogg")],
+	["The Kill (Bury Me)", "30 Seconds To Mars", load("res://crushris/bury_me.ogg") ]
 	]
 
 var current_song

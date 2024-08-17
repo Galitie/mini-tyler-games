@@ -223,17 +223,7 @@ func _on_player_killed(rockman) -> void:
 	player_current_lives -= 1
 	
 	if player_current_lives >= 0:
-		$lives_text.text = "x " + str(player_current_lives)
-		var player = load("res://crushris/rockman.tscn").instantiate()
-		var respawn_pos = 530
-		if randf() < 0.5:
-			respawn_pos = 750
-		player.position = Vector2(respawn_pos, 55)
-		player.controller_port = rockman.controller_port
-		player.color = rockman.color
-		player.add_to_group("players")
-		player.connect("player_killed", _on_player_killed)
-		get_node("players").add_child(player)
+		respawn_player(rockman)
 
 func start_game() -> void:
 	$countdown.visible = true
@@ -264,3 +254,16 @@ func play_song():
 
 func _on_music_finished():
 	play_song()
+
+func respawn_player(rockman):
+	$lives_text.text = "x " + str(player_current_lives)
+	var player = load("res://crushris/rockman.tscn").instantiate()
+	var respawn_pos = 530
+	if randf() < 0.5:
+		respawn_pos = 750
+	player.position = Vector2(respawn_pos, 55)
+	player.controller_port = rockman.controller_port
+	player.color = rockman.color
+	player.add_to_group("players")
+	player.connect("player_killed", _on_player_killed)
+	get_node("players").add_child(player)

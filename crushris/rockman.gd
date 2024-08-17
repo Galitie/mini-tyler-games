@@ -7,6 +7,7 @@ const DASH_VELOCITY: float = 500.0
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var invincible: bool = true
 @onready var kill_zone: StaticBody2D = $kill_zone
+@onready var attack_zone: StaticBody2D = $attack_zone
 
 @onready var sprite: AnimatedSprite2D = $sprite
 @onready var outline: Sprite2D = $outline

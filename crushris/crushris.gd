@@ -225,7 +225,10 @@ func _on_player_killed(rockman) -> void:
 	if player_current_lives >= 0:
 		$lives_text.text = "x " + str(player_current_lives)
 		var player = load("res://crushris/rockman.tscn").instantiate()
-		player.position = Vector2(randi_range(532, 736), 55)
+		var respawn_pos = 530
+		if randf() < 0.5:
+			respawn_pos = 750
+		player.position = Vector2(respawn_pos, 55)
 		player.controller_port = rockman.controller_port
 		player.color = rockman.color
 		player.add_to_group("players")

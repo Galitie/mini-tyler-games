@@ -79,6 +79,8 @@ func _ready() -> void:
 		player.connect("player_killed", _on_player_killed)
 	$lives_text.text = "x " + str(player_max_lives)
 	$current_song.text = ""
+	next_piece = piece_scenes.pick_random().instantiate()
+	spawn_piece()
 	
 
 func _physics_process(delta) -> void:
@@ -113,7 +115,7 @@ func _physics_process(delta) -> void:
 	elif !game_over && active_piece == null && !game_paused:
 		spawn_piece()
 	
-	if active_piece:
+	if active_piece && !game_paused:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
 		if !game_over and !game_paused:
@@ -237,9 +239,9 @@ func start_game() -> void:
 
 func _on_countdown_timer_timeout():
 	$countdown.visible = false
+	active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 	game_paused = false
-	next_piece = piece_scenes.pick_random().instantiate()
-	spawn_piece()
+	
 
 func check_for_player_game_over():
 	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 && !camera.shaking:

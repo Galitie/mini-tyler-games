@@ -210,6 +210,7 @@ func check_rows() -> void:
 		fall_blocks.clear()
 
 func _on_player_killed(rockman) -> void:
+	$camera.apply_shake()
 	$ember_timer.start()
 	$embers.modulate.a = .50
 	players_killed += 1

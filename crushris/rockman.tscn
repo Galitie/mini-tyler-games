@@ -47,6 +47,7 @@ position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_sxj2p")
 
 [node name="timer" type="Timer" parent="."]
+wait_time = 1.25
 one_shot = true
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]

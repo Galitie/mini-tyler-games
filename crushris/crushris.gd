@@ -165,6 +165,8 @@ func _physics_process(delta) -> void:
 							game_over = true
 							active_piece = null
 							$players_win.visible = true
+							$sfx.stream = load("res://crushris/riff.ogg")
+							$sfx.play()
 				
 				if !game_over and !game_paused:
 					spawn_piece()
@@ -210,6 +212,8 @@ func check_rows() -> void:
 		fall_blocks.clear()
 
 func _on_player_killed(rockman) -> void:
+	$sfx.stream = load("res://crushris/yeow.ogg")
+	$sfx.play()
 	$camera.apply_shake()
 	$ember_timer.start()
 	$embers.modulate.a = .50
@@ -241,6 +245,8 @@ func check_for_player_game_over():
 	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 && !camera.shaking:
 		game_over = true
 		$blocks_win.visible = true
+		$sfx.stream = load("res://crushris/riff.ogg")
+		$sfx.play()
 
 func _on_ember_timer_timeout():
 	$embers.modulate.a = .13

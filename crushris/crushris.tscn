@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=16 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
@@ -10,11 +10,18 @@
 [ext_resource type="Script" path="res://crushris/camera.gd" id="8_08yhf"]
 [ext_resource type="Texture2D" uid="uid://rf0xxypn1mqw" path="res://crushris/rockman.png" id="8_q42x8"]
 [ext_resource type="FontFile" uid="uid://b0p16qbql5q3g" path="res://crushris/Sketchathon.ttf" id="9_ivtey"]
+[ext_resource type="AudioStream" uid="uid://crdnuxb7n0asg" path="res://crushris/riff.ogg" id="11_g20nl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
 size = Vector2(250, 25)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bk25x"]
+size = Vector2(250, 25)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7tcbf"]
+size = Vector2(25, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jxyqn"]
 size = Vector2(25, 500)
 
 [node name="crushris" type="Node2D"]
@@ -53,6 +60,15 @@ shape = SubResource("RectangleShape2D_avsa4")
 position = Vector2(640, 622.5)
 shape = SubResource("RectangleShape2D_avsa4")
 
+[node name="squish_zone" type="Area2D" parent="arena_floor"]
+position = Vector2(640, 622.5)
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arena_floor/squish_zone"]
+shape = SubResource("RectangleShape2D_bk25x")
+
 [node name="arena_wall_left" type="StaticBody2D" parent="."]
 collision_mask = 3
 
@@ -60,11 +76,29 @@ collision_mask = 3
 position = Vector2(502.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
 
+[node name="squish_zone" type="Area2D" parent="arena_wall_left"]
+position = Vector2(502.5, 359.25)
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arena_wall_left/squish_zone"]
+shape = SubResource("RectangleShape2D_jxyqn")
+
 [node name="arena_wall_right" type="StaticBody2D" parent="."]
 
 [node name="shape" type="CollisionShape2D" parent="arena_wall_right"]
 position = Vector2(777.5, 359.25)
 shape = SubResource("RectangleShape2D_7tcbf")
+
+[node name="squish_zone" type="Area2D" parent="arena_wall_right"]
+position = Vector2(777.5, 359.25)
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arena_wall_right/squish_zone"]
+shape = SubResource("RectangleShape2D_jxyqn")
 
 [node name="players" type="Node" parent="."]
 unique_name_in_owner = true
@@ -148,9 +182,13 @@ theme_override_fonts/font = ExtResource("9_ivtey")
 theme_override_font_sizes/font_size = 21
 horizontal_alignment = 1
 
-[node name="music" type="AudioStreamPlayer2D" parent="."]
+[node name="music" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
+
+[node name="revive_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_g20nl")
 
 [connection signal="timeout" from="countdown_timer" to="." method="_on_countdown_timer_timeout"]
 [connection signal="timeout" from="ember_timer" to="." method="_on_ember_timer_timeout"]

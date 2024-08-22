@@ -4,6 +4,8 @@ extends Node2D
 @export var origin_point: Vector2 = Vector2.ZERO
 @export var color_frame: int = 0
 
+var is_active: bool = false
+
 func _ready():
 	for block in get_children():
 		block.get_node("anchor/sprite").frame = color_frame

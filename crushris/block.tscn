@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dalr6b3bj4jqm"]
+[gd_scene load_steps=24 format=3 uid="uid://dalr6b3bj4jqm"]
 
 [ext_resource type="Script" path="res://crushris/block.gd" id="1_6f5t5"]
 [ext_resource type="Texture2D" uid="uid://coshxw3g2l53d" path="res://crushris/blocks.png" id="1_jrnnv"]
@@ -103,6 +103,52 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfdan"]
 size = Vector2(49, 49)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7ck3"]
+size = Vector2(46, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbuik"]
+atlas = ExtResource("1_jrnnv")
+region = Rect2(150, 100, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1k7h"]
+atlas = ExtResource("1_jrnnv")
+region = Rect2(0, 150, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aek2n"]
+atlas = ExtResource("1_jrnnv")
+region = Rect2(50, 150, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5apyt"]
+atlas = ExtResource("1_jrnnv")
+region = Rect2(100, 150, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seyls"]
+atlas = ExtResource("1_jrnnv")
+region = Rect2(150, 150, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gbv54"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbuik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1k7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aek2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5apyt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seyls")
+}],
+"loop": true,
+"name": &"break",
+"speed": 5.0
+}]
+
 [node name="block" type="StaticBody2D"]
 position = Vector2(0, -12.5)
 scale = Vector2(0.5, 0.5)
@@ -121,3 +167,18 @@ position = Vector2(25, 25)
 shape = SubResource("RectangleShape2D_kfdan")
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
+
+[node name="squish_zone" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="squish_zone"]
+position = Vector2(25, 25)
+shape = SubResource("RectangleShape2D_t7ck3")
+
+[node name="break" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_gbv54")
+animation = &"break"
+centered = false

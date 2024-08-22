@@ -16,7 +16,7 @@ extends Node2D
 	["Diary of Jane", "Breaking Benjamin", load("res://crushris/The Diary Of Jane.ogg")],
 	["The Rumbling", "SiM", load("res://crushris/rumbling.ogg")],
 	["Crawling in My Crawl", "Linkin Crawl", load("res://crushris/crawl.ogg")],
-	["Say it Aint So", "Carl Weezer", load("res://crushris/weezer.ogg")],
+	["Blow Me (Away)", "Halo 2 OST", load("res://crushris/blowme.ogg")],
 	["Toxicity", "System of a Down", load("res://crushris/toxcicity.ogg")],
 	["The Kill (Bury Me)", "30 Seconds To Mars", load("res://crushris/bury_me.ogg") ]
 	]
@@ -63,11 +63,14 @@ var players_killed: int = 0
 @onready var camera: Camera2D = $camera
 var zoom_weight: float = 5
 
+var player_scene = preload("res://crushris/rockman.tscn")
+
 func spawn_piece() -> void:
 	var piece_instance = next_piece.duplicate()
 	add_child(piece_instance)
 	piece_instance.position = PIECE_SPAWN_POINT - piece_instance.origin_point
 	active_piece = piece_instance
+	active_piece.is_active = true
 	piece_destination = active_piece.position
 	next_piece = piece_scenes.pick_random().instantiate()
 	if $piece_preview.get_child_count() > 0:
@@ -75,19 +78,20 @@ func spawn_piece() -> void:
 	$piece_preview.add_child(next_piece)
 
 func _ready() -> void:
+	RenderingServer.set_default_clear_color(Color.BLACK)
+	
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("player_killed", _on_player_killed)
 	$lives_text.text = "x " + str(player_max_lives)
 	$current_song.text = ""
 	next_piece = piece_scenes.pick_random().instantiate()
 	spawn_piece()
-	
 
 func _physics_process(delta) -> void:
 	check_for_player_game_over()
 	$countdown.text = str(round($countdown_timer.time_left))
 	
-	if game_paused && Input.is_action_pressed("start"):
+	if game_paused && Input.is_action_just_pressed("start"):
 		start_game()
 		
 	if game_over:
@@ -155,6 +159,7 @@ func _physics_process(delta) -> void:
 				
 		if snap_timer >= snap_timer_length:
 			active_piece.position = snap_piece_position(active_piece.position)
+			active_piece.is_active = false
 			
 			active_piece.set_collision_layer(WORLD_COLLISION_LAYER)
 			check_rows()
@@ -232,7 +237,6 @@ func _on_countdown_timer_timeout():
 	$countdown.visible = false
 	active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 	game_paused = false
-	
 
 func check_for_player_game_over():
 	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 && !camera.shaking:
@@ -253,13 +257,14 @@ func _on_music_finished():
 
 func respawn_player(rockman):
 	$lives_text.text = "x " + str(player_current_lives)
-	var player = load("res://crushris/rockman.tscn").instantiate()
+	var player = player_scene.instantiate()
 	var respawn_pos = 530
 	if randf() < 0.5:
 		respawn_pos = 750
-	player.position = Vector2(respawn_pos, 55)
+	player.global_position = Vector2(respawn_pos, 122)
 	player.controller_port = rockman.controller_port
 	player.color = rockman.color
-	player.add_to_group("players")
 	player.connect("player_killed", _on_player_killed)
-	get_node("players").add_child(player)
+	$players.call_deferred("add_child", player)
+	if !$revive_sfx.playing:
+		$revive_sfx.play()

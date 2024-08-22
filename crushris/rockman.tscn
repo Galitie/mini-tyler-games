@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bw0cafqg6opwm"]
+[gd_scene load_steps=8 format=3 uid="uid://bw0cafqg6opwm"]
 
 [ext_resource type="Script" path="res://crushris/rockman.gd" id="1_f26mj"]
 [ext_resource type="Texture2D" uid="uid://rf0xxypn1mqw" path="res://crushris/rockman.png" id="1_j3tyy"]
@@ -19,7 +19,10 @@ animations = [{
 size = Vector2(28, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxj2p"]
-size = Vector2(10, 10)
+size = Vector2(25, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbbqp"]
+size = Vector2(28, 4)
 
 [node name="rockman" type="CharacterBody2D"]
 texture_filter = 2
@@ -32,15 +35,16 @@ script = ExtResource("1_f26mj")
 texture = ExtResource("2_kjtgc")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_0bwpm")
 
 [node name="shape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_nfw2e")
 
-[node name="kill_zone" type="StaticBody2D" parent="."]
-collision_layer = 4
-collision_mask = 3
+[node name="kill_zone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
 
 [node name="shape" type="CollisionShape2D" parent="kill_zone"]
 position = Vector2(0, 7)
@@ -50,6 +54,14 @@ shape = SubResource("RectangleShape2D_sxj2p")
 wait_time = 1.25
 one_shot = true
 
-[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+[node name="bonk_zone" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="bonk_zone"]
+position = Vector2(0, -10)
+shape = SubResource("RectangleShape2D_gbbqp")
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

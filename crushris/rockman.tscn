@@ -22,7 +22,7 @@ size = Vector2(28, 36)
 size = Vector2(25, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbbqp"]
-size = Vector2(28, 4)
+size = Vector2(12, 4)
 
 [node name="rockman" type="CharacterBody2D"]
 texture_filter = 2

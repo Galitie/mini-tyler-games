@@ -4,8 +4,10 @@ extends StaticBody2D
 @onready var sprite: AnimatedSprite2D = $anchor/sprite
 @onready var shape: CollisionShape2D = $shape
 
+const MAX_HP: int = 5
+var hp: int = MAX_HP
 var killed: bool = false
-var grounded: bool = true
+var grounded: bool = false
 
 const FALL_SPEED: float = 140
 
@@ -34,4 +36,5 @@ func kill() -> void:
 	
 func _on_animation_finished() -> void:
 	if killed:
+		await get_tree().physics_frame
 		queue_free()

@@ -105,7 +105,6 @@ unique_name_in_owner = true
 
 [node name="rockman" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]
 position = Vector2(648, 216)
-controller_port = 1
 color = Color(1, 0, 0, 1)
 
 [node name="rockman2" parent="players" groups=["players"] instance=ExtResource("5_8wb2y")]

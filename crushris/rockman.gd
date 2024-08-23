@@ -59,6 +59,7 @@ func _physics_process(delta: float) -> void:
 	for squish in squish_areas:
 		if active_block != null && squish != active_block:
 			if !invincible:
+				Input.start_joy_vibration(controller_port, 1.0, 1.0, 0.2)
 				emit_signal("player_killed", self)
 				queue_free()
 				return

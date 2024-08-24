@@ -39,7 +39,7 @@ func _ready():
 		mon.connect("knocked_out", _add_knocked_out_mon)
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
-	get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
+	get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
 	countdown_nums.text = "Customize Mon - press START when all players are ready!"
 
 
@@ -88,6 +88,7 @@ func _on_round_timer_timeout():
 		audio_player.play()
 		var game_end = await check_for_game_end()
 		if game_end:
+			Globals.tylermon_played = true
 			get_tree().change_scene_to_file("res://menu/menu.tscn")
 			return
 		call_and_pause()
@@ -98,12 +99,12 @@ func _on_round_timer_timeout():
 		knocked_out_mons = 0
 		countdown_label.text = "Add 3 points to stats: "
 		round_timer.stop()
-		get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
+		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:
 		fight_time = true
 		current_round += 1
 		upgrade_menu.visible = false
-		get_tree().get_root().get_child(1).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
+		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
 		#command_ui.visible = true
 		call_and_switch_modes()
 		countdown_label.text = "Round ends:" 

@@ -98,6 +98,7 @@ func _physics_process(delta) -> void:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
 		await get_tree().create_timer(2.0).timeout
 		get_tree().change_scene_to_file("res://menu/menu.tscn")
+		Globals.crushtris_played = true
 		return
 	
 	if death_row.size() != 0:

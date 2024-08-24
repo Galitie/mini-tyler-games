@@ -47,6 +47,14 @@ func _ready() -> void:
 	timer.timeout.connect(_timeout)
 	spin_timer.timeout.connect(_spin_timeout)
 	
+	if Globals.crushtris_played && Globals.tylermon_played:
+		Globals.metalgear_unlocked = true
+		$thumbnails/metalgear.texture = load("res://menu/epsilon_thumbnail.png")
+		$thumbnails/metalgear.vframes = 1
+		$thumbnails/metalgear.hframes = 1
+	else:
+		$thumbnails/metalgear.get_node("AnimationPlayer").play("static")
+	
 func _process(delta: float) -> void:
 	if selecting:
 		projector.rotate(Vector3.UP, 0.1 * 0.1 * delta)
@@ -79,6 +87,8 @@ func _process(delta: float) -> void:
 				can_select = true
 				
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
+			if thumbnail_idx == $thumbnails.get_children().size() - 1 && !Globals.metalgear_unlocked:
+				return
 			get_tree().change_scene_to_file(thumbnail_scene_paths[thumbnail_idx])
 			can_select = false
 			return
@@ -93,7 +103,6 @@ func _spin_timeout() -> void:
 	spinning = false
 	title.get_node("animator").play("skooch_in")
 	await get_tree().create_timer(2.5).timeout
-	$thumbnails/metalgear.get_node("AnimationPlayer").play("static")
 	var camera_tween = get_tree().create_tween()
 	camera_tween.tween_property($camera, "global_position", final_position + Vector3(-6.6, 0, -2.5), 1.0).set_trans(Tween.TRANS_CUBIC)
 	
@@ -116,8 +125,12 @@ func SelectThumbnail(thumbnail: Sprite3D, idx: int) -> void:
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	
 	var desc_tween = get_tree().create_tween()
-	$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + thumbnail_titles[idx] + "[/wave][/rainbow][/center]"
-	$Control/game_description/text.text = thumbnail_descs[idx]
+	if idx == $thumbnails.get_children().size() - 1 && !Globals.metalgear_unlocked:
+		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + "???" + "[/wave][/rainbow][/center]"
+		$Control/game_description/text.text = "What a thrill..."
+	else:
+		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + thumbnail_titles[idx] + "[/wave][/rainbow][/center]"
+		$Control/game_description/text.text = thumbnail_descs[idx]
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 1), 0.5).set_trans(Tween.TRANS_CUBIC)
 
 func DeselectThumbnail(thumbnail: Sprite3D) -> void:

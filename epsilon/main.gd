@@ -32,7 +32,7 @@ var alert: bool = false
 var wait_to_continue: bool = false
 
 var current_level: TileMap = null
-var current_level_path: String = "res://epsilon/levels/metalgear_level.tscn"
+var current_level_path: String = "res://epsilon/levels/level_0.tscn"
 var current_level_bg_color = Color("102830")
 
 var music_playback_pos: float = 0
@@ -46,19 +46,19 @@ func _ready():
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
 		
-	await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0, current_level_bg_color)
+	#await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0, current_level_bg_color)
 	
-	#await get_tree().process_frame
-	#paused = true
-	#can_pause = false
-	#in_call = true
-	#await codec.play_file("res://epsilon/codec_calls/1.txt")
-	#await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0, current_level_bg_color)
-	#paused = true
-	#can_pause = false
-	#in_call = false
-	#await get_tree().create_timer(3.0).timeout
-	#await _codec_triggered("res://epsilon/codec_calls/2.txt", "", current_level_bg_color)
+	await get_tree().process_frame
+	paused = true
+	can_pause = false
+	in_call = true
+	await codec.play_file("res://epsilon/codec_calls/1.txt")
+	await LoadLevel(current_level_path, "res://epsilon/music/intruder.mp3", 0.0, current_level_bg_color)
+	paused = true
+	can_pause = false
+	in_call = false
+	await get_tree().create_timer(3.0).timeout
+	await _codec_triggered("res://epsilon/codec_calls/2.txt", "", current_level_bg_color)
 
 func _physics_process(delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
@@ -220,4 +220,5 @@ func End() -> void:
 	$music.play()
 	# play ending video + song
 	await $music.finished
+	Globals.metalgear_played = true
 	get_tree().change_scene_to_file("res://menu/menu.tscn")

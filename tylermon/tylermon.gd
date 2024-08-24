@@ -86,7 +86,10 @@ func _on_round_timer_timeout():
 		var winners = get_end_of_round_winner()
 		audio_player.stream = victory
 		audio_player.play()
-		await check_for_game_end()
+		var game_end = await check_for_game_end()
+		if game_end:
+			get_tree().change_scene_to_file("res://menu/menu.tscn")
+			return
 		call_and_pause()
 		await show_transition("round_winners", winners, 7)
 		call_and_switch_modes()
@@ -146,7 +149,7 @@ func get_end_of_round_winner():
 	return winners
 
 
-func check_for_game_end():
+func check_for_game_end() -> bool:
 	if current_round == max_rounds:
 		var winning_players = []
 		var highest_wins
@@ -160,8 +163,9 @@ func check_for_game_end():
 			if player.wins == highest_wins:
 				winning_players.append(player)
 		call_and_pause()
-		await show_transition("final_winner", winning_players, 100)
-
+		await show_transition("final_winner", winning_players, 10)
+		return true
+	return false
 
 func _add_knocked_out_mon():
 	knocked_out_mons += 1

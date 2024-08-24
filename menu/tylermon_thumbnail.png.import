@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bksn6tuyqrl0f"
-path.s3tc="res://.godot/imported/epsilon_thumbnail.png-c0f19b546ede92986e32876384cb8ee0.s3tc.ctex"
+uid="uid://bl0gcwduh3iga"
+path.s3tc="res://.godot/imported/tylermon_thumbnail.png-676bef6705581a995662d7b95943fb59.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://menu/epsilon_thumbnail.png"
-dest_files=["res://.godot/imported/epsilon_thumbnail.png-c0f19b546ede92986e32876384cb8ee0.s3tc.ctex"]
+source_file="res://menu/tylermon_thumbnail.png"
+dest_files=["res://.godot/imported/tylermon_thumbnail.png-676bef6705581a995662d7b95943fb59.s3tc.ctex"]
 
 [params]
 

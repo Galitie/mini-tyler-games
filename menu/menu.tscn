@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqxadhyu7lpgq"]
+[gd_scene load_steps=22 format=3 uid="uid://cqxadhyu7lpgq"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
 [ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
 [ext_resource type="PackedScene" uid="uid://csc7hssyqrj7s" path="res://menu/title.glb" id="2_ff23y"]
 [ext_resource type="Texture2D" uid="uid://cuh1ht4jpmj5f" path="res://menu/crushtris_thumbnail.png" id="5_k1cse"]
+[ext_resource type="Texture2D" uid="uid://bl0gcwduh3iga" path="res://menu/tylermon_thumbnail.png" id="6_2u1ir"]
 [ext_resource type="Shader" path="res://menu/glass.gdshader" id="6_2v6rl"]
+[ext_resource type="Texture2D" uid="uid://e16gee4qysf8" path="res://menu/hidden_thumbnail.png" id="8_0c705"]
 
 [sub_resource type="Environment" id="Environment_ug5bm"]
 background_mode = 1
@@ -114,62 +116,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("../logo_origin/logo:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1, 3, 1)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
+tracks/1/path = NodePath("../logo_origin/logo:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../logo_origin/logo:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../logo_origin/logo:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.3, 0.3, 0.3)]
 }
 
 [sub_resource type="Animation" id="Animation_7tlwd"]
@@ -178,62 +144,26 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("../logo_origin/logo:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.277392, 1),
-"update": 0,
-"values": [Vector3(1, 3, 1), Vector3(1, 8, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../logo_origin/logo:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.5),
 "transitions": PackedFloat32Array(1, 0.196146, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -0.5, 0), Vector3(0, 0, 0)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../logo_origin/logo:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../logo_origin/logo:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.5),
 "transitions": PackedFloat32Array(1, 0.196, 0.196, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.0872665, 0, -0.0872665), Vector3(0.0872665, 0, -0.0872665), Vector3(0, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1.68179, 1),
-"update": 0,
-"values": [Vector3(0.25, 0.25, 0.25), Vector3(0.4, 0.4, 0.4)]
 }
 
 [sub_resource type="Animation" id="Animation_qqyfx"]
@@ -271,6 +201,44 @@ _data = {
 "stabilize": SubResource("Animation_qqyfx")
 }
 
+[sub_resource type="Animation" id="Animation_oxca0"]
+resource_name = "static"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_gm1rg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6hw5f"]
+_data = {
+"RESET": SubResource("Animation_gm1rg"),
+"static": SubResource("Animation_oxca0")
+}
+
 [node name="menu" type="Node3D"]
 script = ExtResource("1_hljnx")
 
@@ -300,13 +268,6 @@ one_shot = true
 [node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.189113, 0.981955, 0, -0.981955, -0.189113, 0, 5.25844, 0)
 
-[node name="thumbnail" type="Sprite3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 1, 3, 1)
-visible = false
-billboard = 1
-texture_filter = 0
-texture = ExtResource("5_k1cse")
-
 [node name="projector" type="MeshInstance3D" parent="."]
 transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 14, -10, 14)
 mesh = SubResource("BoxMesh_dis2e")
@@ -330,8 +291,44 @@ texture = ExtResource("5_k1cse")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="game_description" type="RichTextLabel" parent="Control"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -319.0
+offset_top = 24.0
+offset_right = -14.0
+offset_bottom = 226.0
+grow_horizontal = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 22
+bbcode_enabled = true
+text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]METAL GEAR SOLID: EPSILON[/wave][/rainbow][/center]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="text" type="RichTextLabel" parent="Control/game_description"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.5
+offset_top = 45.0
+offset_right = 138.5
+offset_bottom = 149.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 18
+text = "Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!
+
+1-4 Players"
+fit_content = true
+autowrap_mode = 2
+
 [node name="animator" type="AnimationPlayer" parent="."]
-root_node = NodePath("../thumbnail")
+root_node = NodePath("../thumbnails/thumbnail")
 libraries = {
 "": SubResource("AnimationLibrary_ch774")
 }
@@ -339,3 +336,42 @@ libraries = {
 [node name="logo_origin" type="Node3D" parent="."]
 
 [node name="logo" parent="logo_origin" instance=ExtResource("1_o2h2v")]
+
+[node name="thumbnail3" type="Sprite3D" parent="."]
+transform = Transform3D(-1.14907, 0, -0.964181, 0, 1.5, 0, 0.964181, 0, -1.14907, -9, 6, 0)
+visible = false
+modulate = Color(1, 1, 1, 0)
+billboard = 1
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("5_k1cse")
+
+[node name="thumbnails" type="Node" parent="."]
+
+[node name="thumbnail" type="Sprite3D" parent="thumbnails"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, -6)
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("5_k1cse")
+
+[node name="thumbnail2" type="Sprite3D" parent="thumbnails"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, 0)
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("6_2u1ir")
+
+[node name="metalgear" type="Sprite3D" parent="thumbnails"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, 6)
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("8_0c705")
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="thumbnails/metalgear"]
+libraries = {
+"": SubResource("AnimationLibrary_6hw5f")
+}

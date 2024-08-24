@@ -219,3 +219,5 @@ func End() -> void:
 	$music.stream = load("res://epsilon/music/snake_eater_easter_egg_ver.ogg")
 	$music.play()
 	# play ending video + song
+	await $music.finished
+	get_tree().change_scene_to_file("res://menu/menu.tscn")

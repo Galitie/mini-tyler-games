@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bksn6tuyqrl0f"
-path.s3tc="res://.godot/imported/epsilon_thumbnail.png-c0f19b546ede92986e32876384cb8ee0.s3tc.ctex"
+uid="uid://e16gee4qysf8"
+path.s3tc="res://.godot/imported/hidden_thumbnail.png-daf9822b37ff7b3d76cf11da11eb3ac7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://menu/epsilon_thumbnail.png"
-dest_files=["res://.godot/imported/epsilon_thumbnail.png-c0f19b546ede92986e32876384cb8ee0.s3tc.ctex"]
+source_file="res://menu/hidden_thumbnail.png"
+dest_files=["res://.godot/imported/hidden_thumbnail.png-daf9822b37ff7b3d76cf11da11eb3ac7.s3tc.ctex"]
 
 [params]
 

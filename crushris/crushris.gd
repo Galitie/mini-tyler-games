@@ -91,6 +91,7 @@ func _physics_process(delta) -> void:
 	$countdown.text = str(round($countdown_timer.time_left))
 	
 	if game_paused && Input.is_action_just_pressed("start"):
+		$start.visible = false
 		start_game()
 		
 	if game_over:

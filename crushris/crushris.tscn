@@ -165,6 +165,17 @@ theme_override_font_sizes/font_size = 112
 text = "3"
 horizontal_alignment = 1
 
+[node name="start" type="Label" parent="."]
+offset_left = 446.0
+offset_top = 281.0
+offset_right = 834.0
+offset_bottom = 410.0
+theme_override_fonts/font = ExtResource("9_ivtey")
+theme_override_font_sizes/font_size = 56
+text = "Ready to ROCK?
+Press START"
+horizontal_alignment = 1
+
 [node name="countdown_timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true

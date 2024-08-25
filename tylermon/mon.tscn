@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=87 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -74,30 +74,33 @@
 [ext_resource type="Texture2D" uid="uid://detxqlg5eaf4d" path="res://tylermon/sprites/hair_special_1.png" id="72_iqwwm"]
 [ext_resource type="Texture2D" uid="uid://cp2td67rj2pwd" path="res://tylermon/sprites/hair_special_actual0.png" id="73_jgy1t"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t1j18"]
 resource_local_to_scene = true
-radius = 6.07992
-height = 15.4237
+radius = 4.9632
+height = 13.8552
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_scvj0"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 0.5,
-"texture": ExtResource("2_epn60")
+"texture": ExtResource("18_050gi")
 }, {
 "duration": 2.0,
-"texture": ExtResource("3_vd7s0")
+"texture": ExtResource("19_v6lq8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_fxyav")
+"texture": ExtResource("18_050gi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ygnaw")
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"basic_atk",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -211,23 +214,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 0.5,
-"texture": ExtResource("18_050gi")
+"texture": ExtResource("2_epn60")
 }, {
 "duration": 2.0,
-"texture": ExtResource("19_v6lq8")
+"texture": ExtResource("3_vd7s0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("18_050gi")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_ygnaw")
+"texture": ExtResource("4_fxyav")
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_ph7ik")
 }],
 "loop": false,
 "name": &"special_atk",
-"speed": 7.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -773,6 +773,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u036k"]
+resource_local_to_scene = true
+radius = 4.9632
+height = 15.4237
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ji0f1"]
 resource_local_to_scene = true
 
@@ -831,30 +836,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_han7l"]
 resource_name = "thought"
 length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("thought:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.25, 1.25), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("thought:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ejfqx"]
 _data = {
@@ -875,15 +856,16 @@ script = ExtResource("1_vlprm")
 position = Vector2(0, 5)
 rotation = 1.5708
 scale = Vector2(8.05931, 7.65057)
-shape = SubResource("CapsuleShape2D_u036k")
+shape = SubResource("CapsuleShape2D_t1j18")
 
 [node name="scalable_nodes" type="Node2D" parent="."]
+scale = Vector2(0.75, 0.75)
 
 [node name="sprite" type="AnimatedSprite2D" parent="scalable_nodes"]
 modulate = Color(0.894118, 0.290196, 0.305882, 1)
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"block"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="glasses" type="AnimatedSprite2D" parent="scalable_nodes"]
@@ -905,7 +887,9 @@ sprite_frames = SubResource("SpriteFrames_4inlb")
 animation = &"idle"
 
 [node name="hurt_box" type="Area2D" parent="scalable_nodes"]
+position = Vector2(2.66667, 4)
 rotation = -0.0788491
+scale = Vector2(1, 0.987399)
 collision_layer = 0
 collision_mask = 4
 
@@ -915,33 +899,33 @@ rotation = 1.64965
 scale = Vector2(8.05931, 7.65057)
 shape = SubResource("CapsuleShape2D_u036k")
 
-[node name="basic_atk_box" type="Area2D" parent="scalable_nodes"]
+[node name="special_atk_box" type="Area2D" parent="scalable_nodes"]
 position = Vector2(0, 25)
 scale = Vector2(10.5394, 10.925)
 collision_layer = 4
 collision_mask = 0
 
-[node name="basic_atk_box_coll" type="CollisionShape2D" parent="scalable_nodes/basic_atk_box"]
+[node name="special_atk_box_coll" type="CollisionShape2D" parent="scalable_nodes/special_atk_box"]
 position = Vector2(0.120622, -1.64608)
 rotation = 1.57904
 scale = Vector2(0.97977, 1.0651)
 shape = SubResource("CircleShape2D_ji0f1")
 disabled = true
 
-[node name="special_atk_box" type="Area2D" parent="scalable_nodes"]
+[node name="basic_atk_box" type="Area2D" parent="scalable_nodes"]
 position = Vector2(-7, -30)
 scale = Vector2(16.7837, 5.41757)
 collision_layer = 4
 collision_mask = 0
 
-[node name="special_atk_box_coll" type="CollisionShape2D" parent="scalable_nodes/special_atk_box"]
+[node name="basic_atk_box_coll" type="CollisionShape2D" parent="scalable_nodes/basic_atk_box"]
 position = Vector2(-6.67314, 0.553753)
 scale = Vector2(0.455069, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
-[node name="special_atk_box_coll2" type="CollisionShape2D" parent="scalable_nodes/special_atk_box"]
-position = Vector2(7.80519, -0.922927)
+[node name="basic_atk_box_coll2" type="CollisionShape2D" parent="scalable_nodes/basic_atk_box"]
+position = Vector2(7.88463, -0.369169)
 scale = Vector2(0.455069, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true
@@ -972,17 +956,17 @@ one_shot = true
 one_shot = true
 
 [node name="hp_bar" type="ProgressBar" parent="."]
-visible = false
+z_index = 5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -57.0
-offset_top = 62.0
-offset_right = 59.0
-offset_bottom = 89.0
+offset_left = -36.0
+offset_top = 51.0
+offset_right = 80.0
+offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.994895)
+scale = Vector2(0.65, 0.647)
 size_flags_horizontal = 4
 theme = ExtResource("38_5lyhm")
 step = 1.0
@@ -1036,29 +1020,6 @@ uppercase = true
 wait_time = 2.0
 one_shot = true
 
-[node name="thought" type="Label" parent="."]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -146.0
-offset_right = 63.0
-offset_bottom = -120.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(63.1474, 11.31)
-theme = ExtResource("38_5lyhm")
-theme_override_colors/font_color = Color(0, 0.533333, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 18
-text = "Attack"
-horizontal_alignment = 1
-uppercase = true
-
 [node name="damage_taken" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 z_index = 3
@@ -1101,8 +1062,8 @@ libraries = {
 volume_db = 5.0
 
 [connection signal="area_entered" from="scalable_nodes/hurt_box" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="scalable_nodes/special_atk_box" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_entered" from="scalable_nodes/basic_atk_box" to="." method="_on_hurt_box_area_entered"]
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="charge_timer" to="." method="_on_charge_timer_timeout"]

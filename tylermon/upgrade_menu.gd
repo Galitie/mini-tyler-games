@@ -5,6 +5,7 @@ var upgrade_time : bool = false
 var points_to_spend : int = 0
 var players_done_upgrading : int = 0
 var current_focus
+var scale_amount : float = .02
 
 @onready var cursor = $cursor
 var moved_stick: bool = false
@@ -107,6 +108,13 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			mon.max_health += 1
 			emit_signal("upgraded", "good")
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			if mon.max_health >= 15 && mon.tank == false:
+				mon.tank = true
+				mon.get_node("scalable_nodes").scale += Vector2(.25, .25)
+				mon.get_node("collision").scale += Vector2(.25, .25)
+				description.text = "BIG BOIIIIIIIIIII"
 		"str":
 			points_to_spend -= 1
 			mon.strength += 1
@@ -179,35 +187,32 @@ func gamble():
 			description.text = "Mon is sluggish!"
 			emit_signal("upgraded", "bad")
 		2:
-			mon.get_node("scalable_nodes").scale -= Vector2(.15, .15)
+			mon.get_node("scalable_nodes").scale -= Vector2(.20, .20)
+			mon.get_node("collision").scale -= Vector2(.20, .20)
 			description.text = "Mon has shrunk!"
 			emit_signal("upgraded", "bad")
 		3:
-			mon.get_node("scalable_nodes").scale += Vector2(.15, .15)
-			description.text = "Mon has grown!"
-			emit_signal("upgraded", "bad")
-		4:
 			mon.speed += 25
 			description.text = "Mon is speedier!"
 			emit_signal("upgraded", "bad")
-		5:
+		4:
 			if mon.max_think_time <= 1.5:
 				increase_random_stats(1,1)
 				emit_signal("upgraded", "good")
 			else:
-				mon.max_think_time -= 1
+				mon.max_think_time -= .5
 				description.text = "Mon will change it's mind quicker"
 				emit_signal("upgraded", "good")
-		6:
+		5:
 			increase_random_stats(1,1)
 			emit_signal("upgraded", "good")
-		7:
+		6:
 			increase_random_stats(2,1)
 			emit_signal("upgraded", "good")
-		8:
+		7:
 			increase_random_stats(1,2)
 			emit_signal("upgraded", "good")
-		9:
+		8:
 			increase_random_stats(3,1)
 			emit_signal("upgraded", "good")
 		_:
@@ -216,9 +221,17 @@ func gamble():
 	if mon.strength >= 10 && mon.buff == false:
 		mon.buff = true
 		mon.hair.visible = true
+		description.text = "KAAAAMAAAYAAAMAAAHAAAAAAA"
 	if mon.intelligence >= 10 && mon.smart == false:
 		mon.smart = true
 		mon.glasses.visible = true
+		description.text = "Mon is pretty smart for a dummy"
+	if mon.max_health >= 15 && mon.tank == false:
+		mon.tank = true
+		mon.get_node("scalable_nodes").scale += Vector2(.25, .25)
+		mon.get_node("collision").scale += Vector2(.25, .25)
+		description.text = "BIG BOIIIIIIIIIII"
+
 
 func increase_random_stats(stats:int, alter_by:int):
 	var possible_stats = [1, 2, 3]
@@ -230,6 +243,8 @@ func increase_random_stats(stats:int, alter_by:int):
 	if stats == 1:
 		if random_stat == 1:
 			mon.max_health += (alter_by + 1)
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			update_description(alter_by, "health", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -242,6 +257,8 @@ func increase_random_stats(stats:int, alter_by:int):
 		var stat2
 		if random_stat == 1:
 			mon.max_health += (alter_by + 1)
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			stat = "health"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -251,6 +268,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			stat = "intelligence"
 		if random_stat2 == 1:
 			mon.max_health += (alter_by + 1)
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			stat2 = "health"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -265,6 +284,8 @@ func increase_random_stats(stats:int, alter_by:int):
 		var stat3
 		if random_stat == 1:
 			mon.max_health += alter_by + 1
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			stat = "health"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -274,6 +295,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			stat = "intelligence"
 		if random_stat2 == 1:
 			mon.max_health += alter_by + 1
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			stat2 = "health"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -283,6 +306,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			stat2 = "intelligence"
 		if random_stat3 == 1:
 			mon.max_health += alter_by + 1
+			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			stat3 = "health"
 		if random_stat3 == 2:
 			mon.strength += alter_by

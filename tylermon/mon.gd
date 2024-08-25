@@ -7,16 +7,18 @@ var speed: int = 75
 var intelligence: int = 1
 var strength: int = 1
 var strength_mod: float = .20
+var max_think_time : float = 5
 var elm_type = "NONE"
 var possible_elm_types = ["FIRE", "WATER", "GRASS"]
 var current_state
 var destination : Vector2
 var default_z_index = 0
-var current_player_command = State.TARGET_AND_ATTACK
+
 var cursed : bool = false
 var smart : bool = false
 var buff : bool = false
-var max_think_time : float = 5
+var tank : bool = false
+
 var fire_material = load("res://tylermon/fire.tres")
 var fire_text = load("res://tylermon/background/flame_text.png")
 var water_material = load("res://tylermon/water.tres")
@@ -30,27 +32,25 @@ signal knocked_out
 
 enum State {
 	WALK_RANDOM, BASIC_ATTACK, IDLE,
- 	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO,
-	PLAYER_COMMAND, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
+ 	SPECIAL_ATTACK, KNOCKED_OUT, TARGET_AND_GO, TARGET_AND_ATTACK, TARGET_AND_SPECIAL, BLOCK, CHARGE_UP
 	}
-
 
 var state_weights = [
 	{"state": State.IDLE, "roll_weight": 15, "acc_weight": 0, "mult": 1}, 
 	{"state": State.WALK_RANDOM, "roll_weight": 10, "acc_weight": 0, "mult": 1}, 
 	{"state": State.BASIC_ATTACK, "roll_weight": 7, "acc_weight": 0, "mult": 1},
 	{"state": State.TARGET_AND_GO, "roll_weight": 7, "acc_weight": 0, "mult": 1.05},
-	{"state": State.BLOCK, "roll_weight": 4, "acc_weight": 0, "mult": 1.10},
-	{"state": State.CHARGE_UP, "roll_weight": 4, "acc_weight": 0, "mult": 1.10},
+	{"state": State.BLOCK, "roll_weight": 4, "acc_weight": 0, "mult": 1.15},
+	{"state": State.CHARGE_UP, "roll_weight": 3, "acc_weight": 0, "mult": 1.10},
 	{"state": State.TARGET_AND_ATTACK, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
 	{"state": State.TARGET_AND_SPECIAL, "roll_weight": 2, "acc_weight": 0, "mult": 1.20},
-	{"state": State.PLAYER_COMMAND, "roll_weight": 1, "acc_weight": 0, "mult": 7}
 ]
   
 @onready var timer = $timer
 @onready var attack_timer = $attack_timer
 @onready var charge_timer = $charge_timer
 @onready var block_timer = $block_timer
+
 @onready var hp_bar = $hp_bar
 @onready var health_label = $hp_bar/hp_container/current_health
 @onready var max_health_label = $hp_bar/hp_container/max_health
@@ -62,10 +62,12 @@ var state_weights = [
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
 @onready var sprite = $scalable_nodes/sprite
+
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
 @onready var element_player = $scalable_nodes/element
 @onready var audio_player = $audio_player
+
 @onready var hat = $scalable_nodes/witch_hat
 @onready var glasses = $scalable_nodes/glasses
 @onready var hair = $scalable_nodes/hair
@@ -154,7 +156,9 @@ func set_state(state):
 			z_index = default_z_index + 1
 			play_anims("basic_atk")
 			play_audio(basic_attack_sound)
-			basic_atk_box.get_child(0).disabled = false
+			var basic_attack = basic_atk_box.get_children()
+			for hitbox in basic_attack:
+				hitbox.disabled = false
 			attack_timer.start(.2)
 		
 		State.CHARGE_UP:
@@ -244,15 +248,8 @@ func set_state(state):
 			timer.paused = true
 			z_index = default_z_index + 1
 			hurt_box.get_child(0).disabled = true
-
-		State.PLAYER_COMMAND:
-			chance_to_say_phrase(cursed_phrases, 4)
-			set_state(current_player_command)
-			
-	if state == State.PLAYER_COMMAND:
-		current_state = current_player_command
-	else:
-		current_state = state
+	
+	current_state = state
 
 
 func update_state(state, delta):
@@ -348,7 +345,7 @@ func damage(mon, modifier: float, effect):
 	var damage = mon.strength * .40
 	damage *= modifier
 	if mon.current_state == State.SPECIAL_ATTACK:
-		damage += (mon.strength * .25)
+		damage += (mon.strength * .30)
 	if damage <= 1:
 		damage = 1
 	damage = round(damage)
@@ -374,29 +371,15 @@ func chance_to_say_phrase(array, chance : int):
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
 
-
-func command_thought(action):
-	if action == State.BLOCK:
-		$thought.text = "Block"
-	if action == State.CHARGE_UP:
-		$thought.text = "Special"
-	if action == State.BASIC_ATTACK:
-		$thought.text = "Attack"
-	if action == State.TARGET_AND_GO:
-		$thought.text = "Target & go"
-	if current_state != State.KNOCKED_OUT:
-		$thought_anim.play("thought")
-
-
 func switch_round_modes(fight_time):
 	if fight_time:
 		timer.start(.5)
 		z_index = default_z_index
 		position = fight_pos
 		hp_bar.visible = true
-		basic_atk_box.get_child(0).disabled = true
-		var special_attack = special_atk_box.get_children()
-		for hitbox in special_attack:
+		special_atk_box.get_child(0).disabled = true
+		var basic_attack = basic_atk_box.get_children()
+		for hitbox in basic_attack:
 			hitbox.disabled = true
 		hurt_box.get_child(0).disabled = false
 		get_node("collision").disabled = false
@@ -407,6 +390,7 @@ func switch_round_modes(fight_time):
 		health_label.text = str(max_health)
 		timer.paused = false
 	else:
+		get_node("collision").disabled = true
 		toggle_particle(true)
 		set_state(State.IDLE)
 		timer.stop()
@@ -442,17 +426,11 @@ func move_to_destination(delta):
 		position = position.move_toward(destination, speed * delta)
 
 
-#func get_command(command, player_index):
-	#var player = get_parent().name
-	#if player.split("player")[1] == str(player_index):
-		#print("mon", player_index + 1, " recieved command ", State.keys()[command])
-		#current_player_command = command
-	#command_thought(command)
-
-
 func _on_attack_timer_timeout():
 	timer.paused = false
-	basic_atk_box.get_child(0).disabled = true
+	var basic_attack = basic_atk_box.get_children()
+	for hitbox in basic_attack:
+		hitbox.disabled = true
 	var special_attack = special_atk_box.get_children()
 	for hitbox in special_attack:
 		hitbox.disabled = true
@@ -519,9 +497,11 @@ func play_audio(arr):
 	audio_player.stream = audio
 	audio_player.play()
 
+
 func set_starting_element():
 	elm_type = possible_elm_types.pick_random()
 	show_element_effect(elm_type)
+
 
 func play_anims(anim_name):
 	sprite.play(anim_name)

@@ -7,6 +7,10 @@ extends Node3D
 @onready var logo: Node3D = $logo_origin
 @onready var projector: MeshInstance3D = $projector
 
+var move_right_sfx = preload("res://menu/move_right.wav")
+var move_left_sfx = preload("res://menu/move_left.wav")
+var select_sfx = preload("res://menu/select.wav")
+
 var selecting: bool = false
 var spinning: bool = false
 
@@ -46,6 +50,8 @@ var thumbnail_scene_paths: Array = [
 func _ready() -> void:
 	timer.timeout.connect(_timeout)
 	spin_timer.timeout.connect(_spin_timeout)
+	$music.play()
+	await Globals.FadeOut()
 	
 	if Globals.crushtris_played && Globals.tylermon_played:
 		Globals.metalgear_unlocked = true
@@ -71,6 +77,8 @@ func _process(delta: float) -> void:
 	if can_select:
 		if Controller.GetLeftStick(0).x < 0:
 				can_select = false
+				$sfx.stream = move_left_sfx
+				$sfx.play()
 				await DeselectThumbnail($thumbnails.get_child(thumbnail_idx))
 				thumbnail_idx -= 1
 				if thumbnail_idx < 0:
@@ -79,6 +87,8 @@ func _process(delta: float) -> void:
 				can_select = true
 		elif Controller.GetLeftStick(0).x > 0:
 				can_select = false
+				$sfx.stream = move_right_sfx
+				$sfx.play()
 				await DeselectThumbnail($thumbnails.get_child(thumbnail_idx))
 				thumbnail_idx += 1
 				if thumbnail_idx > $thumbnails.get_children().size() - 1:
@@ -89,8 +99,13 @@ func _process(delta: float) -> void:
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 			if thumbnail_idx == $thumbnails.get_children().size() - 1 && !Globals.metalgear_unlocked:
 				return
-			get_tree().change_scene_to_file(thumbnail_scene_paths[thumbnail_idx])
 			can_select = false
+			$sfx.stream = select_sfx
+			$sfx.play()
+			await Globals.FadeIn()
+			await $sfx.finished
+			get_tree().change_scene_to_file(thumbnail_scene_paths[thumbnail_idx])
+			await Globals.FadeOut()
 			return
 	
 func _timeout() -> void:
@@ -110,6 +125,8 @@ func _spin_timeout() -> void:
 		var alpha_tween = get_tree().create_tween()
 		alpha_tween.tween_property(thumbnail, "modulate", Color(1, 1, 1, 1), 1.0).set_trans(Tween.TRANS_CUBIC)
 	await get_tree().create_timer(2.0).timeout
+	$sfx.stream = move_right_sfx
+	$sfx.play()
 	await SelectThumbnail($thumbnails.get_child(thumbnail_idx), thumbnail_idx)
 	can_select = true
 
@@ -120,7 +137,7 @@ func SelectThumbnail(thumbnail: Sprite3D, idx: int) -> void:
 	xform = xform.rotated(Vector3.UP, deg_to_rad(-140))
 	xform.origin = Vector3(-9, 6, 0)
 	var xform_tween = get_tree().create_tween()
-	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.5).set_trans(Tween.TRANS_CUBIC)
+	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.25).set_trans(Tween.TRANS_CUBIC)
 	await xform_tween.finished
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	
@@ -131,11 +148,11 @@ func SelectThumbnail(thumbnail: Sprite3D, idx: int) -> void:
 	else:
 		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + thumbnail_titles[idx] + "[/wave][/rainbow][/center]"
 		$Control/game_description/text.text = thumbnail_descs[idx]
-	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 1), 0.5).set_trans(Tween.TRANS_CUBIC)
+	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 1), 0.25).set_trans(Tween.TRANS_CUBIC)
 
 func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	var desc_tween = get_tree().create_tween()
-	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 0), 0.5).set_trans(Tween.TRANS_CUBIC)
+	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 0), 0.25).set_trans(Tween.TRANS_CUBIC)
 	
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 	var xform: Transform3D = Transform3D()
@@ -143,5 +160,5 @@ func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	xform = xform.rotated(Vector3.RIGHT, deg_to_rad(-90)).rotated(Vector3.UP, deg_to_rad(-90))
 	xform.origin = last_thumbnail_position
 	var xform_tween = get_tree().create_tween()
-	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.5).set_trans(Tween.TRANS_CUBIC)
+	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.25).set_trans(Tween.TRANS_CUBIC)
 	await xform_tween.finished

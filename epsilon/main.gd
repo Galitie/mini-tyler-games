@@ -221,4 +221,5 @@ func End() -> void:
 	# play ending video + song
 	await $music.finished
 	Globals.metalgear_played = true
-	get_tree().change_scene_to_file("res://menu/menu.tscn")
+	await Globals.FadeIn()
+	Globals.GoToMainMenu()

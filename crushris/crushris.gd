@@ -88,7 +88,6 @@ func _ready() -> void:
 	spawn_piece()
 
 func _physics_process(delta) -> void:
-	check_for_player_game_over()
 	$countdown.text = str(round($countdown_timer.time_left))
 	
 	if game_paused && Input.is_action_just_pressed("start"):
@@ -96,10 +95,6 @@ func _physics_process(delta) -> void:
 		
 	if game_over:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
-		await get_tree().create_timer(2.0).timeout
-		get_tree().change_scene_to_file("res://menu/menu.tscn")
-		Globals.crushtris_played = true
-		return
 	
 	if death_row.size() != 0:
 		$camera.apply_shake()
@@ -174,6 +169,11 @@ func _physics_process(delta) -> void:
 							game_over = true
 							active_piece = null
 							$players_win.visible = true
+							await get_tree().create_timer(3.0).timeout
+							Globals.crushtris_played = true
+							await Globals.FadeIn()
+							Globals.GoToMainMenu()
+							return
 				
 				if !game_over and !game_paused:
 					spawn_piece()
@@ -228,7 +228,16 @@ func _on_player_killed(rockman) -> void:
 	player_current_lives -= 1
 	
 	if player_current_lives >= 0:
-		respawn_player(rockman)
+		respawn_player(rockman.controller_port, rockman.color)
+	$players.remove_child(rockman)
+	
+	if player_current_lives <= 0 && $players.get_children().size() == 0:
+		game_over = true
+		$blocks_win.visible = true
+		await get_tree().create_timer(3.0).timeout
+		Globals.crushtris_played = true
+		await Globals.FadeIn()
+		Globals.GoToMainMenu()
 
 func start_game() -> void:
 	$countdown.visible = true
@@ -239,11 +248,6 @@ func _on_countdown_timer_timeout():
 	$countdown.visible = false
 	active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 	game_paused = false
-
-func check_for_player_game_over():
-	if players_killed > player_max_lives and get_node("players").get_child_count() == 0 && !camera.shaking:
-		game_over = true
-		$blocks_win.visible = true
 
 func _on_ember_timer_timeout():
 	$embers.modulate.a = .13
@@ -257,16 +261,16 @@ func play_song():
 func _on_music_finished():
 	play_song()
 
-func respawn_player(rockman):
+func respawn_player(port, color):
 	$lives_text.text = "x " + str(player_current_lives)
 	var player = player_scene.instantiate()
 	var respawn_pos = 530
 	if randf() < 0.5:
 		respawn_pos = 750
 	player.global_position = Vector2(respawn_pos, 122)
-	player.controller_port = rockman.controller_port
-	player.color = rockman.color
+	player.controller_port = port
+	player.color = color
 	player.connect("player_killed", _on_player_killed)
-	$players.call_deferred("add_child", player)
+	$players.add_child(player)
 	if !$revive_sfx.playing:
 		$revive_sfx.play()

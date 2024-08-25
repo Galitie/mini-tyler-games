@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cqxadhyu7lpgq"]
+[gd_scene load_steps=23 format=3 uid="uid://cqxadhyu7lpgq"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
 [ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bl0gcwduh3iga" path="res://menu/tylermon_thumbnail.png" id="6_2u1ir"]
 [ext_resource type="Shader" path="res://menu/glass.gdshader" id="6_2v6rl"]
 [ext_resource type="Texture2D" uid="uid://e16gee4qysf8" path="res://menu/hidden_thumbnail.png" id="8_0c705"]
+[ext_resource type="AudioStream" uid="uid://du3yshe0kcxao" path="res://menu/theme.ogg" id="8_5682p"]
 
 [sub_resource type="Environment" id="Environment_ug5bm"]
 background_mode = 1
@@ -201,6 +202,21 @@ _data = {
 "stabilize": SubResource("Animation_qqyfx")
 }
 
+[sub_resource type="Animation" id="Animation_gm1rg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_oxca0"]
 resource_name = "static"
 length = 0.3
@@ -216,21 +232,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_gm1rg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6hw5f"]
@@ -375,3 +376,8 @@ vframes = 2
 libraries = {
 "": SubResource("AnimationLibrary_6hw5f")
 }
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_5682p")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]

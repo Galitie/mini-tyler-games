@@ -61,7 +61,7 @@ func start_game():
 
 
 func _process(_delta):
-	if Input.is_action_pressed("start") and start_menu_time == true:
+	if Input.is_action_just_pressed("start") and start_menu_time == true:
 		start_game()
 	if start_menu_time == false:
 		countdown_nums.text = "%02d" % time_left()
@@ -89,7 +89,8 @@ func _on_round_timer_timeout():
 		var game_end = await check_for_game_end()
 		if game_end:
 			Globals.tylermon_played = true
-			get_tree().change_scene_to_file("res://menu/menu.tscn")
+			await Globals.FadeIn()
+			Globals.GoToMainMenu()
 			return
 		call_and_pause()
 		await show_transition("round_winners", winners, 7)

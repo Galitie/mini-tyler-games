@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqxadhyu7lpgq"]
+[gd_scene load_steps=19 format=3 uid="uid://cqxadhyu7lpgq"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
 [ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
@@ -112,96 +112,6 @@ shader_parameter/specular = 9.59
 shader_parameter/offset = 1.35
 shader_parameter/opacity = 0.055
 
-[sub_resource type="Animation" id="Animation_ko4l7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../logo_origin/logo:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../logo_origin/logo:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_7tlwd"]
-resource_name = "pop_out"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../logo_origin/logo:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.5),
-"transitions": PackedFloat32Array(1, 0.196146, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.5, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../logo_origin/logo:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.5),
-"transitions": PackedFloat32Array(1, 0.196, 0.196, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.0872665, 0, -0.0872665), Vector3(0.0872665, 0, -0.0872665), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_qqyfx"]
-resource_name = "stabilize"
-length = 10.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../logo_origin/logo:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4, 6, 8),
-"transitions": PackedFloat32Array(0.3, 2.5, 0.3, 2.5, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.2, 0), Vector3(0, 0.1, 0), Vector3(0, -0.2, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../logo_origin/logo:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10.2, 10.4),
-"transitions": PackedFloat32Array(0.366021, 2.63902, 0.329877, 2.07053, 0.535887, 1.93187, 0.594604, 2.92817, 0.267943, 3.36358, 0.307786, 2, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.0277682, -1.49474e-11, 0.122365), Vector3(0, 0, 0), Vector3(0.0696561, -5.16163e-09, -0.128945), Vector3(0.0845739, 0.0266834, 0.0215455), Vector3(0.0717329, 0.033493, 0.158158), Vector3(-0.0921916, 0.0241066, 0.0475367), Vector3(-0.0548336, 0.00871134, -0.117058), Vector3(0, 0, 0), Vector3(-0.0115025, -0.000949826, 0.116358), Vector3(0, 0, 0), Vector3(0, 0, -0.0451866), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ch774"]
-_data = {
-"RESET": SubResource("Animation_ko4l7"),
-"pop_out": SubResource("Animation_7tlwd"),
-"stabilize": SubResource("Animation_qqyfx")
-}
-
 [sub_resource type="Animation" id="Animation_gm1rg"]
 length = 0.001
 tracks/0/type = "value"
@@ -260,7 +170,6 @@ libraries = {
 
 [node name="timer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="spin_timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -327,12 +236,6 @@ text = "Would you give your life? Not for honor, but for you? Now you can do tha
 1-4 Players"
 fit_content = true
 autowrap_mode = 2
-
-[node name="animator" type="AnimationPlayer" parent="."]
-root_node = NodePath("../thumbnails/thumbnail")
-libraries = {
-"": SubResource("AnimationLibrary_ch774")
-}
 
 [node name="logo_origin" type="Node3D" parent="."]
 

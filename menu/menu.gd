@@ -10,6 +10,7 @@ extends Node3D
 var move_right_sfx = preload("res://menu/move_right.wav")
 var move_left_sfx = preload("res://menu/move_left.wav")
 var select_sfx = preload("res://menu/select.wav")
+var locked_sfx = preload("res://menu/locked.wav")
 
 var selecting: bool = false
 var spinning: bool = false
@@ -51,7 +52,6 @@ func _ready() -> void:
 	timer.timeout.connect(_timeout)
 	spin_timer.timeout.connect(_spin_timeout)
 	$music.play()
-	await Globals.FadeOut()
 	
 	if Globals.crushtris_played && Globals.tylermon_played:
 		Globals.metalgear_unlocked = true
@@ -60,6 +60,32 @@ func _ready() -> void:
 		$thumbnails/metalgear.hframes = 1
 	else:
 		$thumbnails/metalgear.get_node("AnimationPlayer").play("static")
+	
+	if Globals.intro_played:
+		$music.seek(4)
+		selecting = true
+		$camera.global_position = final_position + Vector3(-6.6, 0, -2.5)
+		$camera.global_rotation = Vector3(deg_to_rad(-20.4), deg_to_rad(-139.4), 0)
+		
+		for thumbnail in $thumbnails.get_children():
+			thumbnail.modulate = Color(1, 1, 1, 1)
+		
+		title.get_node("animator").play("skooch_in")
+		title.get_node("animator").seek(1, true)
+	else:
+		$timer.start()
+	
+	await Globals.FadeOut()
+		
+	if Globals.intro_played:
+		thumbnail_idx = Globals.last_thumbnail_idx
+		await get_tree().create_timer(1.0).timeout
+		$sfx.stream = move_right_sfx
+		$sfx.play()
+		await SelectThumbnail($thumbnails.get_child(thumbnail_idx), thumbnail_idx)
+		can_select = true
+		
+	Globals.intro_played = true
 	
 func _process(delta: float) -> void:
 	if selecting:
@@ -98,8 +124,12 @@ func _process(delta: float) -> void:
 				
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 			if thumbnail_idx == $thumbnails.get_children().size() - 1 && !Globals.metalgear_unlocked:
+				if $sfx.stream != locked_sfx || !$sfx.playing:
+					$sfx.stream = locked_sfx
+					$sfx.play()
 				return
 			can_select = false
+			Globals.last_thumbnail_idx = thumbnail_idx
 			$sfx.stream = select_sfx
 			$sfx.play()
 			await Globals.FadeIn()

@@ -169,7 +169,7 @@ func _physics_process(delta) -> void:
 							game_over = true
 							active_piece = null
 							$players_win.visible = true
-							await get_tree().create_timer(3.0).timeout
+							await get_tree().create_timer(5.0).timeout
 							Globals.crushtris_played = true
 							await Globals.FadeIn()
 							Globals.GoToMainMenu()
@@ -234,7 +234,7 @@ func _on_player_killed(rockman) -> void:
 	if player_current_lives <= 0 && $players.get_children().size() == 0:
 		game_over = true
 		$blocks_win.visible = true
-		await get_tree().create_timer(3.0).timeout
+		await get_tree().create_timer(5.0).timeout
 		Globals.crushtris_played = true
 		await Globals.FadeIn()
 		Globals.GoToMainMenu()

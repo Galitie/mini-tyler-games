@@ -15,4 +15,4 @@ func _process(delta):
 		await $sfx.finished
 		await Globals.FadeIn(0.5)
 		get_tree().change_scene_to_file("res://epsilon/main.tscn")
-		await Globals.FadeOut()
+		Globals.get_node("fade").modulate = Color(0, 0, 0, 0)

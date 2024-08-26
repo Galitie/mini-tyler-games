@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxmywwblutafo"
-path="res://.godot/imported/test.png-5393997ac309ed173221dbafae1c01ad.ctex"
+uid="uid://b0rm7c0wgvj5y"
+path="res://.godot/imported/hand.png-26a11d5b722eac5c925ff00be21e6572.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://whokilledaimes/test.png"
-dest_files=["res://.godot/imported/test.png-5393997ac309ed173221dbafae1c01ad.ctex"]
+source_file="res://whokilledames/hand.png"
+dest_files=["res://.godot/imported/hand.png-26a11d5b722eac5c925ff00be21e6572.ctex"]
 
 [params]
 

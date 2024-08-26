@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dviu7ri2ank27"]
 
-[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledaimes/theme_wka.tres" id="1_orogn"]
-[ext_resource type="Script" path="res://whokilledaimes/popup.gd" id="2_3inw7"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="1_orogn"]
+[ext_resource type="Script" path="res://whokilledames/popup.gd" id="2_3inw7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jci4"]
 

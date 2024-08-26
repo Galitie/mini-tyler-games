@@ -3,10 +3,10 @@ class_name Interactable
 
 @export var item_name: String
 @export var item_description: String
-@export var sprite: Sprite2D
+@export var sprite: Texture
 
 func _ready():
-	pass
+	$sprite.texture = sprite
 
 
 func _process(delta):
@@ -15,5 +15,3 @@ func _process(delta):
 		$sprite.material.set_shader_parameter("line_thickness", 1)
 	else:
 		$sprite.material.set_shader_parameter("line_thickness", 0)
-
-

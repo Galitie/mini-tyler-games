@@ -6,10 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://duiporu7wj3op" path="res://epsilon/backgrounds/title_screen_font.png" id="4_2m5oh"]
 [ext_resource type="AudioStream" uid="uid://c5bh2gqosmrli" path="res://epsilon/sound_effects/continue_shot.mp3" id="5_16538"]
 
-[sub_resource type="Animation" id="Animation_hn3mg"]
-resource_name = "pulse"
-length = 1.5
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_1uije"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,10 +15,22 @@ tracks/0/path = NodePath("press_start_text:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("press_start_text:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_slppg"]
@@ -51,8 +61,10 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1.5, 1.5)]
 }
 
-[sub_resource type="Animation" id="Animation_1uije"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_hn3mg"]
+resource_name = "pulse"
+length = 1.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -60,22 +72,10 @@ tracks/0/path = NodePath("press_start_text:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("press_start_text:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pyaio"]

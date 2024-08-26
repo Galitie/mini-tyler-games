@@ -49,6 +49,7 @@ var thumbnail_scene_paths: Array = [
 ]
 
 func _ready() -> void:
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	timer.timeout.connect(_timeout)
 	spin_timer.timeout.connect(_spin_timeout)
 	$music.play()

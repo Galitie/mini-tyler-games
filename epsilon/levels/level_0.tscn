@@ -16,7 +16,6 @@ func _ready():
 size = Vector2(32, 32)
 
 [node name="level_0" type="TileMap"]
-process_mode = 1
 texture_filter = 1
 tile_set = ExtResource("1_hmiqu")
 format = 2

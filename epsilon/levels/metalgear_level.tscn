@@ -11,7 +11,6 @@ func _ready():
 "
 
 [node name="metalgear_level" type="TileMap"]
-process_mode = 1
 texture_filter = 1
 tile_set = ExtResource("1_d5fjp")
 format = 2

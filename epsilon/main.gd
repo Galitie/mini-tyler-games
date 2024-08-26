@@ -45,7 +45,7 @@ func _ready():
 	for i in range(snakes.size()):
 		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
 		snakes[i].dead.connect(_on_snake_death)
-		
+	
 	#await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0, current_level_bg_color)
 	
 	await get_tree().process_frame
@@ -66,8 +66,6 @@ func _physics_process(delta: float) -> void:
 			if snake.controller_port != 0:
 				snake.hit(self, 9999)
 	
-	get_tree().paused = paused
-	
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		if in_call:
 			codec.interrupted = true
@@ -79,6 +77,11 @@ func _physics_process(delta: float) -> void:
 			else:
 				$game/camera/ui/camera_space/paused.visible = false
 				$game/camera/ui/camera_space/fade.color.a = 0.0
+				
+	if paused:
+		$game.process_mode = Node.PROCESS_MODE_DISABLED
+	else:
+		$game.process_mode = Node.PROCESS_MODE_ALWAYS
 				
 	if wait_to_continue:
 		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
@@ -215,11 +218,9 @@ func End() -> void:
 	await ui_anim.animation_finished
 	$music.stop()
 	await codec.play_file("res://epsilon/codec_calls/6.txt")
-	$music.volume_db = 0
-	$music.stream = load("res://epsilon/music/snake_eater_easter_egg_ver.ogg")
-	$music.play()
-	# play ending video + song
-	await $music.finished
+	$game/camera/ui/game_over.stream = load("res://epsilon/backgrounds/ending_video.ogv")
+	$game/camera/ui/game_over.play()
+	await $game/camera/ui/game_over.finished
 	Globals.metalgear_played = true
-	await Globals.FadeIn()
+	Globals.get_node("fade").color = Color(0, 0, 0, 1)
 	Globals.GoToMainMenu()

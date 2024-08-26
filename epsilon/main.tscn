@@ -111,7 +111,6 @@ process_mode = 3
 script = ExtResource("1_xhkvj")
 
 [node name="game" type="Node" parent="."]
-process_mode = 1
 
 [node name="camera" type="Camera2D" parent="game"]
 position = Vector2(0, 104)
@@ -301,7 +300,6 @@ process_mode = 3
 scale = Vector2(2, 2)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="game/camera"]
-current = true
 
 [node name="snake" parent="game" instance=ExtResource("7_ubn78")]
 

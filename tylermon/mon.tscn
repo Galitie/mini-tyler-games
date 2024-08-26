@@ -74,10 +74,7 @@
 [ext_resource type="Texture2D" uid="uid://detxqlg5eaf4d" path="res://tylermon/sprites/hair_special_1.png" id="72_iqwwm"]
 [ext_resource type="Texture2D" uid="uid://cp2td67rj2pwd" path="res://tylermon/sprites/hair_special_actual0.png" id="73_jgy1t"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t1j18"]
-resource_local_to_scene = true
-radius = 4.9632
-height = 13.8552
+[sub_resource type="CircleShape2D" id="CircleShape2D_fof1f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_scvj0"]
 resource_local_to_scene = true
@@ -853,10 +850,10 @@ platform_wall_layers = 2
 script = ExtResource("1_vlprm")
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(-2.04636e-12, 5)
 rotation = 1.5708
-scale = Vector2(8.05931, 7.65057)
-shape = SubResource("CapsuleShape2D_t1j18")
+scale = Vector2(3.61798, 4.82244)
+shape = SubResource("CircleShape2D_fof1f")
 
 [node name="scalable_nodes" type="Node2D" parent="."]
 scale = Vector2(0.75, 0.75)
@@ -956,6 +953,7 @@ one_shot = true
 one_shot = true
 
 [node name="hp_bar" type="ProgressBar" parent="."]
+visible = false
 z_index = 5
 anchors_preset = 15
 anchor_right = 1.0

@@ -217,7 +217,7 @@ func set_state(state):
 				audio_player.stop()
 				play_anims("idle")
 			else:
-				destination = random_mon.position
+				destination = random_mon.position + pick_position()
 		
 		State.TARGET_AND_ATTACK:
 			play_anims("move")
@@ -227,7 +227,7 @@ func set_state(state):
 				audio_player.stop()
 				play_anims("idle")
 			else:
-				destination = random_mon.position
+				destination = random_mon.position + pick_position()
 
 		State.TARGET_AND_SPECIAL:
 			play_anims("move")
@@ -237,7 +237,7 @@ func set_state(state):
 				audio_player.stop()
 				play_anims("idle")
 			else:
-				destination = random_mon.position
+				destination = random_mon.position + pick_position()
 		
 		State.BLOCK:
 			chance_to_say_phrase(cursed_phrases, 4)
@@ -370,6 +370,7 @@ func chance_to_say_phrase(array, chance : int):
 		phrase.text = rand_phrase
 		await phrase.get_node("phrase_timer").timeout
 		phrase.text = ""
+
 
 func switch_round_modes(fight_time):
 	if fight_time:
@@ -508,3 +509,16 @@ func play_anims(anim_name):
 	hat.play(anim_name)
 	glasses.play(anim_name)
 	hair.play(anim_name)
+
+func pick_position():
+	var random_number = randi_range(0,3)
+	match random_number:
+		0:
+			
+			return Vector2(-100, 0)
+		1:
+			return Vector2(100, 0)
+		2:
+			return Vector2(0, 100)
+		3:
+			return Vector2(0, -100)

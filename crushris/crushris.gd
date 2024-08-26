@@ -88,7 +88,7 @@ func _ready() -> void:
 	spawn_piece()
 
 func _physics_process(delta) -> void:
-	$countdown.text = str(round($countdown_timer.time_left))
+	$countdown.text = str(int($countdown_timer.time_left))
 	
 	if game_paused && Input.is_action_just_pressed("start"):
 		$start.visible = false
@@ -241,8 +241,9 @@ func _on_player_killed(rockman) -> void:
 		Globals.GoToMainMenu()
 
 func start_game() -> void:
-	$countdown.visible = true
 	$countdown_timer.start()
+	await get_tree().physics_frame
+	$countdown.visible = true
 	play_song()
 
 func _on_countdown_timer_timeout():

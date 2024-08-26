@@ -7,7 +7,7 @@
 [node name="test" type="Node2D"]
 
 [node name="interactable" parent="." instance=ExtResource("2_jgcfl")]
-position = Vector2(162, 544)
+position = Vector2(420, 168)
 item_name = "smiley"
 item_description = "wow"
 sprite = ExtResource("3_jkari")

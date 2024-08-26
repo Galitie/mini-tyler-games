@@ -1,9 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dviu7ri2ank27"]
+[gd_scene load_steps=8 format=3 uid="uid://dviu7ri2ank27"]
 
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="1_orogn"]
 [ext_resource type="Script" path="res://whokilledames/popup.gd" id="2_3inw7"]
 
+[sub_resource type="Gradient" id="Gradient_syshj"]
+colors = PackedColorArray(0, 0.111093, 0.637639, 1, 0.638155, 0.731633, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lgn1m"]
+gradient = SubResource("Gradient_syshj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ggwb"]
+texture = SubResource("GradientTexture1D_lgn1m")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jci4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe112"]
+bg_color = Color(0.513726, 0.513726, 0.513726, 1)
+border_width_right = 2
+border_width_bottom = 2
+shadow_size = 2
+shadow_offset = Vector2(-2, -2)
 
 [node name="popup" type="Control"]
 layout_mode = 3
@@ -27,33 +47,42 @@ theme = ExtResource("1_orogn")
 layout_mode = 2
 theme = ExtResource("1_orogn")
 
-[node name="hbox" type="HBoxContainer" parent="panel/margin/vbox"]
+[node name="ColorRect" type="PanelContainer" parent="panel/margin/vbox"]
 layout_mode = 2
+theme = ExtResource("1_orogn")
+theme_type_variation = &"gradient"
+theme_override_styles/panel = SubResource("StyleBoxTexture_0ggwb")
+
+[node name="hbox" type="HBoxContainer" parent="panel/margin/vbox/ColorRect"]
+layout_mode = 2
+theme = ExtResource("1_orogn")
+theme_type_variation = &"gradient"
 theme_override_constants/separation = 20
 
-[node name="text_hbox" type="HBoxContainer" parent="panel/margin/vbox/hbox"]
+[node name="text_hbox" type="HBoxContainer" parent="panel/margin/vbox/ColorRect/hbox"]
 layout_mode = 2
 
-[node name="item_name" type="Label" parent="panel/margin/vbox/hbox/text_hbox"]
+[node name="item_name" type="Label" parent="panel/margin/vbox/ColorRect/hbox/text_hbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Smiler McSmilerson"
 
-[node name="exit_hbox" type="HBoxContainer" parent="panel/margin/vbox/hbox"]
+[node name="exit_hbox" type="HBoxContainer" parent="panel/margin/vbox/ColorRect/hbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="exit" type="Button" parent="panel/margin/vbox/hbox/exit_hbox"]
+[node name="exit" type="Button" parent="panel/margin/vbox/ColorRect/hbox/exit_hbox"]
 layout_mode = 2
-text = " X "
+text = " X"
 
-[node name="area" type="Area2D" parent="panel/margin/vbox/hbox/exit_hbox/exit"]
-position = Vector2(13, 16)
-scale = Vector2(1.48, 1.56)
+[node name="area" type="Area2D" parent="panel/margin/vbox/ColorRect/hbox/exit_hbox/exit"]
+visible = false
+position = Vector2(13, 14)
+scale = Vector2(2, 2.04)
 collision_layer = 2
 
-[node name="shape" type="CollisionShape2D" parent="panel/margin/vbox/hbox/exit_hbox/exit/area"]
+[node name="shape" type="CollisionShape2D" parent="panel/margin/vbox/ColorRect/hbox/exit_hbox/exit/area"]
 shape = SubResource("RectangleShape2D_6jci4")
 
 [node name="description" type="Label" parent="panel/margin/vbox"]
@@ -66,3 +95,6 @@ autowrap_mode = 2
 [node name="panel" type="PanelContainer" parent="panel/margin/vbox"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+theme = ExtResource("1_orogn")
+theme_type_variation = &"inner panel"
+theme_override_styles/panel = SubResource("StyleBoxFlat_qe112")

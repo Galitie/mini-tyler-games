@@ -12,6 +12,6 @@ func _ready():
 func _process(delta):
 	var areas = $area.get_overlapping_areas()
 	if areas.size():
-		$sprite.material.set_shader_parameter("line_thickness", 1)
+		$sprite.material.set_shader_parameter("line_thickness", 2)
 	else:
 		$sprite.material.set_shader_parameter("line_thickness", 0)

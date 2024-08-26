@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://qtkde6xxe7t7"]
+
+[ext_resource type="Script" path="res://whokilledaimes/interactable.gd" id="1_0n8o0"]
+[ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://whokilledaimes/test.png" id="1_0ncdo"]
+[ext_resource type="Shader" path="res://whokilledaimes/outline.gdshader" id="1_8ebh7"]
+[ext_resource type="PackedScene" uid="uid://dviu7ri2ank27" path="res://whokilledaimes/popup.tscn" id="4_mbjr4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cfhp"]
+resource_local_to_scene = true
+shader = ExtResource("1_8ebh7")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.0
+shader_parameter/frequency = 10.0
+shader_parameter/phase_speed = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6vwvj"]
+
+[node name="interactable" type="Node2D"]
+script = ExtResource("1_0n8o0")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_8cfhp")
+position = Vector2(0, -1)
+texture = ExtResource("1_0ncdo")
+centered = false
+
+[node name="popup" parent="." instance=ExtResource("4_mbjr4")]
+unique_name_in_owner = true
+visible = false
+offset_left = 54.0
+offset_top = 9.0
+offset_right = 254.0
+offset_bottom = 209.0
+
+[node name="area" type="Area2D" parent="."]
+position = Vector2(29, 25)
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+scale = Vector2(1.76, 1.64)
+shape = SubResource("CircleShape2D_6vwvj")

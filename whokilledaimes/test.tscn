@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://pu4i5asis7fh"]
+
+[ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://whokilledaimes/pointer.tscn" id="1_ripbs"]
+[ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://whokilledaimes/interactable.tscn" id="2_jgcfl"]
+
+[node name="test" type="Node2D"]
+
+[node name="interactable" parent="." instance=ExtResource("2_jgcfl")]
+position = Vector2(556, 229)
+
+[node name="interactable2" parent="." instance=ExtResource("2_jgcfl")]
+position = Vector2(260, 214)
+
+[node name="pointer" parent="." instance=ExtResource("1_ripbs")]
+position = Vector2(430, 539)
+player_color = Color(0.709804, 0.00392157, 0.921569, 1)
+
+[node name="pointer2" parent="." instance=ExtResource("1_ripbs")]
+position = Vector2(706, 150)
+controller_port = 1
+player_color = Color(0, 0.505882, 0.741176, 1)
+
+[node name="pointer3" parent="." instance=ExtResource("1_ripbs")]
+position = Vector2(325, 280)
+controller_port = 2
+player_color = Color(1, 0.32549, 0, 1)
+
+[node name="pointer4" parent="." instance=ExtResource("1_ripbs")]
+position = Vector2(632, 337)
+controller_port = 3
+player_color = Color(0, 0.568627, 0.254902, 1)

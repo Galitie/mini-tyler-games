@@ -17,6 +17,7 @@ func _process(delta):
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	global_position += move_input * SPEED * delta
 	
+	#single press interactions
 	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A) && is_hovering:
 		if areas.size():
 			for area in areas:
@@ -26,8 +27,20 @@ func _process(delta):
 				if root is Interactable:
 					if root.get_node("popup").visible == true:
 						root.get_node("popup").visible = false
+					if root.exhausted == true:
+						root.get_node("popup").visible = false
 					else:
 						root.get_node("popup").visible = true
+		sprite.play("interact")
+		return
+	
+	#holding down interactions
+	if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A) && is_hovering:
+		if areas.size():
+			for area in areas:
+				var root = area.owner
+				if root is RotateMiniGame:
+					root.get_node("sprite").look_at(global_position)
 		sprite.play("interact")
 		return
 

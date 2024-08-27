@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dviu7ri2ank27"]
+[gd_scene load_steps=9 format=3 uid="uid://dviu7ri2ank27"]
 
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="1_orogn"]
 [ext_resource type="Script" path="res://whokilledames/popup.gd" id="2_3inw7"]
+[ext_resource type="PackedScene" uid="uid://dwu7kpl2ex6pf" path="res://whokilledames/minigames/minigame_rotate.tscn" id="3_x0n4t"]
 
 [sub_resource type="Gradient" id="Gradient_syshj"]
 colors = PackedColorArray(0, 0.111093, 0.637639, 1, 0.638155, 0.731633, 1, 1)
@@ -90,9 +91,15 @@ layout_mode = 2
 text = "Cute smileyface that Tyler fucking hates"
 autowrap_mode = 2
 
-[node name="panel" type="PanelContainer" parent="panel/margin/vbox"]
+[node name="minigame_panel" type="PanelContainer" parent="panel/margin/vbox"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme = ExtResource("1_orogn")
 theme_type_variation = &"inner panel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_qe112")
+
+[node name="center" type="CenterContainer" parent="panel/margin/vbox/minigame_panel"]
+layout_mode = 2
+
+[node name="rotate" parent="panel/margin/vbox/minigame_panel/center" instance=ExtResource("3_x0n4t")]
+layout_mode = 2

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://qtkde6xxe7t7"]
 
-[ext_resource type="Script" path="res://whokilledames/interactable.gd" id="1_0n8o0"]
+[ext_resource type="Script" path="res://whokilledames/interactables/interactable.gd" id="1_0n8o0"]
 [ext_resource type="Shader" path="res://whokilledames/outline.gdshader" id="1_8ebh7"]
 [ext_resource type="PackedScene" uid="uid://dviu7ri2ank27" path="res://whokilledames/popup.tscn" id="4_mbjr4"]
 

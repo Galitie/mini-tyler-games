@@ -6,6 +6,8 @@ class_name Interactable
 @export var sprite: Texture
 @export_enum("top", "right", "left", "bottom") var popup_position: String
 
+var exhausted: bool = false
+
 func _ready():
 	$sprite.texture = sprite
 	match popup_position:
@@ -21,7 +23,9 @@ func _ready():
 
 func _process(_delta):
 	var areas = $area.get_overlapping_areas()
-	if areas.size():
+	$sprite.material.set_shader_parameter("line_thickness", 0)
+	if areas.size() and not exhausted:
 		$sprite.material.set_shader_parameter("line_thickness", 2)
-	else:
-		$sprite.material.set_shader_parameter("line_thickness", 0)
+	if exhausted:
+		$popup.visible = false
+		$area/shape.disabled = true

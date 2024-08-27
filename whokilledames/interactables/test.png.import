@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxmywwblutafo"
-path="res://.godot/imported/test.png-d1441c6b41ca78cf175aec177b5106ac.ctex"
+path="res://.godot/imported/test.png-c9462e2515a262d006182e095847de18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://whokilledames/test.png"
-dest_files=["res://.godot/imported/test.png-d1441c6b41ca78cf175aec177b5106ac.ctex"]
+source_file="res://whokilledames/interactables/test.png"
+dest_files=["res://.godot/imported/test.png-c9462e2515a262d006182e095847de18.ctex"]
 
 [params]
 

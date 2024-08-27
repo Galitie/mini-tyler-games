@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwu7kpl2ex6pf"]
+
+[ext_resource type="Script" path="res://whokilledames/minigames/minigame_rotate.gd" id="1_yairu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mhhos"]
+radius = 100.0
+
+[node name="rotate" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yairu")
+goal_rotation = 180
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+shape = SubResource("CircleShape2D_mhhos")
+
+[node name="sprite" type="Sprite2D" parent="."]

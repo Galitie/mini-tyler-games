@@ -33,18 +33,24 @@ var thumbnails: Array = [
 var thumbnail_titles: Array = [
 	"CRUSHTRIS: THE RECKONING",
 	"TYLERMON",
+	"SPOTLIGHTS",
+	"WHO KILLED AMES?",
 	"METAL GEAR SOLID: EPSILON"
 ]
 
 var thumbnail_descs: Array = [
 	"It's Tetris®, but with more pain and violence! Try to crush your friends in this absolutely original new game!\n\n2-4 Players",
 	"You like Digimon®? No?! Well, too bad! Customize your Tylermon™ and watch it fight to the death! Yeah!\n\n2-4 Players",
+	"test",
+	"test",
 	"Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!\n\n1-4 Players"
 ]
 
 var thumbnail_scene_paths: Array = [
 	"res://crushris/crushris.tscn",
 	"res://tylermon/title.tscn",
+	"res://bitrun/bitrun.tscn",
+	"res://whokilledames/test.tscn",
 	"res://epsilon/start_menu.tscn"
 ]
 

@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://duq0vqkbyxyk0"]
+
+[ext_resource type="Shader" path="res://spotlight/wobble_unshaded.gdshader" id="1_xjfxu"]
+[ext_resource type="Script" path="res://spotlight/player.gd" id="2_olupy"]
+[ext_resource type="Texture2D" uid="uid://cl7vg80ce87pj" path="res://spotlight/bitrunner.png" id="3_5v3jq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1wke"]
+shader = ExtResource("1_xjfxu")
+shader_parameter/normal_offset = 1.4
+shader_parameter/time_influence = 12.094
+shader_parameter/y_div = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64s0y"]
+shader = ExtResource("1_xjfxu")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 4.686
+shader_parameter/y_div = 2.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jlpfn"]
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cm53i"]
+resource_local_to_scene = true
+radius = 110.0
+
+[sub_resource type="Gradient" id="Gradient_wttj7"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.688312)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yrjri"]
+gradient = SubResource("Gradient_wttj7")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[node name="player" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_c1wke")
+script = ExtResource("2_olupy")
+
+[node name="sprite" type="Sprite2D" parent="."]
+light_mask = 2
+material = SubResource("ShaderMaterial_64s0y")
+texture = ExtResource("3_5v3jq")
+centered = false
+
+[node name="shape" type="CollisionShape2D" parent="."]
+position = Vector2(10, 25)
+shape = SubResource("CapsuleShape2D_jlpfn")
+
+[node name="sonar_area" type="Area2D" parent="."]
+visible = false
+position = Vector2(10, 25)
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="sonar_area"]
+shape = SubResource("CircleShape2D_cm53i")
+
+[node name="sonar" type="PointLight2D" parent="."]
+position = Vector2(10, 25)
+texture = SubResource("GradientTexture2D_yrjri")
+texture_scale = 1.1

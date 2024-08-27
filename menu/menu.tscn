@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cqxadhyu7lpgq"]
+[gd_scene load_steps=21 format=3 uid="uid://cqxadhyu7lpgq"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
 [ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cuh1ht4jpmj5f" path="res://menu/crushtris_thumbnail.png" id="5_k1cse"]
 [ext_resource type="Texture2D" uid="uid://bl0gcwduh3iga" path="res://menu/tylermon_thumbnail.png" id="6_2u1ir"]
 [ext_resource type="Shader" path="res://menu/glass.gdshader" id="6_2v6rl"]
+[ext_resource type="Texture2D" uid="uid://c3yax8atejy65" path="res://menu/spotlight_thumbnail.png" id="7_iulif"]
 [ext_resource type="Texture2D" uid="uid://e16gee4qysf8" path="res://menu/hidden_thumbnail.png" id="8_0c705"]
 [ext_resource type="AudioStream" uid="uid://du3yshe0kcxao" path="res://menu/theme.ogg" id="8_5682p"]
+[ext_resource type="Texture2D" uid="uid://dafbelgkthyry" path="res://menu/wka_thumbnail.png" id="8_qiop5"]
 
 [sub_resource type="Environment" id="Environment_ug5bm"]
 background_mode = 1
@@ -253,21 +255,35 @@ texture = ExtResource("5_k1cse")
 [node name="thumbnails" type="Node" parent="."]
 
 [node name="thumbnail" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, -6)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, -7)
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("5_k1cse")
 
 [node name="thumbnail2" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, 0)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, -1)
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("6_2u1ir")
 
+[node name="thumbnail3" type="Sprite3D" parent="thumbnails"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, 5)
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("7_iulif")
+
+[node name="thumbnail4" type="Sprite3D" parent="thumbnails"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10, 0, -1)
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("8_qiop5")
+
 [node name="metalgear" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, 6)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10, 0, 5)
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1

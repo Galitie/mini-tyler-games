@@ -223,4 +223,5 @@ func End() -> void:
 	await $game/camera/ui/game_over.finished
 	Globals.metalgear_played = true
 	Globals.get_node("fade").color = Color(0, 0, 0, 1)
+	await get_tree().create_timer(2.0).timeout
 	Globals.GoToMainMenu()

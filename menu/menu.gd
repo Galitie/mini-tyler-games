@@ -49,7 +49,7 @@ var thumbnail_descs: Array = [
 var thumbnail_scene_paths: Array = [
 	"res://crushris/crushris.tscn",
 	"res://tylermon/title.tscn",
-	"res://bitrun/bitrun.tscn",
+	"res://spotlight/spotlight.tscn",
 	"res://whokilledames/test.tscn",
 	"res://epsilon/start_menu.tscn"
 ]

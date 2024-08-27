@@ -12,7 +12,7 @@ func _ready():
 	$pointer_area.area_exited.connect(_on_hover_exit)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	var areas = $pointer_area.get_overlapping_areas()
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	global_position += move_input * SPEED * delta
@@ -40,7 +40,13 @@ func _process(delta):
 			for area in areas:
 				var root = area.owner
 				if root is RotateMiniGame:
-					root.get_node("sprite").look_at(global_position)
+					var vec = $sprite.global_position - root.get_node("sprite").global_position
+					var angle = vec.angle()
+					var rotate = root.get_node("sprite").global_rotation
+					var angle_delta = PI * delta
+					angle = lerp_angle(rotate, angle, 1.0)
+					angle = clamp(angle, rotate - angle_delta, rotate + angle_delta)
+					root.get_node("sprite").global_rotation = angle
 		sprite.play("interact")
 		return
 

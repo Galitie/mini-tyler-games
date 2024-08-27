@@ -9,9 +9,8 @@ func _ready():
 	$sprite.texture = item.sprite	
 
 
-func _process(delta):
+func _process(_delta):
 	current_rotation_degree = $sprite.rotation_degrees
-	$sprite.rotation_degrees = clamp(rotation_degrees, -155, 155)
 	check_goal_met()
 
 

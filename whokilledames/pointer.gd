@@ -13,6 +13,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	global_position.x = clamp(global_position.x, 0, 1240)
+	global_position.y = clamp(global_position.y, 0, 680)
 	var areas = $pointer_area.get_overlapping_areas()
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	global_position += move_input * SPEED * delta

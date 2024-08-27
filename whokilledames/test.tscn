@@ -21,26 +21,26 @@ popup_position = "right"
 
 [node name="interactable2" parent="." instance=ExtResource("2_jgcfl")]
 position = Vector2(926, 271)
-item_name = "fuck you"
-item_description = "hate you"
+item_name = "Frowny frowner"
+item_description = "Please help him"
 sprite = ExtResource("3_jkari")
-popup_position = "left"
+popup_position = "right"
 
 [node name="pointer" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(21, 28)
+position = Vector2(44, 44)
 player_color = Color(0.709804, 0.00392157, 0.921569, 1)
 
 [node name="pointer2" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(1217, 26)
+position = Vector2(1200, 43)
 controller_port = 1
 player_color = Color(0, 0.505882, 0.741176, 1)
 
 [node name="pointer3" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(17, 658)
+position = Vector2(43, 628)
 controller_port = 2
 player_color = Color(1, 0.32549, 0, 1)
 
 [node name="pointer4" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(1211, 643)
+position = Vector2(1208, 634)
 controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)

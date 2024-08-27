@@ -1,40 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=5 format=3 uid="uid://pu4i5asis7fh"]
 
+[ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://whokilledames/test_background.png" id="1_0iacu"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://whokilledames/pointer.tscn" id="1_ripbs"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://whokilledames/interactables/interactable.tscn" id="2_jgcfl"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://whokilledames/interactables/test.png" id="3_jkari"]
 
 [node name="test" type="Node2D"]
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("1_0iacu")
+
 [node name="interactable" parent="." instance=ExtResource("2_jgcfl")]
-position = Vector2(420, 168)
+position = Vector2(280, 297)
 item_name = "Smiley McSmilerson"
 item_description = "Make MrSmiley smile again!"
 sprite = ExtResource("3_jkari")
 popup_position = "right"
 
 [node name="interactable2" parent="." instance=ExtResource("2_jgcfl")]
-position = Vector2(987, 369)
+position = Vector2(926, 271)
 item_name = "fuck you"
 item_description = "hate you"
 sprite = ExtResource("3_jkari")
-popup_position = "top"
+popup_position = "left"
 
 [node name="pointer" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(430, 539)
+position = Vector2(21, 28)
 player_color = Color(0.709804, 0.00392157, 0.921569, 1)
 
 [node name="pointer2" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(706, 150)
+position = Vector2(1217, 26)
 controller_port = 1
 player_color = Color(0, 0.505882, 0.741176, 1)
 
 [node name="pointer3" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(325, 280)
+position = Vector2(17, 658)
 controller_port = 2
 player_color = Color(1, 0.32549, 0, 1)
 
 [node name="pointer4" parent="." instance=ExtResource("1_ripbs")]
-position = Vector2(632, 337)
+position = Vector2(1211, 643)
 controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)

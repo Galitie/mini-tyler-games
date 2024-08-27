@@ -29,3 +29,4 @@ func _process(_delta):
 	if exhausted:
 		$popup.visible = false
 		$area/shape.disabled = true
+		queue_free()

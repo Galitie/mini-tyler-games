@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" path="res://whokilledames/minigames/minigame_rotate.gd" id="1_yairu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mhhos"]
-radius = 100.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqudu"]
 
 [node name="rotate" type="Control"]
 layout_mode = 3
@@ -15,6 +14,7 @@ goal_rotation = 180
 collision_layer = 2
 
 [node name="shape" type="CollisionShape2D" parent="area"]
-shape = SubResource("CircleShape2D_mhhos")
+scale = Vector2(9.72, 9.92)
+shape = SubResource("RectangleShape2D_pqudu")
 
 [node name="sprite" type="Sprite2D" parent="."]

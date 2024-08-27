@@ -29,7 +29,7 @@ position = Vector2(0, -1)
 centered = false
 
 [node name="area" type="Area2D" parent="."]
-position = Vector2(29, 25)
+position = Vector2(26, 25)
 collision_layer = 2
 
 [node name="shape" type="CollisionShape2D" parent="area"]

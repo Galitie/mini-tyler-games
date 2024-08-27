@@ -5,13 +5,18 @@ extends Node2D
 const SPEED: float = 400
 var is_hovering: bool = false
 
-# Called when the node enters the scene tree for the first time.
+# Move game logic to their respective mini games
+# Feedback for completing a mini game
+# Add minigame option to inspector in interactable
+# Store clues somewhere???
+
+
 func _ready():
 	sprite.modulate = player_color
 	$pointer_area.area_entered.connect(_on_hover)
 	$pointer_area.area_exited.connect(_on_hover_exit)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _physics_process(delta):
 	global_position.x = clamp(global_position.x, 0, 1240)
 	global_position.y = clamp(global_position.y, 0, 680)

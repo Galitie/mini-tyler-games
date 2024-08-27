@@ -16,3 +16,5 @@ func _process(_delta):
 func check_goal_met():
 	if %output.text == str(goal_number) + "*":
 		item.exhausted = true
+	if %output.text.contains("*"):
+		%output.text = ""

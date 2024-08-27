@@ -1,0 +1,199 @@
+[gd_scene load_steps=6 format=3 uid="uid://df6geyiri3wbn"]
+
+[ext_resource type="Script" path="res://whokilledames/minigames/minigame_passcode.gd" id="1_hgbe2"]
+[ext_resource type="FontFile" uid="uid://b3pbr0fw1ws7o" path="res://whokilledames/easvhs.ttf" id="2_cqp8m"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="2_hfftn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwqwh"]
+content_margin_left = 1.0
+content_margin_top = 4.0
+content_margin_right = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qh3yc"]
+size = Vector2(34.1071, 36)
+
+[node name="passcode" type="CenterContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_hgbe2")
+
+[node name="vbox" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="output_container" type="PanelContainer" parent="vbox"]
+layout_mode = 2
+
+[node name="output" type="Label" parent="vbox/output_container"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_cqp8m")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_gwqwh")
+text = "1234"
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 1
+visible_characters = 4
+
+[node name="grid" type="GridContainer" parent="vbox"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 15
+columns = 3
+
+[node name="1" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "1"
+
+[node name="area" type="Area2D" parent="vbox/grid/1"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/1/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="2" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "2"
+
+[node name="area" type="Area2D" parent="vbox/grid/2"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/2/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="3" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "3"
+
+[node name="area" type="Area2D" parent="vbox/grid/3"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/3/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="4" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "4"
+
+[node name="area" type="Area2D" parent="vbox/grid/4"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/4/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="5" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "5"
+
+[node name="area" type="Area2D" parent="vbox/grid/5"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/5/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="6" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "6"
+
+[node name="area" type="Area2D" parent="vbox/grid/6"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/6/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="7" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "7"
+
+[node name="area" type="Area2D" parent="vbox/grid/7"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/7/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="8" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "8"
+
+[node name="area" type="Area2D" parent="vbox/grid/8"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/8/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="9" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "9"
+
+[node name="area" type="Area2D" parent="vbox/grid/9"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/9/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="back" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "✕"
+
+[node name="area" type="Area2D" parent="vbox/grid/back"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/back/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="0" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = " 0"
+
+[node name="area" type="Area2D" parent="vbox/grid/0"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/0/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="enter" type="Button" parent="vbox/grid"]
+layout_mode = 2
+theme = ExtResource("2_hfftn")
+text = "✓"
+
+[node name="area" type="Area2D" parent="vbox/grid/enter"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="vbox/grid/enter/area"]
+position = Vector2(17.9, 18)
+scale = Vector2(1.12, 1)
+shape = SubResource("RectangleShape2D_qh3yc")

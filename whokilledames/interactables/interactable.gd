@@ -4,12 +4,15 @@ class_name Interactable
 @export var item_name: String
 @export var item_description: String
 @export var sprite: Texture
+@export var area_radius: int
 @export_enum("top", "right", "left", "bottom") var popup_position: String
+
 
 var exhausted: bool = false
 
 func _ready():
 	$sprite.texture = sprite
+	$area/shape.shape.radius = area_radius
 	match popup_position:
 		"top":
 			$popup.position = Vector2(-80, -320)

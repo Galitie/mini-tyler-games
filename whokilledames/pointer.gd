@@ -33,6 +33,32 @@ func _physics_process(delta):
 						root.get_node("popup").visible = false
 					else:
 						root.get_node("popup").visible = true
+				if root is PasscodeMiniGame:
+					match area.get_parent().name:
+						"back":
+							root.get_node("%output").text = ""
+						"0":
+							root.get_node("%output").text += "0"
+						"1":
+							root.get_node("%output").text += "1"
+						"2":
+							root.get_node("%output").text += "2"
+						"3":
+							root.get_node("%output").text += "3"
+						"4":
+							root.get_node("%output").text += "4"
+						"5":
+							root.get_node("%output").text += "5"
+						"6":
+							root.get_node("%output").text += "6"
+						"7":
+							root.get_node("%output").text += "7"
+						"8":
+							root.get_node("%output").text += "8"
+						"9":
+							root.get_node("%output").text += "9"
+						"enter":
+							root.get_node("%output").text += "*"
 		sprite.play("interact")
 		return
 	

@@ -17,6 +17,7 @@ position = Vector2(280, 297)
 item_name = "Smiley McSmilerson"
 item_description = "Make MrSmiley smile again!"
 sprite = ExtResource("3_jkari")
+area_radius = 10
 popup_position = "right"
 
 [node name="interactable2" parent="." instance=ExtResource("2_jgcfl")]
@@ -24,6 +25,7 @@ position = Vector2(926, 271)
 item_name = "Frowny frowner"
 item_description = "Please help him"
 sprite = ExtResource("3_jkari")
+area_radius = 10
 popup_position = "right"
 
 [node name="pointer" parent="." instance=ExtResource("1_ripbs")]

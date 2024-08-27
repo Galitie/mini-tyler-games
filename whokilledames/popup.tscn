@@ -28,13 +28,11 @@ shadow_offset = Vector2(-2, -2)
 [node name="popup" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 200.0
 theme = ExtResource("1_orogn")
 script = ExtResource("2_3inw7")
 
 [node name="panel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

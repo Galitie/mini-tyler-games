@@ -11,12 +11,14 @@ position = Vector2(420, 168)
 item_name = "smiley"
 item_description = "wow"
 sprite = ExtResource("3_jkari")
+popup_position = "right"
 
 [node name="interactable2" parent="." instance=ExtResource("2_jgcfl")]
 position = Vector2(987, 369)
 item_name = "fuck you"
 item_description = "hate you"
 sprite = ExtResource("3_jkari")
+popup_position = "top"
 
 [node name="pointer" parent="." instance=ExtResource("1_ripbs")]
 position = Vector2(430, 539)

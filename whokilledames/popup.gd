@@ -9,6 +9,3 @@ func _ready():
 	item_label_title.text = item.item_name
 	item_label_description.text = item.item_description
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

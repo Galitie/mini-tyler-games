@@ -32,11 +32,11 @@ func _process(delta):
 		return
 
 
-func _on_hover(area):
+func _on_hover(_area):
 	sprite.play("hover")
 	is_hovering = true
 
 
-func _on_hover_exit(area):
+func _on_hover_exit(_area):
 	sprite.play("default")
 	is_hovering = false

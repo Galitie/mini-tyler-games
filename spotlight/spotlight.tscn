@@ -60,19 +60,16 @@ texture = ExtResource("4_pwu5h")
 centered = false
 
 [node name="player" parent="." instance=ExtResource("6_kmgfp")]
-position = Vector2(652, 366)
+position = Vector2(573, 366)
 
 [node name="player2" parent="." instance=ExtResource("6_kmgfp")]
-position = Vector2(548, 366)
+position = Vector2(550, 366)
 controller_port = 1
-color = Color(0.156863, 0.207843, 1, 1)
 
 [node name="player3" parent="." instance=ExtResource("6_kmgfp")]
-position = Vector2(792, 316)
+position = Vector2(596, 366)
 controller_port = 2
-color = Color(0.164706, 1, 0.266667, 1)
 
 [node name="player4" parent="." instance=ExtResource("6_kmgfp")]
-position = Vector2(455, 366)
+position = Vector2(526, 366)
 controller_port = 3
-color = Color(1, 0.0862745, 0.203922, 1)

@@ -233,6 +233,7 @@ offset_bottom = 149.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
 text = "Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!
 
 1-4 Players"

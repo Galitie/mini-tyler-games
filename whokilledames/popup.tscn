@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dviu7ri2ank27"]
+[gd_scene load_steps=8 format=3 uid="uid://dviu7ri2ank27"]
 
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="1_orogn"]
 [ext_resource type="Script" path="res://whokilledames/popup.gd" id="2_3inw7"]
-[ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://whokilledames/minigames/minigame_passcode.tscn" id="3_6kmdh"]
 
 [sub_resource type="Gradient" id="Gradient_syshj"]
 colors = PackedColorArray(0, 0.111093, 0.637639, 1, 0.638155, 0.731633, 1, 1)
@@ -102,12 +101,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qe112")
 layout_mode = 2
 
 [node name="margin" type="MarginContainer" parent="panel/margin/vbox/minigame_panel/center"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-
-[node name="passcode" parent="panel/margin/vbox/minigame_panel/center/margin" instance=ExtResource("3_6kmdh")]
-layout_mode = 2
-goal_number = 1234

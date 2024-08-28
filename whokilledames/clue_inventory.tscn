@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dma3ctdhmc1qe"]
+
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="1_qryq5"]
+
+[node name="clue_inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="vbox" type="VBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="margin/vbox"]
+layout_mode = 2
+theme = ExtResource("1_qryq5")
+text = "Clues Collected:"
+
+[node name="panel" type="PanelContainer" parent="margin/vbox"]
+layout_mode = 2
+theme = ExtResource("1_qryq5")
+
+[node name="clues" type="HFlowContainer" parent="margin/vbox/panel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 5

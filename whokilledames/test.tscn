@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=11 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://whokilledames/test_background.png" id="1_0iacu"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://whokilledames/pointer.tscn" id="1_ripbs"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://whokilledames/interactables/interactable.tscn" id="2_jgcfl"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://whokilledames/interactables/test.png" id="3_jkari"]
+[ext_resource type="PackedScene" uid="uid://dwu7kpl2ex6pf" path="res://whokilledames/minigames/minigame_rotate.tscn" id="4_q8aky"]
+[ext_resource type="Texture2D" uid="uid://upppo4e82w1g" path="res://whokilledames/interactables/phone_test.png" id="5_fbtba"]
+[ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://whokilledames/minigames/minigame_passcode.tscn" id="5_ls1gv"]
+[ext_resource type="Texture2D" uid="uid://crpoaw438be2k" path="res://whokilledames/interactables/note.png" id="7_dwa3a"]
+[ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://whokilledames/minigames/clue.tscn" id="8_lotat"]
+[ext_resource type="PackedScene" uid="uid://dma3ctdhmc1qe" path="res://whokilledames/clue_inventory.tscn" id="10_thpof"]
 
 [node name="test" type="Node2D"]
 
@@ -12,21 +18,34 @@ offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("1_0iacu")
 
-[node name="interactable" parent="." instance=ExtResource("2_jgcfl")]
-position = Vector2(280, 297)
+[node name="smiley" parent="." instance=ExtResource("2_jgcfl")]
+position = Vector2(1044, 143)
 item_name = "Smiley McSmilerson"
 item_description = "Make MrSmiley smile again!"
 sprite = ExtResource("3_jkari")
 area_radius = 10
-popup_position = "right"
+popup_position = "left"
+window_scene = ExtResource("4_q8aky")
+scene_var_int = 180
 
-[node name="interactable2" parent="." instance=ExtResource("2_jgcfl")]
-position = Vector2(926, 271)
-item_name = "Frowny frowner"
-item_description = "Please help him"
-sprite = ExtResource("3_jkari")
+[node name="phone" parent="." instance=ExtResource("2_jgcfl")]
+position = Vector2(781, 541)
+item_name = "Tyler's Phone"
+item_description = "Pixel phones are for losers"
+sprite = ExtResource("5_fbtba")
 area_radius = 10
-popup_position = "right"
+popup_position = "top"
+window_scene = ExtResource("5_ls1gv")
+scene_var_str = "4056"
+
+[node name="note" parent="." instance=ExtResource("2_jgcfl")]
+position = Vector2(507, 237)
+item_name = "Reminder..."
+item_description = "A sticky note"
+sprite = ExtResource("7_dwa3a")
+area_radius = 10
+popup_position = "left"
+window_scene = ExtResource("8_lotat")
 
 [node name="pointer" parent="." instance=ExtResource("1_ripbs")]
 position = Vector2(44, 44)
@@ -46,3 +65,15 @@ player_color = Color(1, 0.32549, 0, 1)
 position = Vector2(1208, 634)
 controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)
+
+[node name="clue_inventory" parent="." instance=ExtResource("10_thpof")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1200, 0)
+anchors_preset = 12
+anchor_top = 1.0
+offset_left = 45.0
+offset_top = 716.0
+offset_right = 1245.0
+offset_bottom = 716.0
+grow_vertical = 0
+size_flags_horizontal = 3

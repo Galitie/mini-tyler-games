@@ -7,8 +7,12 @@ class_name Interactable
 @export var area_radius: int
 @export_enum("top", "right", "left", "bottom") var popup_position: String
 
+@export var window_scene: PackedScene
+@export var scene_var_str: String
+@export var scene_var_int: int
 
 var exhausted: bool = false
+
 
 func _ready():
 	$sprite.texture = sprite
@@ -32,4 +36,11 @@ func _process(_delta):
 	if exhausted:
 		$popup.visible = false
 		$area/shape.disabled = true
+		add_clue_inventory()
 		queue_free()
+
+func add_clue_inventory():
+	var clue = TextureRect.new()
+	clue.texture = sprite
+	var inventory = get_parent().get_node("%clue_inventory").get_node("%clues")
+	inventory.add_child(clue)

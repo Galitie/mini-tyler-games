@@ -8,7 +8,6 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_yairu")
-goal_rotation = 180
 
 [node name="area" type="Area2D" parent="."]
 collision_layer = 2

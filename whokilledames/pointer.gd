@@ -7,7 +7,6 @@ var is_hovering: bool = false
 
 # Move game logic to their respective mini games
 # Feedback for completing a mini game
-# Add minigame option to inspector in interactable
 # Store clues somewhere???
 
 

@@ -29,6 +29,11 @@ func _physics_process(delta):
 		if areas.size():
 			for area in areas:
 				var root = area.owner
+				if area.get_parent() is Arrow:
+					if area.get_parent().name == "left_arrow":
+						emit_signal("change_room", "left")
+					if area.get_parent().name == "right_arrow":
+						emit_signal("change_room", "right")
 				if root is Interactable_Popup:
 					root.hide()
 				if root is Interactable:
@@ -81,13 +86,6 @@ func _physics_process(delta):
 					angle = clamp(angle, rotate - angle_delta, rotate + angle_delta)
 					root.get_node("sprite").global_rotation = angle
 		sprite.play("interact")
-		return
-		
-	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_X):
-		emit_signal("change_room", "left")
-		return
-	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_B):
-		emit_signal("change_room", "right")
 		return
 
 func _on_hover(_area):

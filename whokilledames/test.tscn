@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=17 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://whokilledames/test_background.png" id="1_0iacu"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://whokilledames/pointer.tscn" id="1_ripbs"]
@@ -12,6 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://crpoaw438be2k" path="res://whokilledames/interactables/note.png" id="7_dwa3a"]
 [ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://whokilledames/minigames/clue.tscn" id="8_lotat"]
 [ext_resource type="PackedScene" uid="uid://dma3ctdhmc1qe" path="res://whokilledames/clue_inventory.tscn" id="10_thpof"]
+[ext_resource type="Texture2D" uid="uid://1a7j1ma2k8m" path="res://whokilledames/arrow.png" id="13_343p1"]
+[ext_resource type="Script" path="res://whokilledames/arrow.gd" id="14_0pe0s"]
+[ext_resource type="Texture2D" uid="uid://bm2n51uv3b4i1" path="res://whokilledames/arrow_right.png" id="14_mvn0i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l67qu"]
+size = Vector2(56, 37)
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_vkqnv")
@@ -55,8 +61,43 @@ item_name = "Reminder..."
 item_description = "A sticky note"
 sprite = ExtResource("7_dwa3a")
 area_radius = 10
-popup_position = "left"
+popup_position = "top"
 window_scene = ExtResource("8_lotat")
+
+[node name="ui" type="Node" parent="."]
+
+[node name="clue_inventory" parent="ui" instance=ExtResource("10_thpof")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1200, 0)
+anchors_preset = 12
+anchor_top = 1.0
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="left_arrow" type="Sprite2D" parent="ui"]
+position = Vector2(1244, 351)
+texture = ExtResource("13_343p1")
+script = ExtResource("14_0pe0s")
+
+[node name="area" type="Area2D" parent="ui/left_arrow"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="ui/left_arrow/area"]
+position = Vector2(-7, -0.5)
+shape = SubResource("RectangleShape2D_l67qu")
+
+[node name="right_arrow" type="Sprite2D" parent="ui"]
+position = Vector2(36, 351)
+texture = ExtResource("14_mvn0i")
+script = ExtResource("14_0pe0s")
+
+[node name="area" type="Area2D" parent="ui/right_arrow"]
+position = Vector2(12, 0)
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="ui/right_arrow/area"]
+position = Vector2(-7, -0.5)
+shape = SubResource("RectangleShape2D_l67qu")
 
 [node name="pointers" type="Node" parent="."]
 
@@ -78,13 +119,3 @@ player_color = Color(1, 0.32549, 0, 1)
 position = Vector2(1208, 634)
 controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)
-
-[node name="ui" type="Node" parent="."]
-
-[node name="clue_inventory" parent="ui" instance=ExtResource("10_thpof")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(1200, 0)
-anchors_preset = 12
-anchor_top = 1.0
-grow_vertical = 0
-size_flags_horizontal = 3

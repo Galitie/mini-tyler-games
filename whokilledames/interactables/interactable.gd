@@ -19,11 +19,11 @@ func _ready():
 	$area/shape.shape.radius = area_radius
 	match popup_position:
 		"top":
-			$popup.position = Vector2(-80, -320)
+			$popup.position = Vector2(-80, -380)
 		"right":
-			$popup.position = Vector2(60, -110)
+			$popup.position = Vector2(80, -110)
 		"left":
-			$popup.position = Vector2(-230, -110)
+			$popup.position = Vector2(-250, -110)
 		"bottom":
 			$popup.position = Vector2(-80, 60)
 

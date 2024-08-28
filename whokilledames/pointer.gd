@@ -93,6 +93,7 @@ func _physics_process(delta):
 		Globals.GoToMainMenu()
 		return
 
+
 func _on_hover(_area):
 	sprite.play("hover")
 	is_hovering = true

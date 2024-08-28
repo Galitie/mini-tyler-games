@@ -39,11 +39,11 @@ var thumbnail_titles: Array = [
 ]
 
 var thumbnail_descs: Array = [
-	"It's Tetris®, but with more pain and violence! Try to crush your friends in this absolutely original new game!\n\n2-4 Players",
-	"You like Digimon®? No?! Well, too bad! Customize your Tylermon™ and watch it fight to the death! Yeah!\n\n2-4 Players",
-	"These guys love to stand out, but one of them prefers to blend in. Be brainy and solve colorful puzzles together!\n\n4 Players",
-	"Whodunit? And how?! A point and click murder mystery that'll take you back to the good ole' days! \n\n4 Players",
-	"Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!\n\n1-4 Players"
+	"It's Tetris®, but with more pain and violence! Try to crush your friends in this absolutely original new game!\n\nOne versus three",
+	"You like Digimon®? No?! Well, too bad! Customize your Tylermon™ and watch it fight to the death! Yeah!\n\nFree for all",
+	"These guys love to stand out, but one of them prefers to blend in. Be brainy and solve colorful puzzles together!\n\nCooperative",
+	"Whodunit? And how?! A point and click murder mystery that'll take you back to the good ole' days! \n\nCooperative",
+	"Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!\n\nCooperative"
 ]
 
 var thumbnail_scene_paths: Array = [

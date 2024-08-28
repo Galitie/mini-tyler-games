@@ -91,11 +91,12 @@ size_flags_horizontal = 3
 
 [node name="left_arrow" type="Sprite2D" parent="ui"]
 material = SubResource("ShaderMaterial_7eddn")
-position = Vector2(1244, 351)
-texture = ExtResource("13_343p1")
+position = Vector2(42, 351)
+texture = ExtResource("14_mvn0i")
 script = ExtResource("14_0pe0s")
 
 [node name="area" type="Area2D" parent="ui/left_arrow"]
+position = Vector2(18, 0)
 collision_layer = 2
 
 [node name="shape" type="CollisionShape2D" parent="ui/left_arrow/area"]
@@ -104,12 +105,12 @@ shape = SubResource("RectangleShape2D_l67qu")
 
 [node name="right_arrow" type="Sprite2D" parent="ui"]
 material = SubResource("ShaderMaterial_3w0qm")
-position = Vector2(36, 351)
-texture = ExtResource("14_mvn0i")
+position = Vector2(1240, 351)
+texture = ExtResource("13_343p1")
 script = ExtResource("14_0pe0s")
 
 [node name="area" type="Area2D" parent="ui/right_arrow"]
-position = Vector2(12, 0)
+position = Vector2(-3, 0)
 collision_layer = 2
 
 [node name="shape" type="CollisionShape2D" parent="ui/right_arrow/area"]

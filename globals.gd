@@ -14,15 +14,13 @@ var metalgear_played: bool = false
 
 var last_thumbnail_idx: int = 0
 
+func _ready() -> void:
+	ToggleFullscreen()
+
 func _process(delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
 		fullscreen = !fullscreen
-		if fullscreen:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
-		else:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+		ToggleFullscreen()
 
 func FadeIn(speed: float = 1.0) -> void:
 	anim_player.play("fade_in", -1.0, speed)
@@ -34,3 +32,11 @@ func FadeOut() -> void:
 
 func GoToMainMenu() -> void:
 	get_tree().change_scene_to_file("res://menu/menu.tscn")
+
+func ToggleFullscreen() -> void:
+	if fullscreen:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)

@@ -5,10 +5,11 @@ extends Node2D
 const SPEED: float = 400
 var is_hovering: bool = false
 
+
 # Move game logic to their respective mini games
 # Feedback for completing a mini game
 # Store clues somewhere???
-
+signal change_room(direction:String)
 
 func _ready():
 	sprite.modulate = player_color
@@ -81,7 +82,13 @@ func _physics_process(delta):
 					root.get_node("sprite").global_rotation = angle
 		sprite.play("interact")
 		return
-
+		
+	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_X):
+		emit_signal("change_room", "left")
+		return
+	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_B):
+		emit_signal("change_room", "right")
+		return
 
 func _on_hover(_area):
 	sprite.play("hover")

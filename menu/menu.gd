@@ -42,7 +42,7 @@ var thumbnail_descs: Array = [
 	"It's Tetris®, but with more pain and violence! Try to crush your friends in this absolutely original new game!\n\n2-4 Players",
 	"You like Digimon®? No?! Well, too bad! Customize your Tylermon™ and watch it fight to the death! Yeah!\n\n2-4 Players",
 	"Three guys love to stand out, but one of them prefers to blend in. You'll need them all to solve these puzzles!\n\n4 Players",
-	"test",
+	"Who done it? And how? A point and click murder mystery that will take you way back to the good ole' days! \n\n4 Players",
 	"Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!\n\n1-4 Players"
 ]
 

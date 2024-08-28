@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=20 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://whokilledames/test_background.png" id="1_0iacu"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://whokilledames/pointer.tscn" id="1_ripbs"]
@@ -12,12 +12,27 @@
 [ext_resource type="Texture2D" uid="uid://crpoaw438be2k" path="res://whokilledames/interactables/note.png" id="7_dwa3a"]
 [ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://whokilledames/minigames/clue.tscn" id="8_lotat"]
 [ext_resource type="PackedScene" uid="uid://dma3ctdhmc1qe" path="res://whokilledames/clue_inventory.tscn" id="10_thpof"]
+[ext_resource type="Shader" path="res://whokilledames/outline.gdshader" id="12_ttd4t"]
 [ext_resource type="Texture2D" uid="uid://1a7j1ma2k8m" path="res://whokilledames/arrow.png" id="13_343p1"]
 [ext_resource type="Script" path="res://whokilledames/arrow.gd" id="14_0pe0s"]
 [ext_resource type="Texture2D" uid="uid://bm2n51uv3b4i1" path="res://whokilledames/arrow_right.png" id="14_mvn0i"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7eddn"]
+shader = ExtResource("12_ttd4t")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.0
+shader_parameter/frequency = 10.0
+shader_parameter/phase_speed = 1.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l67qu"]
 size = Vector2(56, 37)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3w0qm"]
+shader = ExtResource("12_ttd4t")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.0
+shader_parameter/frequency = 10.0
+shader_parameter/phase_speed = 1.0
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_vkqnv")
@@ -75,6 +90,7 @@ grow_vertical = 0
 size_flags_horizontal = 3
 
 [node name="left_arrow" type="Sprite2D" parent="ui"]
+material = SubResource("ShaderMaterial_7eddn")
 position = Vector2(1244, 351)
 texture = ExtResource("13_343p1")
 script = ExtResource("14_0pe0s")
@@ -87,6 +103,7 @@ position = Vector2(-7, -0.5)
 shape = SubResource("RectangleShape2D_l67qu")
 
 [node name="right_arrow" type="Sprite2D" parent="ui"]
+material = SubResource("ShaderMaterial_3w0qm")
 position = Vector2(36, 351)
 texture = ExtResource("14_mvn0i")
 script = ExtResource("14_0pe0s")

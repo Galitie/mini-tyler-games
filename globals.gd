@@ -2,6 +2,8 @@ extends Node
 
 @onready var anim_player = $AnimationPlayer
 
+var fullscreen: bool = true
+
 var intro_played: bool = false
 
 var metalgear_unlocked: bool = false
@@ -11,6 +13,16 @@ var tylermon_played: bool = false
 var metalgear_played: bool = false
 
 var last_thumbnail_idx: int = 0
+
+func _process(delta: float) -> void:
+	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
+		fullscreen = !fullscreen
+		if fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
 
 func FadeIn(speed: float = 1.0) -> void:
 	anim_player.play("fade_in", -1.0, speed)

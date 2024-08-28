@@ -87,6 +87,11 @@ func _physics_process(delta):
 					root.get_node("sprite").global_rotation = angle
 		sprite.play("interact")
 		return
+		
+	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_START):
+		await Globals.FadeIn()
+		Globals.GoToMainMenu()
+		return
 
 func _on_hover(_area):
 	sprite.play("hover")

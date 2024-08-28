@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cef6rakbjvngu"]
+
+[ext_resource type="Shader" path="res://spotlight/wobble_light_only.gdshader" id="1_mu01s"]
+[ext_resource type="Texture2D" uid="uid://qmqal24syamn" path="res://spotlight/key.png" id="2_nxy0g"]
+[ext_resource type="Script" path="res://spotlight/key.gd" id="3_h30dy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uh3rw"]
+shader = ExtResource("1_mu01s")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8mjd"]
+
+[node name="key" type="Sprite2D"]
+z_index = -1
+material = SubResource("ShaderMaterial_uh3rw")
+texture = ExtResource("2_nxy0g")
+script = ExtResource("3_h30dy")
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+shape = SubResource("RectangleShape2D_d8mjd")

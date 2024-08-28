@@ -1,8 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://duq0vqkbyxyk0"]
+[gd_scene load_steps=15 format=3 uid="uid://duq0vqkbyxyk0"]
 
 [ext_resource type="Shader" path="res://spotlight/wobble_unshaded.gdshader" id="1_xjfxu"]
 [ext_resource type="Script" path="res://spotlight/player.gd" id="2_olupy"]
 [ext_resource type="Texture2D" uid="uid://cl7vg80ce87pj" path="res://spotlight/bitrunner.png" id="3_5v3jq"]
+[ext_resource type="Texture2D" uid="uid://dr53hxfhn6a0v" path="res://spotlight/bitrunner_escape_0.png" id="4_6swol"]
+[ext_resource type="Texture2D" uid="uid://dp4l41l7yt8gc" path="res://spotlight/bitrunner_escape_1.png" id="5_vx4mv"]
+[ext_resource type="Texture2D" uid="uid://cf4k02c1s7j0o" path="res://spotlight/bitrunner_escape_2.png" id="6_5h2rl"]
+[ext_resource type="Texture2D" uid="uid://cmc8iigbdjxt0" path="res://spotlight/bitrunner_escape_3.png" id="7_rnb34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c1wke"]
 shader = ExtResource("1_xjfxu")
@@ -16,7 +20,36 @@ shader_parameter/normal_offset = 1.5
 shader_parameter/time_influence = 4.686
 shader_parameter/y_div = 2.6
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_6llav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5v3jq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6swol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vx4mv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5h2rl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rnb34")
+}],
+"loop": false,
+"name": &"escape",
+"speed": 10.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jlpfn"]
+resource_local_to_scene = true
 height = 50.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cm53i"]
@@ -40,10 +73,10 @@ fill_to = Vector2(0, 0)
 material = SubResource("ShaderMaterial_c1wke")
 script = ExtResource("2_olupy")
 
-[node name="sprite" type="Sprite2D" parent="."]
+[node name="sprite" type="AnimatedSprite2D" parent="."]
 light_mask = 2
 material = SubResource("ShaderMaterial_64s0y")
-texture = ExtResource("3_5v3jq")
+sprite_frames = SubResource("SpriteFrames_6llav")
 centered = false
 
 [node name="shape" type="CollisionShape2D" parent="."]
@@ -64,7 +97,7 @@ texture_scale = 1.1
 
 [node name="body" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 14
+collision_mask = 142
 
 [node name="shape" type="CollisionShape2D" parent="body"]
 position = Vector2(10, 25)

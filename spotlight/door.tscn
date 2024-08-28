@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnpeuksmkcfpm"]
+
+[ext_resource type="Shader" path="res://spotlight/wobble.gdshader" id="1_qhioq"]
+[ext_resource type="Texture2D" uid="uid://dq65tovf5q1pc" path="res://spotlight/door.png" id="2_5uao6"]
+[ext_resource type="Texture2D" uid="uid://wj2rfypm0r1q" path="res://spotlight/door_open.png" id="3_tcpqi"]
+[ext_resource type="Script" path="res://spotlight/door.gd" id="4_ne0lu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijryo"]
+shader = ExtResource("1_qhioq")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ncjit"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5uao6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tcpqi")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tm4cx"]
+size = Vector2(2, 6)
+
+[node name="door" type="AnimatedSprite2D"]
+z_index = -1
+material = SubResource("ShaderMaterial_ijryo")
+sprite_frames = SubResource("SpriteFrames_ncjit")
+script = ExtResource("4_ne0lu")
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_tm4cx")
+disabled = true

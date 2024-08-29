@@ -55,6 +55,10 @@ var snake_to_be_helped: Snake = null
 
 @export var badge: Control
 
+var oob: bool = false
+var oob_timer: float = 0.0
+var oob_timer_length: float = 3.0
+
 func _ready() -> void:
 	sprite.material.set_shader_parameter("new", player_color)
 	
@@ -272,8 +276,20 @@ func _physics_process(delta: float) -> void:
 		var screen_center: Vector2 = camera.get_screen_center_position()
 		var camera_width: float = get_viewport_rect().end.x / camera.zoom.x
 		var camera_height: float = get_viewport_rect().end.y / camera.zoom.y
-		global_position.x = clampf(global_position.x, screen_center.x + 10 - camera_width / 2, screen_center.x - 10 + camera_width / 2)
-		global_position.y = clampf(global_position.y, screen_center.y + 20 - camera_height / 2, screen_center.y + camera_height / 2)
+		var camera_rect_p: Vector2 = Vector2(screen_center.x - camera_width / 2, screen_center.y - camera_height / 2)
+		var camera_rect: Rect2 = Rect2(camera_rect_p, Vector2(camera_width, camera_height))
+		if !camera_rect.has_point(global_position):
+			oob = true
+			oob_timer += 1 * delta
+			if oob_timer >= oob_timer_length:
+				for snake in get_tree().get_nodes_in_group("snakes"):
+					if !snake.oob:
+						global_position = snake.global_position
+						break
+				oob_timer = 0
+		else:
+			oob = false
+			oob_timer = 0
 
 func BeingHelped(delta: float) -> void:
 	revive += 1.0 * delta
@@ -284,7 +300,7 @@ func BeingHelped(delta: float) -> void:
 		$help_area.set_deferred("monitorable", false)
 		revive = 0.0
 		z_index = 0
-		hp = MAX_HP
+		hp = MAX_HP / 2
 		$body.set_deferred("monitorable", true)
 		$collider.set_deferred("disabled", false)
 		$shadow.visible = true
@@ -319,6 +335,8 @@ func hit(emitter, damage: int) -> void:
 			$help_area.set_deferred("monitorable", true)
 			$help.play("empty")
 			if snake_to_be_helped:
+				snake_to_be_helped.get_node("help").play("empty")
+				snake_to_be_helped.revive = 0
 				snake_to_be_helped = null
 
 func GetDirection(move_input: Vector2) -> String:

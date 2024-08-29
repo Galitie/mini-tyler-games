@@ -165,7 +165,7 @@ func _process(delta):
 		cursor.position.y = 20
 	elif upgrade_position < 0:
 		upgrade_position = upgrade_options.size() - 1
-		cursor.position.y = 58
+		cursor.position.y = 23
 	if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
 		_on_button_pressed(upgrade_options[upgrade_position])
 

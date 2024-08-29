@@ -50,7 +50,7 @@ var state_weights = [
 @onready var basic_atk_box = $scalable_nodes/basic_atk_box
 @onready var special_atk_box = $scalable_nodes/special_atk_box
 @onready var fight_pos = position
-@onready var upgrade_pos = Vector2(position.x + 180, position.y - 20)
+@onready var upgrade_pos = Vector2(position.x - 180, position.y - 20)
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
 @onready var sprite = $scalable_nodes/sprite
@@ -103,6 +103,7 @@ func _ready():
 	set_state(State.IDLE)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
+	upgrade_pos = get_parent().get_parent().get_parent().position + Vector2(70, 50)
 	
 
 func _physics_process(delta):

@@ -52,10 +52,10 @@ func start_game():
 	fight_time = true
 	countdown_label.text = "Round ends: "
 	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
-	$upgrade_ui/margin/GridContainer/upgrade_menu/player0/mon1/customizer.set_process(false)
-	$upgrade_ui/margin/GridContainer/upgrade_menu2/player1/mon2/customizer2.set_process(false)
-	$upgrade_ui/margin/GridContainer/upgrade_menu3/player2/mon3/customizer3.set_process(false)
-	$upgrade_ui/margin/GridContainer/upgrade_menu4/player3/mon4/customizer4.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0/mon1/customizer.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1/mon2/customizer2.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2/mon3/customizer3.set_process(false)
+	$upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4/player3/mon4/customizer4.set_process(false)
 	round_timer.start(fight_length)
 	call_and_switch_modes()
 

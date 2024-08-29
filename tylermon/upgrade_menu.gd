@@ -32,6 +32,7 @@ var gamble_desc = "Feeling down? The more you are losing the luckier you are!"
 var upgrade_options: Array = ["hp", "str", "int", "gamble"]
 var upgrade_position: int = 0
 
+signal upgraded
 signal upgrades_finished
 
 func _ready():
@@ -59,7 +60,7 @@ func _process(_delta):
 			cursor.position.y = 42
 		elif upgrade_position < 0:
 			upgrade_position = upgrade_options.size() - 1
-			cursor.position.y = 182
+			cursor.position.y = 147
 		if moved_stick:
 			_on_mouse_entered(upgrade_options[upgrade_position])
 		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):

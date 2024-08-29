@@ -331,13 +331,15 @@ func _animation_finished() -> void:
 		pickup.global_position = global_position
 		pickup.temporary = true
 		var rng = RandomNumberGenerator.new()
-		var rng_result = rng.randi_range(1, 50)
+		var rng_result = rng.randi_range(1, 75)
 		if rng_result >= 25 && rng_result < 40:
 			pickup.pickup_type = Pickup.PickupType.PISTOL
 		elif rng_result >= 40 && rng_result < 45:
 			pickup.pickup_type = Pickup.PickupType.GRENADE
-		elif rng_result >= 45 && rng_result <= 50:
+		elif rng_result >= 45 && rng_result < 50:
 			pickup.pickup_type = Pickup.PickupType.STINGER
+		elif rng_result >= 50 && rng_result <= 75:
+			pickup.pickup_type = Pickup.PickupType.RATION
 		if pickup.pickup_type != Pickup.PickupType.NONE:
 			$sfx.stream = drop_sfx
 			$sfx.play()

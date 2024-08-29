@@ -3,7 +3,7 @@
 extends Area2D
 class_name Pickup
 
-enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD }
+enum PickupType { NONE, PISTOL, GRENADE, STINGER, KEYCARD, RATION }
 @export var pickup_type: PickupType = PickupType.NONE
 @export var access_level: int
 @export var color: Color
@@ -37,7 +37,9 @@ func SetPickupType(type: PickupType) -> void:
 			amount = 1
 			$sprite.play("keycard")
 			$sprite.material.set_shader_parameter("new", color)
-			
+		PickupType.RATION:
+			amount = 1
+			$sprite.play("ration")
 	
 func _body_entered(body: Node2D) -> void:
 	match pickup_type:
@@ -52,6 +54,10 @@ func _body_entered(body: Node2D) -> void:
 			for door in doors:
 				if access_level == door.door_level:
 					door.locked = false
+		PickupType.RATION:
+			body.hp += body.MAX_HP / 2
+			if body.hp > body.MAX_HP:
+				body.hp = body.MAX_HP
 					
 	set_deferred("monitoring", false)
 	visible = false

@@ -19,6 +19,10 @@ class Gamepad:
 		0, # JOY_BUTTON_BACK
 		0, # JOY_BUTTON_GUIDE
 		0, # JOY_BUTTON_START
+		0, # JOY_BUTTON_LEFT_STICK
+		0, # JOY_BUTTON_RIGHT_STICK
+		0, # JOY_BUTTON_LEFT_SHOULDER
+		0, # JOY_BUTTON_RIGHT_SHOULDER
 	]
 	
 	var prev_button_states: PackedByteArray = button_states.duplicate()

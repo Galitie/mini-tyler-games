@@ -67,7 +67,7 @@ var player_scene = preload("res://crushris/rockman.tscn")
 
 var game_speed: float = 1.0
 const GAME_SPEED_INCREMENT = 0.05
-const MAX_GAME_SPEED: float = 3.0
+const MAX_GAME_SPEED: float = 2.0
 
 var current_ember_alpha: float = 0.13
 
@@ -96,7 +96,7 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	$countdown.text = str(int($countdown_timer.time_left))
 	
-	if game_paused && Input.is_action_just_pressed("start"):
+	if game_paused && Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		$start.visible = false
 		start_game()
 		
@@ -127,26 +127,27 @@ func _physics_process(delta) -> void:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
 		if !game_over and !game_paused:
-			if Input.is_action_just_pressed("rotate_piece_left"):
+			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_LEFT_SHOULDER):
 				active_piece.turn(-PI / 2)
-			if Input.is_action_just_pressed("rotate_piece_right"):
+			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
 				active_piece.turn(PI / 2)
 			
+			var left_stick = Controller.GetLeftStick(0)
 			if move_timer > 0:
 				move_timer -= 1 * delta
 			else:
 				move_timer = 0
-			if Input.is_action_pressed("move_piece_left") && move_timer == 0:
+			if left_stick.x < 0 && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x - TILE_SIZE
-			if Input.is_action_pressed("move_piece_right") && move_timer == 0:
+			if left_stick.x > 0 && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x + TILE_SIZE
-			if Input.is_action_pressed("move_piece_down"):
+			if left_stick.y > 0:
 				PIECE_FALL_SPEED = 200
 			else:
 				PIECE_FALL_SPEED = 100

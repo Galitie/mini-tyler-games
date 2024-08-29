@@ -6,6 +6,7 @@ var points_to_spend : int = 0
 var players_done_upgrading : int = 0
 var current_focus
 var scale_amount : float = .02
+var place_set: bool = false
 
 @onready var cursor = $cursor
 var moved_stick: bool = false
@@ -69,7 +70,6 @@ func _process(_delta):
 		cursor.visible = false
 	
 	if upgrade_time:
-		set_place()
 		hp_stat.text = "HP: " + str(mon.max_health)
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
@@ -77,10 +77,13 @@ func _process(_delta):
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
 		vp.text = str(player.wins)
-
+	
+	if upgrade_time && !place_set:
+		set_place()
+		place_set = true
 
 func get_mon():
-	mon = get_child(2).get_child(0)
+	mon = get_child(3).get_child(0)
 
 
 func get_player():
@@ -90,6 +93,7 @@ func get_player():
 func switch_upgrade_time(fight_time):
 	if fight_time:
 		upgrade_time = false
+		place_set = false
 	else:
 		upgrade_time = true
 		points_to_spend = 3
@@ -130,6 +134,7 @@ func _on_button_pressed(button_name):
 			gamble()
 			emit_signal("upgraded", "good")
 	if points_to_spend == 0:
+		$anim_player.stop()
 		for button in upgrade_buttons:
 			button.disabled = true
 		emit_signal("upgrades_finished")	
@@ -332,6 +337,7 @@ func set_place():
 	if index_corrected == '4':
 		add = "th"
 		place.set("theme_override_colors/font_color", Color('e90000'))
+		$anim_player.play("pulse")
 	place.text = index_corrected + add + " place"
 
 

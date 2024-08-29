@@ -93,7 +93,7 @@ func _on_round_timer_timeout():
 			Globals.GoToMainMenu()
 			return
 		call_and_pause()
-		await show_transition("round_winners", winners, 7)
+		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		#command_ui.visible = false

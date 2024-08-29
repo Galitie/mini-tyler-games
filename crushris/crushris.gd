@@ -66,8 +66,10 @@ var zoom_weight: float = 5
 var player_scene = preload("res://crushris/rockman.tscn")
 
 var game_speed: float = 1.0
-const GAME_SPEED_INCREMENT = 0.25
+const GAME_SPEED_INCREMENT = 0.05
 const MAX_GAME_SPEED: float = 3.0
+
+var current_ember_alpha: float = 0.13
 
 func spawn_piece() -> void:
 	var piece_instance = next_piece.duplicate()
@@ -182,6 +184,13 @@ func _physics_process(delta) -> void:
 							return
 				
 				if !game_over and !game_paused:
+					game_speed += GAME_SPEED_INCREMENT
+					current_ember_alpha = remap(game_speed, 1, MAX_GAME_SPEED, 0.13, 1.0)
+					$embers.modulate.a = current_ember_alpha
+					$music.volume_db = remap(game_speed, 1, MAX_GAME_SPEED, -15, 0)
+					if game_speed > MAX_GAME_SPEED:
+						game_speed = MAX_GAME_SPEED
+					
 					spawn_piece()
 			else:
 				active_piece = null
@@ -228,10 +237,6 @@ func check_rows() -> void:
 	
 	if death_row.size():
 		block_killer_timer = block_killer_timer_length
-		
-		game_speed += GAME_SPEED_INCREMENT
-		if game_speed > MAX_GAME_SPEED:
-			game_speed = MAX_GAME_SPEED
 	else:
 		fall_blocks.clear()
 
@@ -239,8 +244,9 @@ func _on_player_killed(rockman) -> void:
 	$sfx.stream = load("res://crushris/yeow.ogg")
 	$sfx.play()
 	$camera.apply_shake()
-	$ember_timer.start()
-	$embers.modulate.a = .50
+	$embers.modulate.a += 0.50
+	var ember_tween = get_tree().create_tween()
+	ember_tween.tween_property($embers, "modulate", Color(1, 1, 1, current_ember_alpha), 1)
 	players_killed += 1
 	player_current_lives -= 1
 	
@@ -266,9 +272,6 @@ func _on_countdown_timer_timeout():
 	$countdown.visible = false
 	active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 	game_paused = false
-
-func _on_ember_timer_timeout():
-	$embers.modulate.a = .13
 
 func play_song():
 	current_song = music.pick_random()

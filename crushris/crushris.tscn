@@ -27,12 +27,6 @@ size = Vector2(25, 500)
 [node name="crushris" type="Node2D"]
 script = ExtResource("1_a2yik")
 
-[node name="bg" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(2, 2)
-texture = ExtResource("2_y6e6l")
-centered = false
-
 [node name="embers" type="VideoStreamPlayer" parent="."]
 modulate = Color(1, 1, 1, 0.137255)
 offset_right = 1280.0
@@ -40,6 +34,12 @@ offset_bottom = 720.0
 stream = ExtResource("4_pk3vh")
 autoplay = true
 loop = true
+
+[node name="bg" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_y6e6l")
+centered = false
 
 [node name="arena" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -180,10 +180,6 @@ horizontal_alignment = 1
 wait_time = 3.9
 one_shot = true
 
-[node name="ember_timer" type="Timer" parent="."]
-wait_time = 1.25
-one_shot = true
-
 [node name="current_song" type="Label" parent="."]
 offset_top = 526.0
 offset_right = 485.0
@@ -202,5 +198,4 @@ volume_db = -15.0
 stream = ExtResource("11_g20nl")
 
 [connection signal="timeout" from="countdown_timer" to="." method="_on_countdown_timer_timeout"]
-[connection signal="timeout" from="ember_timer" to="." method="_on_ember_timer_timeout"]
 [connection signal="finished" from="music" to="." method="_on_music_finished"]

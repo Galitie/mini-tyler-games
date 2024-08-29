@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://duq0vqkbyxyk0"]
+[gd_scene load_steps=19 format=3 uid="uid://duq0vqkbyxyk0"]
 
 [ext_resource type="Shader" path="res://spotlight/wobble_unshaded.gdshader" id="1_xjfxu"]
 [ext_resource type="Script" path="res://spotlight/player.gd" id="2_olupy"]
 [ext_resource type="Texture2D" uid="uid://cl7vg80ce87pj" path="res://spotlight/bitrunner.png" id="3_5v3jq"]
+[ext_resource type="Shader" path="res://spotlight/wobble.gdshader" id="3_wu6bu"]
 [ext_resource type="Texture2D" uid="uid://dr53hxfhn6a0v" path="res://spotlight/bitrunner_escape_0.png" id="4_6swol"]
 [ext_resource type="Texture2D" uid="uid://dp4l41l7yt8gc" path="res://spotlight/bitrunner_escape_1.png" id="5_vx4mv"]
 [ext_resource type="Texture2D" uid="uid://cf4k02c1s7j0o" path="res://spotlight/bitrunner_escape_2.png" id="6_5h2rl"]
@@ -16,8 +17,8 @@ shader_parameter/normal_offset = 1.4
 shader_parameter/time_influence = 12.094
 shader_parameter/y_div = 6.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_64s0y"]
-shader = ExtResource("1_xjfxu")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdial"]
+shader = ExtResource("3_wu6bu")
 shader_parameter/normal_offset = 1.5
 shader_parameter/time_influence = 4.686
 shader_parameter/y_div = 2.6
@@ -71,6 +72,7 @@ offsets = PackedFloat32Array(0, 0.688312)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yrjri"]
+resource_local_to_scene = true
 gradient = SubResource("Gradient_wttj7")
 width = 256
 height = 256
@@ -87,8 +89,7 @@ material = SubResource("ShaderMaterial_c1wke")
 script = ExtResource("2_olupy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-light_mask = 2
-material = SubResource("ShaderMaterial_64s0y")
+material = SubResource("ShaderMaterial_rdial")
 sprite_frames = SubResource("SpriteFrames_6llav")
 centered = false
 
@@ -106,7 +107,7 @@ shape = SubResource("CircleShape2D_cm53i")
 [node name="sonar" type="PointLight2D" parent="."]
 position = Vector2(10, 25)
 texture = SubResource("GradientTexture2D_yrjri")
-texture_scale = 1.1
+texture_scale = 0.01
 
 [node name="body" type="Area2D" parent="."]
 collision_layer = 0

@@ -18,10 +18,6 @@ var in_blue: bool = false
 var in_green: bool = false
 var in_red: bool = false
 
-var prev_color: Color = Color.WHITE
-var next_color: Color = Color.WHITE
-const COLOR_CHANGE_SPEED: float = 12.0
-
 var has_key: bool = false
 var has_escaped: bool = false
 
@@ -41,19 +37,26 @@ func _ready() -> void:
 		1:
 			$sprite.modulate = Color.BLUE
 			base_pitch = 0.1
+			$body.collision_mask |= 0b00000000_00000000_00000010_00000000
 		2:
 			$sprite.modulate = Color.GREEN
 			base_pitch = 0.3
+			$body.collision_mask |= 0b00000000_00000000_00000100_00000000
 		3:
 			$sprite.modulate = Color.RED
-			base_pitch = 1.0
+			base_pitch = 0.5
+			$body.collision_mask |= 0b00000000_00000000_00001000_00000000
 			
 	if controller_port != 0:
 		$sonar.color = $sprite.modulate
 		$sonar_area.collision_layer = controller_port + 1
 	else:
+		$sonar.color = Color.GRAY
 		$body.collision_layer = 1
-		$sonar.texture_scale = 0
+		$sonar_area.collision_mask = 0b00000000_00000000_00000000_00001110
+		
+	var light_tween = get_tree().create_tween()
+	light_tween.tween_property($sonar, "texture_scale", 1.1, 0.5).set_trans(Tween.TRANS_QUAD)
 
 func _physics_process(delta: float) -> void:
 	if !has_escaped:
@@ -77,40 +80,66 @@ func _physics_process(delta: float) -> void:
 			jump_held = true
 		
 		if controller_port == 0:
+			in_blue = false
+			in_green = false
+			in_red = false
+			$body.collision_mask = 0b00000000_00000000_00000000_10001110
 			var spotlights = $body.get_overlapping_areas()
-			if spotlights.size() > 1:
-				in_blue = false
-				in_green = false
-				in_red = false
+			if spotlights.size():
 				# Layers 2, 3, 4 (spotlights)
-				$body.collision_mask = 0b00000000_00000000_00000000_10001110
 				for spotlight in spotlights:
 					match spotlight.collision_layer:
-						2:
+						2: 
 							in_blue = true
 						3:
 							in_green = true
 						4:
 							in_red = true
-		
-				prev_color = $sprite.modulate
-				if in_red && in_green && in_blue:
-					next_color = Color.WHITE
-					$body.collision_mask |= 0b00000000_00000000_00000001_00000000
-				elif in_blue && in_green:
-					next_color = Color.CYAN
-					$body.collision_mask |= 0b00000000_00000000_00000000_00010000
-				elif in_red && in_green:
-					next_color = Color.YELLOW
-					$body.collision_mask |= 0b00000000_00000000_00000000_00100000
-				elif in_red && in_blue:
-					next_color = Color.MAGENTA
-					$body.collision_mask |= 0b00000000_00000000_00000000_01000000
 				
-			$sprite.modulate = lerp(prev_color, next_color, COLOR_CHANGE_SPEED * delta)
+				# WHITE
+				if in_red && in_green && in_blue:
+					$body.collision_mask |= 0b00000000_00000000_00000001_00000000
+				# BLUE
+				elif in_blue && !in_green && !in_red:
+					$body.collision_mask |= 0b00000000_00000000_00000010_00000000
+				# GREEN
+				elif !in_blue && in_green && !in_red:
+					$body.collision_mask |= 0b00000000_00000000_00000100_00000000
+				# RED
+				elif !in_blue && !in_green && in_red:
+					$body.collision_mask |= 0b00000000_00000000_00001000_00000000
+				# CYAN
+				elif in_blue && in_green:
+					$body.collision_mask |= 0b00000000_00000000_00000000_00010000
+				# YELLOW
+				elif in_red && in_green:
+					$body.collision_mask |= 0b00000000_00000000_00000000_00100000
+				# MAGENTA
+				elif in_red && in_blue:
+					$body.collision_mask |= 0b00000000_00000000_00000000_01000000
+			
+			var other_sonars: Array = $sonar_area.get_overlapping_areas()
+			if other_sonars.size():
+				var depths: Array = []
+				for sonar in other_sonars:
+					var dist = ($sonar_area.global_position - sonar.global_position).length()
+					var radii_sum = $sonar_area/shape.shape.radius + sonar.get_node("shape").shape.radius
+					var depth = radii_sum - dist
+					depths.push_back(depth)
+				depths.sort()
+				# NOTE: Godot throws error if radius is negative
+				var result = $sonar_area/shape.shape.radius - depths.back()
+				if result <= 0:
+					result = 0
+				$sonar_area/shape.shape.radius = result
+			else:
+				$sonar_area/shape.shape.radius = lerp($sonar_area/shape.shape.radius, 136.0, 3 * delta)
+			var sonar_scalar = remap($sonar_area/shape.shape.radius, 0, 136, 0, 1)
+			$sonar.scale = lerp($sonar.scale, Vector2(sonar_scalar, sonar_scalar), 15 * delta)
 			
 		var direction: Vector2 = Controller.GetLeftStick(debug_port)
 		if direction:
+			$sprite.flip_h = direction.x < 0
 			velocity.x = direction.x * move_speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
@@ -119,7 +148,7 @@ func _physics_process(delta: float) -> void:
 		
 func Honk() -> void:
 	$sprite.play("honk")
-	$sfx.pitch_scale = base_pitch + randf_range(0.5, 1.0)
+	$sfx.pitch_scale = base_pitch + randf_range(0.3, 0.6)
 	$sfx.play()
 
 func _body_entered(area: Area2D) -> void:

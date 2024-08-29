@@ -55,7 +55,7 @@ position = Vector2(693, 335)
 controller_port = 1
 
 [node name="player3" parent="." instance=ExtResource("6_kmgfp")]
-position = Vector2(806, 319)
+position = Vector2(781, 335)
 controller_port = 2
 
 [node name="player4" parent="." instance=ExtResource("6_kmgfp")]

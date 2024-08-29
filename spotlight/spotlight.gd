@@ -35,8 +35,3 @@ func _player_escaped() -> void:
 		await Globals.FadeIn()
 		Globals.GoToMainMenu()
 		return
-	if escaped_players == 3:
-		for player in get_tree().get_nodes_in_group("players"):
-			if player.controller_port == 0 && !player.has_escaped:
-				var light_tween = get_tree().create_tween()
-				light_tween.tween_property(player.get_node("sonar"), "texture_scale", 0.5, 0.5).set_trans(Tween.TRANS_CUBIC)

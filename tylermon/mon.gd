@@ -8,8 +8,6 @@ var intelligence: int = 1
 var strength: int = 1
 var strength_mod: float = .20
 var max_think_time : float = 5
-var elm_type = "NONE"
-var possible_elm_types = ["FIRE", "WATER", "GRASS"]
 var current_state
 var destination : Vector2
 var default_z_index = 0
@@ -19,12 +17,6 @@ var smart : bool = false
 var buff : bool = false
 var tank : bool = false
 
-var fire_material = load("res://tylermon/fire.tres")
-var fire_text = load("res://tylermon/background/flame_text.png")
-var water_material = load("res://tylermon/water.tres")
-var water_text = load("res://tylermon/background/water_text.png")
-var grass_material = load("res://tylermon/grass.tres")
-var grass_text = load("res://tylermon/background/grass_text.png")
 
 @export var custom_color : Color
 
@@ -58,14 +50,13 @@ var state_weights = [
 @onready var basic_atk_box = $scalable_nodes/basic_atk_box
 @onready var special_atk_box = $scalable_nodes/special_atk_box
 @onready var fight_pos = position
-@onready var upgrade_pos = Vector2(position.x + 180, position.y - 20)
+@onready var upgrade_pos = Vector2(position.x - 180, position.y - 20)
 @onready var phrase = $phrase
 @onready var damage_label = $damage_taken
 @onready var sprite = $scalable_nodes/sprite
 
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
-@onready var element_player = $scalable_nodes/element
 @onready var audio_player = $audio_player
 
 @onready var hat = $scalable_nodes/witch_hat
@@ -110,11 +101,9 @@ var block_sound = ["res://tylermon/sfx/block.wav"]
 func _ready():
 	phrase.text = ""
 	set_state(State.IDLE)
-	set_starting_element()
-	toggle_particle(true)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
-	get_parent().get_parent().connect("set_element", show_element_effect)
+	upgrade_pos = get_parent().get_parent().get_parent().position + Vector2(70, 50)
 	
 
 func _physics_process(delta):
@@ -189,7 +178,6 @@ func set_state(state):
 			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
-			toggle_particle(false)
 			_on_block_timer_timeout()
 			_on_attack_timer_timeout()
 			hurt_box.get_child(0).disabled = true
@@ -325,12 +313,7 @@ func _on_hurt_box_area_entered(area):
 	var attackers = hurt_box.get_overlapping_areas()
 	for attack in attackers:
 		var attacking_mon = attack.get_parent().get_parent()
-		if elm_type == "WATER" && attacking_mon.elm_type == "GRASS" or elm_type == "FIRE" && attacking_mon.elm_type == "WATER" or elm_type == "GRASS" && attacking_mon.elm_type == "FIRE" or elm_type == "NONE" && attacking_mon.elm_type != "NONE":
-			damage(attacking_mon, 1.50, "super")
-		elif elm_type == "WATER" && attacking_mon.elm_type == "FIRE" or elm_type == "FIRE" && attacking_mon.elm_type == "GRASS"  or elm_type == "GRASS" && attacking_mon.elm_type == "WATER":
-			damage(attacking_mon, .85, "not")
-		else:
-			damage(attacking_mon, 1, null)
+		damage(attacking_mon, 1, null)
 	health_label.text = str(health)
 	hp_bar.value = health
 	velocity = Vector2()
@@ -349,14 +332,8 @@ func damage(mon, modifier: float, effect):
 	if damage <= 1:
 		damage = 1
 	damage = round(damage)
-	if effect == "super":
+	if effect == null:
 		damage_label.set("theme_override_colors/font_color", "ea4440")
-		damage_label.text = str(damage) + "!"
-	elif effect == "not":
-		damage_label.set("theme_override_colors/font_color", "000000")
-		damage_label.text = str(damage) + "<"
-	elif effect == null:
-		damage_label.set("theme_override_colors/font_color", "ffffff")
 		damage_label.text = str(damage)	
 	damage_anim_player.play("damage_amount")
 	health -= damage
@@ -392,7 +369,6 @@ func switch_round_modes(fight_time):
 		timer.paused = false
 	else:
 		get_node("collision").disabled = true
-		toggle_particle(true)
 		set_state(State.IDLE)
 		timer.stop()
 		hp_bar.visible = true
@@ -460,31 +436,6 @@ func upgrade_react(reaction):
 		play_audio(hurt_sounds)
 
 
-func show_element_effect(element: String):
-	if element == "FIRE":
-		elm_type = "FIRE"
-		element_player.texture = fire_text
-		element_player.process_material = fire_material
-		element_player.emitting = true
-	if element == "WATER":
-		elm_type = "WATER"
-		element_player.texture = water_text
-		element_player.process_material = water_material
-		element_player.emitting = true
-	if element == "GRASS":
-		elm_type = "GRASS"
-		element_player.texture = grass_text
-		element_player.process_material = grass_material
-		element_player.emitting = true
-
-
-func toggle_particle(effect : bool):
-	if effect == true and elm_type != "NONE":
-		element_player.emitting = true
-	if effect == false and elm_type != "NONE":
-		element_player.emitting = false
-
-
 func _on_knockout_timer_timeout():
 	emit_signal("knocked_out")
 
@@ -499,11 +450,6 @@ func play_audio(arr):
 	audio_player.play()
 
 
-func set_starting_element():
-	elm_type = possible_elm_types.pick_random()
-	show_element_effect(elm_type)
-
-
 func play_anims(anim_name):
 	sprite.play(anim_name)
 	hat.play(anim_name)
@@ -514,7 +460,6 @@ func pick_position():
 	var random_number = randi_range(0,3)
 	match random_number:
 		0:
-			
 			return Vector2(-100, 0)
 		1:
 			return Vector2(100, 0)

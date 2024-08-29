@@ -13,7 +13,6 @@ var moved_stick: bool = false
 @onready var hp_stat = $margin/hbox/buttons/hbox/stat1
 @onready var str_stat = $margin/hbox/buttons/hbox2/stat2
 @onready var int_stat = $margin/hbox/buttons/hbox3/stat3
-@onready var type_stat = $margin/hbox/buttons/hbox5/stat4
 @onready var description = $margin/hbox/buttons/description
 @onready var place = $margin/hbox/buttons/HBoxContainer/place_num
 @onready var vp = $margin/hbox/buttons/HBoxContainer/vp
@@ -22,22 +21,19 @@ var moved_stick: bool = false
 @onready var str_button = $margin/hbox/buttons/hbox2/str
 @onready var int_button = $margin/hbox/buttons/hbox3/int
 @onready var gamble_button = $margin/hbox/buttons/hbox7/gamble
-@onready var type_button = $margin/hbox/buttons/hbox5/type
-@onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button, type_button]
+@onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button]
 
 
 var hp_desc = "+1 Tylermon max health 🧀"
 var str_desc = "Tylermon's attacks do more damage"
 var int_desc = "Tylermon is more likely to make good decisions"
-var type_desc = "Change Tylermon's element to WATER, FIRE or GRASS"
 var gamble_desc = "Feeling down? The more you are losing the luckier you are!"
 
-var upgrade_options: Array = ["hp", "str", "int", "type", "gamble"]
+var upgrade_options: Array = ["hp", "str", "int", "gamble"]
 var upgrade_position: int = 0
 
+signal upgraded
 signal upgrades_finished
-signal upgraded(type)
-signal set_element
 
 func _ready():
 	get_mon()
@@ -64,7 +60,7 @@ func _process(_delta):
 			cursor.position.y = 42
 		elif upgrade_position < 0:
 			upgrade_position = upgrade_options.size() - 1
-			cursor.position.y = 182
+			cursor.position.y = 147
 		if moved_stick:
 			_on_mouse_entered(upgrade_options[upgrade_position])
 		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
@@ -77,7 +73,6 @@ func _process(_delta):
 		hp_stat.text = "HP: " + str(mon.max_health)
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
-		type_stat.text = mon.elm_type
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
@@ -133,24 +128,6 @@ func _on_button_pressed(button_name):
 		"gamble":
 			points_to_spend -= 1
 			gamble()
-		"type":
-			points_to_spend -= 1
-			var rand_num = randi_range(1,3)
-			if rand_num == 1:
-				if mon.elm_type != "FIRE":
-					emit_signal("set_element", "FIRE")
-				else: 
-					emit_signal("set_element", "WATER")
-			if rand_num == 2:
-				if mon.elm_type != "WATER":
-					emit_signal("set_element", "WATER")
-				else:
-					emit_signal("set_element", "GRASS")
-			if rand_num == 3:
-				if mon.elm_type != "GRASS":
-					emit_signal("set_element", "GRASS")
-				else:
-					emit_signal("set_element", "FIRE")
 			emit_signal("upgraded", "good")
 	if points_to_spend == 0:
 		for button in upgrade_buttons:
@@ -326,8 +303,6 @@ func _on_mouse_entered(button_name):
 			description.text = str_desc
 		"int":
 			description.text = int_desc
-		"type":
-			description.text = type_desc
 		"gamble":
 			description.text = gamble_desc
 

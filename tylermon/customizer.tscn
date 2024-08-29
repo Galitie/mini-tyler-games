@@ -37,13 +37,6 @@ theme = ExtResource("1_ehhrm")
 text = "🎨 Change color"
 alignment = 0
 
-[node name="elm_type" type="Button" parent="margin/vbox"]
-layout_mode = 2
-focus_mode = 0
-theme = ExtResource("1_ehhrm")
-text = "♻️ Change element"
-alignment = 0
-
 [node name="cursor" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -45.0

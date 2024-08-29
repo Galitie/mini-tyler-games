@@ -4,7 +4,7 @@ extends Control
 @export var player_name : String
 var mon
 var player
-var upgrade_options: Array = ["color", "elm_type"]
+var upgrade_options: Array = ["color"]
 var upgrade_position: int = 0
 var moved_stick: bool = false
 @onready var cursor = $cursor
@@ -165,7 +165,7 @@ func _process(delta):
 		cursor.position.y = 20
 	elif upgrade_position < 0:
 		upgrade_position = upgrade_options.size() - 1
-		cursor.position.y = 58
+		cursor.position.y = 23
 	if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
 		_on_button_pressed(upgrade_options[upgrade_position])
 
@@ -180,14 +180,3 @@ func _on_button_pressed(button_name):
 		"color":
 			var random_color = GODOT_COLORS.pick_random()
 			mon.custom_color = random_color
-		"elm_type":
-			match mon.elm_type:				
-				"FIRE":
-					mon.elm_type = "WATER"
-					mon.show_element_effect("WATER")
-				"WATER":
-					mon.elm_type = "GRASS"
-					mon.show_element_effect("GRASS")
-				"GRASS":
-					mon.elm_type = "FIRE"
-					mon.show_element_effect("FIRE")

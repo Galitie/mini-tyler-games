@@ -65,6 +65,10 @@ var zoom_weight: float = 5
 
 var player_scene = preload("res://crushris/rockman.tscn")
 
+var game_speed: float = 1.0
+const GAME_SPEED_INCREMENT = 0.25
+const MAX_GAME_SPEED: float = 3.0
+
 func spawn_piece() -> void:
 	var piece_instance = next_piece.duplicate()
 	add_child(piece_instance)
@@ -89,6 +93,8 @@ func _ready() -> void:
 
 func _physics_process(delta) -> void:
 	$countdown.text = str(int($countdown_timer.time_left))
+	
+	print(game_speed)
 	
 	if game_paused && Input.is_action_just_pressed("start"):
 		$start.visible = false
@@ -141,13 +147,12 @@ func _physics_process(delta) -> void:
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x + TILE_SIZE
 			if Input.is_action_pressed("move_piece_down"):
-				if active_piece.global_position.x == piece_destination.x:
-					PIECE_FALL_SPEED = 200
-			if Input.is_action_just_released("move_piece_down"):
+				PIECE_FALL_SPEED = 200
+			else:
 				PIECE_FALL_SPEED = 100
 				
 		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
-			active_piece.position.y += PIECE_FALL_SPEED * delta
+			active_piece.position.y += PIECE_FALL_SPEED * game_speed * delta
 			active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 			snap_timer = 0
 		else:
@@ -201,21 +206,32 @@ func check_rows() -> void:
 		for x in range(MAX_COLUMNS):
 			var results: Array = space_state.intersect_point(params, 1)
 			params.position += Vector2(TILE_SIZE, 0)
-			if results.size() != 0:
+			if results.size():
 				detected_blocks.push_back(results[0].collider)
 			
 		row_data.push_back(detected_blocks)
 
+	var death_row_heights: Array = []
 	for i in range(0, row_data.size()):
 		if row_data[i].size() == MAX_COLUMNS:
+			death_row_heights.push_back(i)
 			for block in row_data[i]:
+				block.assigned_to_die = true
 				death_row.push_back(block)
-		else:
-			for block in row_data[i]:
-				fall_blocks.push_back(block)
+	death_row_heights.sort()
+				
+	for i in range(0, row_data.size()):
+		for block in row_data[i]:
+			if death_row_heights.size():
+				if i > death_row_heights.front() && !block.assigned_to_die:
+					fall_blocks.push_back(block)
 	
-	if death_row.size() != 0:
+	if death_row.size():
 		block_killer_timer = block_killer_timer_length
+		
+		game_speed += GAME_SPEED_INCREMENT
+		if game_speed > MAX_GAME_SPEED:
+			game_speed = MAX_GAME_SPEED
 	else:
 		fall_blocks.clear()
 

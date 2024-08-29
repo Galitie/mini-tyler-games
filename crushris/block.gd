@@ -11,6 +11,8 @@ var grounded: bool = false
 
 const FALL_SPEED: float = 140
 
+var assigned_to_die: bool = false
+
 func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
 

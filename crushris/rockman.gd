@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED: float = 250.0
+const SPEED: float = 300.0
 const JUMP_VELOCITY: float = -450.0
 const DASH_VELOCITY: float = 500.0
 
@@ -25,18 +25,19 @@ func _ready() -> void:
 	$bonk_zone.area_entered.connect(_bonk_area_entered)
 
 func _physics_process(delta: float) -> void:
+	var game_speed = get_parent().get_parent().game_speed
 	if !is_on_floor():
-		velocity.y += gravity * delta
+		velocity.y += gravity * game_speed * delta
 	else:
 		if jumping:
 			jumping = false
-		if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
-			velocity.y = JUMP_VELOCITY
+		if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A):
+			velocity.y = remap(game_speed, 1, get_parent().get_parent().MAX_GAME_SPEED, JUMP_VELOCITY, JUMP_VELOCITY * 1.75)
 			jumping = true
 	
 	var direction: float = Controller.GetLeftStick(controller_port).x
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = game_speed * direction * SPEED
 		
 		if velocity.x > 0:
 			sprite.flip_h = false

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b3pbr0fw1ws7o"
-path="res://.godot/imported/easvhs.ttf-2ad68806de36addaed2515715d7ffe6b.fontdata"
+path="res://.godot/imported/easvhs.ttf-34f869fc8733602fb573800eae7864af.fontdata"
 
 [deps]
 
-source_file="res://whokilledames/easvhs.ttf"
-dest_files=["res://.godot/imported/easvhs.ttf-2ad68806de36addaed2515715d7ffe6b.fontdata"]
+source_file="res://tyler98/easvhs.ttf"
+dest_files=["res://.godot/imported/easvhs.ttf-34f869fc8733602fb573800eae7864af.fontdata"]
 
 [params]
 

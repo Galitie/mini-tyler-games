@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dwu7kpl2ex6pf"]
 
-[ext_resource type="Script" path="res://whokilledames/minigames/minigame_rotate.gd" id="1_yairu"]
+[ext_resource type="Script" path="res://tyler98/minigames/minigame_rotate.gd" id="1_yairu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pqudu"]
 

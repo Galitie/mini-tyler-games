@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2p5cr6qemruj"]
 
-[ext_resource type="Script" path="res://whokilledames/minigames/clue.gd" id="1_11ju0"]
-[ext_resource type="Texture2D" uid="uid://b31ti0or7qnvo" path="res://whokilledames/interactables/sticky_note_code.png" id="1_vkjha"]
+[ext_resource type="Script" path="res://tyler98/minigames/clue.gd" id="1_11ju0"]
+[ext_resource type="Texture2D" uid="uid://b31ti0or7qnvo" path="res://tyler98/interactables/sticky_note_code.png" id="1_vkjha"]
 
 [node name="clue" type="Sprite2D"]
 texture = ExtResource("1_vkjha")

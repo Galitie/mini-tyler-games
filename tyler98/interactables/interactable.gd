@@ -5,7 +5,7 @@ class_name Interactable
 @export var item_description: String
 @export var sprite: Texture
 @export var area_radius: int
-@export_enum("top", "right", "left", "bottom") var popup_position: String
+
 
 @export var window_scene: PackedScene
 @export var scene_var_str: String
@@ -17,15 +17,7 @@ var exhausted: bool = false
 func _ready():
 	$sprite.texture = sprite
 	$area/shape.shape.radius = area_radius
-	match popup_position:
-		"top":
-			$popup.position = Vector2(-80, -380)
-		"right":
-			$popup.position = Vector2(80, -110)
-		"left":
-			$popup.position = Vector2(-250, -110)
-		"bottom":
-			$popup.position = Vector2(-80, 60)
+
 
 
 func _process(_delta):

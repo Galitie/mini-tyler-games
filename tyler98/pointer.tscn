@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dodio5b2yhweu"]
 
-[ext_resource type="Script" path="res://whokilledames/pointer.gd" id="1_5y23y"]
-[ext_resource type="Texture2D" uid="uid://b0rm7c0wgvj5y" path="res://whokilledames/hand.png" id="2_qak2v"]
+[ext_resource type="Script" path="res://tyler98/pointer.gd" id="1_5y23y"]
+[ext_resource type="Texture2D" uid="uid://b0rm7c0wgvj5y" path="res://tyler98/hand.png" id="2_qak2v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2prh"]
 

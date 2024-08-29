@@ -8,5 +8,5 @@ func _ready():
 
 
 func _process(delta):
-	if Input.is_action_pressed("start"):
+	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		get_tree().change_scene_to_file(game_scene)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm2n51uv3b4i1"
-path="res://.godot/imported/arrow_right.png-84325de7896877d6357d4d262de7d0bd.ctex"
+uid="uid://upppo4e82w1g"
+path="res://.godot/imported/phone_test.png-e39806fd1da9ffad1812959e684d4387.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://whokilledames/arrow_right.png"
-dest_files=["res://.godot/imported/arrow_right.png-84325de7896877d6357d4d262de7d0bd.ctex"]
+source_file="res://tyler98/interactables/phone_test.png"
+dest_files=["res://.godot/imported/phone_test.png-e39806fd1da9ffad1812959e684d4387.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dviu7ri2ank27"]
 
-[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://whokilledames/theme_wka.tres" id="1_orogn"]
-[ext_resource type="Script" path="res://whokilledames/popup.gd" id="2_3inw7"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="1_orogn"]
+[ext_resource type="Script" path="res://tyler98/popup.gd" id="2_3inw7"]
 
 [sub_resource type="Gradient" id="Gradient_syshj"]
 colors = PackedColorArray(0, 0.111093, 0.637639, 1, 0.638155, 0.731633, 1, 1)

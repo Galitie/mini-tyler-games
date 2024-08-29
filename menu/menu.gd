@@ -34,7 +34,7 @@ var thumbnail_titles: Array = [
 	"CRUSHTRIS: THE RECKONING",
 	"TYLERMON",
 	"SPOTLIGHTS",
-	"WHO KILLED AMES?",
+	"TYLER '98",
 	"METAL GEAR SOLID: EPSILON"
 ]
 
@@ -42,7 +42,7 @@ var thumbnail_descs: Array = [
 	"It's Tetris®, but with more pain and violence! Try to crush your friends in this absolutely original new game!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 1 Versus 3[/wave][/color]",
 	"You like Digimon®? No?! Well, too bad! Customize your Tylermon™ and watch it fight to the death! Yeah!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Free-For-All[/wave][/color]",
 	"These guys love to stand out, but one of them prefers to blend in. Be brainy and solve colorful puzzles together!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]",
-	"Whodunit? And how?! A point and click murder mystery that'll take you back to the good ole' days! \n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]",
+	"Travel back in time and help Tyler clean out his windows machine...but who knows what you will find...? \n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]",
 	"Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]"
 ]
 

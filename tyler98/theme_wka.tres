@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://bf6sxa6fl68r0"]
 
-[ext_resource type="FontFile" uid="uid://b3pbr0fw1ws7o" path="res://whokilledames/easvhs.ttf" id="1_xiaev"]
+[ext_resource type="FontFile" uid="uid://b3pbr0fw1ws7o" path="res://tyler98/easvhs.ttf" id="1_xiaev"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bo0s3"]
 content_margin_left = 4.0

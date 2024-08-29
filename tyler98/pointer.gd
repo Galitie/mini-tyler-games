@@ -6,11 +6,6 @@ const SPEED: float = 400
 var is_hovering: bool = false
 
 
-# Move game logic to their respective mini games
-# Feedback for completing a mini game
-# Store clues somewhere???
-signal change_room(direction:String)
-
 func _ready():
 	sprite.modulate = player_color
 	$pointer_area.area_entered.connect(_on_hover)
@@ -18,8 +13,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	global_position.x = clamp(global_position.x, 0, 1240)
-	global_position.y = clamp(global_position.y, 0, 680)
+	global_position.x = clamp(global_position.x, 95, 1150)
+	global_position.y = clamp(global_position.y, 5, 690)
 	var areas = $pointer_area.get_overlapping_areas()
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	global_position += move_input * SPEED * delta
@@ -29,11 +24,6 @@ func _physics_process(delta):
 		if areas.size():
 			for area in areas:
 				var root = area.owner
-				if area.get_parent() is Arrow:
-					if area.get_parent().name == "left_arrow":
-						emit_signal("change_room", "left")
-					if area.get_parent().name == "right_arrow":
-						emit_signal("change_room", "right")
 				if root is Interactable_Popup:
 					root.hide()
 				if root is Interactable:

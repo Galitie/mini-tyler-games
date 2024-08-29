@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxmywwblutafo"
-path="res://.godot/imported/test.png-c9462e2515a262d006182e095847de18.ctex"
+uid="uid://b31ti0or7qnvo"
+path="res://.godot/imported/sticky_note_code.png-d7879a2a40db34530d04a11abac0f03a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://whokilledames/interactables/test.png"
-dest_files=["res://.godot/imported/test.png-c9462e2515a262d006182e095847de18.ctex"]
+source_file="res://tyler98/interactables/sticky_note_code.png"
+dest_files=["res://.godot/imported/sticky_note_code.png-d7879a2a40db34530d04a11abac0f03a.ctex"]
 
 [params]
 

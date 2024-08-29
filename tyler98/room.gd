@@ -5,5 +5,5 @@ func _ready():
 	RenderingServer.set_default_clear_color(Color.BLACK)
 
 
-func _process(delta):
+func _process(_delta):
 	pass

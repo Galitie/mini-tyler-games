@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://duq0vqkbyxyk0"]
+[gd_scene load_steps=18 format=3 uid="uid://duq0vqkbyxyk0"]
 
 [ext_resource type="Shader" path="res://spotlight/wobble_unshaded.gdshader" id="1_xjfxu"]
 [ext_resource type="Script" path="res://spotlight/player.gd" id="2_olupy"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dp4l41l7yt8gc" path="res://spotlight/bitrunner_escape_1.png" id="5_vx4mv"]
 [ext_resource type="Texture2D" uid="uid://cf4k02c1s7j0o" path="res://spotlight/bitrunner_escape_2.png" id="6_5h2rl"]
 [ext_resource type="Texture2D" uid="uid://cmc8iigbdjxt0" path="res://spotlight/bitrunner_escape_3.png" id="7_rnb34"]
+[ext_resource type="Texture2D" uid="uid://bdsfkglifwtan" path="res://spotlight/bitrunner_honk.png" id="8_hvaci"]
+[ext_resource type="AudioStream" uid="uid://b0rcfi5o8gma3" path="res://spotlight/honk.ogg" id="9_x75lq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c1wke"]
 shader = ExtResource("1_xjfxu")
@@ -46,11 +48,18 @@ animations = [{
 "loop": false,
 "name": &"escape",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_hvaci")
+}],
+"loop": false,
+"name": &"honk",
+"speed": 6.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jlpfn"]
-resource_local_to_scene = true
-height = 50.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kseue"]
+size = Vector2(20, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cm53i"]
 resource_local_to_scene = true
@@ -69,6 +78,10 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0, 0)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jlpfn"]
+resource_local_to_scene = true
+height = 50.0
+
 [node name="player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_c1wke")
 script = ExtResource("2_olupy")
@@ -81,7 +94,7 @@ centered = false
 
 [node name="shape" type="CollisionShape2D" parent="."]
 position = Vector2(10, 25)
-shape = SubResource("CapsuleShape2D_jlpfn")
+shape = SubResource("RectangleShape2D_kseue")
 
 [node name="sonar_area" type="Area2D" parent="."]
 position = Vector2(10, 25)
@@ -102,3 +115,7 @@ collision_mask = 142
 [node name="shape" type="CollisionShape2D" parent="body"]
 position = Vector2(10, 25)
 shape = SubResource("CapsuleShape2D_jlpfn")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_x75lq")
+volume_db = -5.0

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c3yax8atejy65" path="res://menu/spotlight_thumbnail.png" id="7_iulif"]
 [ext_resource type="Texture2D" uid="uid://e16gee4qysf8" path="res://menu/hidden_thumbnail.png" id="8_0c705"]
 [ext_resource type="AudioStream" uid="uid://du3yshe0kcxao" path="res://menu/theme.ogg" id="8_5682p"]
-[ext_resource type="Texture2D" uid="uid://dafbelgkthyry" path="res://menu/wka_thumbnail.png" id="8_qiop5"]
+[ext_resource type="Texture2D" uid="uid://dafbelgkthyry" path="res://menu/tyler98_thumbnail.png" id="8_qiop5"]
 
 [sub_resource type="Environment" id="Environment_ug5bm"]
 background_mode = 1

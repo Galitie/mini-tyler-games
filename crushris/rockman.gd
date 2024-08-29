@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 const SPEED: float = 300.0
-const JUMP_VELOCITY: float = -450.0
+const JUMP_VELOCITY: float = -650.0
 const DASH_VELOCITY: float = 500.0
 
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity: float = 2000
 var invincible: bool = true
 @onready var kill_zone: Area2D = $kill_zone
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dx4cgaqbqn08g"]
+[gd_scene load_steps=15 format=3 uid="uid://dx4cgaqbqn08g"]
 
 [ext_resource type="Script" path="res://epsilon/pickup.gd" id="1_5rgnh"]
 [ext_resource type="Shader" path="res://epsilon/entity.gdshader" id="1_ukrl0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d2j6k6hbg5cww" path="res://epsilon/sprites/keycard.png" id="3_o1ch8"]
 [ext_resource type="Texture2D" uid="uid://vm61cq3oe7uh" path="res://epsilon/sprites/stinger_ammo.png" id="4_6ghy7"]
 [ext_resource type="FontFile" uid="uid://uixb7xgurvy6" path="res://epsilon/sprites/bm_numbers.png" id="5_teip0"]
+[ext_resource type="Texture2D" uid="uid://b74r8xkrlvxxp" path="res://epsilon/sprites/ration.png" id="6_d8wkh"]
 [ext_resource type="AudioStream" uid="uid://dqwqyvf76fcrb" path="res://epsilon/sound_effects/equip.wav" id="7_ecbd0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j85ep"]
@@ -40,6 +41,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"pistol",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_d8wkh")
+}],
+"loop": true,
+"name": &"ration",
 "speed": 5.0
 }, {
 "frames": [{
@@ -85,7 +94,7 @@ z_index = -1
 texture_filter = 1
 material = SubResource("ShaderMaterial_j85ep")
 sprite_frames = SubResource("SpriteFrames_07h6d")
-animation = &"keycard"
+animation = &"ration"
 
 [node name="description" type="RichTextLabel" parent="sprite"]
 z_index = 5

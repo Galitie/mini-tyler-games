@@ -1,8 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyyxc3uqqve2m"]
+[gd_scene load_steps=6 format=3 uid="uid://cyyxc3uqqve2m"]
 
 [ext_resource type="Script" path="res://tylermon/upgrade_menu.gd" id="1_57m5t"]
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="2_obobf"]
 [ext_resource type="Texture2D" uid="uid://dad7xklur0rud" path="res://tylermon/sprites/cursor.png" id="3_qnsce"]
+
+[sub_resource type="Animation" id="Animation_6gqjh"]
+resource_name = "pulse"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("margin/hbox/buttons/hbox7/gamble:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.694118, 0.486275, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("margin/hbox/buttons/hbox7/gamble:theme_override_constants/outline_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u1gcg"]
+_data = {
+"pulse": SubResource("Animation_6gqjh")
+}
 
 [node name="upgrade_menu" type="Control" groups=["upgrade_menus"]]
 z_index = 999
@@ -98,6 +131,8 @@ size_flags_vertical = 4
 focus_neighbor_bottom = NodePath("../../hbox/hp")
 focus_mode = 0
 theme = ExtResource("2_obobf")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 0
 text = "🎲 Gramble"
 alignment = 0
 
@@ -136,6 +171,11 @@ offset_top = 42.0
 offset_right = -5.0
 offset_bottom = 82.0
 texture = ExtResource("3_qnsce")
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u1gcg")
+}
 
 [connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox2/str" to="." method="_on_button_pressed" binds= ["str"]]

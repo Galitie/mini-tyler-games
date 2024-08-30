@@ -42,7 +42,7 @@ var thumbnail_descs: Array = [
 	"It's Tetris®, but with more pain and violence! Try to crush your friends in this absolutely original new game!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 1 Versus 3[/wave][/color]",
 	"You like Digimon®? No?! Well, too bad! Customize your Tylermon™ and watch it fight to the death! Yeah!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Free-For-All[/wave][/color]",
 	"These guys love to stand out, but one of them prefers to blend in. Be brainy and solve colorful puzzles together!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]",
-	"Travel back in time and help Tyler clean out his windows machine...but who knows what you will find...? \n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]",
+	"Take a trip down memory lane with Tyler's old PC! Sheesh — is that...? S-Somebody's gotta clean this thing out!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]",
 	"Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!\n\n[color=RED][wave amp=40.0 freq=-2 connected=1]🎮 Cooperative[/wave][/color]"
 ]
 
@@ -58,6 +58,8 @@ func _ready() -> void:
 	timer.timeout.connect(_timeout)
 	spin_timer.timeout.connect(_spin_timeout)
 	$music.play()
+	var music_tween = create_tween()
+	music_tween.tween_property($music, "volume_db", 0, 0.5)
 	
 	if Globals.crushtris_played && Globals.tylermon_played:
 		Globals.metalgear_unlocked = true
@@ -69,15 +71,21 @@ func _ready() -> void:
 	
 	if Globals.intro_played:
 		$music.seek(4)
+		
 		selecting = true
 		$camera.global_position = final_position + Vector3(-6.6, 0, -2.5)
 		$camera.global_rotation = Vector3(deg_to_rad(-20.4), deg_to_rad(-139.4), 0)
 		
 		for thumbnail in $thumbnails.get_children():
-			thumbnail.modulate = Color(1, 1, 1, 1)
+			SetThumbnailOpacity(1.0, thumbnail)
 		
 		title.get_node("animator").play("skooch_in")
 		title.get_node("animator").seek(1, true)
+		SetWaterOpacity(0.8)
+		
+		$ambience.play()
+		var ambience_tween = create_tween()
+		ambience_tween.tween_property($ambience, "volume_db", -35, 1)
 	else:
 		$timer.start()
 	
@@ -138,6 +146,10 @@ func _process(delta: float) -> void:
 			Globals.last_thumbnail_idx = thumbnail_idx
 			$sfx.stream = select_sfx
 			$sfx.play()
+			var ambience_tween = create_tween()
+			ambience_tween.tween_property($ambience, "volume_db", -80, 2.0)
+			var music_tween = create_tween()
+			music_tween.tween_property($music, "volume_db", -80, 2.0)
 			await Globals.FadeIn()
 			await $sfx.finished
 			get_tree().change_scene_to_file(thumbnail_scene_paths[thumbnail_idx])
@@ -149,24 +161,34 @@ func _timeout() -> void:
 	spinning = true
 	title.get_node("animator").play("skooch_out")
 	spin_timer.start(1.9)
+	
+	$ambience.play()
+	var ambience_tween = create_tween()
+	ambience_tween.tween_property($ambience, "volume_db", -35, 2)
+	
+	await get_tree().create_timer(0.9).timeout
+	var water_tween = get_tree().create_tween()
+	water_tween.tween_method(SetWaterOpacity, 0.0, 0.8, 1.0)
 
 func _spin_timeout() -> void:
 	spinning = false
 	title.get_node("animator").play("skooch_in")
 	await get_tree().create_timer(2.5).timeout
-	var camera_tween = get_tree().create_tween()
+	var camera_tween = create_tween()
 	camera_tween.tween_property($camera, "global_position", final_position + Vector3(-6.6, 0, -2.5), 1.0).set_trans(Tween.TRANS_CUBIC)
 	
 	for thumbnail in $thumbnails.get_children():
-		var alpha_tween = get_tree().create_tween()
-		alpha_tween.tween_property(thumbnail, "modulate", Color(1, 1, 1, 1), 1.0).set_trans(Tween.TRANS_CUBIC)
+		var alpha_tween = create_tween()
+		alpha_tween.tween_method(SetThumbnailOpacity.bind(thumbnail), 0.0, 1.0, 1.0).set_trans(Tween.TRANS_CUBIC)
 	await get_tree().create_timer(2.0).timeout
 	$sfx.stream = move_right_sfx
 	$sfx.play()
 	await SelectThumbnail($thumbnails.get_child(thumbnail_idx), thumbnail_idx)
 	can_select = true
 
-func SelectThumbnail(thumbnail: Sprite3D, idx: int) -> void:
+func SelectThumbnail(thumbnail, idx: int) -> void:
+	#thumbnail.selected = true
+	thumbnail.material_override.set_shader_parameter("wave_strength", 0.0)
 	last_thumbnail_position = thumbnail.global_position
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))
@@ -180,16 +202,16 @@ func SelectThumbnail(thumbnail: Sprite3D, idx: int) -> void:
 	var desc_tween = get_tree().create_tween()
 	if idx == $thumbnails.get_children().size() - 1 && !Globals.metalgear_unlocked:
 		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + "???" + "[/wave][/rainbow][/center]"
-		$Control/game_description/text.text = "What a thrill..."
+		$Control/game_description/text.text = "[color=RED][wave amp=40.0 freq=-2 connected=1]Beat all minigames to unlock this thrilling adventure![/wave][/color]"
 	else:
-		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + thumbnail_titles[idx] + "[/wave][/rainbow][/center]"
+		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=1][wave amp=40.0 freq=-2 connected=1]" + thumbnail_titles[idx] + "[/wave][/rainbow][/center]"
 		$Control/game_description/text.text = thumbnail_descs[idx]
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 1), 0.25).set_trans(Tween.TRANS_CUBIC)
 
 func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	var desc_tween = get_tree().create_tween()
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 0), 0.25).set_trans(Tween.TRANS_CUBIC)
-	
+	thumbnail.material_override.set_shader_parameter("wave_strength", 0.5)
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))
@@ -198,3 +220,10 @@ func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	var xform_tween = get_tree().create_tween()
 	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.25).set_trans(Tween.TRANS_CUBIC)
 	await xform_tween.finished
+	#thumbnail.selected = false
+
+func SetWaterOpacity(value):
+	$water.mesh.material.set_shader_parameter("WaterOpacity", value)
+
+func SetThumbnailOpacity(value, thumbnail):
+	thumbnail.material_override.set_shader_parameter("WaterOpacity", value)

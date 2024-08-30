@@ -1,15 +1,20 @@
-[gd_scene load_steps=21 format=3 uid="uid://cqxadhyu7lpgq"]
+[gd_scene load_steps=33 format=3 uid="uid://cqxadhyu7lpgq"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
 [ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
+[ext_resource type="Shader" path="res://menu/water.gdshader" id="2_bm31e"]
 [ext_resource type="PackedScene" uid="uid://csc7hssyqrj7s" path="res://menu/title.glb" id="2_ff23y"]
 [ext_resource type="Texture2D" uid="uid://cuh1ht4jpmj5f" path="res://menu/crushtris_thumbnail.png" id="5_k1cse"]
 [ext_resource type="Texture2D" uid="uid://bl0gcwduh3iga" path="res://menu/tylermon_thumbnail.png" id="6_2u1ir"]
 [ext_resource type="Shader" path="res://menu/glass.gdshader" id="6_2v6rl"]
+[ext_resource type="Shader" path="res://menu/wave.gdshader" id="6_d3tdt"]
 [ext_resource type="Texture2D" uid="uid://c3yax8atejy65" path="res://menu/spotlight_thumbnail.png" id="7_iulif"]
 [ext_resource type="Texture2D" uid="uid://e16gee4qysf8" path="res://menu/hidden_thumbnail.png" id="8_0c705"]
 [ext_resource type="AudioStream" uid="uid://du3yshe0kcxao" path="res://menu/theme.ogg" id="8_5682p"]
 [ext_resource type="Texture2D" uid="uid://dafbelgkthyry" path="res://menu/tyler98_thumbnail.png" id="8_qiop5"]
+[ext_resource type="Texture2D" uid="uid://bq1jem6rwij4v" path="res://menu/water3.png" id="12_b866n"]
+[ext_resource type="AudioStream" uid="uid://cydyfpy01d0j0" path="res://menu/waves.ogg" id="12_mtdn8"]
+[ext_resource type="Texture2D" uid="uid://cd52skyjf3q5c" path="res://menu/sky.png" id="13_o0hew"]
 
 [sub_resource type="Environment" id="Environment_ug5bm"]
 background_mode = 1
@@ -114,6 +119,46 @@ shader_parameter/specular = 9.59
 shader_parameter/offset = 1.35
 shader_parameter/opacity = 0.055
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rufge"]
+render_priority = 1
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = ExtResource("5_k1cse")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c2xow"]
+render_priority = 1
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = ExtResource("6_2u1ir")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_okndl"]
+render_priority = 1
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = ExtResource("7_iulif")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7nwjy"]
+render_priority = 1
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = ExtResource("8_qiop5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7dd7"]
+render_priority = 1
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = ExtResource("8_0c705")
+
 [sub_resource type="Animation" id="Animation_gm1rg"]
 length = 0.001
 tracks/0/type = "value"
@@ -152,6 +197,30 @@ _data = {
 "static": SubResource("Animation_oxca0")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xw5s"]
+render_priority = 0
+shader = ExtResource("2_bm31e")
+shader_parameter/albedo = Color(0.356863, 0.72549, 0.905882, 1)
+shader_parameter/scroll_speed1 = Vector2(0.1, 0)
+shader_parameter/scroll_speed2 = Vector2(-0.025, 0.025)
+shader_parameter/blend_factor = 0.4
+shader_parameter/scale1 = Vector2(50, 50)
+shader_parameter/scale2 = Vector2(10, 10)
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/pixelation_level = 1000
+shader_parameter/FoamSize = 0.5
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/FoamGlowIntensity = 0.5
+shader_parameter/water_texture1 = ExtResource("12_b866n")
+shader_parameter/water_texture2 = ExtResource("13_o0hew")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pwb2e"]
+material = SubResource("ShaderMaterial_5xw5s")
+size = Vector2(500, 500)
+subdivide_width = 100
+subdivide_depth = 100
+
 [node name="menu" type="Node3D"]
 script = ExtResource("1_hljnx")
 
@@ -179,6 +248,9 @@ one_shot = true
 
 [node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.189113, 0.981955, 0, -0.981955, -0.189113, 0, 5.25844, 0)
+shadow_normal_bias = 3.348
+shadow_transmittance_bias = 4.252
+shadow_blur = 6.859
 
 [node name="projector" type="MeshInstance3D" parent="."]
 transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 14, -10, 14)
@@ -193,16 +265,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = -170.0
-offset_right = 285.0
-offset_bottom = -21.0
-texture = ExtResource("5_k1cse")
-expand_mode = 1
-stretch_mode = 4
-
 [node name="game_description" type="RichTextLabel" parent="Control"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -215,6 +277,10 @@ offset_right = -14.0
 offset_bottom = 226.0
 grow_horizontal = 0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 4
 theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
 text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]METAL GEAR SOLID: EPSILON[/wave][/rainbow][/center]"
@@ -229,9 +295,11 @@ anchor_right = 0.5
 offset_left = -136.5
 offset_top = 45.0
 offset_right = 138.5
-offset_bottom = 149.0
+offset_bottom = 222.0
 grow_horizontal = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
 theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
 text = "Would you give your life? Not for honor, but for you? Now you can do that, but with three other people!
@@ -244,47 +312,44 @@ autowrap_mode = 2
 
 [node name="logo" parent="logo_origin" instance=ExtResource("1_o2h2v")]
 
-[node name="thumbnail3" type="Sprite3D" parent="."]
-transform = Transform3D(-1.14907, 0, -0.964181, 0, 1.5, 0, 0.964181, 0, -1.14907, -9, 6, 0)
-visible = false
-modulate = Color(1, 1, 1, 0)
-billboard = 1
-texture_filter = 5
-render_priority = 1
-texture = ExtResource("5_k1cse")
-
-[node name="thumbnails" type="Node" parent="."]
+[node name="thumbnails" type="Node3D" parent="."]
 
 [node name="thumbnail" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, -7)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, 0.337895, -7)
+material_override = SubResource("ShaderMaterial_rufge")
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("5_k1cse")
 
 [node name="thumbnail2" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, -1)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, 0.337895, -1)
+material_override = SubResource("ShaderMaterial_c2xow")
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("6_2u1ir")
 
 [node name="thumbnail3" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6, 0, 5)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, 0.337895, 5)
+material_override = SubResource("ShaderMaterial_okndl")
+cast_shadow = 0
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("7_iulif")
 
 [node name="thumbnail4" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10, 0, -1)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10.5831, 0.337895, -1)
+material_override = SubResource("ShaderMaterial_7nwjy")
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("8_qiop5")
 
 [node name="metalgear" type="Sprite3D" parent="thumbnails"]
-transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10, 0, 5)
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10.5831, 0.337895, 5)
+material_override = SubResource("ShaderMaterial_l7dd7")
 modulate = Color(1, 1, 1, 0)
 texture_filter = 5
 render_priority = 1
@@ -299,5 +364,14 @@ libraries = {
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_5682p")
+volume_db = -80.0
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
+
+[node name="ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_mtdn8")
+volume_db = -80.0
+
+[node name="water" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.226254, 0)
+mesh = SubResource("PlaneMesh_pwb2e")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e16gee4qysf8"
-path.bptc="res://.godot/imported/hidden_thumbnail.png-daf9822b37ff7b3d76cf11da11eb3ac7.bptc.ctex"
+uid="uid://d1iq5bkyhrlhf"
+path.s3tc="res://.godot/imported/Water.png-dda91b1246251fa1aacb5b1cdf1397f0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,13 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://menu/hidden_thumbnail.png"
-dest_files=["res://.godot/imported/hidden_thumbnail.png-daf9822b37ff7b3d76cf11da11eb3ac7.bptc.ctex"]
+source_file="res://menu/Water.png"
+dest_files=["res://.godot/imported/Water.png-dda91b1246251fa1aacb5b1cdf1397f0.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

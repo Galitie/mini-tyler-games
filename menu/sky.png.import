@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e16gee4qysf8"
-path.bptc="res://.godot/imported/hidden_thumbnail.png-daf9822b37ff7b3d76cf11da11eb3ac7.bptc.ctex"
+uid="uid://cd52skyjf3q5c"
+path.bptc="res://.godot/imported/sky.png-77c11c350ee739a77575d3ee3ea3a8af.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://menu/hidden_thumbnail.png"
-dest_files=["res://.godot/imported/hidden_thumbnail.png-daf9822b37ff7b3d76cf11da11eb3ac7.bptc.ctex"]
+source_file="res://menu/sky.png"
+dest_files=["res://.godot/imported/sky.png-77c11c350ee739a77575d3ee3ea3a8af.bptc.ctex"]
 
 [params]
 

@@ -188,7 +188,8 @@ func _spin_timeout() -> void:
 
 func SelectThumbnail(thumbnail, idx: int) -> void:
 	#thumbnail.selected = true
-	thumbnail.material_override.set_shader_parameter("wave_strength", 0.0)
+	var thumbnail_wave_tween = create_tween()
+	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.5, 0.0, 0.25)
 	last_thumbnail_position = thumbnail.global_position
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))
@@ -209,15 +210,17 @@ func SelectThumbnail(thumbnail, idx: int) -> void:
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 1), 0.25).set_trans(Tween.TRANS_CUBIC)
 
 func DeselectThumbnail(thumbnail: Sprite3D) -> void:
-	var desc_tween = get_tree().create_tween()
+	var desc_tween = create_tween()
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 0), 0.25).set_trans(Tween.TRANS_CUBIC)
+	var thumbnail_wave_tween = create_tween()
+	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.0, 0.5, 0.25)
 	thumbnail.material_override.set_shader_parameter("wave_strength", 0.5)
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))
 	xform = xform.rotated(Vector3.RIGHT, deg_to_rad(-90)).rotated(Vector3.UP, deg_to_rad(-90))
 	xform.origin = last_thumbnail_position
-	var xform_tween = get_tree().create_tween()
+	var xform_tween = create_tween()
 	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.25).set_trans(Tween.TRANS_CUBIC)
 	await xform_tween.finished
 	#thumbnail.selected = false
@@ -227,3 +230,6 @@ func SetWaterOpacity(value):
 
 func SetThumbnailOpacity(value, thumbnail):
 	thumbnail.material_override.set_shader_parameter("WaterOpacity", value)
+	
+func SetThumbnailWaveStrength(value, thumbnail):
+	thumbnail.material_override.set_shader_parameter("wave_strength", value)

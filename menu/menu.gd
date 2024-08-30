@@ -187,7 +187,6 @@ func _spin_timeout() -> void:
 	can_select = true
 
 func SelectThumbnail(thumbnail, idx: int) -> void:
-	#thumbnail.selected = true
 	var thumbnail_wave_tween = create_tween()
 	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.5, 0.0, 0.25)
 	last_thumbnail_position = thumbnail.global_position
@@ -202,7 +201,7 @@ func SelectThumbnail(thumbnail, idx: int) -> void:
 	
 	var desc_tween = get_tree().create_tween()
 	if idx == $thumbnails.get_children().size() - 1 && !Globals.metalgear_unlocked:
-		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=.8][wave amp=40.0 freq=-2 connected=1]" + "???" + "[/wave][/rainbow][/center]"
+		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=1][wave amp=40.0 freq=-2 connected=1]" + "???" + "[/wave][/rainbow][/center]"
 		$Control/game_description/text.text = "[color=RED][wave amp=40.0 freq=-2 connected=1]Beat all minigames to unlock this thrilling adventure![/wave][/color]"
 	else:
 		$Control/game_description.text = "[center][rainbow freq=0.2 sat=1 val=1][wave amp=40.0 freq=-2 connected=1]" + thumbnail_titles[idx] + "[/wave][/rainbow][/center]"
@@ -223,7 +222,6 @@ func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	var xform_tween = create_tween()
 	xform_tween.tween_property(thumbnail, "global_transform", xform, 0.25).set_trans(Tween.TRANS_CUBIC)
 	await xform_tween.finished
-	#thumbnail.selected = false
 
 func SetWaterOpacity(value):
 	$water.mesh.material.set_shader_parameter("WaterOpacity", value)

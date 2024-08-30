@@ -34,7 +34,7 @@ var thumbnail_titles: Array = [
 	"CRUSHTRIS: THE RECKONING",
 	"TYLERMON",
 	"SPOTLIGHTS",
-	"TYLER '98",
+	"TYLER 98",
 	"METAL GEAR SOLID: EPSILON"
 ]
 

@@ -11,7 +11,6 @@ func _ready():
 	$pointer_area.area_entered.connect(_on_hover)
 	$pointer_area.area_exited.connect(_on_hover_exit)
 
-
 func _physics_process(delta):
 	global_position.x = clamp(global_position.x, 95, 1150)
 	global_position.y = clamp(global_position.y, 5, 690)
@@ -19,65 +18,34 @@ func _physics_process(delta):
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	global_position += move_input * SPEED * delta
 	
+	#on hover
+	if areas.size() && is_hovering:
+		for area in areas:
+			var root = area.owner
+			if root is Interactable:
+				root.hover()
+	
 	#single press interactions
-	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A) && is_hovering:
+	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
 		if areas.size():
 			for area in areas:
 				var root = area.owner
-				if root is Interactable_Popup:
-					root.hide()
 				if root is Interactable:
-					if root.get_node("popup").visible == true:
-						root.get_node("popup").visible = false
-					if root.exhausted == true:
-						root.get_node("popup").visible = false
-					else:
-						root.get_node("popup").visible = true
-				if root is PasscodeMiniGame:
-					match area.get_parent().name:
-						"back":
-							root.get_node("%output").text = ""
-						"0":
-							root.get_node("%output").text += "0"
-						"1":
-							root.get_node("%output").text += "1"
-						"2":
-							root.get_node("%output").text += "2"
-						"3":
-							root.get_node("%output").text += "3"
-						"4":
-							root.get_node("%output").text += "4"
-						"5":
-							root.get_node("%output").text += "5"
-						"6":
-							root.get_node("%output").text += "6"
-						"7":
-							root.get_node("%output").text += "7"
-						"8":
-							root.get_node("%output").text += "8"
-						"9":
-							root.get_node("%output").text += "9"
-						"enter":
-							root.get_node("%output").text += "*"
+					root.click(area)
 		sprite.play("interact")
 		return
 	
 	#holding down interactions
-	if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A) && is_hovering:
+	if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A):
 		if areas.size():
 			for area in areas:
 				var root = area.owner
-				if root is RotateMiniGame:
-					var vec = $sprite.global_position - root.get_node("sprite").global_position
-					var angle = vec.angle()
-					var rotate = root.get_node("sprite").global_rotation
-					var angle_delta = PI * delta
-					angle = lerp_angle(rotate, angle, 1.0)
-					angle = clamp(angle, rotate - angle_delta, rotate + angle_delta)
-					root.get_node("sprite").global_rotation = angle
+				if root is Interactable:
+					root.drag(self, delta)
 		sprite.play("interact")
 		return
-		
+	
+	#temp way to exit game
 	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_START):
 		await Globals.FadeIn()
 		Globals.GoToMainMenu()

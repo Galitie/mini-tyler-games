@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://2p5cr6qemruj"]
+
+[ext_resource type="Script" path="res://tyler98/minigames/content.gd" id="1_nqpo3"]
+[ext_resource type="Texture2D" uid="uid://b31ti0or7qnvo" path="res://tyler98/interactables/sticky_note_code.png" id="1_vkjha"]
+
+[node name="content" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nqpo3")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_vkjha")
+
+[node name="label" type="Label" parent="sprite"]
+offset_right = 40.0
+offset_bottom = 23.0

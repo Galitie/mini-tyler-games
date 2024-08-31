@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://tyler98/room.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/test_background.png" id="2_me5oa"]
-[ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/interactable.tscn" id="3_e1yrs"]
+[ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/test.png" id="4_6kccc"]
 [ext_resource type="PackedScene" uid="uid://dwu7kpl2ex6pf" path="res://tyler98/minigames/minigame_rotate.tscn" id="5_g0qw4"]
 [ext_resource type="Texture2D" uid="uid://upppo4e82w1g" path="res://tyler98/interactables/phone_test.png" id="6_ulwfs"]
 [ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://tyler98/minigames/minigame_passcode.tscn" id="7_radv6"]
 [ext_resource type="Texture2D" uid="uid://crpoaw438be2k" path="res://tyler98/interactables/note.png" id="8_qnsra"]
-[ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://tyler98/minigames/clue.tscn" id="9_aqvnx"]
+[ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://tyler98/minigames/content.tscn" id="9_aqvnx"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://tyler98/pointer.tscn" id="10_g3hvl"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="11_grwrc"]
 
@@ -20,10 +20,10 @@ shader_parameter/BarrelPower = 1.01
 shader_parameter/color_bleeding = 1.0
 shader_parameter/bleeding_range_x = 1.0
 shader_parameter/bleeding_range_y = 1.0
-shader_parameter/lines_distance = 4.0
+shader_parameter/lines_distance = 2.0
 shader_parameter/scan_size = 1.0
 shader_parameter/scanline_alpha = 0.9
-shader_parameter/lines_velocity = 10.0
+shader_parameter/lines_velocity = 5.0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_p7oil")
@@ -45,7 +45,7 @@ window_scene = ExtResource("5_g0qw4")
 scene_var_int = 180
 
 [node name="phone" parent="screen" instance=ExtResource("3_e1yrs")]
-position = Vector2(131, 90)
+position = Vector2(131, 105)
 item_name = "Tyler's Phone"
 item_description = "Pixel phones are for losers"
 sprite = ExtResource("6_ulwfs")
@@ -54,7 +54,7 @@ window_scene = ExtResource("7_radv6")
 scene_var_str = "4056"
 
 [node name="note" parent="screen" instance=ExtResource("3_e1yrs")]
-position = Vector2(133, 142)
+position = Vector2(133, 170)
 item_name = "Reminder..."
 item_description = "A sticky note"
 sprite = ExtResource("8_qnsra")
@@ -86,3 +86,5 @@ offset_left = 88.0
 offset_right = 1192.0
 offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
+
+[node name="clock" type="Timer" parent="."]

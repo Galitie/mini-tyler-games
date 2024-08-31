@@ -45,6 +45,7 @@ animations = [{
 }]
 
 [node name="pointer" type="Node2D"]
+z_index = 11
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_5y23y")
 

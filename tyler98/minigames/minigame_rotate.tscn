@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://tyler98/minigames/minigame_rotate.gd" id="1_yairu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pqudu"]
+resource_local_to_scene = true
 
 [node name="rotate" type="Control"]
 layout_mode = 3

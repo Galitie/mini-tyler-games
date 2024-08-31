@@ -11,10 +11,6 @@ gradient = SubResource("Gradient_syshj")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ggwb"]
 texture = SubResource("GradientTexture1D_lgn1m")
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jci4"]
 
@@ -26,81 +22,96 @@ shadow_size = 2
 shadow_offset = Vector2(-2, -2)
 
 [node name="popup" type="Control"]
+z_index = 10
 layout_mode = 3
 anchors_preset = 0
-theme = ExtResource("1_orogn")
 script = ExtResource("2_3inw7")
 
 [node name="panel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="margin" type="MarginContainer" parent="panel"]
-layout_mode = 2
+offset_right = 232.0
+offset_bottom = 330.0
 theme = ExtResource("1_orogn")
 
-[node name="vbox" type="VBoxContainer" parent="panel/margin"]
+[node name="vbox" type="VBoxContainer" parent="panel"]
 layout_mode = 2
 theme = ExtResource("1_orogn")
+theme_override_constants/separation = 0
 
-[node name="ColorRect" type="PanelContainer" parent="panel/margin/vbox"]
+[node name="bluebar" type="PanelContainer" parent="panel/vbox"]
 layout_mode = 2
+size_flags_vertical = 0
 theme = ExtResource("1_orogn")
 theme_type_variation = &"gradient"
 theme_override_styles/panel = SubResource("StyleBoxTexture_0ggwb")
 
-[node name="hbox" type="HBoxContainer" parent="panel/margin/vbox/ColorRect"]
+[node name="margin" type="MarginContainer" parent="panel/vbox/bluebar"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="hbox" type="HBoxContainer" parent="panel/vbox/bluebar/margin"]
 layout_mode = 2
 theme = ExtResource("1_orogn")
 theme_type_variation = &"gradient"
 theme_override_constants/separation = 20
 
-[node name="text_hbox" type="HBoxContainer" parent="panel/margin/vbox/ColorRect/hbox"]
+[node name="text_hbox" type="HBoxContainer" parent="panel/vbox/bluebar/margin/hbox"]
 layout_mode = 2
 
-[node name="item_name" type="Label" parent="panel/margin/vbox/ColorRect/hbox/text_hbox"]
+[node name="item_name" type="Label" parent="panel/vbox/bluebar/margin/hbox/text_hbox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Smiler McSmilerson"
 
-[node name="exit_hbox" type="HBoxContainer" parent="panel/margin/vbox/ColorRect/hbox"]
+[node name="exit_hbox" type="HBoxContainer" parent="panel/vbox/bluebar/margin/hbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="exit" type="Button" parent="panel/margin/vbox/ColorRect/hbox/exit_hbox"]
+[node name="exit" type="Button" parent="panel/vbox/bluebar/margin/hbox/exit_hbox"]
 layout_mode = 2
 text = " X"
 
-[node name="area" type="Area2D" parent="panel/margin/vbox/ColorRect/hbox/exit_hbox/exit"]
+[node name="area" type="Area2D" parent="panel/vbox/bluebar/margin/hbox/exit_hbox/exit"]
 visible = false
 position = Vector2(13, 14)
 scale = Vector2(2, 2.04)
 collision_layer = 2
 
-[node name="shape" type="CollisionShape2D" parent="panel/margin/vbox/ColorRect/hbox/exit_hbox/exit/area"]
+[node name="shape" type="CollisionShape2D" parent="panel/vbox/bluebar/margin/hbox/exit_hbox/exit/area"]
 shape = SubResource("RectangleShape2D_6jci4")
 
-[node name="description" type="Label" parent="panel/margin/vbox"]
+[node name="content" type="MarginContainer" parent="panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_orogn")
+
+[node name="vbox" type="VBoxContainer" parent="panel/vbox/content"]
+layout_mode = 2
+theme = ExtResource("1_orogn")
+
+[node name="description" type="Label" parent="panel/vbox/content/vbox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Cute smileyface that Tyler fucking hates"
+text = "Cute smileyface that Tyler fucking hates!"
 autowrap_mode = 2
 
-[node name="minigame_panel" type="PanelContainer" parent="panel/margin/vbox"]
+[node name="minigame_panel" type="PanelContainer" parent="panel/vbox/content/vbox"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("1_orogn")
 theme_type_variation = &"inner panel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_qe112")
 
-[node name="center" type="CenterContainer" parent="panel/margin/vbox/minigame_panel"]
+[node name="center" type="CenterContainer" parent="panel/vbox/content/vbox/minigame_panel"]
 layout_mode = 2
 
-[node name="margin" type="MarginContainer" parent="panel/margin/vbox/minigame_panel/center"]
+[node name="margin" type="MarginContainer" parent="panel/vbox/content/vbox/minigame_panel/center"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/margin_left = 10

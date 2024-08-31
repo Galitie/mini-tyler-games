@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=15 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/room.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/test_background.png" id="2_me5oa"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/test.png" id="4_6kccc"]
+[ext_resource type="Texture2D" uid="uid://dafbelgkthyry" path="res://menu/tyler98_thumbnail.png" id="4_yuek2"]
 [ext_resource type="PackedScene" uid="uid://dwu7kpl2ex6pf" path="res://tyler98/minigames/minigame_rotate.tscn" id="5_g0qw4"]
 [ext_resource type="Texture2D" uid="uid://upppo4e82w1g" path="res://tyler98/interactables/phone_test.png" id="6_ulwfs"]
 [ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://tyler98/minigames/minigame_passcode.tscn" id="7_radv6"]
@@ -29,14 +30,14 @@ shader_parameter/lines_velocity = 5.0
 [node name="main" type="Node2D"]
 script = ExtResource("1_p7oil")
 
-[node name="screen" type="TextureRect" parent="." groups=["room_view"]]
+[node name="main_screen" type="TextureRect" parent="." groups=["room_view"]]
 offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("2_me5oa")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="smiley" parent="screen" instance=ExtResource("3_e1yrs")]
+[node name="smiley" parent="main_screen" instance=ExtResource("3_e1yrs")]
 position = Vector2(130, 40)
 item_name = "Smiley McSmilerson"
 item_description = "Make MrSmiley smile again!"
@@ -45,7 +46,7 @@ area_radius = 10
 window_scene = ExtResource("5_g0qw4")
 scene_var_int = 180
 
-[node name="phone" parent="screen" instance=ExtResource("3_e1yrs")]
+[node name="phone" parent="main_screen" instance=ExtResource("3_e1yrs")]
 position = Vector2(131, 105)
 item_name = "Tyler's Phone"
 item_description = "Pixel phones are for losers"
@@ -54,7 +55,7 @@ area_radius = 10
 window_scene = ExtResource("7_radv6")
 scene_var_str = "4056"
 
-[node name="note" parent="screen" instance=ExtResource("3_e1yrs")]
+[node name="note" parent="main_screen" instance=ExtResource("3_e1yrs")]
 position = Vector2(133, 170)
 item_name = "Reminder..."
 item_description = "A sticky note"
@@ -62,6 +63,23 @@ sprite = ExtResource("8_qnsra")
 content_image = ExtResource("9_xdxl6")
 area_radius = 10
 window_scene = ExtResource("9_aqvnx")
+
+[node name="start_screen" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="sprite" type="Sprite2D" parent="start_screen"]
+position = Vector2(638, 359)
+scale = Vector2(3.4125, 3.93333)
+texture = ExtResource("4_yuek2")
+
+[node name="login" parent="start_screen" instance=ExtResource("3_e1yrs")]
+position = Vector2(627, 287)
+item_name = "Login"
+item_description = "Password:"
+area_radius = 100
+window_scene = ExtResource("7_radv6")
+scene_var_str = "1234"
 
 [node name="pointer" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
 position = Vector2(112, 30)
@@ -89,5 +107,6 @@ offset_left = 88.0
 offset_right = 1192.0
 offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
+metadata/_edit_lock_ = true
 
 [node name="clock" type="Timer" parent="."]

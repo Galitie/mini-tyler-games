@@ -10,7 +10,7 @@ func _process(_delta):
 	pass
 
 
-func click(area):
+func click(_area):
 	pass
 
 
@@ -18,7 +18,7 @@ func hover():
 	pass
 
 
-func drag(pointer, delta):
+func drag(_pointer, _delta):
 	pass
 
 

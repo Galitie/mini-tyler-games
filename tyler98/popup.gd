@@ -17,5 +17,5 @@ func _ready():
 		mini_game.goal_rotation = item.scene_var_int
 
 
-func click(area):
+func click(_filler):
 	queue_free()

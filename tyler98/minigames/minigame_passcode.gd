@@ -1,7 +1,7 @@
 extends Interactable
 
 @export var goal_number: int
-@onready var item = get_parent().owner.owner
+@onready var item = get_parent().owner.get_parent()
 
 
 func _ready():

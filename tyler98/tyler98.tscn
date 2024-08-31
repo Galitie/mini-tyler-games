@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=14 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/room.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/test_background.png" id="2_me5oa"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://tyler98/minigames/minigame_passcode.tscn" id="7_radv6"]
 [ext_resource type="Texture2D" uid="uid://crpoaw438be2k" path="res://tyler98/interactables/note.png" id="8_qnsra"]
 [ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://tyler98/minigames/content.tscn" id="9_aqvnx"]
+[ext_resource type="Texture2D" uid="uid://b31ti0or7qnvo" path="res://tyler98/interactables/sticky_note_code.png" id="9_xdxl6"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://tyler98/pointer.tscn" id="10_g3hvl"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="11_grwrc"]
 
@@ -58,6 +59,7 @@ position = Vector2(133, 170)
 item_name = "Reminder..."
 item_description = "A sticky note"
 sprite = ExtResource("8_qnsra")
+content_image = ExtResource("9_xdxl6")
 area_radius = 10
 window_scene = ExtResource("9_aqvnx")
 
@@ -81,6 +83,7 @@ controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)
 
 [node name="crt_shader" type="ColorRect" parent="."]
+z_index = 12
 material = SubResource("ShaderMaterial_qsb8y")
 offset_left = 88.0
 offset_right = 1192.0

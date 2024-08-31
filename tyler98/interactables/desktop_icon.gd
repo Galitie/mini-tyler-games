@@ -3,6 +3,8 @@ extends Interactable
 @export var item_name: String
 @export var item_description: String
 @export var sprite: Texture
+@export var content_image : Texture
+@export var content_string: String = ""
 @export var area_radius: int
 @export var window_scene: PackedScene
 @export var scene_var_str: String
@@ -21,9 +23,10 @@ func _process(_delta):
 	
 
 func click(area):
-	var popup_scene = preload("res://tyler98/popup.tscn")
-	var instance = popup_scene.instantiate()
-	add_child(instance)
+	if !exhausted:
+		var popup_scene = preload("res://tyler98/popup.tscn")
+		var instance = popup_scene.instantiate()
+		add_child(instance)
 
 
 func hover():

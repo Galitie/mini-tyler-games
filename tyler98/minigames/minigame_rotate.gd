@@ -16,6 +16,7 @@ func _process(_delta):
 func check_goal_met():
 	if current_rotation_degree >= goal_rotation - 5 and current_rotation_degree < goal_rotation + 5 or current_rotation_degree >= -goal_rotation - 5 and current_rotation_degree < -goal_rotation + 5:
 		item.exhausted = true
+		get_parent().owner.click("x")
 
 func drag(pointer, delta):
 	var vec = pointer.global_position - $sprite.global_position

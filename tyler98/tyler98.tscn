@@ -27,10 +27,17 @@ shader_parameter/scan_size = 1.0
 shader_parameter/scanline_alpha = 0.9
 shader_parameter/lines_velocity = 5.0
 
-[node name="main" type="Node2D"]
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_p7oil")
 
 [node name="main_screen" type="TextureRect" parent="." groups=["room_view"]]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("2_me5oa")
@@ -38,8 +45,11 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="smiley" parent="main_screen" instance=ExtResource("3_e1yrs")]
-position = Vector2(130, 40)
-item_name = "Smiley McSmilerson"
+offset_left = 130.0
+offset_top = 40.0
+offset_right = 130.0
+offset_bottom = 40.0
+item_name = "Smiley McSmilerson this is a test for graaging"
 item_description = "Make MrSmiley smile again!"
 sprite = ExtResource("4_6kccc")
 area_radius = 10
@@ -47,7 +57,10 @@ window_scene = ExtResource("5_g0qw4")
 scene_var_int = 180
 
 [node name="phone" parent="main_screen" instance=ExtResource("3_e1yrs")]
-position = Vector2(131, 105)
+offset_left = 131.0
+offset_top = 105.0
+offset_right = 131.0
+offset_bottom = 105.0
 item_name = "Tyler's Phone"
 item_description = "Pixel phones are for losers"
 sprite = ExtResource("6_ulwfs")
@@ -56,7 +69,10 @@ window_scene = ExtResource("7_radv6")
 scene_var_str = "4056"
 
 [node name="note" parent="main_screen" instance=ExtResource("3_e1yrs")]
-position = Vector2(133, 170)
+offset_left = 133.0
+offset_top = 170.0
+offset_right = 133.0
+offset_bottom = 170.0
 item_name = "Reminder..."
 item_description = "A sticky note"
 sprite = ExtResource("8_qnsra")
@@ -65,16 +81,27 @@ area_radius = 10
 window_scene = ExtResource("9_aqvnx")
 
 [node name="start_screen" type="TextureRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="sprite" type="Sprite2D" parent="start_screen"]
-position = Vector2(638, 359)
-scale = Vector2(3.4125, 3.93333)
+position = Vector2(639, 359)
+scale = Vector2(3.45625, 4.02222)
 texture = ExtResource("4_yuek2")
 
 [node name="login" parent="start_screen" instance=ExtResource("3_e1yrs")]
-position = Vector2(627, 287)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 item_name = "Login"
 item_description = "Password:"
 area_radius = 100
@@ -103,6 +130,7 @@ player_color = Color(0, 0.568627, 0.254902, 1)
 [node name="crt_shader" type="ColorRect" parent="."]
 z_index = 12
 material = SubResource("ShaderMaterial_qsb8y")
+layout_mode = 0
 offset_left = 88.0
 offset_right = 1192.0
 offset_bottom = 719.0
@@ -110,3 +138,15 @@ color = Color(1, 1, 1, 0)
 metadata/_edit_lock_ = true
 
 [node name="clock" type="Timer" parent="."]
+
+[node name="center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="position" type="Control" parent="center"]
+unique_name_in_owner = true
+layout_mode = 2

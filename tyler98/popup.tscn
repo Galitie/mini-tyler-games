@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dviu7ri2ank27"]
+[gd_scene load_steps=9 format=3 uid="uid://dviu7ri2ank27"]
 
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="1_orogn"]
 [ext_resource type="Script" path="res://tyler98/popup.gd" id="2_3inw7"]
@@ -14,6 +14,10 @@ texture = SubResource("GradientTexture1D_lgn1m")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6jci4"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxrcp"]
+resource_local_to_scene = true
+size = Vector2(180, 44)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qe112"]
 bg_color = Color(0.513726, 0.513726, 0.513726, 1)
 border_width_right = 2
@@ -22,15 +26,23 @@ shadow_size = 2
 shadow_offset = Vector2(-2, -2)
 
 [node name="popup" type="Control"]
-z_index = 10
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("2_3inw7")
 
 [node name="panel" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 232.0
-offset_bottom = 330.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -165.0
+offset_right = 116.0
+offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_orogn")
 
 [node name="vbox" type="VBoxContainer" parent="panel"]
@@ -59,30 +71,38 @@ theme_type_variation = &"gradient"
 theme_override_constants/separation = 20
 
 [node name="text_hbox" type="HBoxContainer" parent="panel/vbox/bluebar/margin/hbox"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="item_name" type="Label" parent="panel/vbox/bluebar/margin/hbox/text_hbox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Smiler McSmilerson"
+text = "Login"
 
 [node name="exit_hbox" type="HBoxContainer" parent="panel/vbox/bluebar/margin/hbox"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 alignment = 2
 
 [node name="exit" type="Button" parent="panel/vbox/bluebar/margin/hbox/exit_hbox"]
 layout_mode = 2
-text = " X"
+text = "X"
 
 [node name="area" type="Area2D" parent="panel/vbox/bluebar/margin/hbox/exit_hbox/exit"]
-visible = false
-position = Vector2(13, 14)
+position = Vector2(17, 20)
 scale = Vector2(2, 2.04)
 collision_layer = 2
 
 [node name="shape" type="CollisionShape2D" parent="panel/vbox/bluebar/margin/hbox/exit_hbox/exit/area"]
 shape = SubResource("RectangleShape2D_6jci4")
+
+[node name="text_box_area" type="Area2D" parent="panel/vbox/bluebar/margin/hbox"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="panel/vbox/bluebar/margin/hbox/text_box_area"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_pxrcp")
 
 [node name="content" type="MarginContainer" parent="panel/vbox"]
 layout_mode = 2

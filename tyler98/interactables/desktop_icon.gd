@@ -11,6 +11,7 @@ extends Interactable
 @export var scene_var_int: int
 
 var exhausted: bool = false
+var window_open: bool = false
 
 
 func _ready():
@@ -19,20 +20,20 @@ func _ready():
 
 
 func _process(_delta):
-	$sprite.material.set_shader_parameter("line_thickness", 0)
-	
 	if exhausted && item_name == "Login":
 		get_parent().queue_free()
 	
 
 func click(_arg):
-	if !exhausted:
+	if !exhausted and !window_open:
+		window_open = true
 		var popup_scene = preload("res://tyler98/popup.tscn")
 		var instance = popup_scene.instantiate()
 		add_child(instance)
+		instance.global_position = Vector2(640, 360)
 
 func hover():
-	$sprite.material.set_shader_parameter("line_thickness", 2)
+	pass
 
 
 func drag(_arg1, _arg2):

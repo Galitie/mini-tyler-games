@@ -14,7 +14,9 @@ shader_parameter/phase_speed = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_6vwvj"]
 resource_local_to_scene = true
 
-[node name="desktop_icon" type="Node2D"]
+[node name="desktop_icon" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_qfxn8")
 
 [node name="sprite" type="Sprite2D" parent="."]

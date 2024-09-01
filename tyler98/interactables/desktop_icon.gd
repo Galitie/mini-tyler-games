@@ -13,10 +13,10 @@ extends Interactable
 var exhausted: bool = false
 var window_open: bool = false
 
-
 func _ready():
 	$sprite.texture = sprite
 	$area/shape.shape.radius = area_radius
+
 
 func click(_arg, pointer):
 	if !exhausted and !window_open:
@@ -25,6 +25,7 @@ func click(_arg, pointer):
 		var instance = popup_scene.instantiate()
 		add_child(instance)
 		instance.global_position = Vector2(640, 360)
+
 
 func hover():
 	pass

@@ -6,7 +6,6 @@ extends Interactable
 var size_set : bool = false
 var dragging : bool = false
 var drag_offset
-var closed: bool = false
 
 func _ready():
 	item_label_title.text = item.item_name
@@ -23,9 +22,10 @@ func _ready():
 
 
 func _process(delta):
+	global_position.x = clamp(global_position.x, 95 + $panel.size.x / 2, 1190 - $panel.size.x / 2)
+	global_position.y = clamp(global_position.y, 5 + $panel.size.y / 2, 725 - $panel.size.y / 2)
 	if size_set == false:
 		set_draggable_shape()
-	print(is_clicked_on)
 
 
 func click(area, pointer):

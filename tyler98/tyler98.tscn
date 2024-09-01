@@ -131,11 +131,10 @@ player_color = Color(0, 0.568627, 0.254902, 1)
 z_index = 12
 material = SubResource("ShaderMaterial_qsb8y")
 layout_mode = 0
-offset_left = 88.0
-offset_right = 1192.0
+offset_left = 1.0
+offset_right = 1281.0
 offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
-metadata/_edit_lock_ = true
 
 [node name="clock" type="Timer" parent="."]
 

@@ -79,9 +79,13 @@ func _ready() -> void:
 		for thumbnail in $thumbnails.get_children():
 			SetThumbnailOpacity(1.0, thumbnail)
 		
+		for thumbnail in $thumbnail_shadows.get_children():
+			SetThumbnailOpacity(1.0, thumbnail)
+		
 		title.get_node("animator").play("skooch_in")
 		title.get_node("animator").seek(1, true)
 		SetWaterOpacity(0.8)
+		SetLogoShadowOpacity(1.0)
 		
 		$ambience.play()
 		var ambience_tween = create_tween()
@@ -167,8 +171,15 @@ func _timeout() -> void:
 	ambience_tween.tween_property($ambience, "volume_db", -35, 2)
 	
 	await get_tree().create_timer(0.9).timeout
+	
 	var water_tween = get_tree().create_tween()
 	water_tween.tween_method(SetWaterOpacity, 0.0, 0.8, 1.0)
+	
+	var logo_shadow_tween = get_tree().create_tween()
+	logo_shadow_tween.tween_method(SetLogoShadowOpacity, 0.0, 1, 1.0)
+	
+	var floor_tween = get_tree().create_tween()
+	floor_tween.tween_property($floor, "transparency", 0, 1.0)
 
 func _spin_timeout() -> void:
 	spinning = false
@@ -180,6 +191,9 @@ func _spin_timeout() -> void:
 	for thumbnail in $thumbnails.get_children():
 		var alpha_tween = create_tween()
 		alpha_tween.tween_method(SetThumbnailOpacity.bind(thumbnail), 0.0, 1.0, 1.0).set_trans(Tween.TRANS_CUBIC)
+	for thumbnail in $thumbnail_shadows.get_children():
+		var alpha_tween = create_tween()
+		alpha_tween.tween_method(SetThumbnailOpacity.bind(thumbnail), 0.0, 1.0, 1.0).set_trans(Tween.TRANS_CUBIC)
 	await get_tree().create_timer(2.0).timeout
 	$sfx.stream = move_right_sfx
 	$sfx.play()
@@ -189,6 +203,8 @@ func _spin_timeout() -> void:
 func SelectThumbnail(thumbnail, idx: int) -> void:
 	var thumbnail_wave_tween = create_tween()
 	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.5, 0.0, 0.25)
+	var thumbnail_shadow_tween = create_tween()
+	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(idx)), 1.0, 0.0, 0.25)
 	last_thumbnail_position = thumbnail.global_position
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))
@@ -213,6 +229,8 @@ func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 0), 0.25).set_trans(Tween.TRANS_CUBIC)
 	var thumbnail_wave_tween = create_tween()
 	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.0, 0.5, 0.25)
+	var thumbnail_shadow_tween = create_tween()
+	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(thumbnail_idx)), 0.0, 1.0, 0.25)
 	thumbnail.material_override.set_shader_parameter("wave_strength", 0.5)
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 	var xform: Transform3D = Transform3D()
@@ -231,3 +249,6 @@ func SetThumbnailOpacity(value, thumbnail):
 	
 func SetThumbnailWaveStrength(value, thumbnail):
 	thumbnail.material_override.set_shader_parameter("wave_strength", value)
+	
+func SetLogoShadowOpacity(value):
+	$logo_shadow.mesh.material.set_shader_parameter("shadow_opacity", value)

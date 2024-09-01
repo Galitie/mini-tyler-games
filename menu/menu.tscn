@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cqxadhyu7lpgq"]
+[gd_scene load_steps=46 format=3 uid="uid://cqxadhyu7lpgq"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_hljnx"]
 [ext_resource type="PackedScene" uid="uid://c844nuyg1mn2w" path="res://menu/logo.glb" id="1_o2h2v"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://bq1jem6rwij4v" path="res://menu/water3.png" id="12_b866n"]
 [ext_resource type="AudioStream" uid="uid://cydyfpy01d0j0" path="res://menu/waves.ogg" id="12_mtdn8"]
 [ext_resource type="Texture2D" uid="uid://cd52skyjf3q5c" path="res://menu/sky.png" id="13_o0hew"]
+[ext_resource type="Texture2D" uid="uid://ctsegg47grrtt" path="res://menu/marble.jpg" id="16_hr33t"]
+[ext_resource type="Shader" path="res://menu/catcher.gdshader" id="18_14sqe"]
 
 [sub_resource type="Environment" id="Environment_ug5bm"]
 background_mode = 1
@@ -33,7 +35,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, -0.141, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -72,7 +74,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.2, 1),
 "transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
-"values": [Vector3(0, 0, 15), Vector3(0, 0, 0)]
+"values": [Vector3(0, -0.141, 15), Vector3(0, -0.141, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_qsgqd"]
@@ -87,7 +89,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-15, 0, 0)]
+"values": [Vector3(0, -0.141, 0), Vector3(-15, -0.141, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -112,7 +114,7 @@ _data = {
 [sub_resource type="BoxMesh" id="BoxMesh_dis2e"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1k0ah"]
-render_priority = 0
+render_priority = -3
 shader = ExtResource("6_2v6rl")
 shader_parameter/albedo = Color(1, 1, 1, 0)
 shader_parameter/specular = 9.59
@@ -127,7 +129,7 @@ shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/wave_texture = ExtResource("5_k1cse")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c2xow"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2nudh"]
 render_priority = 1
 shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
@@ -197,6 +199,63 @@ _data = {
 "static": SubResource("Animation_oxca0")
 }
 
+[sub_resource type="Gradient" id="Gradient_36y4b"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_63655"]
+gradient = SubResource("Gradient_36y4b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7jg0r"]
+render_priority = 0
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10mln"]
+render_priority = 0
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v582y"]
+render_priority = 0
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_538m2"]
+render_priority = 0
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o3v28"]
+render_priority = 0
+shader = ExtResource("6_d3tdt")
+shader_parameter/wave_strength = 0.5
+shader_parameter/wave_scale = 0.02
+shader_parameter/WaterOpacity = 0.0
+shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8tj3v"]
+size = Vector2(500, 500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02b8y"]
+render_priority = -2
+diffuse_mode = 2
+albedo_texture = ExtResource("16_hr33t")
+metallic_specular = 0.0
+uv1_scale = Vector3(100, 100, 100)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5xw5s"]
 render_priority = 0
 shader = ExtResource("2_bm31e")
@@ -221,6 +280,17 @@ size = Vector2(500, 500)
 subdivide_width = 100
 subdivide_depth = 100
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q808o"]
+render_priority = -1
+shader = ExtResource("18_14sqe")
+shader_parameter/shadow_color = null
+shader_parameter/shadow_opacity = 0.0
+shader_parameter/shadow_max_opacity = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6b2dh"]
+material = SubResource("ShaderMaterial_q808o")
+size = Vector2(500, 500)
+
 [node name="menu" type="Node3D"]
 script = ExtResource("1_hljnx")
 
@@ -233,6 +303,7 @@ projection = 1
 size = 10.0
 
 [node name="title" parent="." instance=ExtResource("2_ff23y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.141, 0)
 
 [node name="animator" type="AnimationPlayer" parent="title"]
 libraries = {
@@ -309,8 +380,10 @@ fit_content = true
 autowrap_mode = 2
 
 [node name="logo_origin" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.573778, 0)
 
 [node name="logo" parent="logo_origin" instance=ExtResource("1_o2h2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.426574, 0)
 
 [node name="thumbnails" type="Node3D" parent="."]
 
@@ -318,14 +391,16 @@ autowrap_mode = 2
 transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, 0.337895, -7)
 material_override = SubResource("ShaderMaterial_rufge")
 modulate = Color(1, 1, 1, 0)
+shaded = true
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("5_k1cse")
 
 [node name="thumbnail2" type="Sprite3D" parent="thumbnails"]
 transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, 0.337895, -1)
-material_override = SubResource("ShaderMaterial_c2xow")
+material_override = SubResource("ShaderMaterial_2nudh")
 modulate = Color(1, 1, 1, 0)
+transparent = false
 texture_filter = 5
 render_priority = 1
 texture = ExtResource("6_2u1ir")
@@ -362,6 +437,54 @@ libraries = {
 "": SubResource("AnimationLibrary_6hw5f")
 }
 
+[node name="thumbnail_shadows" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.259239, 0)
+
+[node name="thumbnail" type="Sprite3D" parent="thumbnail_shadows"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, -0.253391, -7)
+material_override = SubResource("ShaderMaterial_7jg0r")
+modulate = Color(1, 1, 1, 0)
+shaded = true
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("5_k1cse")
+
+[node name="thumbnail2" type="Sprite3D" parent="thumbnail_shadows"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, -0.253391, -1)
+material_override = SubResource("ShaderMaterial_10mln")
+modulate = Color(1, 1, 1, 0)
+transparent = false
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("6_2u1ir")
+
+[node name="thumbnail3" type="Sprite3D" parent="thumbnail_shadows"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -6.58311, -0.253391, 5)
+material_override = SubResource("ShaderMaterial_v582y")
+cast_shadow = 0
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("7_iulif")
+
+[node name="thumbnail4" type="Sprite3D" parent="thumbnail_shadows"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10.5831, -0.253391, -1)
+material_override = SubResource("ShaderMaterial_538m2")
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("8_qiop5")
+
+[node name="thumbnail5" type="Sprite3D" parent="thumbnail_shadows"]
+transform = Transform3D(-6.55671e-08, 1.5, 6.55671e-08, 0, -6.55671e-08, 1.5, 1.5, 6.55671e-08, 2.86603e-15, -10.5831, -0.253391, 5)
+material_override = SubResource("ShaderMaterial_o3v28")
+modulate = Color(1, 1, 1, 0)
+texture_filter = 5
+render_priority = 1
+texture = ExtResource("8_0c705")
+hframes = 2
+vframes = 2
+
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_5682p")
 volume_db = -80.0
@@ -372,6 +495,21 @@ volume_db = -80.0
 stream = ExtResource("12_mtdn8")
 volume_db = -80.0
 
+[node name="floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, -0.901257, 0)
+transparency = 1.0
+mesh = SubResource("PlaneMesh_8tj3v")
+surface_material_override/0 = SubResource("StandardMaterial3D_02b8y")
+
 [node name="water" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.226254, 0)
 mesh = SubResource("PlaneMesh_pwb2e")
+
+[node name="logo_shadow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.218714, 0)
+mesh = SubResource("PlaneMesh_6b2dh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.882184, 0.282563, 0.376708, -4.34383e-08, -0.799967, 0.600043, 0.470904, 0.529349, 0.705719, 0, 2.75569, -5.88881)
+light_energy = 0.0
+shadow_enabled = true

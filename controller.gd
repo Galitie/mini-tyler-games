@@ -1,6 +1,6 @@
 extends Node
 
-const DEADZONE: float = 0.1
+const DEADZONE: float = 0.2
 
 class Gamepad:
 	var device_id: int = -1
@@ -23,6 +23,10 @@ class Gamepad:
 		0, # JOY_BUTTON_RIGHT_STICK
 		0, # JOY_BUTTON_LEFT_SHOULDER
 		0, # JOY_BUTTON_RIGHT_SHOULDER
+		0, # JOY_BUTTON_DPAD_UP
+		0, # JOY_BUTTON_DPAD_DOWN
+		0, # JOY_BUTTON_DPAD_LEFT
+		0, # JOY_BUTTON_DPAD_RIGHT
 	]
 	
 	var prev_button_states: PackedByteArray = button_states.duplicate()

@@ -20,6 +20,8 @@ extends Node2D
 	["Toxicity", "System of a Down", load("res://crushris/toxcicity.ogg")],
 	["The Kill (Bury Me)", "30 Seconds To Mars", load("res://crushris/bury_me.ogg") ]
 	]
+	
+var playlist: Array = []
 
 var current_song
 
@@ -56,7 +58,7 @@ var fall_blocks: Array = []
 
 var game_over: bool = false
 var game_paused: bool = true
-var player_max_lives: int = 3
+var player_max_lives: int = 5
 var player_current_lives: int = player_max_lives
 var players_killed: int = 0
 
@@ -70,6 +72,8 @@ const GAME_SPEED_INCREMENT = 0.05
 const MAX_GAME_SPEED: float = 2.0
 
 var current_ember_alpha: float = 0.13
+
+var pushed_stick: bool = false
 
 func spawn_piece() -> void:
 	var piece_instance = next_piece.duplicate()
@@ -105,7 +109,8 @@ func _physics_process(delta) -> void:
 	
 	if death_row.size() != 0:
 		$camera.apply_shake()
-		block_killer_timer += 1 * delta
+		var speed_mod = game_speed * 0.9
+		block_killer_timer += (speed_mod + 1) * delta
 		if block_killer_timer >= block_killer_timer_length:
 			var block: Block = death_row.pop_back()
 			if block != null:
@@ -133,18 +138,23 @@ func _physics_process(delta) -> void:
 				active_piece.turn(PI / 2)
 			
 			var left_stick = Controller.GetLeftStick(0)
+			if pushed_stick:
+				if !left_stick.x:
+					pushed_stick = false
 			if move_timer > 0:
 				move_timer -= 1 * delta
 			else:
 				move_timer = 0
-			if left_stick.x < 0 && move_timer == 0:
+			if !pushed_stick && left_stick.x < 0 && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
+						pushed_stick = true
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x - TILE_SIZE
-			if left_stick.x > 0 && move_timer == 0:
+			if !pushed_stick && left_stick.x > 0 && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
+						pushed_stick = true
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x + TILE_SIZE
 			if left_stick.y > 0:
@@ -273,7 +283,11 @@ func _on_countdown_timer_timeout():
 	game_paused = false
 
 func play_song():
-	current_song = music.pick_random()
+	if playlist.is_empty():
+		playlist = music.duplicate(true)
+		playlist.shuffle()
+		print(playlist)
+	current_song = playlist.pop_back()
 	$music.stream = current_song[2]
 	$current_song.text = '\"' + current_song[0] + '\"'+ "\n" + current_song[1]
 	$music.play()

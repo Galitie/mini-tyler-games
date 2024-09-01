@@ -63,9 +63,11 @@ func _ready() -> void:
 	
 	if Globals.crushtris_played && Globals.tylermon_played:
 		Globals.metalgear_unlocked = true
-		$thumbnails/metalgear.texture = load("res://menu/epsilon_thumbnail.png")
+		var metalgear_texture = load("res://menu/epsilon_thumbnail.png")
+		$thumbnails/metalgear.texture = metalgear_texture
 		$thumbnails/metalgear.vframes = 1
 		$thumbnails/metalgear.hframes = 1
+		$thumbnails/metalgear.material_override.set_shader_parameter("wave_texture", metalgear_texture)
 	else:
 		$thumbnails/metalgear.get_node("AnimationPlayer").play("static")
 	

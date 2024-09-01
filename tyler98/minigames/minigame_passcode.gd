@@ -19,7 +19,7 @@ func check_goal_met():
 	if %output.text.contains("*"):
 		%output.text = ""
 
-func click(area):
+func click(area, pointer):
 	match area.get_parent().name:
 		"back":
 			%output.text = ""

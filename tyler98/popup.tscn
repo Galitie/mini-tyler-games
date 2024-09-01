@@ -98,6 +98,7 @@ collision_layer = 2
 shape = SubResource("RectangleShape2D_6jci4")
 
 [node name="text_box_area" type="Area2D" parent="panel/vbox/bluebar/margin/hbox"]
+unique_name_in_owner = true
 collision_layer = 2
 
 [node name="shape" type="CollisionShape2D" parent="panel/vbox/bluebar/margin/hbox/text_box_area"]

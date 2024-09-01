@@ -18,11 +18,13 @@ func check_goal_met():
 		item.exhausted = true
 		get_parent().owner.click("x")
 
-func drag(pointer, delta):
-	var vec = pointer.global_position - $sprite.global_position
-	var angle = vec.angle()
-	var rotate = $sprite.global_rotation
-	var angle_delta = PI * delta
-	angle = lerp_angle(rotate, angle, 1.0)
-	angle = clamp(angle, rotate - angle_delta, rotate + angle_delta)
-	$sprite.global_rotation = angle
+
+func drag(pointer):
+	pass
+	#var vec = pointer.global_position - $sprite.global_position
+	#var angle = vec.angle()
+	#var rotate = $sprite.global_rotation
+	#var angle_delta = PI * delta
+	#angle = lerp_angle(rotate, angle, 1.0)
+	#angle = clamp(angle, rotate - angle_delta, rotate + angle_delta)
+	#$sprite.global_rotation = angle

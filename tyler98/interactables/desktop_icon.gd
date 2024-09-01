@@ -18,13 +18,7 @@ func _ready():
 	$sprite.texture = sprite
 	$area/shape.shape.radius = area_radius
 
-
-func _process(_delta):
-	if exhausted && item_name == "Login":
-		get_parent().queue_free()
-	
-
-func click(_arg):
+func click(_arg, pointer):
 	if !exhausted and !window_open:
 		window_open = true
 		var popup_scene = preload("res://tyler98/popup.tscn")
@@ -36,5 +30,5 @@ func hover():
 	pass
 
 
-func drag(_arg1, _arg2):
+func drag(_arg1):
 	pass

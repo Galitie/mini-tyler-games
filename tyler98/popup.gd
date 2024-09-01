@@ -4,6 +4,9 @@ extends Interactable
 @onready var item = get_parent()
 @onready var draggable_shape = %shape
 var size_set : bool = false
+var dragging : bool = false
+var drag_offset
+var closed: bool = false
 
 func _ready():
 	item_label_title.text = item.item_name
@@ -18,20 +21,24 @@ func _ready():
 	if item.scene_var_int != 0:
 		mini_game.goal_rotation = item.scene_var_int
 
+
 func _process(delta):
 	if size_set == false:
 		set_draggable_shape()
+	print(is_clicked_on)
 
-func click(area):
-	if area.name == "text_box_area":
+
+func click(area, pointer):
+	if area == %text_box_area:
+		drag_offset = global_position - pointer.global_position
 		return
 	item.window_open = false
 	queue_free()
 
 
-func drag(pointer, delta):
-	print("dragging")
-	pass
+func drag(pointer):
+	global_position = pointer.global_position + drag_offset
+
 
 func set_draggable_shape():
 	draggable_shape.shape.size = %text_hbox.size

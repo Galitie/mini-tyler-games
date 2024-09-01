@@ -7,3 +7,6 @@ func _ready():
 
 func _process(_delta):
 	pass
+
+func delete_screen():
+	pass

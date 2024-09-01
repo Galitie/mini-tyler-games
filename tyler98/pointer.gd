@@ -4,6 +4,7 @@ extends Node2D
 @onready var sprite: AnimatedSprite2D = $sprite
 const SPEED: float = 400
 var is_hovering: bool = false
+var clicked_interactable = null
 
 
 func _ready():
@@ -26,24 +27,37 @@ func _physics_process(delta):
 				root.hover()
 	
 	#single press interactions
-	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
-		if areas.size():
-			for area in areas:
-				var root = area.owner
-				if root is Interactable:
-					root.click(area)
-		sprite.play("interact")
-		return
-	
-	#holding down interactions
 	if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A):
 		if areas.size():
 			for area in areas:
 				var root = area.owner
 				if root is Interactable:
-					root.drag(self, delta)
+					if !root.is_clicked_on:
+						if clicked_interactable:
+							clicked_interactable.is_clicked_on = false
+							clicked_interactable.release()
+							clicked_interactable = null
+						root.click(area, self)
+						root.is_clicked_on = true
+						if !root.is_queued_for_deletion():
+							clicked_interactable = root
+					else:
+						root.drag(self)
+
+	if Controller.IsControllerButtonJustReleased(controller_port, JOY_BUTTON_A):
+		if clicked_interactable:
+			clicked_interactable.is_clicked_on = false
+			clicked_interactable.release()
+			clicked_interactable = null
+	
+	#pointer animation
+	if clicked_interactable:
 		sprite.play("interact")
-		return
+	else:
+		if is_hovering:
+			sprite.play("hover")
+		else:
+			sprite.play("default")
 	
 	#temp way to exit game
 	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_START):
@@ -53,10 +67,8 @@ func _physics_process(delta):
 
 
 func _on_hover(_area):
-	sprite.play("hover")
 	is_hovering = true
 
 
 func _on_hover_exit(_area):
-	sprite.play("default")
 	is_hovering = false

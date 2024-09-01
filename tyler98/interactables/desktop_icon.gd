@@ -9,6 +9,7 @@ extends Interactable
 @export var window_scene: PackedScene
 @export var scene_var_str: String
 @export var scene_var_int: int
+@export var task_id: int
 
 var exhausted: bool = false
 var window_open: bool = false
@@ -25,8 +26,8 @@ func click(_arg, pointer):
 		var instance = popup_scene.instantiate()
 		add_child(instance)
 		instance.global_position = Vector2(640, 360)
-
-
+		
+			
 func hover():
 	pass
 

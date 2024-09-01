@@ -55,6 +55,7 @@ sprite = ExtResource("4_6kccc")
 area_radius = 10
 window_scene = ExtResource("5_g0qw4")
 scene_var_int = 180
+task_id = 1
 
 [node name="phone" parent="main_screen" instance=ExtResource("3_e1yrs")]
 offset_left = 131.0
@@ -67,6 +68,7 @@ sprite = ExtResource("6_ulwfs")
 area_radius = 10
 window_scene = ExtResource("7_radv6")
 scene_var_str = "4056"
+task_id = 2
 
 [node name="note" parent="main_screen" instance=ExtResource("3_e1yrs")]
 offset_left = 133.0
@@ -79,6 +81,7 @@ sprite = ExtResource("8_qnsra")
 content_image = ExtResource("9_xdxl6")
 area_radius = 10
 window_scene = ExtResource("9_aqvnx")
+task_id = 3
 
 [node name="start_screen" type="TextureRect" parent="."]
 layout_mode = 1
@@ -137,15 +140,3 @@ offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
 
 [node name="clock" type="Timer" parent="."]
-
-[node name="center" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="position" type="Control" parent="center"]
-unique_name_in_owner = true
-layout_mode = 2

@@ -1,8 +1,10 @@
 extends Interactable
+
 @onready var item_label_title = %item_name
 @onready var item_label_description = %description
 @onready var item = get_parent()
 @onready var draggable_shape = %shape
+
 var size_set : bool = false
 var dragging : bool = false
 var drag_offset

@@ -2,22 +2,22 @@ extends Interactable
 
 @export var goal_number: int
 @onready var item = get_parent().owner.get_parent()
+var id
 
 
 func _ready():
 	%output.text = ""
-	pass
-
-
-func _process(_delta):
-	check_goal_met()
+	id = item.task_id
 
 
 func check_goal_met():
 	if %output.text == str(goal_number) + "*":
 		item.exhausted = true
+		get_tree().get_root().get_node("main").task_completed(id)
+		queue_free()
 	if %output.text.contains("*"):
 		%output.text = ""
+
 
 func click(area, pointer):
 	match area.get_parent().name:
@@ -45,3 +45,4 @@ func click(area, pointer):
 			%output.text += "9"
 		"enter":
 			%output.text += "*"
+			check_goal_met()

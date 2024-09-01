@@ -1,6 +1,5 @@
 extends Interactable
 
-
 @onready var item = get_parent().owner.get_parent()
 
 func _ready():

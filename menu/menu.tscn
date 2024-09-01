@@ -127,6 +127,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = ExtResource("5_k1cse")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2nudh"]
@@ -135,6 +136,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = ExtResource("6_2u1ir")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_okndl"]
@@ -143,6 +145,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = ExtResource("7_iulif")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7nwjy"]
@@ -151,6 +154,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = ExtResource("8_qiop5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l7dd7"]
@@ -159,6 +163,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = ExtResource("8_0c705")
 
 [sub_resource type="Animation" id="Animation_gm1rg"]
@@ -212,6 +217,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_10mln"]
@@ -220,6 +226,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v582y"]
@@ -228,6 +235,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_538m2"]
@@ -236,6 +244,7 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o3v28"]
@@ -244,17 +253,21 @@ shader = ExtResource("6_d3tdt")
 shader_parameter/wave_strength = 0.5
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
+shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_8tj3v"]
-size = Vector2(500, 500)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02b8y"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2rjl"]
 render_priority = -2
-diffuse_mode = 2
+shading_mode = 0
 albedo_texture = ExtResource("16_hr33t")
-metallic_specular = 0.0
 uv1_scale = Vector3(100, 100, 100)
+texture_filter = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8tj3v"]
+material = SubResource("StandardMaterial3D_u2rjl")
+size = Vector2(500, 500)
+subdivide_width = 100
+subdivide_depth = 100
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5xw5s"]
 render_priority = 0
@@ -497,9 +510,9 @@ volume_db = -80.0
 
 [node name="floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, -0.901257, 0)
+layers = 2
 transparency = 1.0
 mesh = SubResource("PlaneMesh_8tj3v")
-surface_material_override/0 = SubResource("StandardMaterial3D_02b8y")
 
 [node name="water" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.226254, 0)

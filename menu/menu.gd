@@ -24,6 +24,8 @@ var last_thumbnail_position = Vector3.ZERO
 var thumbnail_idx: int = 0
 var can_select: bool = false
 
+const THUMBNAIL_SHADOW_OPACITY = 0.6
+
 var thumbnails: Array = [
 	load("res://menu/crushtris_thumbnail.png"),
 	load("res://menu/epsilon_thumbnail.png"),
@@ -82,16 +84,21 @@ func _ready() -> void:
 			SetThumbnailOpacity(1.0, thumbnail)
 		
 		for thumbnail in $thumbnail_shadows.get_children():
-			SetThumbnailOpacity(1.0, thumbnail)
+			SetThumbnailOpacity(THUMBNAIL_SHADOW_OPACITY, thumbnail)
 		
 		title.get_node("animator").play("skooch_in")
 		title.get_node("animator").seek(1, true)
 		SetWaterOpacity(0.8)
 		SetLogoShadowOpacity(1.0)
+		$floor.transparency = 0
 		
 		$ambience.play()
 		var ambience_tween = create_tween()
 		ambience_tween.tween_property($ambience, "volume_db", -35, 1)
+		
+		camera.size = 5
+		var camera_tween = create_tween()
+		camera_tween.tween_property($camera, "size", 10, 1.0).set_trans(Tween.TRANS_QUAD)
 	else:
 		$timer.start()
 	
@@ -156,6 +163,12 @@ func _process(delta: float) -> void:
 			ambience_tween.tween_property($ambience, "volume_db", -80, 2.0)
 			var music_tween = create_tween()
 			music_tween.tween_property($music, "volume_db", -80, 2.0)
+			var thumbnail_tween = create_tween()
+			thumbnail_tween.tween_method(SetThumbnailOpacity.bind($thumbnails.get_child(thumbnail_idx)), 1.0, 0.0, 0.25).set_trans(Tween.TRANS_CUBIC)
+			var desc_tween = create_tween()
+			desc_tween.tween_property($Control, "modulate", Color.TRANSPARENT, 0.3)
+			var camera_tween = create_tween()
+			camera_tween.tween_property($camera, "size", 1, 1.0).set_trans(Tween.TRANS_CUBIC)
 			await Globals.FadeIn()
 			await $sfx.finished
 			get_tree().change_scene_to_file(thumbnail_scene_paths[thumbnail_idx])
@@ -195,7 +208,7 @@ func _spin_timeout() -> void:
 		alpha_tween.tween_method(SetThumbnailOpacity.bind(thumbnail), 0.0, 1.0, 1.0).set_trans(Tween.TRANS_CUBIC)
 	for thumbnail in $thumbnail_shadows.get_children():
 		var alpha_tween = create_tween()
-		alpha_tween.tween_method(SetThumbnailOpacity.bind(thumbnail), 0.0, 1.0, 1.0).set_trans(Tween.TRANS_CUBIC)
+		alpha_tween.tween_method(SetThumbnailOpacity.bind(thumbnail), 0.0, THUMBNAIL_SHADOW_OPACITY, 1.0).set_trans(Tween.TRANS_CUBIC)
 	await get_tree().create_timer(2.0).timeout
 	$sfx.stream = move_right_sfx
 	$sfx.play()
@@ -206,7 +219,7 @@ func SelectThumbnail(thumbnail, idx: int) -> void:
 	var thumbnail_wave_tween = create_tween()
 	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.5, 0.0, 0.25)
 	var thumbnail_shadow_tween = create_tween()
-	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(idx)), 1.0, 0.0, 0.25)
+	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(idx)), THUMBNAIL_SHADOW_OPACITY, 0.0, 0.25)
 	last_thumbnail_position = thumbnail.global_position
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))
@@ -232,7 +245,7 @@ func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	var thumbnail_wave_tween = create_tween()
 	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.0, 0.5, 0.25)
 	var thumbnail_shadow_tween = create_tween()
-	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(thumbnail_idx)), 0.0, 1.0, 0.25)
+	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(thumbnail_idx)), 0.0, THUMBNAIL_SHADOW_OPACITY, 0.25)
 	thumbnail.material_override.set_shader_parameter("wave_strength", 0.5)
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 	var xform: Transform3D = Transform3D()

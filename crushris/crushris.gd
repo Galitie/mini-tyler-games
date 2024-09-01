@@ -109,8 +109,8 @@ func _physics_process(delta) -> void:
 	
 	if death_row.size() != 0:
 		$camera.apply_shake()
-		var speed_mod = game_speed * 0.9
-		block_killer_timer += (speed_mod + 1) * delta
+		var block_killer_timer_speed = remap(game_speed, 1, MAX_GAME_SPEED, 0.2, 1.4)
+		block_killer_timer += block_killer_timer_speed * delta
 		if block_killer_timer >= block_killer_timer_length:
 			var block: Block = death_row.pop_back()
 			if block != null:
@@ -138,26 +138,21 @@ func _physics_process(delta) -> void:
 				active_piece.turn(PI / 2)
 			
 			var left_stick = Controller.GetLeftStick(0)
-			if pushed_stick:
-				if !left_stick.x:
-					pushed_stick = false
 			if move_timer > 0:
 				move_timer -= 1 * delta
 			else:
 				move_timer = 0
-			if !pushed_stick && left_stick.x < 0 && move_timer == 0:
+			if left_stick.x < -0.6 && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
-						pushed_stick = true
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x - TILE_SIZE
-			if !pushed_stick && left_stick.x > 0 && move_timer == 0:
+			if left_stick.x > 0.6 && move_timer == 0:
 				if active_piece.global_position.x == piece_destination.x:
 					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
-						pushed_stick = true
 						move_timer = move_timer_length
 						piece_destination.x = active_piece.position.x + TILE_SIZE
-			if left_stick.y > 0:
+			if left_stick.y > 0.6:
 				PIECE_FALL_SPEED = 200
 			else:
 				PIECE_FALL_SPEED = 100

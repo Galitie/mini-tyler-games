@@ -76,6 +76,7 @@ func _physics_process(delta: float) -> void:
 			if velocity.y > MAX_FALL_SPEED:
 				velocity.y = MAX_FALL_SPEED
 		else:
+			jump_held = false
 			jump_power = MAX_JUMP_POWER
 			
 		if Controller.IsControllerButtonJustPressed(debug_port, JOY_BUTTON_B):

@@ -10,6 +10,7 @@ extends Interactable
 @export var scene_var_str: String
 @export var scene_var_int: int
 @export var task_id: int
+@export var string_list: Array[String]
 
 var exhausted: bool = false
 var window_open: bool = false

@@ -53,6 +53,8 @@ func click(area, pointer):
 				check_goal_met()
 	else:
 		match area.get_parent().name:
+			"back":
+				%output.text = ""
 			"enter":
 				%output.text += "*"
 				check_goal_met()

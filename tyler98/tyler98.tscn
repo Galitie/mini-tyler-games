@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=14 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/room.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/test_background.png" id="2_me5oa"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
+[ext_resource type="Texture2D" uid="uid://bbkpqrorpt3r1" path="res://tyler98/interactables/notepad.png" id="6_2d3ca"]
 [ext_resource type="Texture2D" uid="uid://n0xwr737jbsj" path="res://tyler98/interactables/recycle_bin_full.png" id="6_3d7e6"]
+[ext_resource type="PackedScene" uid="uid://c78i5lpwxj62b" path="res://tyler98/minigames/list.tscn" id="7_b0kkl"]
 [ext_resource type="PackedScene" uid="uid://dhrdg5b1jrg4r" path="res://tyler98/interactables/badge.tscn" id="7_q60pa"]
 [ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://tyler98/minigames/minigame_passcode.tscn" id="7_radv6"]
 [ext_resource type="Texture2D" uid="uid://b67sc27bsbuxo" path="res://tyler98/interactables/login.png" id="8_wb21q"]
@@ -42,16 +44,15 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="recycle_bin" parent="main_screen" instance=ExtResource("3_e1yrs")]
-offset_left = 146.0
+offset_left = 144.0
 offset_top = 44.0
-offset_right = 146.0
+offset_right = 144.0
 offset_bottom = 44.0
 item_name = "Recycle Bin"
 item_description = "Pixel phones are for losers"
 sprite = ExtResource("6_3d7e6")
 area_radius = 10
-scene_var_str = "4056"
-task_id = 2
+task_id = 1
 
 [node name="documents" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
@@ -62,8 +63,43 @@ offset_bottom = 125.0
 item_name = "Documents"
 sprite = ExtResource("4_aahr4")
 area_radius = 10
-scene_var_int = 180
-task_id = 1
+task_id = 2
+
+[node name="prawn" parent="main_screen" instance=ExtResource("3_e1yrs")]
+y_sort_enabled = false
+offset_left = 1138.0
+offset_top = 636.0
+offset_right = 1138.0
+offset_bottom = 636.0
+item_name = "DO NOT OPEN"
+sprite = ExtResource("4_aahr4")
+area_radius = 10
+task_id = 2
+
+[node name="pictures" parent="main_screen" instance=ExtResource("3_e1yrs")]
+y_sort_enabled = false
+offset_left = 144.0
+offset_top = 200.0
+offset_right = 144.0
+offset_bottom = 200.0
+item_name = "Pictures"
+sprite = ExtResource("4_aahr4")
+area_radius = 10
+task_id = 3
+
+[node name="todo_list" parent="main_screen" instance=ExtResource("3_e1yrs")]
+unique_name_in_owner = true
+y_sort_enabled = false
+offset_left = 144.0
+offset_top = 638.0
+offset_right = 144.0
+offset_bottom = 638.0
+item_name = "Todo"
+sprite = ExtResource("6_2d3ca")
+area_radius = 10
+window_scene = ExtResource("7_b0kkl")
+task_id = 3
+string_list = Array[String](["Login", "todo", "test", "test2"])
 
 [node name="start_screen" type="TextureRect" parent="."]
 layout_mode = 1

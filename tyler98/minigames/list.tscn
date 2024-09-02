@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://c78i5lpwxj62b"]
+
+[ext_resource type="Script" path="res://tyler98/minigames/list.gd" id="1_pc5y8"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="2_f152w"]
+
+[node name="list" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_pc5y8")
+
+[node name="list" type="ItemList" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -44.5
+offset_right = 100.0
+offset_bottom = 44.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_f152w")
+select_mode = 1
+allow_reselect = true
+allow_search = false
+max_text_lines = 2
+auto_height = true
+text_overrun_behavior = 0
+metadata/_edit_use_anchors_ = true

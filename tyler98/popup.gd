@@ -10,6 +10,7 @@ var dragging : bool = false
 var drag_offset
 
 func _ready():
+	get_tree().get_root().get_node("main").set_priority_window(self)
 	item_label_title.text = item.item_name
 	item_label_description.text = item.item_description		
 	
@@ -31,6 +32,7 @@ func _process(delta):
 
 
 func click(area, pointer):
+	get_tree().get_root().get_node("main").set_priority_window(self)
 	if area == %text_box_area:
 		drag_offset = global_position - pointer.global_position
 		return
@@ -39,6 +41,7 @@ func click(area, pointer):
 
 
 func drag(pointer):
+	get_tree().get_root().get_node("main").set_priority_window(self)
 	global_position = pointer.global_position + drag_offset
 
 

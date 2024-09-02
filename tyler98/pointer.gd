@@ -22,6 +22,7 @@ func _physics_process(delta):
 	var move_input: Vector2 = Controller.GetLeftStick(controller_port)
 	global_position += move_input * SPEED * delta
 	var areas = $pointer_area.get_overlapping_areas()
+	areas.reverse()
 	
 	#on hover
 	if areas.size() && is_hovering:
@@ -36,7 +37,7 @@ func _physics_process(delta):
 				var root = area.owner
 				if root is Interactable:
 					if !root.is_clicked_on:
-						if clicked_interactable:
+						if clicked_interactable != null:
 							clicked_interactable.is_clicked_on = false
 							clicked_interactable.release()
 							clicked_interactable = null

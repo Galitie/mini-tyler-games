@@ -1,5 +1,6 @@
 extends Control
 var priority_window = null
+var logging_in_texture = load("res://tyler98/logging_in_image.png")
 @onready var todo_list = %todo_list
 signal refresh_list
 # mini_games must also queue free themselves if they are to be deleted by the main game
@@ -30,6 +31,10 @@ func set_priority_window(window):
 func task_completed(id):
 	match id:
 		0: #start screen login
+			$audio.stream = load("res://tyler98/startup.mp3")
+			$audio.play()
+			%background.texture = logging_in_texture
+			await $audio.finished
 			remove_task_from_list(id)
 			$start_screen.queue_free()
 		1:

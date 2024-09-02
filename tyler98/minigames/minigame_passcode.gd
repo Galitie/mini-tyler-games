@@ -18,7 +18,6 @@ func check_goal_met():
 		await particles.finished
 		get_tree().get_root().get_node("main").task_completed(id)
 		get_parent().owner.queue_free()
-	
 	else:
 		%output.text = ""
 

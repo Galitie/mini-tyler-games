@@ -210,3 +210,5 @@ collision_layer = 2
 position = Vector2(17.9, 18)
 scale = Vector2(1.12, 1)
 shape = SubResource("RectangleShape2D_qh3yc")
+
+[node name="audio" type="AudioStreamPlayer" parent="."]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/room.gd" id="1_p7oil"]
-[ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/test_background.png" id="2_me5oa"]
+[ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
 [ext_resource type="Texture2D" uid="uid://bbkpqrorpt3r1" path="res://tyler98/interactables/notepad.png" id="6_2d3ca"]
@@ -101,35 +101,37 @@ window_scene = ExtResource("7_b0kkl")
 task_id = 3
 string_list = Array[String](["Login", "todo", "test", "test2"])
 
-[node name="start_screen" type="TextureRect" parent="."]
+[node name="start_screen" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="background" type="ColorRect" parent="start_screen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 91.0
-offset_right = -87.0
+offset_left = 87.0
+offset_right = -86.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.490196, 0.482353, 1)
 
 [node name="badge" parent="start_screen" instance=ExtResource("7_q60pa")]
-offset_left = 620.0
+offset_left = 551.0
 offset_top = 333.0
-offset_right = 620.0
+offset_right = 551.0
 offset_bottom = 333.0
 item_name = "Login"
 item_description = "Enter Tyler's super secure password:"
 sprite = ExtResource("8_wb21q")
 window_scene = ExtResource("7_radv6")
 scene_var_str = "1234"
+
+[node name="background" type="TextureRect" parent="start_screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="pointer" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
 position = Vector2(112, 30)
@@ -160,3 +162,5 @@ offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
 
 [node name="clock" type="Timer" parent="."]
+
+[node name="audio" type="AudioStreamPlayer" parent="."]

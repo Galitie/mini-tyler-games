@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b31ti0or7qnvo"
-path="res://.godot/imported/sticky_note_code.png-d7879a2a40db34530d04a11abac0f03a.ctex"
+uid="uid://dpagwfxhx5lu8"
+path="res://.godot/imported/check_mark.png-375dd837a4a8cabf354d3f6bdbe2e8b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tyler98/interactables/sticky_note_code.png"
-dest_files=["res://.godot/imported/sticky_note_code.png-d7879a2a40db34530d04a11abac0f03a.ctex"]
+source_file="res://tyler98/check_mark.png"
+dest_files=["res://.godot/imported/check_mark.png-375dd837a4a8cabf354d3f6bdbe2e8b0.ctex"]
 
 [params]
 

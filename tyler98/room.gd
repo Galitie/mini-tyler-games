@@ -1,14 +1,9 @@
 extends Control
 var priority_window = null
+
 # mini_games must also queue free themselves if they are to be deleted by the main game
+# Only interact with top window? not windows below the top window...right now I have a workaround that loops through all of them backwards lol
 
-# Priority order for windows and interactions:
-	# Priority when spawned, priority when dragging or interacting
-	# One window has the most priority at a time?
-	
-# Only interact with top window, not windows below the top window
-
-# success feedback for mini games
 # fix rotate game?
 
 # desktop item needs to be more general? Idk how to sort this out...yet
@@ -36,7 +31,7 @@ func set_priority_window(window):
 
 func task_completed(id):
 	match id:
-		0:
+		0: #start screen login
 			$start_screen.queue_free()
 		1:
 			pass

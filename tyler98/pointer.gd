@@ -23,7 +23,7 @@ func _physics_process(delta):
 	global_position += move_input * SPEED * delta
 	var areas = $pointer_area.get_overlapping_areas()
 	areas.reverse()
-	var is_on_top = true
+	
 	#on hover
 	if areas.size() && is_hovering:
 		for area in areas:

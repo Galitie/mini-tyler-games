@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhrdg5b1jrg4r"]
+
+[ext_resource type="Script" path="res://tyler98/interactables/badge.gd" id="1_0dymd"]
+[ext_resource type="Shader" path="res://tyler98/outline.gdshader" id="2_jlrkb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gdt40"]
+resource_local_to_scene = true
+shader = ExtResource("2_jlrkb")
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.0
+shader_parameter/frequency = 10.0
+shader_parameter/phase_speed = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgmqv"]
+
+[node name="badge" type="Control"]
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0dymd")
+
+[node name="sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_gdt40")
+position = Vector2(-2, 3)
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+scale = Vector2(1.76, 1.64)
+shape = SubResource("RectangleShape2D_cgmqv")

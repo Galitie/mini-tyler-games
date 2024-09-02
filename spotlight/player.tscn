@@ -60,7 +60,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kseue"]
-size = Vector2(20, 50)
+size = Vector2(20, 48)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cm53i"]
 resource_local_to_scene = true
@@ -86,6 +86,11 @@ height = 50.0
 
 [node name="player" type="CharacterBody2D"]
 material = SubResource("ShaderMaterial_c1wke")
+collision_layer = 0
+collision_mask = 31
+floor_max_angle = 0.0
+platform_floor_layers = 4294967055
+platform_wall_layers = 15
 script = ExtResource("2_olupy")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -94,10 +99,11 @@ sprite_frames = SubResource("SpriteFrames_6llav")
 centered = false
 
 [node name="shape" type="CollisionShape2D" parent="."]
-position = Vector2(10, 25)
+position = Vector2(10, 26)
 shape = SubResource("RectangleShape2D_kseue")
 
 [node name="sonar_area" type="Area2D" parent="."]
+visible = false
 position = Vector2(10, 25)
 collision_layer = 0
 
@@ -110,6 +116,7 @@ texture = SubResource("GradientTexture2D_yrjri")
 texture_scale = 0.01
 
 [node name="body" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 142
 

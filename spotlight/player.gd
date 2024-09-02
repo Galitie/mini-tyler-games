@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name SpotlightPlayer
 
 signal got_key
 signal escaped
@@ -25,10 +26,15 @@ var has_escaped: bool = false
 
 var base_pitch: float = 1.0
 
+var on_player_head = null
+
 func _ready() -> void:
 	add_to_group("players")
-	$body.area_entered.connect(_body_entered)
+	$body.area_entered.connect(_body_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
+	
+	collision_layer = collision_layer | (1 << controller_port)
+	collision_mask = collision_mask &  ~(1 << controller_port)
 	
 	match controller_port:
 		0:
@@ -77,6 +83,7 @@ func _physics_process(delta: float) -> void:
 
 		if Controller.IsControllerButtonJustPressed(debug_port, JOY_BUTTON_A) and is_on_floor():
 			velocity.y = jump_impulse
+			
 			jump_held = true
 		
 		if controller_port == 0:
@@ -143,6 +150,19 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction.x * move_speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
+			
+		for player in get_tree().get_nodes_in_group("players"):
+			player.collision_mask = player.collision_mask | (1 << controller_port)
+				
+		if is_on_floor_only():
+			var slide_count = get_slide_collision_count()
+			for i in range(slide_count):
+				var col = get_slide_collision(i)
+				if col.get_collider() is SpotlightPlayer:
+					var player = col.get_collider()
+					for p in get_tree().get_nodes_in_group("players"):
+						if global_position.y + 25 < p.global_position.y:
+							p.collision_mask = p.collision_mask & ~(1 << controller_port)
 
 		move_and_slide()
 		
@@ -151,7 +171,7 @@ func Honk() -> void:
 	$sfx.pitch_scale = base_pitch + randf_range(0.3, 0.6)
 	$sfx.play()
 
-func _body_entered(area: Area2D) -> void:
+func _body_area_entered(area: Area2D) -> void:
 	if area.owner is Key:
 		has_key = true
 		emit_signal("got_key")

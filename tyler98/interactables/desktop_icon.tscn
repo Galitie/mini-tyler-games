@@ -15,6 +15,7 @@ shader_parameter/phase_speed = 4.0
 resource_local_to_scene = true
 
 [node name="desktop_icon" type="Control"]
+y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_qfxn8")

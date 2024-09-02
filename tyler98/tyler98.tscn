@@ -45,6 +45,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="smiley" parent="main_screen" instance=ExtResource("3_e1yrs")]
+y_sort_enabled = false
 offset_left = 130.0
 offset_top = 40.0
 offset_right = 130.0
@@ -97,6 +98,7 @@ scale = Vector2(3.45625, 4.02222)
 texture = ExtResource("4_yuek2")
 
 [node name="login" parent="start_screen" instance=ExtResource("3_e1yrs")]
+y_sort_enabled = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

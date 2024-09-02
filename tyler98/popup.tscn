@@ -26,6 +26,7 @@ shadow_size = 2
 shadow_offset = Vector2(-2, -2)
 
 [node name="popup" type="Control"]
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("2_3inw7")

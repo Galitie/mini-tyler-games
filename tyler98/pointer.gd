@@ -32,6 +32,7 @@ func _physics_process(delta):
 				root.hover()
 	
 	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_A):
+		$sfx.play()
 		if areas.size():
 			for area in areas:
 				var root = area.owner

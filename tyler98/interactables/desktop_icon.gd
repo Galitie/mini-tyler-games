@@ -21,7 +21,7 @@ func _ready():
 	$name.text = item_name
 
 
-func click(_arg, pointer):
+func click(_arg, _pointer):
 	if !exhausted and !window_open:
 		window_open = true
 		var popup_scene = preload("res://tyler98/popup.tscn")

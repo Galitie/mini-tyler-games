@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=16 format=3 uid="uid://pu4i5asis7fh"]
 
-[ext_resource type="Script" path="res://tyler98/room.gd" id="1_p7oil"]
+[ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://b67sc27bsbuxo" path="res://tyler98/interactables/login.png" id="8_wb21q"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://tyler98/pointer.tscn" id="10_g3hvl"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="11_grwrc"]
+[ext_resource type="AudioStream" uid="uid://d33ihrh6kscji" path="res://tyler98/sfx/click.mp3" id="13_vn2p7"]
+[ext_resource type="AudioStream" uid="uid://bi2xk3bvqbbhx" path="res://tyler98/sfx/fan_sound.mp3" id="14_5xn70"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsb8y"]
 shader = ExtResource("11_grwrc")
@@ -35,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_p7oil")
 
-[node name="main_screen" type="TextureRect" parent="." groups=["room_view"]]
+[node name="main_screen" type="TextureRect" parent="."]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
@@ -94,7 +96,7 @@ offset_left = 144.0
 offset_top = 638.0
 offset_right = 144.0
 offset_bottom = 638.0
-item_name = "Todo"
+item_name = "Todo List"
 sprite = ExtResource("6_2d3ca")
 area_radius = 10
 window_scene = ExtResource("7_b0kkl")
@@ -161,6 +163,11 @@ offset_right = 1281.0
 offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
 
-[node name="clock" type="Timer" parent="."]
+[node name="fan_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_vn2p7")
+autoplay = true
 
 [node name="audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_5xn70")
+volume_db = -3.0
+autoplay = true

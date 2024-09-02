@@ -13,16 +13,21 @@ func _ready():
 
 func check_goal_met():
 	if %output.text == str(goal_number) + "*":
+		$audio.stream = load("res://tyler98/sfx/success.mp3")
+		$audio.play()
 		item.exhausted = true
 		particles.emitting = true
 		await particles.finished
+		await $audio.finished
 		get_tree().get_root().get_node("main").task_completed(id)
 		get_parent().owner.queue_free()
 	else:
 		%output.text = ""
+		$audio.stream = load("res://tyler98/sfx/error.mp3")
+		$audio.play()
 
 
-func click(area, pointer):
+func click(area, _pointer):
 	if %output.text.length() < 4:
 		match area.get_parent().name:
 			"back":

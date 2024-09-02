@@ -25,6 +25,8 @@ var thumbnail_idx: int = 0
 var can_select: bool = false
 
 const THUMBNAIL_SHADOW_OPACITY = 0.6
+const WATER_OPACITY = 0.6
+const THUMBNAIL_WAVE_STRENGTH = 0.2
 
 var thumbnails: Array = [
 	load("res://menu/crushtris_thumbnail.png"),
@@ -88,7 +90,7 @@ func _ready() -> void:
 		
 		title.get_node("animator").play("skooch_in")
 		title.get_node("animator").seek(1, true)
-		SetWaterOpacity(0.8)
+		SetWaterOpacity(WATER_OPACITY)
 		SetLogoShadowOpacity(1.0)
 		$floor.transparency = 0
 		
@@ -163,8 +165,6 @@ func _process(delta: float) -> void:
 			ambience_tween.tween_property($ambience, "volume_db", -80, 2.0)
 			var music_tween = create_tween()
 			music_tween.tween_property($music, "volume_db", -80, 2.0)
-			var thumbnail_tween = create_tween()
-			thumbnail_tween.tween_method(SetThumbnailOpacity.bind($thumbnails.get_child(thumbnail_idx)), 1.0, 0.0, 0.25).set_trans(Tween.TRANS_CUBIC)
 			var desc_tween = create_tween()
 			desc_tween.tween_property($Control, "modulate", Color.TRANSPARENT, 0.3)
 			var camera_tween = create_tween()
@@ -188,7 +188,7 @@ func _timeout() -> void:
 	await get_tree().create_timer(0.9).timeout
 	
 	var water_tween = get_tree().create_tween()
-	water_tween.tween_method(SetWaterOpacity, 0.0, 0.8, 1.0)
+	water_tween.tween_method(SetWaterOpacity, 0.0, WATER_OPACITY, 1.0)
 	
 	var logo_shadow_tween = get_tree().create_tween()
 	logo_shadow_tween.tween_method(SetLogoShadowOpacity, 0.0, 1, 1.0)
@@ -217,7 +217,7 @@ func _spin_timeout() -> void:
 
 func SelectThumbnail(thumbnail, idx: int) -> void:
 	var thumbnail_wave_tween = create_tween()
-	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.5, 0.0, 0.25)
+	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), THUMBNAIL_WAVE_STRENGTH, 0.0, 0.25)
 	var thumbnail_shadow_tween = create_tween()
 	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(idx)), THUMBNAIL_SHADOW_OPACITY, 0.0, 0.25)
 	last_thumbnail_position = thumbnail.global_position
@@ -243,10 +243,9 @@ func DeselectThumbnail(thumbnail: Sprite3D) -> void:
 	var desc_tween = create_tween()
 	desc_tween.tween_property($Control/game_description, "modulate", Color(1, 1, 1, 0), 0.25).set_trans(Tween.TRANS_CUBIC)
 	var thumbnail_wave_tween = create_tween()
-	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.0, 0.5, 0.25)
+	thumbnail_wave_tween.tween_method(SetThumbnailWaveStrength.bind(thumbnail), 0.0, THUMBNAIL_WAVE_STRENGTH, 0.25)
 	var thumbnail_shadow_tween = create_tween()
 	thumbnail_shadow_tween.tween_method(SetThumbnailOpacity.bind($thumbnail_shadows.get_child(thumbnail_idx)), 0.0, THUMBNAIL_SHADOW_OPACITY, 0.25)
-	thumbnail.material_override.set_shader_parameter("wave_strength", 0.5)
 	thumbnail.billboard = BaseMaterial3D.BILLBOARD_DISABLED
 	var xform: Transform3D = Transform3D()
 	xform = xform.scaled(Vector3(1.5, 1.5, 1.5))

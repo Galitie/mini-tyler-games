@@ -74,7 +74,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.2, 1),
 "transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
-"values": [Vector3(0, -0.141, 15), Vector3(0, -0.141, 0)]
+"values": [Vector3(0, 0.5, 15), Vector3(0, 0.5, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_qsgqd"]
@@ -124,7 +124,7 @@ shader_parameter/opacity = 0.055
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rufge"]
 render_priority = 1
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -133,7 +133,7 @@ shader_parameter/wave_texture = ExtResource("5_k1cse")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2nudh"]
 render_priority = 1
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -142,7 +142,7 @@ shader_parameter/wave_texture = ExtResource("6_2u1ir")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_okndl"]
 render_priority = 1
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -151,7 +151,7 @@ shader_parameter/wave_texture = ExtResource("7_iulif")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7nwjy"]
 render_priority = 1
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -160,7 +160,7 @@ shader_parameter/wave_texture = ExtResource("8_qiop5")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l7dd7"]
 render_priority = 1
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -214,7 +214,7 @@ gradient = SubResource("Gradient_36y4b")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7jg0r"]
 render_priority = 0
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -223,7 +223,7 @@ shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_10mln"]
 render_priority = 0
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -232,7 +232,7 @@ shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v582y"]
 render_priority = 0
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -241,7 +241,7 @@ shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_538m2"]
 render_priority = 0
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -250,7 +250,7 @@ shader_parameter/wave_texture = SubResource("GradientTexture1D_63655")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o3v28"]
 render_priority = 0
 shader = ExtResource("6_d3tdt")
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/WaterOpacity = 0.0
 shader_parameter/uv_scale = Vector2(1, 1)
@@ -272,13 +272,13 @@ subdivide_depth = 100
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5xw5s"]
 render_priority = 0
 shader = ExtResource("2_bm31e")
-shader_parameter/albedo = Color(0.356863, 0.72549, 0.905882, 1)
+shader_parameter/albedo = Color(0.392157, 0.8, 1, 1)
 shader_parameter/scroll_speed1 = Vector2(0.1, 0)
 shader_parameter/scroll_speed2 = Vector2(-0.025, 0.025)
 shader_parameter/blend_factor = 0.4
 shader_parameter/scale1 = Vector2(50, 50)
 shader_parameter/scale2 = Vector2(10, 10)
-shader_parameter/wave_strength = 0.5
+shader_parameter/wave_strength = 0.2
 shader_parameter/wave_scale = 0.02
 shader_parameter/pixelation_level = 1000
 shader_parameter/FoamSize = 0.5
@@ -509,20 +509,20 @@ stream = ExtResource("12_mtdn8")
 volume_db = -80.0
 
 [node name="floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, -0.901257, 0)
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 0, 0)
 layers = 2
 transparency = 1.0
 mesh = SubResource("PlaneMesh_8tj3v")
 
 [node name="water" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.226254, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.321909, 0)
 mesh = SubResource("PlaneMesh_pwb2e")
 
 [node name="logo_shadow" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.218714, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0670724, 0)
 mesh = SubResource("PlaneMesh_6b2dh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.882184, 0.282563, 0.376708, -4.34383e-08, -0.799967, 0.600043, 0.470904, 0.529349, 0.705719, 0, 2.75569, -5.88881)
+transform = Transform3D(-0.70623, 0.42482, 0.566363, 3.42569e-08, -0.799967, 0.600044, 0.707983, 0.423769, 0.564961, 0, 2.75569, -5.88881)
 light_energy = 0.0
 shadow_enabled = true

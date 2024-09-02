@@ -3,6 +3,7 @@ var priority_window = null
 var logging_in_texture = load("res://tyler98/logging_in_image.png")
 @onready var todo_list = %todo_list
 signal refresh_list
+signal enable_area
 
 var task_counter = 0
 # mini_games must also queue free themselves if they are to be deleted by the main game
@@ -14,7 +15,6 @@ var task_counter = 0
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color.BLACK)
-	
 
 
 func _process(_delta):
@@ -40,6 +40,7 @@ func task_completed(id):
 			await $audio.finished
 			task_handler(id)
 			$start_screen.queue_free()
+			enable_area.emit()
 		1:
 			pass
 		2:

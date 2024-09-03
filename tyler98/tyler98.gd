@@ -2,13 +2,18 @@ extends Control
 var priority_window = null
 var logging_in_texture = load("res://tyler98/logging_in_image.png")
 @onready var todo_list = %todo_list
+
 signal refresh_list
-signal enable_area
+signal enable_desktop_areas
+signal disable_desktop_areas
+signal enable_start_screen
+signal disable_start_screen
 
 var task_counter = 0
 # mini_games must also queue free themselves if they are to be deleted by the main game
 # right now I have a workaround that loops through all of areas/windows backwards lol
-# Make main screen items unclickable while in start_screen
+
+#todo list cuts off
 
 # desktop item needs to be more general? Idk how to sort this out...yet
 # interactable is the general item?
@@ -37,17 +42,25 @@ func task_completed(id):
 			$audio.stream = load("res://tyler98/sfx/startup.mp3")
 			$audio.play()
 			%background.texture = logging_in_texture
+			%background.visible = true
 			await $audio.finished
 			task_handler(id)
-			$start_screen.queue_free()
-			enable_area.emit()
-		1:
+			$start_screen.visible = false
+			disable_start_screen.emit()
+			enable_desktop_areas.emit()
+		
+		1: #Update and restart computer
+			$audio.stream = load("res://tyler98/sfx/shutdown.mp3")
+			$audio.play()
+			await Globals.FadeIn(.25)
+			enable_start_screen.emit()
+			disable_desktop_areas.emit()
+			await Globals.FadeOut()
+			task_handler(id)
+		
+		2: #Change desktop computer
 			pass
-		2:
-			pass
-		3: 
-			pass
-	check_for_gameover()
+	#check_for_gameover()
 
 
 func task_handler(id):
@@ -59,4 +72,6 @@ func task_handler(id):
 
 func check_for_gameover():
 	if task_counter == todo_list.string_list.size():
-		print("game over!")
+		await Globals.FadeIn()
+		Globals.GoToMainMenu()
+		return

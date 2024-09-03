@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://e5e7iy54yq7w"]
+
+[ext_resource type="Script" path="res://tyler98/interactables/start_menu.gd" id="1_ips3a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgmqv"]
+
+[node name="start_menu" type="Control"]
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ips3a")
+
+[node name="area" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="area"]
+scale = Vector2(3.4, 1.64)
+shape = SubResource("RectangleShape2D_cgmqv")

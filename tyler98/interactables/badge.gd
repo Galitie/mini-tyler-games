@@ -19,7 +19,7 @@ func _ready():
 	set_area_size()
 
 
-func _process(delta):
+func _process(_delta):
 	if !size_set:
 		set_area_size()
 
@@ -28,7 +28,7 @@ func set_area_size():
 	$area/shape.shape.size = Vector2($sprite.texture.get_width()/2, $sprite.texture.get_height()/2 )
 	size_set = true
 
-func click(_arg, pointer):
+func click(_arg, _pointer):
 	if !exhausted and !window_open:
 		window_open = true
 		var popup_scene = preload("res://tyler98/popup.tscn")

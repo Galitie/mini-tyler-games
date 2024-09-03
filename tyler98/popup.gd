@@ -15,7 +15,7 @@ func _ready():
 	item_label_description.text = item.item_description		
 	
 	var mini_game = item.window_scene
-	mini_game = mini_game.instantiate()
+	mini_game = mini_game.instantiate()	
 	%margin.add_child(mini_game)
 	
 	if item.scene_var_str != "":
@@ -24,7 +24,7 @@ func _ready():
 		mini_game.goal_rotation = item.scene_var_int
 
 
-func _process(delta):
+func _process(_delta):
 	global_position.x = clamp(global_position.x, 95 + $panel.size.x / 2, 1190 - $panel.size.x / 2)
 	global_position.y = clamp(global_position.y, 5 + $panel.size.y / 2, 725 - $panel.size.y / 2)
 	if size_set == false:

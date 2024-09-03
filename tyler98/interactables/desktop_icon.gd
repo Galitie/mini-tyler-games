@@ -18,10 +18,11 @@ var window_open: bool = false
 func _ready():
 	$sprite.texture = sprite
 	$area/shape.shape.radius = area_radius
+	$area/shape.disabled = true
 	$name.text = item_name
+	get_tree().get_root().get_node("main").refresh_list.connect(_enable_area)
 
-
-func click(_arg, pointer):
+func click(_arg, _pointer):
 	if !exhausted and !window_open:
 		window_open = true
 		var popup_scene = preload("res://tyler98/popup.tscn")
@@ -36,3 +37,7 @@ func hover():
 
 func drag(_arg1):
 	pass
+
+
+func _enable_area():
+	$area/shape.disabled = false

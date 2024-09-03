@@ -65,7 +65,7 @@ func _ready() -> void:
 	var music_tween = create_tween()
 	music_tween.tween_property($music, "volume_db", 0, 0.5)
 	
-	if Globals.crushtris_played && Globals.tylermon_played:
+	if Globals.crushtris_played && Globals.tylermon_played && Globals.spotlight_played:
 		Globals.metalgear_unlocked = true
 		var metalgear_texture = load("res://menu/epsilon_thumbnail.png")
 		$thumbnails/metalgear.texture = metalgear_texture

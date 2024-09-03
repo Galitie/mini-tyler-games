@@ -96,27 +96,26 @@ script = ExtResource("2_olupy")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_rdial")
 sprite_frames = SubResource("SpriteFrames_6llav")
-centered = false
+offset = Vector2(0, -25)
 
 [node name="shape" type="CollisionShape2D" parent="."]
-position = Vector2(10, 26)
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_kseue")
 
 [node name="sonar_area" type="Area2D" parent="."]
-visible = false
-position = Vector2(10, 25)
+position = Vector2(0, -25)
 collision_layer = 0
 
 [node name="shape" type="CollisionShape2D" parent="sonar_area"]
 shape = SubResource("CircleShape2D_cm53i")
 
 [node name="sonar" type="PointLight2D" parent="."]
-position = Vector2(10, 25)
+position = Vector2(0, -25)
 texture = SubResource("GradientTexture2D_yrjri")
 texture_scale = 0.01
 
 [node name="body" type="Area2D" parent="."]
-visible = false
+position = Vector2(-10, -50)
 collision_layer = 0
 collision_mask = 142
 

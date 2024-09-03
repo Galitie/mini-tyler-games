@@ -26,8 +26,6 @@ var has_escaped: bool = false
 
 var base_pitch: float = 1.0
 
-var on_player_head = null
-
 func _ready() -> void:
 	add_to_group("players")
 	$body.area_entered.connect(_body_area_entered)
@@ -61,8 +59,14 @@ func _ready() -> void:
 		$body.collision_layer = 1
 		$sonar_area.collision_mask = 0b00000000_00000000_00000000_00001110
 		
+func Spawn() -> void:
+	has_escaped = false
 	var light_tween = get_tree().create_tween()
 	light_tween.tween_property($sonar, "texture_scale", 1.1, 0.5).set_trans(Tween.TRANS_QUAD)
+	$shape.set_deferred("disabled", false)
+	$sonar_area/shape.set_deferred("disabled", false)
+	$body/shape.set_deferred("disabled", false)
+	$sprite.play("default")
 
 func _physics_process(delta: float) -> void:
 	if !has_escaped:
@@ -162,7 +166,7 @@ func _physics_process(delta: float) -> void:
 				if col.get_collider() is SpotlightPlayer:
 					var player = col.get_collider()
 					for p in get_tree().get_nodes_in_group("players"):
-						if global_position.y + 25 < p.global_position.y:
+						if global_position.y < p.global_position.y:
 							p.collision_mask = p.collision_mask & ~(1 << controller_port)
 
 		move_and_slide()

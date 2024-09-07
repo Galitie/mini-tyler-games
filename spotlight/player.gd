@@ -22,6 +22,9 @@ var in_red: bool = false
 var has_key: bool = false
 var has_escaped: bool = false
 
+var spawn_position: Vector2
+var respawning: bool = false
+
 @onready var debug_port: int = controller_port
 
 var base_pitch: float = 1.0
@@ -31,8 +34,8 @@ func _ready() -> void:
 	$body.area_entered.connect(_body_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
 	
-	collision_layer = collision_layer | (1 << controller_port)
-	collision_mask = collision_mask &  ~(1 << controller_port)
+	collision_layer |= (1 << controller_port)
+	collision_mask &= ~(1 << controller_port)
 	
 	match controller_port:
 		0:
@@ -41,15 +44,18 @@ func _ready() -> void:
 		1:
 			$sprite.modulate = Color.BLUE
 			base_pitch = 0.1
-			$body.collision_mask |= 0b00000000_00000000_00000010_00000000
+			$body.collision_mask |= (1 << 10)
+			collision_mask |= (1 << 5)
 		2:
 			$sprite.modulate = Color.GREEN
 			base_pitch = 0.3
-			$body.collision_mask |= 0b00000000_00000000_00000100_00000000
+			$body.collision_mask |= (1 << 11)
+			collision_mask |= (1 << 6)
 		3:
 			$sprite.modulate = Color.RED
 			base_pitch = 0.5
-			$body.collision_mask |= 0b00000000_00000000_00001000_00000000
+			$body.collision_mask |= (1 << 12)
+			collision_mask |= (1 << 7)
 			
 	if controller_port != 0:
 		$sonar.color = $sprite.modulate
@@ -58,18 +64,9 @@ func _ready() -> void:
 		$sonar.color = Color.GRAY
 		$body.collision_layer = 1
 		$sonar_area.collision_mask = 0b00000000_00000000_00000000_00001110
-		
-func Spawn() -> void:
-	has_escaped = false
-	var light_tween = get_tree().create_tween()
-	light_tween.tween_property($sonar, "texture_scale", 1.1, 0.5).set_trans(Tween.TRANS_QUAD)
-	$shape.set_deferred("disabled", false)
-	$sonar_area/shape.set_deferred("disabled", false)
-	$body/shape.set_deferred("disabled", false)
-	$sprite.play("default")
 
 func _physics_process(delta: float) -> void:
-	if !has_escaped:
+	if !has_escaped && !respawning:
 		if !is_on_floor():
 			if jump_held:
 				if Controller.IsControllerButtonJustReleased(debug_port, JOY_BUTTON_A):
@@ -95,7 +92,9 @@ func _physics_process(delta: float) -> void:
 			in_blue = false
 			in_green = false
 			in_red = false
-			$body.collision_mask = 0b00000000_00000000_00000000_10001110
+			var prev_mask = collision_mask
+			$body.collision_mask = 0b10000000_00000000_00000000_10001110
+			collision_mask &= ~(1 << 5) & ~(1 << 6) & ~(1 << 7)
 			var spotlights = $body.get_overlapping_areas()
 			if spotlights.size():
 				# Layers 2, 3, 4 (spotlights)
@@ -111,24 +110,42 @@ func _physics_process(delta: float) -> void:
 				# WHITE
 				if in_red && in_green && in_blue:
 					$body.collision_mask |= 0b00000000_00000000_00000001_00000000
+					collision_mask |= (1 << 5) | (1 << 6) | (1 << 7)
 				# BLUE
 				elif in_blue && !in_green && !in_red:
 					$body.collision_mask |= 0b00000000_00000000_00000010_00000000
+					collision_mask |= (1 << 5)
 				# GREEN
 				elif !in_blue && in_green && !in_red:
 					$body.collision_mask |= 0b00000000_00000000_00000100_00000000
+					collision_mask |= (1 << 6)
 				# RED
 				elif !in_blue && !in_green && in_red:
 					$body.collision_mask |= 0b00000000_00000000_00001000_00000000
+					collision_mask |= (1 << 7)
 				# CYAN
 				elif in_blue && in_green:
 					$body.collision_mask |= 0b00000000_00000000_00000000_00010000
+					collision_mask |= (1 << 5) | (1 << 6)
 				# YELLOW
 				elif in_red && in_green:
 					$body.collision_mask |= 0b00000000_00000000_00000000_00100000
+					collision_mask |= (1 << 6) | (1 << 7)
 				# MAGENTA
 				elif in_red && in_blue:
 					$body.collision_mask |= 0b00000000_00000000_00000000_01000000
+					collision_mask |= (1 << 5) | (1 << 7)
+			
+			if prev_mask != collision_mask:
+				var left_col = CollidedWithTerrain(Vector2(-5, 0) * delta)
+				var right_col = CollidedWithTerrain(Vector2(5, 0) * delta)
+				var top_col = CollidedWithTerrain(Vector2(0, -5) * delta)
+				var bottom_col = CollidedWithTerrain(Vector2(0, 5) * delta)
+				
+				if left_col && right_col && top_col && bottom_col:
+					respawning = true
+					Shrink()
+					return
 			
 			var other_sonars: Array = $sonar_area.get_overlapping_areas()
 			if other_sonars.size():
@@ -157,7 +174,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
 			
 		for player in get_tree().get_nodes_in_group("players"):
-			player.collision_mask = player.collision_mask | (1 << controller_port)
+			player.collision_mask |= (1 << controller_port)
 				
 		if is_on_floor_only():
 			var slide_count = get_slide_collision_count()
@@ -167,14 +184,21 @@ func _physics_process(delta: float) -> void:
 					var player = col.get_collider()
 					for p in get_tree().get_nodes_in_group("players"):
 						if global_position.y < p.global_position.y:
-							p.collision_mask = p.collision_mask & ~(1 << controller_port)
-
+							p.collision_mask &= ~(1 << controller_port)
+		
 		move_and_slide()
 		
 func Honk() -> void:
 	$sprite.play("honk")
 	$sfx.pitch_scale = base_pitch + randf_range(0.3, 0.6)
 	$sfx.play()
+	
+func CollidedWithTerrain(motion: Vector2) -> bool:
+	var test_col = move_and_collide(motion, true, 0.001)
+	if test_col:
+		if test_col.get_collider() is TileMap:
+			return true
+	return false
 
 func _body_area_entered(area: Area2D) -> void:
 	if area.owner is Key:
@@ -184,13 +208,33 @@ func _body_area_entered(area: Area2D) -> void:
 	elif area.owner is Door:
 		emit_signal("escaped")
 		has_escaped = true
-		$shape.set_deferred("disabled", true)
-		$sonar_area/shape.set_deferred("disabled", true)
-		$body/shape.set_deferred("disabled", true)
-		$sprite.play("escape")
-		var light_tween = get_tree().create_tween()
-		light_tween.tween_property($sonar, "texture_scale", 0.0, 0.5).set_trans(Tween.TRANS_CUBIC)
+		Shrink()
+	elif area.collision_layer == 0b10000000_00000000_00000000_00000000:
+		respawning = true
+		Shrink()
+		
+func Shrink() -> void:
+	$shape.set_deferred("disabled", true)
+	$sonar_area/shape.set_deferred("disabled", true)
+	$body/shape.set_deferred("disabled", true)
+	$sprite.play("shrink")
+	var light_tween = get_tree().create_tween()
+	light_tween.tween_property($sonar, "texture_scale", 0.0, 0.5).set_trans(Tween.TRANS_CUBIC)
+	
+func Spawn(spawn_pos: Vector2) -> void:
+	global_position = spawn_pos
+	spawn_position = global_position
+	var light_tween = get_tree().create_tween()
+	light_tween.tween_property($sonar, "texture_scale", 1.1, 0.5).set_trans(Tween.TRANS_QUAD)
+	$shape.set_deferred("disabled", false)
+	$sonar_area/shape.set_deferred("disabled", false)
+	$body/shape.set_deferred("disabled", false)
+	$sprite.play("default")
 
 func _animation_finished() -> void:
 	if $sprite.animation == "honk":
 		$sprite.play("default")
+	elif $sprite.animation == "shrink":
+		if respawning:
+			Spawn(spawn_position)
+			respawning = false

@@ -10,6 +10,7 @@ var current_map = null
 var map_paths: Array = [
 	"res://spotlight/maps/map0.tscn",
 	"res://spotlight/maps/map1.tscn",
+	"res://spotlight/maps/map2.tscn",
 ]
 var map_idx: int = 0
 
@@ -63,4 +64,5 @@ func ChangeMap(idx: int) -> void:
 		get_tree().get_nodes_in_group("players")[i].global_position = spawn_loc
 	
 	for player in get_tree().get_nodes_in_group("players"):
-		player.Spawn()
+		player.Spawn(player.global_position)
+		player.has_escaped = false

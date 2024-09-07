@@ -35,6 +35,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("8_hvaci")
+}],
+"loop": false,
+"name": &"honk",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("4_6swol")
 }, {
 "duration": 1.0,
@@ -47,16 +55,8 @@ animations = [{
 "texture": ExtResource("7_rnb34")
 }],
 "loop": false,
-"name": &"escape",
+"name": &"shrink",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_hvaci")
-}],
-"loop": false,
-"name": &"honk",
-"speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kseue"]
@@ -96,6 +96,7 @@ script = ExtResource("2_olupy")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_rdial")
 sprite_frames = SubResource("SpriteFrames_6llav")
+animation = &"shrink"
 offset = Vector2(0, -25)
 
 [node name="shape" type="CollisionShape2D" parent="."]
@@ -117,7 +118,7 @@ texture_scale = 0.01
 [node name="body" type="Area2D" parent="."]
 position = Vector2(-10, -50)
 collision_layer = 0
-collision_mask = 142
+collision_mask = 2147483790
 
 [node name="shape" type="CollisionShape2D" parent="body"]
 position = Vector2(10, 25)

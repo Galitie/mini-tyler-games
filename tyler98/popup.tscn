@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dviu7ri2ank27"]
+[gd_scene load_steps=12 format=3 uid="uid://dviu7ri2ank27"]
 
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="1_orogn"]
 [ext_resource type="Script" path="res://tyler98/popup.gd" id="2_3inw7"]
 [ext_resource type="Texture2D" uid="uid://dpagwfxhx5lu8" path="res://tyler98/check_mark.png" id="3_0hc3v"]
+[ext_resource type="AudioStream" uid="uid://dd8qdkvelqiqb" path="res://tyler98/sfx/window_open.mp3" id="4_lpksi"]
 
 [sub_resource type="Gradient" id="Gradient_syshj"]
 colors = PackedColorArray(0, 0.111093, 0.637639, 1, 0.638155, 0.731633, 1, 1)
@@ -159,3 +160,6 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.18
 randomness = 0.05
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lpksi")

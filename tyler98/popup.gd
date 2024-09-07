@@ -11,11 +11,12 @@ var drag_offset
 
 func _ready():
 	get_tree().get_root().get_node("main").set_priority_window(self)
+	$sfx.play()
 	item_label_title.text = item.item_name
 	item_label_description.text = item.item_description		
 	
 	var mini_game = item.window_scene
-	mini_game = mini_game.instantiate()	
+	mini_game = 	mini_game.instantiate()	
 	%margin.add_child(mini_game)
 	
 	if item.scene_var_str != "":

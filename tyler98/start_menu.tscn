@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwfe4hmuum6e1"]
+
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="1_h4d42"]
+[ext_resource type="Texture2D" uid="uid://do835g7sl7etd" path="res://tyler98/interactables/shutdown.png" id="2_2cg1c"]
+[ext_resource type="Texture2D" uid="uid://hb7dv5xlgyad" path="res://tyler98/interactables/help.png" id="2_ul0hr"]
+[ext_resource type="Script" path="res://tyler98/start_menu.gd" id="2_wg65c"]
+
+[sub_resource type="Gradient" id="Gradient_gjtkc"]
+offsets = PackedFloat32Array(0, 0.246647, 0.444898, 0.771429)
+colors = PackedColorArray(0, 0, 0.662745, 1, 0.168627, 0.305882, 1, 1, 0.168627, 0.305882, 1, 1, 0, 0, 0.662745, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a8y5t"]
+gradient = SubResource("Gradient_gjtkc")
+width = 24
+fill_from = Vector2(0.500474, 1)
+fill_to = Vector2(0.487835, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kohx"]
+size = Vector2(199, 47)
+
+[node name="startmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_h4d42")
+script = ExtResource("2_wg65c")
+
+[node name="panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="margin" type="MarginContainer" parent="panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="hbox" type="HBoxContainer" parent="panel/margin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="bluebar" type="TextureRect" parent="panel/margin/hbox"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_a8y5t")
+
+[node name="text" type="Label" parent="panel/margin/hbox/bluebar"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 98.0
+offset_right = 62.0
+offset_bottom = 115.0
+rotation = -1.5708
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Tyler 98"
+
+[node name="panel" type="PanelContainer" parent="panel/margin/hbox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="vbox" type="VBoxContainer" parent="panel/margin/hbox/panel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="help" type="Button" parent="panel/margin/hbox/panel/vbox"]
+layout_mode = 2
+theme = ExtResource("1_h4d42")
+text = "Help"
+icon = ExtResource("2_ul0hr")
+alignment = 0
+
+[node name="area" type="Area2D" parent="panel/margin/hbox/panel/vbox/help"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="panel/margin/hbox/panel/vbox/help/area"]
+position = Vector2(99.5, 24)
+shape = SubResource("RectangleShape2D_4kohx")
+
+[node name="shutdown" type="Button" parent="panel/margin/hbox/panel/vbox"]
+layout_mode = 2
+text = "Shut Down..."
+icon = ExtResource("2_2cg1c")
+alignment = 0
+
+[node name="area" type="Area2D" parent="panel/margin/hbox/panel/vbox/shutdown"]
+collision_layer = 2
+
+[node name="shape" type="CollisionShape2D" parent="panel/margin/hbox/panel/vbox/shutdown/area"]
+position = Vector2(100, 26.5)
+shape = SubResource("RectangleShape2D_4kohx")

@@ -20,7 +20,9 @@ func _ready():
 	$area/shape.shape.radius = area_radius
 	$area/shape.disabled = true
 	$name.text = item_name
-	get_tree().get_root().get_node("main").refresh_list.connect(_enable_area)
+	get_tree().get_root().get_node("main").enable_desktop_areas.connect(_enable_desktop_areas)
+	get_tree().get_root().get_node("main").disable_desktop_areas.connect(_disable_desktop_areas)
+
 
 func click(_arg, _pointer):
 	if !exhausted and !window_open:
@@ -29,8 +31,8 @@ func click(_arg, _pointer):
 		var instance = popup_scene.instantiate()
 		add_child(instance)
 		instance.global_position = Vector2(640, 360)
-		
-			
+
+
 func hover():
 	pass
 
@@ -39,5 +41,9 @@ func drag(_arg1):
 	pass
 
 
-func _enable_area():
+func _enable_desktop_areas():
 	$area/shape.disabled = false
+
+
+func _disable_desktop_areas():
+	$area/shape.disabled = true

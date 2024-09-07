@@ -9,7 +9,6 @@ func _ready():
 		$list.add_item(element)
 
 func _refresh_list():
-	print("signal recieved!")
 	$list.clear()
 	var list_of_items = item.string_list
 	for element in list_of_items:

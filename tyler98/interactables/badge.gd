@@ -15,6 +15,8 @@ var window_open: bool = false
 var size_set: bool = false
 
 func _ready():
+	get_tree().get_root().get_node("main").disable_start_screen.connect(_disable)
+	get_tree().get_root().get_node("main").enable_start_screen.connect(_enable)
 	$sprite.texture = sprite
 	set_area_size()
 
@@ -27,6 +29,7 @@ func _process(_delta):
 func set_area_size():
 	$area/shape.shape.size = Vector2($sprite.texture.get_width()/2, $sprite.texture.get_height()/2 )
 	size_set = true
+
 
 func click(_arg, _pointer):
 	if !exhausted and !window_open:
@@ -43,3 +46,17 @@ func hover():
 
 func drag(_arg1):
 	pass
+
+
+func _enable():
+	exhausted = false
+	window_open = false
+	%background.visible = false
+	get_parent().visible = true
+	$area/shape.disabled = false
+
+
+func _disable():
+	exhausted = true
+	get_parent().visible = false
+	$area/shape.disabled = true

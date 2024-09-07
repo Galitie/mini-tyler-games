@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwfe4hmuum6e1"]
+[gd_scene load_steps=10 format=3 uid="uid://bwfe4hmuum6e1"]
 
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="1_h4d42"]
 [ext_resource type="Texture2D" uid="uid://do835g7sl7etd" path="res://tyler98/interactables/shutdown.png" id="2_2cg1c"]
@@ -15,8 +15,16 @@ width = 24
 fill_from = Vector2(0.500474, 1)
 fill_to = Vector2(0.487835, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tmro"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kohx"]
 size = Vector2(199, 47)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byqd7"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
 
 [node name="startmenu" type="Control"]
 layout_mode = 3
@@ -47,9 +55,9 @@ texture = SubResource("GradientTexture2D_a8y5t")
 [node name="text" type="Label" parent="panel/margin/hbox/bluebar"]
 layout_mode = 0
 offset_left = 3.0
-offset_top = 98.0
-offset_right = 62.0
-offset_bottom = 115.0
+offset_top = 96.0
+offset_right = 66.0
+offset_bottom = 113.0
 rotation = -1.5708
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Tyler 98"
@@ -65,6 +73,7 @@ theme_override_constants/separation = 0
 [node name="help" type="Button" parent="panel/margin/hbox/panel/vbox"]
 layout_mode = 2
 theme = ExtResource("1_h4d42")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2tmro")
 text = "Help"
 icon = ExtResource("2_ul0hr")
 alignment = 0
@@ -78,6 +87,7 @@ shape = SubResource("RectangleShape2D_4kohx")
 
 [node name="shutdown" type="Button" parent="panel/margin/hbox/panel/vbox"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_byqd7")
 text = "Shut Down..."
 icon = ExtResource("2_2cg1c")
 alignment = 0

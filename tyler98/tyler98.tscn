@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=17 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://e5e7iy54yq7w" path="res://tyler98/interactables/start_menu.tscn" id="9_edjkh"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://tyler98/pointer.tscn" id="10_g3hvl"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="11_grwrc"]
-[ext_resource type="AudioStream" uid="uid://d33ihrh6kscji" path="res://tyler98/sfx/click.mp3" id="13_vn2p7"]
 [ext_resource type="AudioStream" uid="uid://bi2xk3bvqbbhx" path="res://tyler98/sfx/fan_sound.mp3" id="14_5xn70"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsb8y"]
@@ -183,10 +182,9 @@ offset_bottom = 719.0
 color = Color(1, 1, 1, 0)
 
 [node name="fan_sfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_vn2p7")
+stream = ExtResource("14_5xn70")
+volume_db = -3.0
 autoplay = true
 
 [node name="audio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_5xn70")
-volume_db = -3.0
 autoplay = true

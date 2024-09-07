@@ -16,7 +16,7 @@ func _ready():
 	item_label_description.text = item.item_description		
 	
 	var mini_game = item.window_scene
-	mini_game = 	mini_game.instantiate()	
+	mini_game = mini_game.instantiate()	
 	%margin.add_child(mini_game)
 	
 	if item.scene_var_str != "":

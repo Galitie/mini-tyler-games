@@ -28,37 +28,29 @@ func check_goal_met():
 
 
 func click(area, _pointer):
-	if %output.text.length() < 4:
-		match area.get_parent().name:
-			"back":
-				%output.text = ""
-			"0":
-				%output.text += "0"
-			"1":
-				%output.text += "1"
-			"2":
-				%output.text += "2"
-			"3":
-				%output.text += "3"
-			"4":
-				%output.text += "4"
-			"5":
-				%output.text += "5"
-			"6":
-				%output.text += "6"
-			"7":
-				%output.text += "7"
-			"8":
-				%output.text += "8"
-			"9":
-				%output.text += "9"
-			"enter":
-				%output.text += "*"
-				check_goal_met()
-	else:
-		match area.get_parent().name:
-			"back":
-				%output.text = ""
-			"enter":
-				%output.text += "*"
-				check_goal_met()
+	match area.get_parent().name:
+		"back":
+			%output.text = ""
+		"0":
+			%output.text += "0"
+		"1":
+			%output.text += "1"
+		"2":
+			%output.text += "2"
+		"3":
+			%output.text += "3"
+		"4":
+			%output.text += "4"
+		"5":
+			%output.text += "5"
+		"6":
+			%output.text += "6"
+		"7":
+			%output.text += "7"
+		"8":
+			%output.text += "8"
+		"9":
+			%output.text += "9"
+		"enter":
+			%output.text += "*"
+			check_goal_met()

@@ -17,7 +17,7 @@ func click(_arg, _pointer):
 		var start_menu = preload("res://tyler98/start_menu.tscn")
 		var instance = start_menu.instantiate()
 		add_child(instance)
-		instance.global_position = Vector2(89, 576)
+		instance.global_position = Vector2(89, 579)
 	else:
 		get_child(1).queue_free()
 

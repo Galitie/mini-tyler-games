@@ -55,7 +55,7 @@ func _disable_desktop_areas():
 
 func release():
 	var areas = $area.get_overlapping_areas()
-	if name == "prawn" or name == "settings":
+	if name == "prawn":
 		for area in areas:
 			if area.owner.name == "recycle_bin":
 				get_parent().get_parent().task_completed(task_id)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=21 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
+[ext_resource type="Texture2D" uid="uid://35c532yp1qyl" path="res://tyler98/interactables/calc.png" id="5_3m2m5"]
 [ext_resource type="Texture2D" uid="uid://bbkpqrorpt3r1" path="res://tyler98/interactables/notepad.png" id="6_2d3ca"]
 [ext_resource type="Texture2D" uid="uid://n0xwr737jbsj" path="res://tyler98/interactables/recycle_bin_full.png" id="6_3d7e6"]
 [ext_resource type="PackedScene" uid="uid://0f753wxkjtuv" path="res://tyler98/minigames/list_of_icons.tscn" id="6_s8v03"]
@@ -60,16 +61,19 @@ item_description = "Pixel phones are for losers"
 sprite = ExtResource("6_3d7e6")
 area_radius = 10
 
-[node name="documents" parent="main_screen" instance=ExtResource("3_e1yrs")]
+[node name="calculator" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
 offset_left = 144.0
 offset_top = 125.0
 offset_right = 144.0
 offset_bottom = 125.0
-item_name = "Documents"
-sprite = ExtResource("4_aahr4")
+item_name = "Calculator"
+item_description = "Too shitty to do any calculations..."
+sprite = ExtResource("5_3m2m5")
 area_radius = 10
-task_id = 2
+window_scene = ExtResource("7_radv6")
+scene_var_str = "8008135"
+task_id = 4
 
 [node name="prawn" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
@@ -108,14 +112,14 @@ sprite = ExtResource("6_2d3ca")
 area_radius = 10
 window_scene = ExtResource("7_b0kkl")
 task_id = 3
-string_list = Array[String](["Login", "Reset computer", "Change desktop wallpaper", "Check files then delete dirty folder"])
+string_list = Array[String](["Login", "Reset computer", "Change desktop wallpaper", "Check files then delete dirty folder", "Type in boobies in calculator"])
 
 [node name="start_bar" type="TextureRect" parent="main_screen"]
 layout_mode = 1
-offset_left = 87.0
-offset_top = 685.0
-offset_right = 855.0
-offset_bottom = 709.0
+offset_left = 88.0
+offset_top = 686.0
+offset_right = 856.0
+offset_bottom = 710.0
 scale = Vector2(1.44, 1.44)
 texture = ExtResource("12_xlo3e")
 expand_mode = 1
@@ -144,10 +148,10 @@ offset_top = 333.0
 offset_right = 551.0
 offset_bottom = 333.0
 item_name = "Login"
-item_description = "Enter Tyler's super secure password:"
+item_description = "Enter Tyler's super secure 2-digit pin:"
 sprite = ExtResource("8_wb21q")
 window_scene = ExtResource("7_radv6")
-scene_var_str = "1234"
+scene_var_str = "69"
 
 [node name="background" type="TextureRect" parent="start_screen"]
 unique_name_in_owner = true
@@ -161,12 +165,12 @@ grow_vertical = 2
 
 [node name="pointer" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
 position = Vector2(112, 30)
-player_color = Color(0.709804, 0.00392157, 0.921569, 1)
+player_color = Color(1, 1, 1, 1)
 
 [node name="pointer2" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
 position = Vector2(1132, 26)
 controller_port = 1
-player_color = Color(0, 0.505882, 0.741176, 1)
+player_color = Color(0.513726, 0.266667, 1, 1)
 
 [node name="pointer3" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
 position = Vector2(103, 625)

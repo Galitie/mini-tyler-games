@@ -72,7 +72,9 @@ func task_completed(id):
 			$audio.stream = load("res://tyler98/sfx/success.mp3")
 			$audio.play()
 			await $audio.finished
-	#check_for_gameover()
+		4: #calculator
+			task_handler(id)
+	check_for_gameover()
 
 
 func task_handler(id):

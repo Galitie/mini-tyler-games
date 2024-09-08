@@ -43,11 +43,12 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_cqp8m")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_gwqwh")
-text = "1234"
+text = "8008135"
 horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 1
-visible_characters = 4
+visible_characters = 8
+visible_ratio = 2.0
 
 [node name="grid" type="GridContainer" parent="vbox"]
 layout_mode = 2

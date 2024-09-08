@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=22 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
@@ -19,6 +19,7 @@
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="11_grwrc"]
 [ext_resource type="Texture2D" uid="uid://c7c7fufocsq1b" path="res://tyler98/start_bar.png" id="12_xlo3e"]
 [ext_resource type="AudioStream" uid="uid://bi2xk3bvqbbhx" path="res://tyler98/sfx/fan_sound.mp3" id="14_5xn70"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="15_vpigm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsb8y"]
 shader = ExtResource("11_grwrc")
@@ -108,17 +109,17 @@ offset_top = 41.0
 offset_right = 1138.0
 offset_bottom = 41.0
 item_name = "Todo List"
+item_description = "Help Tyler finish all his tasks!"
 sprite = ExtResource("6_2d3ca")
 area_radius = 10
 window_scene = ExtResource("7_b0kkl")
-task_id = 3
-string_list = Array[String](["Login", "Reset computer", "Change desktop wallpaper", "Check files then delete dirty folder", "Type in boobies in calculator"])
+string_list = Array[String](["Login", "Reset computer to apply updates", "Change desktop wallpaper", "Check files then delete dirty folder", "Type in boobies in calculator", "Get help"])
 
 [node name="start_bar" type="TextureRect" parent="main_screen"]
 layout_mode = 1
-offset_left = 88.0
+offset_left = 89.0
 offset_top = 686.0
-offset_right = 856.0
+offset_right = 857.0
 offset_bottom = 710.0
 scale = Vector2(1.44, 1.44)
 texture = ExtResource("12_xlo3e")
@@ -131,7 +132,19 @@ offset_right = 124.0
 offset_bottom = 704.0
 window_scene = ExtResource("9_edjkh")
 
+[node name="clock" type="Label" parent="main_screen"]
+layout_mode = 0
+offset_left = 1137.0
+offset_top = 696.0
+offset_right = 1208.0
+offset_bottom = 719.0
+theme = ExtResource("15_vpigm")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "11:11 AM"
+
 [node name="start_screen" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

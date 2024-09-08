@@ -12,7 +12,8 @@ func _ready():
 
 
 func check_goal_met():
-	if %output.text == str(goal_number) + "*":
+	if %output.text == str(goal_number):
+		%output.text = ""
 		$audio.stream = load("res://tyler98/sfx/success.mp3")
 		$audio.play()
 		item.exhausted = true
@@ -52,5 +53,4 @@ func click(area, _pointer):
 		"9":
 			%output.text += "9"
 		"enter":
-			%output.text += "*"
 			check_goal_met()

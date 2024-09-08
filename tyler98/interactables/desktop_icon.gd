@@ -32,6 +32,7 @@ func click(_arg, pointer):
 		var instance = popup_scene.instantiate()
 		add_child(instance)
 		instance.global_position = Vector2(640, 360)
+	
 	if exhausted:
 		drag_offset = global_position - pointer.global_position
 

@@ -13,8 +13,6 @@ var task_counter = 0
 # mini_games must also queue free themselves if they are to be deleted by the main game
 # right now I have a workaround that loops through all of areas/windows backwards lol
 
-# desktop item needs to be more general? Idk how to sort this out...yet
-# interactable is the general item?
 
 func _ready():
 	RenderingServer.set_default_clear_color(Color.BLACK)
@@ -38,6 +36,7 @@ func drop_priority_window():
 	if priority_window != null:
 		priority_window.z_index -= 1
 		priority_window = null
+
 
 func task_completed(id):
 	match id:
@@ -72,20 +71,34 @@ func task_completed(id):
 			$audio.stream = load("res://tyler98/sfx/success.mp3")
 			$audio.play()
 			await $audio.finished
+		
 		4: #calculator
 			task_handler(id)
+		
+		5: #Get help
+			task_handler(id)
+			$audio.stream = load("res://tyler98/sfx/success.mp3")
+			$audio.play()
+	
 	check_for_gameover()
 
 
 func task_handler(id):
-	todo_list.string_list.insert(id, "")
-	todo_list.string_list.remove_at(id+1)
-	refresh_list.emit()
-	task_counter += 1
+	if todo_list.string_list[id] != "":
+		todo_list.string_list.insert(id, "")
+		todo_list.string_list.remove_at(id+1)
+		refresh_list.emit()
+		task_counter += 1
 
 
 func check_for_gameover():
 	if task_counter == todo_list.string_list.size():
-		await Globals.FadeIn()
+		$audio.stream = load("res://tyler98/sfx/success.mp3")
+		$audio.play()
+		await $audio.finished
+		$audio.stream = load("res://tyler98/sfx/shutdown.mp3")
+		$audio.play()
+		drop_priority_window()
+		await Globals.FadeIn(.25)
 		Globals.GoToMainMenu()
 		return

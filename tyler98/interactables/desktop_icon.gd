@@ -14,6 +14,7 @@ extends Interactable
 
 var exhausted: bool = false
 var window_open: bool = false
+var drag_offset
 
 func _ready():
 	$sprite.texture = sprite
@@ -24,21 +25,24 @@ func _ready():
 	get_tree().get_root().get_node("main").disable_desktop_areas.connect(_disable_desktop_areas)
 
 
-func click(_arg, _pointer):
-	if !exhausted and !window_open:
+func click(_arg, pointer):
+	if !exhausted and !window_open and window_scene != null:
 		window_open = true
 		var popup_scene = preload("res://tyler98/popup.tscn")
 		var instance = popup_scene.instantiate()
 		add_child(instance)
 		instance.global_position = Vector2(640, 360)
+	if exhausted:
+		drag_offset = global_position - pointer.global_position
 
 
 func hover():
 	pass
 
 
-func drag(_arg1):
-	pass
+func drag(pointer):
+	if exhausted:
+		global_position = pointer.global_position + drag_offset
 
 
 func _enable_desktop_areas():
@@ -47,3 +51,12 @@ func _enable_desktop_areas():
 
 func _disable_desktop_areas():
 	$area/shape.disabled = true
+
+
+func release():
+	var areas = $area.get_overlapping_areas()
+	if name == "prawn" or name == "settings":
+		for area in areas:
+			if area.owner.name == "recycle_bin":
+				get_parent().get_parent().task_completed(task_id)
+				queue_free()

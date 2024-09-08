@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://d2kejadqp7221"]
+
+[ext_resource type="Script" path="res://tyler98/minigames/desktop_options.gd" id="1_a3rcn"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="2_usb1u"]
+[ext_resource type="PackedScene" uid="uid://b3nq5njl8kx60" path="res://tyler98/interactables/folder_item.tscn" id="3_1xa46"]
+[ext_resource type="Texture2D" uid="uid://cqjj57wmw16kg" path="res://tyler98/interactables/image.png" id="4_xpwdf"]
+[ext_resource type="Texture2D" uid="uid://doo31k45f1ead" path="res://tyler98/images/neckmeat.png" id="5_uvenv"]
+[ext_resource type="Texture2D" uid="uid://b330bjdfvxl2i" path="res://tyler98/images/tobey.png" id="6_r0chq"]
+[ext_resource type="Texture2D" uid="uid://cet224qodwce3" path="res://tyler98/images/baby.png" id="7_5tmgs"]
+[ext_resource type="Texture2D" uid="uid://dedra8e5knt1n" path="res://tyler98/images/jboy.png" id="8_o0qe5"]
+[ext_resource type="Texture2D" uid="uid://dpagwfxhx5lu8" path="res://tyler98/check_mark.png" id="10_016y8"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5u07w"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+spread = 42.955
+radial_velocity_min = 227.27
+radial_velocity_max = 409.09
+gravity = Vector3(0, -100, 0)
+
+[node name="desktop_options" type="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_a3rcn")
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="grid" type="GridContainer" parent="margin"]
+layout_mode = 2
+theme = ExtResource("2_usb1u")
+theme_override_constants/h_separation = 75
+theme_override_constants/v_separation = 75
+columns = 3
+
+[node name="folder_item" parent="margin/grid" instance=ExtResource("3_1xa46")]
+layout_mode = 2
+item_name = "neckmeat"
+sprite = ExtResource("4_xpwdf")
+content_image = ExtResource("5_uvenv")
+area_radius = 10
+desktop_wallpaper = true
+
+[node name="folder_item2" parent="margin/grid" instance=ExtResource("3_1xa46")]
+layout_mode = 2
+item_name = "myhero"
+sprite = ExtResource("4_xpwdf")
+content_image = ExtResource("6_r0chq")
+area_radius = 10
+desktop_wallpaper = true
+
+[node name="folder_item3" parent="margin/grid" instance=ExtResource("3_1xa46")]
+layout_mode = 2
+item_name = "iseeu"
+sprite = ExtResource("4_xpwdf")
+content_image = ExtResource("7_5tmgs")
+area_radius = 10
+desktop_wallpaper = true
+
+[node name="folder_item4" parent="margin/grid" instance=ExtResource("3_1xa46")]
+layout_mode = 2
+item_name = "theSon"
+sprite = ExtResource("4_xpwdf")
+content_image = ExtResource("8_o0qe5")
+area_radius = 10
+desktop_wallpaper = true
+
+[node name="particles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_5u07w")
+texture = ExtResource("10_016y8")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.18
+randomness = 0.05
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]

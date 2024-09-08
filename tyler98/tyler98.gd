@@ -13,8 +13,6 @@ var task_counter = 0
 # mini_games must also queue free themselves if they are to be deleted by the main game
 # right now I have a workaround that loops through all of areas/windows backwards lol
 
-#todo list cuts off
-
 # desktop item needs to be more general? Idk how to sort this out...yet
 # interactable is the general item?
 
@@ -36,6 +34,11 @@ func set_priority_window(window):
 		priority_window.z_index += 1
 
 
+func drop_priority_window():
+	if priority_window != null:
+		priority_window.z_index -= 1
+		priority_window = null
+
 func task_completed(id):
 	match id:
 		0: #start screen login
@@ -52,14 +55,23 @@ func task_completed(id):
 		1: #Update and restart computer
 			$audio.stream = load("res://tyler98/sfx/shutdown.mp3")
 			$audio.play()
+			drop_priority_window()
 			await Globals.FadeIn(.25)
 			enable_start_screen.emit()
 			disable_desktop_areas.emit()
 			await Globals.FadeOut()
 			task_handler(id)
 		
-		2: #Change desktop computer
-			pass
+		2: #Change desktop wallpaper
+			$audio.stream = load("res://tyler98/sfx/success.mp3")
+			$audio.play()
+			task_handler(id)
+			
+		3: #Delete dirty photos
+			task_handler(id)
+			$audio.stream = load("res://tyler98/sfx/success.mp3")
+			$audio.play()
+			await $audio.finished
 	#check_for_gameover()
 
 

@@ -7,12 +7,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
 func click(area, _pointer):
-	if area.get_parent().name == "shutdown":
+	if area.get_parent().name == "reset":
 		get_parent().window_open = false
 		get_tree().get_root().get_node("main").task_completed(1)
 		queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=20 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
@@ -6,14 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
 [ext_resource type="Texture2D" uid="uid://bbkpqrorpt3r1" path="res://tyler98/interactables/notepad.png" id="6_2d3ca"]
 [ext_resource type="Texture2D" uid="uid://n0xwr737jbsj" path="res://tyler98/interactables/recycle_bin_full.png" id="6_3d7e6"]
+[ext_resource type="PackedScene" uid="uid://0f753wxkjtuv" path="res://tyler98/minigames/list_of_icons.tscn" id="6_s8v03"]
 [ext_resource type="Texture2D" uid="uid://c43bls72b2d1j" path="res://tyler98/interactables/settings.png" id="6_sm70p"]
 [ext_resource type="PackedScene" uid="uid://c78i5lpwxj62b" path="res://tyler98/minigames/list.tscn" id="7_b0kkl"]
 [ext_resource type="PackedScene" uid="uid://dhrdg5b1jrg4r" path="res://tyler98/interactables/badge.tscn" id="7_q60pa"]
 [ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://tyler98/minigames/minigame_passcode.tscn" id="7_radv6"]
+[ext_resource type="PackedScene" uid="uid://d2kejadqp7221" path="res://tyler98/minigames/desktop_options.tscn" id="8_tdsyk"]
 [ext_resource type="Texture2D" uid="uid://b67sc27bsbuxo" path="res://tyler98/interactables/login.png" id="8_wb21q"]
 [ext_resource type="PackedScene" uid="uid://e5e7iy54yq7w" path="res://tyler98/interactables/start_menu.tscn" id="9_edjkh"]
 [ext_resource type="PackedScene" uid="uid://dodio5b2yhweu" path="res://tyler98/pointer.tscn" id="10_g3hvl"]
 [ext_resource type="Shader" path="res://epsilon/crt.gdshader" id="11_grwrc"]
+[ext_resource type="Texture2D" uid="uid://c7c7fufocsq1b" path="res://tyler98/start_bar.png" id="12_xlo3e"]
 [ext_resource type="AudioStream" uid="uid://bi2xk3bvqbbhx" path="res://tyler98/sfx/fan_sound.mp3" id="14_5xn70"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsb8y"]
@@ -39,6 +42,7 @@ grow_vertical = 2
 script = ExtResource("1_p7oil")
 
 [node name="main_screen" type="TextureRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
@@ -73,32 +77,24 @@ offset_left = 1138.0
 offset_top = 636.0
 offset_right = 1138.0
 offset_bottom = 636.0
-item_name = "DO NOT OPEN"
+item_name = "DO NOT OPEN!!!"
 sprite = ExtResource("4_aahr4")
 area_radius = 10
-task_id = 2
+window_scene = ExtResource("6_s8v03")
+task_id = 3
 
-[node name="pictures" parent="main_screen" instance=ExtResource("3_e1yrs")]
+[node name="settings" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
 offset_left = 144.0
 offset_top = 200.0
 offset_right = 144.0
 offset_bottom = 200.0
-item_name = "Pictures"
-sprite = ExtResource("4_aahr4")
-area_radius = 10
-task_id = 2
-
-[node name="settings" parent="main_screen" instance=ExtResource("3_e1yrs")]
-y_sort_enabled = false
-offset_left = 144.0
-offset_top = 273.0
-offset_right = 144.0
-offset_bottom = 273.0
 item_name = "Settings"
+item_description = "Choose a wallpaper photo:"
 sprite = ExtResource("6_sm70p")
 area_radius = 10
-task_id = 1
+window_scene = ExtResource("8_tdsyk")
+task_id = 2
 
 [node name="todo_list" parent="main_screen" instance=ExtResource("3_e1yrs")]
 unique_name_in_owner = true
@@ -112,7 +108,17 @@ sprite = ExtResource("6_2d3ca")
 area_radius = 10
 window_scene = ExtResource("7_b0kkl")
 task_id = 3
-string_list = Array[String](["Login", "Update and restart computer", "Change desktop picture"])
+string_list = Array[String](["Login", "Reset computer", "Change desktop wallpaper", "Check files then delete dirty folder"])
+
+[node name="start_bar" type="TextureRect" parent="main_screen"]
+layout_mode = 1
+offset_left = 87.0
+offset_top = 685.0
+offset_right = 855.0
+offset_bottom = 709.0
+scale = Vector2(1.44, 1.44)
+texture = ExtResource("12_xlo3e")
+expand_mode = 1
 
 [node name="start_menu" parent="main_screen" instance=ExtResource("9_edjkh")]
 offset_left = 124.0
@@ -183,7 +189,6 @@ color = Color(1, 1, 1, 0)
 
 [node name="fan_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_5xn70")
-volume_db = -3.0
 autoplay = true
 
 [node name="audio" type="AudioStreamPlayer" parent="."]

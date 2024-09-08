@@ -16,14 +16,14 @@ fill_from = Vector2(0.500474, 1)
 fill_to = Vector2(0.487835, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tmro"]
-content_margin_top = 8.0
+content_margin_top = 9.0
 content_margin_bottom = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kohx"]
 size = Vector2(199, 47)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_byqd7"]
-content_margin_top = 8.0
+content_margin_top = 9.0
 content_margin_bottom = 8.0
 
 [node name="startmenu" type="Control"]
@@ -85,16 +85,16 @@ collision_layer = 2
 position = Vector2(99.5, 24)
 shape = SubResource("RectangleShape2D_4kohx")
 
-[node name="shutdown" type="Button" parent="panel/margin/hbox/panel/vbox"]
+[node name="reset" type="Button" parent="panel/margin/hbox/panel/vbox"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_byqd7")
-text = "Shut Down..."
+text = "Reset..."
 icon = ExtResource("2_2cg1c")
 alignment = 0
 
-[node name="area" type="Area2D" parent="panel/margin/hbox/panel/vbox/shutdown"]
+[node name="area" type="Area2D" parent="panel/margin/hbox/panel/vbox/reset"]
 collision_layer = 2
 
-[node name="shape" type="CollisionShape2D" parent="panel/margin/hbox/panel/vbox/shutdown/area"]
+[node name="shape" type="CollisionShape2D" parent="panel/margin/hbox/panel/vbox/reset/area"]
 position = Vector2(100, 26.5)
 shape = SubResource("RectangleShape2D_4kohx")

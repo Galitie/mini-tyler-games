@@ -1,12 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://qtkde6xxe7t7"]
+[gd_scene load_steps=6 format=3 uid="uid://b3nq5njl8kx60"]
 
-[ext_resource type="Shader" path="res://tyler98/outline.gdshader" id="1_8ebh7"]
-[ext_resource type="Script" path="res://tyler98/interactables/desktop_icon.gd" id="1_qfxn8"]
-[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="3_e5gih"]
+[ext_resource type="Script" path="res://tyler98/interactables/folder_item.gd" id="1_8k4bt"]
+[ext_resource type="Shader" path="res://tyler98/outline.gdshader" id="2_xrsgi"]
+[ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="3_ftm6v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gdt40"]
 resource_local_to_scene = true
-shader = ExtResource("1_8ebh7")
+shader = ExtResource("2_xrsgi")
 shader_parameter/line_color = Vector4(1, 1, 1, 1)
 shader_parameter/line_thickness = 0.0
 shader_parameter/frequency = 10.0
@@ -15,14 +15,14 @@ shader_parameter/phase_speed = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_6vwvj"]
 resource_local_to_scene = true
 
-[node name="desktop_icon" type="Control"]
+[node name="folder_item" type="Control"]
 y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = -4.0
 offset_right = 16.0
 offset_bottom = 20.0
-script = ExtResource("1_qfxn8")
+script = ExtResource("1_8k4bt")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_gdt40")
@@ -30,7 +30,6 @@ position = Vector2(0, -1)
 
 [node name="area" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 3
 
 [node name="shape" type="CollisionShape2D" parent="area"]
 scale = Vector2(1.76, 1.64)
@@ -49,7 +48,7 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_e5gih")
+theme = ExtResource("3_ftm6v")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Icon Name"
 horizontal_alignment = 1

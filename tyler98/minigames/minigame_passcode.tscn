@@ -47,8 +47,6 @@ text = "8008135"
 horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 1
-visible_characters = 8
-visible_ratio = 2.0
 
 [node name="grid" type="GridContainer" parent="vbox"]
 layout_mode = 2

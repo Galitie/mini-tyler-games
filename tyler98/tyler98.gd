@@ -79,6 +79,8 @@ func task_completed(id):
 			task_handler(id)
 			$audio.stream = load("res://tyler98/sfx/success.mp3")
 			$audio.play()
+		6:#Connect to internet
+			task_handler(id)
 	
 	check_for_gameover()
 

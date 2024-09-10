@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://tyler98/minigames/content.gd" id="1_nqpo3"]
 
 [node name="content" type="Control"]
+clip_contents = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 3
 anchors_preset = 0
@@ -24,3 +25,5 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="audio" type="AudioStreamPlayer" parent="."]

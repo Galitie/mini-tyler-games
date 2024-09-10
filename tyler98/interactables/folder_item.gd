@@ -12,6 +12,7 @@ extends Interactable
 @export var task_id: int
 @export var string_list: Array[String]
 @export var desktop_wallpaper: bool = false
+@export var audio: AudioStream = null
 
 var exhausted: bool = false
 var window_open: bool = false

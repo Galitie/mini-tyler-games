@@ -1,17 +1,21 @@
-[gd_scene load_steps=22 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=26 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
 [ext_resource type="PackedScene" uid="uid://qtkde6xxe7t7" path="res://tyler98/interactables/desktop_icon.tscn" id="3_e1yrs"]
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
 [ext_resource type="Texture2D" uid="uid://35c532yp1qyl" path="res://tyler98/interactables/calc.png" id="5_3m2m5"]
+[ext_resource type="Texture2D" uid="uid://dbbyweiaua200" path="res://tyler98/interactables/internet.png" id="5_afwul"]
 [ext_resource type="Texture2D" uid="uid://bbkpqrorpt3r1" path="res://tyler98/interactables/notepad.png" id="6_2d3ca"]
 [ext_resource type="Texture2D" uid="uid://n0xwr737jbsj" path="res://tyler98/interactables/recycle_bin_full.png" id="6_3d7e6"]
+[ext_resource type="Texture2D" uid="uid://1jsd41a8keqb" path="res://tyler98/images/scary.png" id="6_c2sig"]
 [ext_resource type="PackedScene" uid="uid://0f753wxkjtuv" path="res://tyler98/minigames/list_of_icons.tscn" id="6_s8v03"]
 [ext_resource type="Texture2D" uid="uid://c43bls72b2d1j" path="res://tyler98/interactables/settings.png" id="6_sm70p"]
 [ext_resource type="PackedScene" uid="uid://c78i5lpwxj62b" path="res://tyler98/minigames/list.tscn" id="7_b0kkl"]
 [ext_resource type="PackedScene" uid="uid://dhrdg5b1jrg4r" path="res://tyler98/interactables/badge.tscn" id="7_q60pa"]
 [ext_resource type="PackedScene" uid="uid://df6geyiri3wbn" path="res://tyler98/minigames/minigame_passcode.tscn" id="7_radv6"]
+[ext_resource type="PackedScene" uid="uid://2p5cr6qemruj" path="res://tyler98/minigames/content.tscn" id="7_vauub"]
+[ext_resource type="AudioStream" uid="uid://bqqxdvwvwb2vh" path="res://tyler98/sfx/dial-up.mp3" id="8_hkjj2"]
 [ext_resource type="PackedScene" uid="uid://d2kejadqp7221" path="res://tyler98/minigames/desktop_options.tscn" id="8_tdsyk"]
 [ext_resource type="Texture2D" uid="uid://b67sc27bsbuxo" path="res://tyler98/interactables/login.png" id="8_wb21q"]
 [ext_resource type="PackedScene" uid="uid://e5e7iy54yq7w" path="res://tyler98/interactables/start_menu.tscn" id="9_edjkh"]
@@ -61,6 +65,20 @@ item_name = "Recycle Bin"
 item_description = "Pixel phones are for losers"
 sprite = ExtResource("6_3d7e6")
 area_radius = 10
+
+[node name="internet" parent="main_screen" instance=ExtResource("3_e1yrs")]
+offset_left = 144.0
+offset_top = 272.0
+offset_right = 144.0
+offset_bottom = 272.0
+item_name = "Internet"
+item_description = "Y̷̨̨̳̬̘͓̯̫͒͆̑̍̋͊̈̈͂͐̚͝͝o̸̡̹̦̲͔͂̍͆͜ṵ̷̢̧͎̙̝̬͍̼̤̓͑̏̈̏̈́̎͂ ̸͇̞̙͙͍̳̄̐͐ḩ̶̥͎̳͚͈̪̣̯͚͎͕͖͖̎̂̽̂̾̽̄̚a̶̛̫͉͊̈́̆̅͘̚̚̚v̴̨̡͎̲̫̥̯̺͖͛͒̈̑͛̓̽̇͐́̈́ē̶̢͔͉̥̻̫̤̳̖̭̦̌͂̒̊͂̈́̂̄̈͗͜͜ ̷̣̥̯̫̯̻̈t̵̜̥͓̒͑̍̅͆̈́̑͂̚͝ö̵̬̝̝̟͚͈̲̬̦͍̰͚̤́̈́ ̸̧̧̻͊̔́́ͅh̸̯͈͉͔̫̟̩͕̲͔̒̎̐̽ę̶̨̯̠͇̱̉̕̚ͅļ̵̧̪̰̪̼̼̳̗̬̣͖̍͂̅͐̈̎̇̀̆́͘̕͝ͅp̸͓͓̏̉̓̆̃͒͒̀͜͝ ̸̤̪̞̬͎̯̞̥͎̜̣͇̞̓̕͠ͅḫ̸̯̗͈͕̥͉̩̐͗͜ͅͅi̸̡̩̫̾̀̃̈̾̂͛͠ṁ̷̨̺̘̥͈͓̻̳̯̱̤̳̏̈͒́̏̍̒̐̉͗"
+sprite = ExtResource("5_afwul")
+content_image = ExtResource("6_c2sig")
+area_radius = 10
+window_scene = ExtResource("7_vauub")
+task_id = 6
+audio = ExtResource("8_hkjj2")
 
 [node name="calculator" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
@@ -113,7 +131,7 @@ item_description = "Help Tyler finish all his tasks!"
 sprite = ExtResource("6_2d3ca")
 area_radius = 10
 window_scene = ExtResource("7_b0kkl")
-string_list = Array[String](["Login", "Reset computer to apply updates", "Change desktop wallpaper", "Check files then delete dirty folder", "Type in boobies in calculator", "Get help"])
+string_list = Array[String](["Login", "Reset computer to apply updates", "Change desktop wallpaper", "Check files then delete dirty folder", "Type in boobies in calculator", "Get help", "Connect to internet"])
 
 [node name="start_bar" type="TextureRect" parent="main_screen"]
 layout_mode = 1
@@ -144,7 +162,6 @@ theme_override_font_sizes/font_size = 14
 text = "11:11 AM"
 
 [node name="start_screen" type="ColorRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

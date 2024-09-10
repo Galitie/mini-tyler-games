@@ -52,6 +52,11 @@ func task_completed(id):
 			enable_desktop_areas.emit()
 		
 		1: #Update and restart computer
+			if todo_list.string_list[id] != "":
+				get_node("%start_menu").get_node("%particles").emitting = true
+				$audio.stream = load("res://tyler98/sfx/success.mp3")
+				$audio.play()
+				await $audio.finished
 			$audio.stream = load("res://tyler98/sfx/shutdown.mp3")
 			$audio.play()
 			drop_priority_window()
@@ -76,9 +81,12 @@ func task_completed(id):
 			task_handler(id)
 		
 		5: #Get help
-			task_handler(id)
-			$audio.stream = load("res://tyler98/sfx/success.mp3")
-			$audio.play()
+			if todo_list.string_list[id] != "":
+				get_node("%start_menu").get_node("%particles").emitting = true
+				$audio.stream = load("res://tyler98/sfx/success.mp3")
+				$audio.play()
+				task_handler(id)
+		
 		6:#Connect to internet
 			task_handler(id)
 	

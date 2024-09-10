@@ -1,8 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://e5e7iy54yq7w"]
+[gd_scene load_steps=5 format=3 uid="uid://e5e7iy54yq7w"]
 
 [ext_resource type="Script" path="res://tyler98/interactables/start_menu.gd" id="1_ips3a"]
+[ext_resource type="Texture2D" uid="uid://dpagwfxhx5lu8" path="res://tyler98/check_mark.png" id="2_vm4yd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cgmqv"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eyca6"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+spread = 42.955
+radial_velocity_min = 227.27
+radial_velocity_max = 409.09
+gravity = Vector3(0, -100, 0)
 
 [node name="start_menu" type="Control"]
 y_sort_enabled = true
@@ -16,3 +25,14 @@ collision_layer = 2
 [node name="shape" type="CollisionShape2D" parent="area"]
 scale = Vector2(3.4, 1.64)
 shape = SubResource("RectangleShape2D_cgmqv")
+
+[node name="particles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -21)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_eyca6")
+texture = ExtResource("2_vm4yd")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.18
+randomness = 0.05

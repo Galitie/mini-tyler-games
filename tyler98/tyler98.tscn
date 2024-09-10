@@ -144,6 +144,7 @@ texture = ExtResource("12_xlo3e")
 expand_mode = 1
 
 [node name="start_menu" parent="main_screen" instance=ExtResource("9_edjkh")]
+unique_name_in_owner = true
 offset_left = 124.0
 offset_top = 704.0
 offset_right = 124.0

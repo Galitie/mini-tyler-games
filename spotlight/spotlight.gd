@@ -11,6 +11,7 @@ var map_paths: Array = [
 	"res://spotlight/maps/map0.tscn",
 	"res://spotlight/maps/map1.tscn",
 	"res://spotlight/maps/map2.tscn",
+	"res://spotlight/maps/map3.tscn",
 ]
 var map_idx: int = 0
 
@@ -37,7 +38,8 @@ func _process(delta: float) -> void:
 		current_player.debug_port = 0
 		
 func _got_key() -> void:
-	current_map.get_node("door").Open()
+	for door in get_tree().get_nodes_in_group("doors"):
+		door.Open()
 
 func _player_escaped() -> void:
 	escaped_players += 1

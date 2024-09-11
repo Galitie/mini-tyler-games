@@ -33,6 +33,8 @@ func _ready() -> void:
 	add_to_group("players")
 	$body.area_entered.connect(_body_area_entered)
 	$sprite.animation_finished.connect(_animation_finished)
+	$sonar_area.body_shape_entered.connect(_sonar_body_entered)
+	$sonar_area.body_shape_exited.connect(_sonar_body_exited)
 	
 	collision_layer |= (1 << controller_port)
 	collision_mask &= ~(1 << controller_port)
@@ -46,22 +48,25 @@ func _ready() -> void:
 			base_pitch = 0.1
 			$body.collision_mask |= (1 << 10)
 			collision_mask |= (1 << 5)
+			$sonar_area.collision_mask |= (1 << 14)
 		2:
 			$sprite.modulate = Color.GREEN
 			base_pitch = 0.3
 			$body.collision_mask |= (1 << 11)
 			collision_mask |= (1 << 6)
+			$sonar_area.collision_mask |= (1 << 15)
 		3:
 			$sprite.modulate = Color.RED
 			base_pitch = 0.5
 			$body.collision_mask |= (1 << 12)
 			collision_mask |= (1 << 7)
+			$sonar_area.collision_mask |= (1 << 16)
 			
 	if controller_port != 0:
 		$sonar.color = $sprite.modulate
-		$sonar_area.collision_layer = controller_port + 1
+		$sonar_area.collision_layer |= (1 << controller_port)
 	else:
-		$sonar.color = Color.GRAY
+		$sonar.color = Color.DIM_GRAY
 		$body.collision_layer = 1
 		$sonar_area.collision_mask = 0b00000000_00000000_00000000_00001110
 
@@ -99,13 +104,12 @@ func _physics_process(delta: float) -> void:
 			if spotlights.size():
 				# Layers 2, 3, 4 (spotlights)
 				for spotlight in spotlights:
-					match spotlight.collision_layer:
-						2: 
-							in_blue = true
-						3:
-							in_green = true
-						4:
-							in_red = true
+					if spotlight.get_collision_layer_value(2):
+						in_blue = true
+					elif spotlight.get_collision_layer_value(3):
+						in_green = true
+					elif spotlight.get_collision_layer_value(4):
+						in_red = true
 				
 				# WHITE
 				if in_red && in_green && in_blue:
@@ -238,3 +242,21 @@ func _animation_finished() -> void:
 		if respawning:
 			Spawn(spawn_position)
 			respawning = false
+			
+func _sonar_body_entered(body_rid, _body, body_shape, _local_shape) -> void:
+	if _body is TileMap:
+		#var coords = _body.get_coords_for_body_rid(body_rid)
+		#var tile_data: TileData = _body.get_cell_tile_data(0, coords)
+		#tile_data.modulate = Color(1, 1, 1, 1)
+		var layer_bitmask = PhysicsServer2D.body_get_collision_layer(body_rid)
+		layer_bitmask |= (1 << 4)
+		PhysicsServer2D.body_set_collision_layer(body_rid, layer_bitmask)
+
+func _sonar_body_exited(body_rid, _body, body_shape, _local_shape) -> void:
+	if _body is TileMap:
+		#var coords = _body.get_coords_for_body_rid(body_rid)
+		#var tile_data: TileData = _body.get_cell_tile_data(0, coords)
+		#tile_data.modulate = Color(1, 1, 1, 0)
+		var layer_bitmask = PhysicsServer2D.body_get_collision_layer(body_rid)
+		layer_bitmask &= ~(1 << 4)
+		PhysicsServer2D.body_set_collision_layer(body_rid, layer_bitmask)

@@ -19,7 +19,7 @@ func click(_arg, _pointer):
 		add_child(instance)
 		instance.global_position = Vector2(89, 579)
 	else:
-		get_child(1).queue_free()
+		window_open = false
 
 func hover():
 	pass

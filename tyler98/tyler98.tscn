@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=28 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bxmywwblutafo" path="res://tyler98/interactables/documents.png" id="4_aahr4"]
 [ext_resource type="Texture2D" uid="uid://35c532yp1qyl" path="res://tyler98/interactables/calc.png" id="5_3m2m5"]
 [ext_resource type="Texture2D" uid="uid://dbbyweiaua200" path="res://tyler98/interactables/internet.png" id="5_afwul"]
+[ext_resource type="Texture2D" uid="uid://b841c6ypc0e2g" path="res://tyler98/images/kitchen_garbage.png" id="5_e56fe"]
 [ext_resource type="Texture2D" uid="uid://bbkpqrorpt3r1" path="res://tyler98/interactables/notepad.png" id="6_2d3ca"]
 [ext_resource type="Texture2D" uid="uid://n0xwr737jbsj" path="res://tyler98/interactables/recycle_bin_full.png" id="6_3d7e6"]
 [ext_resource type="Texture2D" uid="uid://1jsd41a8keqb" path="res://tyler98/images/scary.png" id="6_c2sig"]
@@ -24,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://c7c7fufocsq1b" path="res://tyler98/start_bar.png" id="12_xlo3e"]
 [ext_resource type="AudioStream" uid="uid://bi2xk3bvqbbhx" path="res://tyler98/sfx/fan_sound.mp3" id="14_5xn70"]
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="15_vpigm"]
+[ext_resource type="VideoStream" path="res://tyler98/screensaver.ogv" id="26_nb3kh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsb8y"]
 shader = ExtResource("11_grwrc")
@@ -62,9 +64,11 @@ offset_top = 44.0
 offset_right = 144.0
 offset_bottom = 44.0
 item_name = "Recycle Bin"
-item_description = "Pixel phones are for losers"
+item_description = "Where Tyler keeps his kitchen garbage"
 sprite = ExtResource("6_3d7e6")
+content_image = ExtResource("5_e56fe")
 area_radius = 10
+window_scene = ExtResource("7_vauub")
 
 [node name="internet" parent="main_screen" instance=ExtResource("3_e1yrs")]
 offset_left = 144.0
@@ -228,3 +232,16 @@ autoplay = true
 
 [node name="audio" type="AudioStreamPlayer" parent="."]
 autoplay = true
+
+[node name="screensaver" type="VideoStreamPlayer" parent="."]
+top_level = true
+z_index = 12
+layout_mode = 1
+offset_left = 86.0
+offset_top = -1.0
+offset_right = 1196.0
+offset_bottom = 721.0
+stream = ExtResource("26_nb3kh")
+autoplay = true
+expand = true
+loop = true

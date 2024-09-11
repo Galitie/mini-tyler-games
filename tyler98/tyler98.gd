@@ -2,6 +2,7 @@ extends Control
 var priority_window = null
 var logging_in_texture = load("res://tyler98/logging_in_image.png")
 @onready var todo_list = %todo_list
+var screensaver_mode = true
 
 signal refresh_list
 signal enable_desktop_areas
@@ -19,7 +20,22 @@ func _ready():
 
 
 func _process(_delta):
-	pass
+	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A) and screensaver_mode:
+		$screensaver.paused = true
+		$screensaver.visible = false
+		screensaver_mode = false
+	if Controller.IsControllerButtonJustPressed(1, JOY_BUTTON_A) and screensaver_mode:
+		$screensaver.paused = true
+		$screensaver.visible = false
+		screensaver_mode = false
+	if Controller.IsControllerButtonJustPressed(2, JOY_BUTTON_A) and screensaver_mode:
+		$screensaver.paused = true
+		$screensaver.visible = false
+		screensaver_mode = false
+	if Controller.IsControllerButtonJustPressed(3, JOY_BUTTON_A) and screensaver_mode:
+		$screensaver.paused = true
+		$screensaver.visible = false
+		screensaver_mode = false
 
 
 func set_priority_window(window):

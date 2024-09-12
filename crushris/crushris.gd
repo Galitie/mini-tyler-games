@@ -101,6 +101,7 @@ func _physics_process(delta) -> void:
 	$countdown.text = str(int($countdown_timer.time_left))
 	
 	if game_paused && Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
+		print("test")
 		$start.visible = false
 		start_game()
 		
@@ -132,9 +133,9 @@ func _physics_process(delta) -> void:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
 		if !game_over and !game_paused:
-			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
+			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_LEFT_SHOULDER):
 				active_piece.turn(-PI / 2)
-			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_B):
+			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
 				active_piece.turn(PI / 2)
 			
 			var left_stick = Controller.GetLeftStick(0)

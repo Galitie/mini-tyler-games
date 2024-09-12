@@ -132,9 +132,9 @@ func _physics_process(delta) -> void:
 		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 		
 		if !game_over and !game_paused:
-			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_LEFT_SHOULDER):
+			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
 				active_piece.turn(-PI / 2)
-			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
+			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_B):
 				active_piece.turn(PI / 2)
 			
 			var left_stick = Controller.GetLeftStick(0)

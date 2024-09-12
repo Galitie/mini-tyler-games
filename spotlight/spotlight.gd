@@ -12,6 +12,7 @@ var map_paths: Array = [
 	"res://spotlight/maps/map1.tscn",
 	"res://spotlight/maps/map2.tscn",
 	"res://spotlight/maps/map3.tscn",
+	"res://spotlight/maps/map4.tscn",
 ]
 var map_idx: int = 0
 

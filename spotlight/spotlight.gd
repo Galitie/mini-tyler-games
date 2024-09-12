@@ -28,6 +28,9 @@ func _ready() -> void:
 	ChangeMap(map_idx)
 	
 func _process(delta: float) -> void:
+	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
+		ChangeMap(map_idx)
+	
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
 		player_idx += 1
 		if player_idx > get_tree().get_nodes_in_group("players").size() - 1:

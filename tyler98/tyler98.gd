@@ -143,3 +143,4 @@ func check_for_gameover():
 		drop_priority_window()
 		$bluescreen.visible = true
 		gameover = true
+		Globals.tyler98_played = true

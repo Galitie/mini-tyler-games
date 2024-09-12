@@ -3,6 +3,7 @@ var priority_window = null
 var logging_in_texture = load("res://tyler98/logging_in_image.png")
 @onready var todo_list = %todo_list
 var screensaver_mode = true
+var gameover = false
 
 signal refresh_list
 signal enable_desktop_areas
@@ -36,6 +37,23 @@ func _process(_delta):
 		$screensaver.paused = true
 		$screensaver.visible = false
 		screensaver_mode = false
+	if gameover == true:
+		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
+			await Globals.FadeIn(.25)
+			Globals.GoToMainMenu()
+			return
+		if Controller.IsControllerButtonJustPressed(1, JOY_BUTTON_A):
+			await Globals.FadeIn(.25)
+			Globals.GoToMainMenu()
+			return
+		if Controller.IsControllerButtonJustPressed(2, JOY_BUTTON_A):
+			await Globals.FadeIn(.25)
+			Globals.GoToMainMenu()
+			return
+		if Controller.IsControllerButtonJustPressed(3, JOY_BUTTON_A):
+			await Globals.FadeIn(.25)
+			Globals.GoToMainMenu()
+			return
 
 
 func set_priority_window(window):
@@ -119,12 +137,9 @@ func task_handler(id):
 
 func check_for_gameover():
 	if task_counter == todo_list.string_list.size():
-		$audio.stream = load("res://tyler98/sfx/success.mp3")
+		$audio.stream = load("res://tyler98/sfx/error.mp3")
 		$audio.play()
 		await $audio.finished
-		$audio.stream = load("res://tyler98/sfx/shutdown.mp3")
-		$audio.play()
 		drop_priority_window()
-		await Globals.FadeIn(.25)
-		Globals.GoToMainMenu()
-		return
+		$bluescreen.visible = true
+		gameover = true

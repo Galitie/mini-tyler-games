@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://pu4i5asis7fh"]
+[gd_scene load_steps=29 format=3 uid="uid://pu4i5asis7fh"]
 
 [ext_resource type="Script" path="res://tyler98/tyler98.gd" id="1_p7oil"]
 [ext_resource type="Texture2D" uid="uid://hsj1xxx1v8mi" path="res://tyler98/desktop.png" id="2_me5oa"]
@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://bi2xk3bvqbbhx" path="res://tyler98/sfx/fan_sound.mp3" id="14_5xn70"]
 [ext_resource type="Theme" uid="uid://bf6sxa6fl68r0" path="res://tyler98/theme_wka.tres" id="15_vpigm"]
 [ext_resource type="VideoStream" path="res://tyler98/screensaver.ogv" id="26_nb3kh"]
+[ext_resource type="Texture2D" uid="uid://vyynjkwbvowc" path="res://tyler98/images/bluescreen.png" id="27_6v8jp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qsb8y"]
 shader = ExtResource("11_grwrc")
@@ -72,9 +73,9 @@ window_scene = ExtResource("7_vauub")
 
 [node name="internet" parent="main_screen" instance=ExtResource("3_e1yrs")]
 offset_left = 144.0
-offset_top = 272.0
+offset_top = 282.0
 offset_right = 144.0
-offset_bottom = 272.0
+offset_bottom = 282.0
 item_name = "Internet"
 item_description = "Y̷̨̨̳̬̘͓̯̫͒͆̑̍̋͊̈̈͂͐̚͝͝o̸̡̹̦̲͔͂̍͆͜ṵ̷̢̧͎̙̝̬͍̼̤̓͑̏̈̏̈́̎͂ ̸͇̞̙͙͍̳̄̐͐ḩ̶̥͎̳͚͈̪̣̯͚͎͕͖͖̎̂̽̂̾̽̄̚a̶̛̫͉͊̈́̆̅͘̚̚̚v̴̨̡͎̲̫̥̯̺͖͛͒̈̑͛̓̽̇͐́̈́ē̶̢͔͉̥̻̫̤̳̖̭̦̌͂̒̊͂̈́̂̄̈͗͜͜ ̷̣̥̯̫̯̻̈t̵̜̥͓̒͑̍̅͆̈́̑͂̚͝ö̵̬̝̝̟͚͈̲̬̦͍̰͚̤́̈́ ̸̧̧̻͊̔́́ͅh̸̯͈͉͔̫̟̩͕̲͔̒̎̐̽ę̶̨̯̠͇̱̉̕̚ͅļ̵̧̪̰̪̼̼̳̗̬̣͖̍͂̅͐̈̎̇̀̆́͘̕͝ͅp̸͓͓̏̉̓̆̃͒͒̀͜͝ ̸̤̪̞̬͎̯̞̥͎̜̣͇̞̓̕͠ͅḫ̸̯̗͈͕̥͉̩̐͗͜ͅͅi̸̡̩̫̾̀̃̈̾̂͛͠ṁ̷̨̺̘̥͈͓̻̳̯̱̤̳̏̈͒́̏̍̒̐̉͗"
 sprite = ExtResource("5_afwul")
@@ -101,9 +102,9 @@ task_id = 4
 [node name="prawn" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
 offset_left = 1138.0
-offset_top = 636.0
+offset_top = 634.0
 offset_right = 1138.0
-offset_bottom = 636.0
+offset_bottom = 634.0
 item_name = "DO NOT OPEN!!!"
 sprite = ExtResource("4_aahr4")
 area_radius = 10
@@ -113,9 +114,9 @@ task_id = 3
 [node name="settings" parent="main_screen" instance=ExtResource("3_e1yrs")]
 y_sort_enabled = false
 offset_left = 144.0
-offset_top = 200.0
+offset_top = 204.0
 offset_right = 144.0
-offset_bottom = 200.0
+offset_bottom = 204.0
 item_name = "Settings"
 item_description = "Choose a wallpaper photo:"
 sprite = ExtResource("6_sm70p")
@@ -217,15 +218,6 @@ position = Vector2(1137, 626)
 controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)
 
-[node name="crt_shader" type="ColorRect" parent="."]
-z_index = 12
-material = SubResource("ShaderMaterial_qsb8y")
-layout_mode = 0
-offset_left = 1.0
-offset_right = 1281.0
-offset_bottom = 719.0
-color = Color(1, 1, 1, 0)
-
 [node name="fan_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_5xn70")
 autoplay = true
@@ -234,14 +226,40 @@ autoplay = true
 autoplay = true
 
 [node name="screensaver" type="VideoStreamPlayer" parent="."]
-top_level = true
 z_index = 12
 layout_mode = 1
 offset_left = 86.0
-offset_top = -1.0
 offset_right = 1196.0
-offset_bottom = 721.0
+offset_bottom = 722.0
 stream = ExtResource("26_nb3kh")
 autoplay = true
 expand = true
 loop = true
+
+[node name="bluescreen" type="TextureRect" parent="."]
+visible = false
+z_index = 20
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -1.0
+offset_right = 24.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.964527, 1)
+texture = ExtResource("27_6v8jp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="crt_shader" type="ColorRect" parent="."]
+top_level = true
+z_index = 40
+material = SubResource("ShaderMaterial_qsb8y")
+layout_mode = 0
+offset_left = 1.0
+offset_right = 1281.0
+offset_bottom = 719.0
+color = Color(1, 1, 1, 0)

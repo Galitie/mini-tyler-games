@@ -32,6 +32,7 @@ func _physics_process(delta: float) -> void:
 		if jumping:
 			jumping = false
 		if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A):
+			print("jump")
 			velocity.y = remap(game_speed, 1, get_parent().get_parent().MAX_GAME_SPEED, JUMP_VELOCITY, JUMP_VELOCITY * 1.75)
 			jumping = true
 	

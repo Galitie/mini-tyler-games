@@ -100,10 +100,7 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	$countdown.text = str(int($countdown_timer.time_left))
 	
-	print("frame")
-	
 	if game_paused && Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
-		print("test")
 		$start.visible = false
 		start_game()
 		

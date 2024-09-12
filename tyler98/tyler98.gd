@@ -75,6 +75,7 @@ func drop_priority_window():
 func task_completed(id):
 	match id:
 		0: #start screen login
+			
 			$audio.stream = load("res://tyler98/sfx/startup.mp3")
 			$audio.play()
 			%background.texture = logging_in_texture
@@ -84,6 +85,7 @@ func task_completed(id):
 			$start_screen.visible = false
 			disable_start_screen.emit()
 			enable_desktop_areas.emit()
+			%main_screen/todo_list.click("", "")
 		
 		1: #Update and restart computer
 			if todo_list.string_list[id] != "":

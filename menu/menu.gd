@@ -67,6 +67,8 @@ func _ready() -> void:
 	
 	if Globals.crushtris_played && Globals.tylermon_played && Globals.spotlight_played && Globals.tyler98_played:
 		Globals.metalgear_unlocked = true
+		
+	if Globals.metalgear_unlocked:
 		var metalgear_texture = load("res://menu/epsilon_thumbnail.png")
 		$thumbnails/metalgear.texture = metalgear_texture
 		$thumbnails/metalgear.vframes = 1

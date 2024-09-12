@@ -64,11 +64,16 @@ func UpdateControllerState(device_id: int) -> void:
 	
 	for i in range(gamepad.button_states.size()):
 		gamepad.button_states[i] = int(Input.is_joy_button_pressed(gamepad.device_id, i))
+	
+	if device_id == 0:
+		print("previous button states")
+		print(gamepad.prev_button_states)
+		print("current button states")
+		print(gamepad.button_states)
 		
 func IsControllerButtonJustPressed(device_id: int, button: int) -> bool:
 	if gamepads[device_id].button_states[button] == 1:
 		if gamepads[device_id].button_states[button] != gamepads[device_id].prev_button_states[button]:
-			gamepads[device_id].button_states[button] = 1
 			return true
 	return false
 	

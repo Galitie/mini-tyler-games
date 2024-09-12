@@ -281,7 +281,6 @@ func play_song():
 	if playlist.is_empty():
 		playlist = music.duplicate(true)
 		playlist.shuffle()
-		print(playlist)
 	current_song = playlist.pop_back()
 	$music.stream = current_song[2]
 	$current_song.text = '\"' + current_song[0] + '\"'+ "\n" + current_song[1]

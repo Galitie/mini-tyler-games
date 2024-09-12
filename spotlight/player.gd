@@ -71,6 +71,9 @@ func _ready() -> void:
 		$sonar_area.collision_mask = 0b00000000_00000000_00000000_00001110
 
 func _physics_process(delta: float) -> void:
+	if controller_port == 0:
+		print("frame")
+	
 	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_B):
 		print("test")
 	

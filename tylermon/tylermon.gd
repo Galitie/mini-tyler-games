@@ -60,7 +60,7 @@ func start_game():
 	call_and_switch_modes()
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("start") and start_menu_time == true:
 		start_game()
 	if start_menu_time == false:

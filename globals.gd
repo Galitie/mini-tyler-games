@@ -19,7 +19,7 @@ var last_thumbnail_idx: int = 0
 func _ready() -> void:
 	ToggleFullscreen()
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
 		fullscreen = !fullscreen
 		ToggleFullscreen()

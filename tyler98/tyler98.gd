@@ -20,7 +20,7 @@ func _ready():
 	RenderingServer.set_default_clear_color(Color.BLACK)
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A) and screensaver_mode:
 		$screensaver.paused = true
 		$screensaver.visible = false

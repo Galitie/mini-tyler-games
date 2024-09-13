@@ -27,7 +27,7 @@ func _ready() -> void:
 	
 	ChangeMap(map_idx)
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
 		ChangeMap(map_idx)
 	

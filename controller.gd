@@ -45,7 +45,7 @@ func _ready() -> void:
 			gamepads[id].device_id = id
 			gamepads[id].connected = true
 			
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	for gamepad in gamepads:
 		if gamepad.connected:
 			UpdateControllerState(gamepad.device_id)

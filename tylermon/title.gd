@@ -7,6 +7,6 @@ func _ready():
 	anim_player.play("pulse")
 
 
-func _process(delta):
+func _physics_process(delta):
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		get_tree().change_scene_to_file(game_scene)

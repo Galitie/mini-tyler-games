@@ -118,7 +118,7 @@ func _ready() -> void:
 		
 	Globals.intro_played = true
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if selecting:
 		projector.rotate(Vector3.UP, 0.1 * 0.1 * delta)
 		projector.rotate(Vector3.RIGHT, 0.2 * 0.1 * delta)

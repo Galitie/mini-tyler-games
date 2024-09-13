@@ -41,7 +41,7 @@ func _ready():
 	get_player()
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if points_to_spend > 0:
 		cursor.visible = true
 		var vertical_input: float = round(Controller.GetLeftStick(player.controller_port).y)

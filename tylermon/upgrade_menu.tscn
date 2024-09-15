@@ -61,7 +61,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_obobf")
 theme_override_font_sizes/font_size = 20
-text = "3 points left to upgrade:"
+text = "Cookies left: 🍪🍪🍪"
 
 [node name="description" type="Label" parent="margin/hbox/buttons"]
 layout_mode = 2
@@ -82,7 +82,7 @@ focus_neighbor_top = NodePath("../../hbox7/gamble")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "❤️ Git chonkier"
+text = "❤️ Get chonky"
 alignment = 0
 
 [node name="stat1" type="Label" parent="margin/hbox/buttons/hbox"]
@@ -119,7 +119,7 @@ size_flags_horizontal = 2
 focus_neighbor_top = NodePath("../../hbox2/str")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "🧠 Git smarter"
+text = "🧠 Practice reading"
 alignment = 0
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]

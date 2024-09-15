@@ -77,6 +77,7 @@ corner_radius_bottom_left = 7
 
 [resource]
 resource_local_to_scene = true
+Button/colors/font_color = Color(1, 1, 1, 1)
 Button/fonts/font = ExtResource("1_v6dd7")
 Button/styles/hover = SubResource("StyleBoxFlat_sbm80")
 Button/styles/normal = SubResource("StyleBoxFlat_sbync")

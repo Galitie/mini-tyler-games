@@ -159,7 +159,7 @@ func _ready():
 	get_player()	
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var vertical_input: float = round(Controller.GetLeftStick(player.controller_port).y)
 	if !vertical_input:
 		moved_stick = false

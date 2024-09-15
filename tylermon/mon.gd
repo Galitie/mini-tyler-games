@@ -345,7 +345,7 @@ func damage(mon, modifier: float, effect):
 	health -= damage
 
 
-func chance_to_say_phrase(array, chance : int):
+func chance_to_say_phrase(_array, chance : int):
 	var rand_num = randi_range(1,chance)
 	if cursed && rand_num == 1:
 		var rand_phrase = cursed_phrases.pick_random()

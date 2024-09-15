@@ -62,16 +62,14 @@ layout_mode = 2
 theme = ExtResource("2_obobf")
 theme_override_font_sizes/font_size = 20
 text = "3 points left to upgrade:"
-horizontal_alignment = 1
 
 [node name="description" type="Label" parent="margin/hbox/buttons"]
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_vertical = 6
 theme = ExtResource("2_obobf")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 14
 text = "Add 3 points to stats"
-horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="hbox" type="HBoxContainer" parent="margin/hbox/buttons"]
@@ -84,7 +82,7 @@ focus_neighbor_top = NodePath("../../hbox7/gamble")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "❤️ Eat cheeseballs"
+text = "❤️ Git chonkier"
 alignment = 0
 
 [node name="stat1" type="Label" parent="margin/hbox/buttons/hbox"]
@@ -151,12 +149,6 @@ alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
-alignment = 1
-
-[node name="place" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_obobf")
-text = "Currently in"
 
 [node name="place_num" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2
@@ -177,9 +169,9 @@ text = "0"
 [node name="cursor" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -45.0
-offset_top = 75.0
+offset_top = 50.0
 offset_right = -5.0
-offset_bottom = 115.0
+offset_bottom = 90.0
 texture = ExtResource("3_qnsce")
 
 [node name="anim_player" type="AnimationPlayer" parent="."]

@@ -91,8 +91,9 @@ visible = false
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 17.8575
+offset_right = 1280.0
+offset_bottom = 737.857
 mouse_default_cursor_shape = 2
 
 [node name="margin" type="MarginContainer" parent="upgrade_ui"]

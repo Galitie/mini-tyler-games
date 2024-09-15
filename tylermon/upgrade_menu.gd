@@ -25,10 +25,10 @@ var moved_stick: bool = false
 @onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button]
 
 
-var hp_desc = "+1 Tylermon max health 🧀"
-var str_desc = "Tylermon's attacks do more damage"
-var int_desc = "Tylermon is more likely to make good decisions"
-var gamble_desc = "Feeling down? The more you are losing the luckier you are!"
+var hp_desc = "+1 max health"
+var str_desc = "Attacks do more damage"
+var int_desc = "Attack and block more often"
+var gamble_desc = "Gambling is fun!!!"
 
 var upgrade_options: Array = ["hp", "str", "int", "gamble"]
 var upgrade_position: int = 0
@@ -58,10 +58,10 @@ func _physics_process(_delta):
 				moved_stick = true
 		if upgrade_position >= upgrade_options.size():
 			upgrade_position = 0
-			cursor.position.y = 75
+			cursor.position.y = 50
 		elif upgrade_position < 0:
 			upgrade_position = upgrade_options.size() - 1
-			cursor.position.y = 180
+			cursor.position.y = 155
 		if moved_stick:
 			_on_mouse_entered(upgrade_options[upgrade_position])
 		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
@@ -74,13 +74,13 @@ func _physics_process(_delta):
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
 		if points_to_spend == 3:
-			%points.text = "3 points left to upgrade:"
+			%points.text = "Cookies left: 🍪🍪🍪"
 		if points_to_spend == 2:
-			%points.text = "2 points left to upgrade:"
+			%points.text = "Cookies left: 🍪🍪"
 		if points_to_spend == 1:
-			%points.text = "1 point left to upgrade:"
+			%points.text = "Cookies left: 🍪"
 		if points_to_spend == 0:
-			%points.text = "Please wait..."
+			%points.text = "All 🍪 eaten - please wait!"
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
@@ -155,8 +155,8 @@ func gamble():
 			pass
 		else:
 			random_num -= 1
-	elif player.current_place == 2:
-		random_num
+	if player.current_place == 2:
+		pass
 	else:
 		random_num += player.current_place
 
@@ -191,7 +191,7 @@ func gamble():
 				emit_signal("upgraded", "good")
 			else:
 				mon.max_think_time -= .5
-				description.text = "Mon will change it's mind quicker"
+				description.text = "Mon has ADHD"
 				emit_signal("upgraded", "good")
 		5:
 			increase_random_stats(1,1)
@@ -211,11 +211,11 @@ func gamble():
 	if mon.strength >= 10 && mon.buff == false:
 		mon.buff = true
 		mon.hair.visible = true
-		description.text = "KAAAAMAAAYAAAMAAAHAAAAAAA"
+		description.text = "KAAMAAAYAAMAAAHAAAAA"
 	if mon.intelligence >= 10 && mon.smart == false:
 		mon.smart = true
 		mon.glasses.visible = true
-		description.text = "Mon is pretty smart for a dummy"
+		description.text = "Pretty smart for a dummy"
 	if mon.max_health >= 15 && mon.tank == false:
 		mon.tank = true
 		mon.get_node("scalable_nodes").scale += Vector2(.25, .25)
@@ -235,13 +235,13 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += (alter_by + 1)
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			update_description(alter_by, "health", null, null)
+			update_description(alter_by, "hp", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
-			update_description(alter_by, "strength", null, null)
+			update_description(alter_by, "str", null, null)
 		if random_stat == 3:
 			mon.intelligence += alter_by
-			update_description(alter_by, "intelligence", null, null)
+			update_description(alter_by, "int", null, null)
 	elif stats == 2:
 		var stat
 		var stat2
@@ -249,24 +249,24 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += (alter_by + 1)
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			stat = "health"
+			stat = "hp"
 		if random_stat == 2:
 			mon.strength += alter_by
-			stat = "strength"
+			stat = "str"
 		if random_stat == 3:
 			mon.intelligence += alter_by
-			stat = "intelligence"
+			stat = "int"
 		if random_stat2 == 1:
 			mon.max_health += (alter_by + 1)
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			stat2 = "health"
+			stat2 = "hp"
 		if random_stat2 == 2:
 			mon.strength += alter_by
-			stat2 = "strength"
+			stat2 = "str"
 		if random_stat2 == 3:
 			mon.intelligence += alter_by
-			stat2 = "intelligence"
+			stat2 = "int"
 		update_description(alter_by, stat, stat2, null)
 	elif stats == 3:
 		var stat
@@ -276,35 +276,35 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += alter_by + 1
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			stat = "health"
+			stat = "hp"
 		if random_stat == 2:
 			mon.strength += alter_by
-			stat = "strength"
+			stat = "str"
 		if random_stat == 3:
 			mon.intelligence += alter_by
-			stat = "intelligence"
+			stat = "int"
 		if random_stat2 == 1:
 			mon.max_health += alter_by + 1
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			stat2 = "health"
+			stat2 = "hp"
 		if random_stat2 == 2:
 			mon.strength += alter_by
-			stat2 = "strength"
+			stat2 = "str"
 		if random_stat2 == 3:
 			mon.intelligence += alter_by
-			stat2 = "intelligence"
+			stat2 = "int"
 		if random_stat3 == 1:
 			mon.max_health += alter_by + 1
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			stat3 = "health"
+			stat3 = "hp"
 		if random_stat3 == 2:
 			mon.strength += alter_by
-			stat3 = "strength"
+			stat3 = "str"
 		if random_stat3 == 3:
 			mon.intelligence += alter_by
-			stat3 = "intelligence"
+			stat3 = "int"
 		update_description(alter_by, stat, stat2, stat3)
 
 
@@ -363,12 +363,9 @@ func array_unique(array: Array) -> Array:
 
 
 func update_description(amount : int, stat, stat2, stat3):
-	var plural = ""
-	if amount > 1:
-		plural = "s"
 	if stat2 == null and stat3 == null:
-		description.text = "Mon gained " + str(amount) + " " + str(stat) + " point" + plural + "!"
+		description.text = "Gained " + str(amount) + " " + str(stat) + "!"
 	elif stat != null and stat2 != null and stat3 == null:
-		description.text = "Mon gained " + str(amount) + " " + str(stat) + " and " +  str(amount) + " " + str(stat2) + " point" + plural + "!"
+		description.text = "Gained " + str(amount) + " " + str(stat) + " and " +  str(amount) + " " + str(stat2) + "!"
 	else:
-		description.text = "Mon gained " + str(amount) + " " + str(stat) + ", " +  str(amount) + " " + str(stat2) + " and " +  str(amount) + " " + str(stat3) + " point" + plural + "!"
+		description.text = "Gained " + str(amount) + " " + str(stat) + ", " +  str(amount) + " " + str(stat2) + " and " +  str(amount) + " " + str(stat3) + "!"

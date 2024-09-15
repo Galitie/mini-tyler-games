@@ -19,6 +19,7 @@ var tank : bool = false
 
 
 @export var custom_color : Color
+@export var mon_name : String
 
 signal knocked_out
 
@@ -99,6 +100,7 @@ var charge_sound = ["res://tylermon/sfx/charge.wav"]
 var block_sound = ["res://tylermon/sfx/block.wav"]
 
 func _ready():
+	$name.text = mon_name
 	phrase.text = ""
 	set_state(State.IDLE)
 	sprite.modulate = custom_color
@@ -113,6 +115,10 @@ func _physics_process(delta):
 	update_state(current_state, delta)
 	if !anim_player.is_playing():
 		sprite.modulate = custom_color
+
+func change_name(new_name):
+	mon_name = new_name
+	$name.text = mon_name
 
 
 func _on_timer_timeout():

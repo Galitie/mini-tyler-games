@@ -48,7 +48,7 @@ func start_game():
 	for mon in mons:
 		mon.hp_bar.visible = true
 	for menus in customization_buttons:
-		menus.visible = false
+		menus.queue_free()
 	fight_time = true
 	countdown_label.text = "Round ends: "
 	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)

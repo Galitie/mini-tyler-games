@@ -4,7 +4,7 @@ extends Control
 @export var player_name : String
 var mon
 var player
-var upgrade_options: Array = ["color"]
+var upgrade_options: Array = ["name", "color"]
 var upgrade_position: int = 0
 var moved_stick: bool = false
 @onready var cursor = $cursor
@@ -138,8 +138,20 @@ const GODOT_COLORS = [
 	Color.YELLOW,
 	Color.YELLOW_GREEN
 ]
-signal set_element
+const NAME_OPTIONS = [
+  "Chad", "Jerry", "Bob", "Ron", "Gary", "Larry", "Bill", "Frank", "Ted", "Tom",
+  "Rick", "Jim", "Steve", "Wayne", "Doug", "Randy", "Dale", "Kurt", "Greg", "Ken",
+  "Bruce", "Chuck", "Roy", "Stan", "Jeff", "Don", "Glen", "Earl", "Al", "Walt",
+  "Keith", "Mark", "Dan", "Fred", "Paul", "Jack", "George", "Marty", "Dave", "Carl",
+  "Cliff", "Rod", "Tim", "Joe", "Vince", "Mike", "Terry", "Dennis", "Howard", "Lenny",
+  "Art", "Phil", "Scott", "Warren", "Dean", "Ralph", "Ed", "Lee", "Pat", "Ben",
+  "Barry", "Sam", "Russ", "Gene", "Harold", "Daryl", "Kenny", "Allan", "Curt", "Norm",
+  "Clyde", "Ernie", "Harvey", "Mel", "Lloyd", "Mitch", "Rex", "Clay", "Clint", "Hal",
+  "Bert", "Wes", "Glenn", "Len", "Lewis", "Neil", "Otis", "Denny", "Hank", "Murray",
+  "Stu", "Ray", "Edgar", "Bruce", "Floyd", "Gordon", "Les", "Ronnie", "Dwight", "Herb"
+]
 
+signal change_name
 
 func _ready():
 	player_label.text = player_name
@@ -162,21 +174,28 @@ func _physics_process(delta):
 			moved_stick = true
 	if upgrade_position >= upgrade_options.size():
 		upgrade_position = 0
-		cursor.position.y = 20
+		cursor.position.y = 23
 	elif upgrade_position < 0:
 		upgrade_position = upgrade_options.size() - 1
-		cursor.position.y = 23
+		cursor.position.y = 54
 	if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
 		_on_button_pressed(upgrade_options[upgrade_position])
+
 
 func get_mon():
 	mon = get_parent()
 
+
 func get_player():
 	player = mon.get_parent()
+
 
 func _on_button_pressed(button_name):
 	match button_name:
 		"color":
 			var random_color = GODOT_COLORS.pick_random()
 			mon.custom_color = random_color
+		"name":
+			var random_name = NAME_OPTIONS.pick_random()
+			mon.change_name(random_name)
+			

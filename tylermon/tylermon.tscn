@@ -14,7 +14,7 @@
 [node name="tylermon" type="Node2D"]
 scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 60
+fight_length = 20
 upgrade_length = 60
 max_rounds = 10
 
@@ -128,18 +128,18 @@ script = ExtResource("5_uxsio")
 [node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0" instance=ExtResource("2_yelk2")]
 position = Vector2(479, 256)
 custom_color = Color(1, 0.584314, 0.227451, 1)
+mon_name = "Jerry"
 
 [node name="customizer" parent="upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0/mon1" groups=["customizer"] instance=ExtResource("6_ultvs")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -72.0
-offset_top = -119.0
+offset_top = -146.0
 offset_right = -72.0
-offset_bottom = -119.0
+offset_bottom = -146.0
 player_name = "Player 1"
 
 [node name="upgrade_pos2" type="Node2D" parent="upgrade_ui/margin/GridContainer"]
@@ -158,16 +158,16 @@ controller_port = 1
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
 position = Vector2(821, 256)
 custom_color = Color(0.788235, 0.372549, 0.964706, 1)
+mon_name = "Patrick"
 
 [node name="customizer2" parent="upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1/mon2" groups=["customizer"] instance=ExtResource("6_ultvs")]
-visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = -72.0
-offset_top = -119.0
+offset_top = -146.0
 offset_right = -72.0
-offset_bottom = -119.0
+offset_bottom = -146.0
 grow_horizontal = 1
 grow_vertical = 1
 player_name = "Player 2"
@@ -188,18 +188,18 @@ controller_port = 3
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(827, 523)
 custom_color = Color(1, 1, 1, 1)
+mon_name = "Albert"
 
 [node name="customizer4" parent="upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4/player3/mon4" groups=["customizer"] instance=ExtResource("6_ultvs")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -72.0
-offset_top = -119.0
+offset_top = -146.0
 offset_right = -72.0
-offset_bottom = -119.0
+offset_bottom = -146.0
 size_flags_horizontal = 4
 player_name = "Player 4"
 
@@ -219,18 +219,18 @@ controller_port = 2
 [node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2" instance=ExtResource("2_yelk2")]
 position = Vector2(475, 523)
 custom_color = Color(0.0862745, 0.701961, 0.666667, 1)
+mon_name = "Chad"
 
 [node name="customizer3" parent="upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2/mon3" groups=["customizer"] instance=ExtResource("6_ultvs")]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -72.0
-offset_top = -119.0
+offset_top = -146.0
 offset_right = -72.0
-offset_bottom = -119.0
+offset_bottom = -146.0
 player_name = "Player 3"
 
 [node name="command_ui" type="Control" parent="."]

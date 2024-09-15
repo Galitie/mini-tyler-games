@@ -30,6 +30,13 @@ layout_mode = 2
 theme = ExtResource("1_ehhrm")
 text = "Player #"
 
+[node name="name" type="Button" parent="margin/vbox"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("1_ehhrm")
+text = "✏️ Change name"
+alignment = 0
+
 [node name="color" type="Button" parent="margin/vbox"]
 layout_mode = 2
 focus_mode = 0
@@ -45,4 +52,5 @@ offset_right = -5.0
 offset_bottom = 61.0
 texture = ExtResource("3_yeq46")
 
+[connection signal="pressed" from="margin/vbox/name" to="." method="_on_button_pressed" binds= [&"color"]]
 [connection signal="pressed" from="margin/vbox/color" to="." method="_on_button_pressed" binds= [&"color"]]

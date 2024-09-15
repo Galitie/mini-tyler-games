@@ -6,7 +6,7 @@ var fullscreen: bool = true
 
 var intro_played: bool = false
 
-var metalgear_unlocked: bool = false
+var metalgear_unlocked: bool = true
 
 var crushtris_played: bool = false
 var tylermon_played: bool = false

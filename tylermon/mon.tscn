@@ -1018,6 +1018,28 @@ uppercase = true
 wait_time = 2.0
 one_shot = true
 
+[node name="name" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 69.0
+offset_right = 63.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 12)
+theme = ExtResource("38_5lyhm")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 13
+text = "Brad"
+horizontal_alignment = 1
+uppercase = true
+
 [node name="damage_taken" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 z_index = 3

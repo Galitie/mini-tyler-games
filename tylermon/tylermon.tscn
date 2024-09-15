@@ -14,7 +14,7 @@
 [node name="tylermon" type="Node2D"]
 scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
-fight_length = 20
+fight_length = 60
 upgrade_length = 60
 max_rounds = 10
 
@@ -51,6 +51,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 
 [node name="countdown" type="Label" parent="countdown_ui/margin/seperator"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_cssk0")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -131,6 +132,7 @@ custom_color = Color(1, 0.584314, 0.227451, 1)
 mon_name = "Jerry"
 
 [node name="customizer" parent="upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0/mon1" groups=["customizer"] instance=ExtResource("6_ultvs")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -161,6 +163,7 @@ custom_color = Color(0.788235, 0.372549, 0.964706, 1)
 mon_name = "Patrick"
 
 [node name="customizer2" parent="upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1/mon2" groups=["customizer"] instance=ExtResource("6_ultvs")]
+visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -191,6 +194,7 @@ custom_color = Color(1, 1, 1, 1)
 mon_name = "Albert"
 
 [node name="customizer4" parent="upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4/player3/mon4" groups=["customizer"] instance=ExtResource("6_ultvs")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -222,6 +226,7 @@ custom_color = Color(0.0862745, 0.701961, 0.666667, 1)
 mon_name = "Chad"
 
 [node name="customizer3" parent="upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2/mon3" groups=["customizer"] instance=ExtResource("6_ultvs")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

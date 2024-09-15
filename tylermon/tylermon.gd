@@ -63,7 +63,7 @@ func start_game():
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("start") and start_menu_time == true:
 		start_game()
-	if start_menu_time == false:
+	if fight_time:
 		countdown_nums.text = "%02d" % time_left()
 	if round_timer.time_left < 5 && start_menu_time == false:
 		countdown_nums.set("theme_override_colors/font_color", Color("ff0000"))
@@ -96,10 +96,10 @@ func _on_round_timer_timeout():
 		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
-		#command_ui.visible = false
 		knocked_out_mons = 0
-		countdown_label.text = "Add 3 points to stats: "
+		countdown_label.text = "Upgrade Time!!!"
 		round_timer.stop()
+		%countdown.text = ""
 		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:
 		fight_time = true
@@ -205,4 +205,4 @@ func show_transition(type, content, timer_amount):
 func end_upgrades_early():
 	upgrades_counter += 1
 	if upgrades_counter == 4:
-		round_timer.start(4)
+		round_timer.start(1)

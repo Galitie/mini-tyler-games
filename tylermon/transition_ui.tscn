@@ -71,18 +71,19 @@ layout_mode = 2
 
 [node name="vbox" type="VBoxContainer" parent="center_container"]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 0
 
-[node name="vbox" type="VBoxContainer" parent="center_container/vbox"]
-layout_mode = 2
-
-[node name="title_text" type="Label" parent="center_container/vbox/vbox"]
+[node name="title_text" type="Label" parent="center_container/vbox"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_nqll4")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "ROUND WINNERS:"
 horizontal_alignment = 1
+
+[node name="vbox" type="VBoxContainer" parent="center_container/vbox"]
+layout_mode = 2
 
 [node name="winners" type="HBoxContainer" parent="center_container/vbox"]
 layout_mode = 2

@@ -58,10 +58,10 @@ func _physics_process(_delta):
 				moved_stick = true
 		if upgrade_position >= upgrade_options.size():
 			upgrade_position = 0
-			cursor.position.y = 42
+			cursor.position.y = 75
 		elif upgrade_position < 0:
 			upgrade_position = upgrade_options.size() - 1
-			cursor.position.y = 147
+			cursor.position.y = 180
 		if moved_stick:
 			_on_mouse_entered(upgrade_options[upgrade_position])
 		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
@@ -73,10 +73,18 @@ func _physics_process(_delta):
 		hp_stat.text = "HP: " + str(mon.max_health)
 		str_stat.text = "STR: " + str(mon.strength)
 		int_stat.text = "INT: " + str(mon.intelligence)
+		if points_to_spend == 3:
+			%points.text = "3 points left to upgrade:"
+		if points_to_spend == 2:
+			%points.text = "2 points left to upgrade:"
+		if points_to_spend == 1:
+			%points.text = "1 point left to upgrade:"
+		if points_to_spend == 0:
+			%points.text = "Please wait..."
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
-		vp.text = str(player.wins)
+		%vp.text = str(player.wins)
 	
 	if upgrade_time && !place_set:
 		set_place()
@@ -132,7 +140,7 @@ func _on_button_pressed(button_name):
 		"gamble":
 			points_to_spend -= 1
 			gamble()
-			emit_signal("upgraded", "good")
+
 	if points_to_spend == 0:
 		$anim_player.stop()
 		for button in upgrade_buttons:
@@ -328,16 +336,21 @@ func set_place():
 	if index_corrected == '1':
 		add = "st"
 		place.set("theme_override_colors/font_color", Color('00cb00'))
+		%gamble.text = "🎲 Gramble"
 	if index_corrected == '2':
 		add = "nd"
 		place.set("theme_override_colors/font_color", Color('ffffff'))
+		%gamble.text = "🎲 Gramble"
 	if index_corrected == '3':
 		add = "rd"
-		place.set("theme_override_colors/font_color", Color('ffffff'))
+		place.set("theme_override_colors/font_color", Color('e90000'))
+		$anim_player.play("pulse")
+		%gamble.text = "🎲 Mon is extra lucky!"
 	if index_corrected == '4':
 		add = "th"
 		place.set("theme_override_colors/font_color", Color('e90000'))
 		$anim_player.play("pulse")
+		%gamble.text = "🎲 Mon is extra lucky!"
 	place.text = index_corrected + add + " place"
 
 

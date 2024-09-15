@@ -165,7 +165,7 @@ func check_for_game_end() -> bool:
 			if player.wins == highest_wins:
 				winning_players.append(player)
 		call_and_pause()
-		await show_transition("final_winner", winning_players, 10)
+		await show_transition("final_winner", winning_players, 15)
 		return true
 	return false
 

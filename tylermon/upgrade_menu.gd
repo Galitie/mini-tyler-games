@@ -129,7 +129,8 @@ func _on_button_pressed(button_name):
 			emit_signal("upgraded", "good")
 			if mon.strength >= 10 && mon.buff == false:
 				mon.buff = true
-				mon.hair.visible = true
+				if mon.cursed == false:
+					mon.hair.visible = true
 		"int":
 			points_to_spend -= 1
 			mon.intelligence += 1
@@ -166,12 +167,15 @@ func gamble():
 			if mon.cursed == false:
 				mon.cursed = true
 				mon.hat.visible = true
+				mon.hair.visible = false
 				description.text = "Mon is CURSED"
 				emit_signal("upgraded", "bad")
 			else:
 				mon.cursed = false
 				description.text = "Mon has been un-cursed"
 				mon.hat.visible = false
+				if mon.buff == true:
+					mon.hair.visible = true
 				emit_signal("upgraded", "bad")
 		1:
 			mon.speed -= 25
@@ -211,7 +215,8 @@ func gamble():
 			emit_signal("upgraded", "good")
 	if mon.strength >= 10 && mon.buff == false:
 		mon.buff = true
-		mon.hair.visible = true
+		if mon.cursed == false:
+			mon.hair.visible = true
 		description.text = "KAAMAAAYAAMAAAHAAAAA"
 	if mon.intelligence >= 10 && mon.smart == false:
 		mon.smart = true

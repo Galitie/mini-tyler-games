@@ -136,7 +136,7 @@ item_description = "Help Tyler finish all his tasks!"
 sprite = ExtResource("6_2d3ca")
 area_radius = 10
 window_scene = ExtResource("7_b0kkl")
-string_list = Array[String](["Login", "Reset computer to apply updates", "Change desktop wallpaper", "Check all files then delete dirty folder", "Type 'boobies' in calculator (right side up)", "Get help", "Connect to internet"])
+string_list = Array[String](["Login", "Reset computer to apply updates", "Change desktop wallpaper", "Check files then delete dirty folder", "Type 'boobies' in calculator", "Get help", "Connect to internet"])
 
 [node name="start_bar" type="TextureRect" parent="main_screen"]
 layout_mode = 1

@@ -200,21 +200,21 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="pointer" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
-position = Vector2(112, 30)
+position = Vector2(296, 208)
 player_color = Color(1, 1, 1, 1)
 
 [node name="pointer2" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
-position = Vector2(1132, 26)
+position = Vector2(903, 205)
 controller_port = 1
 player_color = Color(0.513726, 0.266667, 1, 1)
 
 [node name="pointer3" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
-position = Vector2(103, 625)
+position = Vector2(300, 490)
 controller_port = 2
 player_color = Color(1, 0.32549, 0, 1)
 
 [node name="pointer4" parent="." groups=["pointer"] instance=ExtResource("10_g3hvl")]
-position = Vector2(1137, 626)
+position = Vector2(924, 509)
 controller_port = 3
 player_color = Color(0, 0.568627, 0.254902, 1)
 

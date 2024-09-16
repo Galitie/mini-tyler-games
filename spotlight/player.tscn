@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://duq0vqkbyxyk0"]
+[gd_scene load_steps=26 format=3 uid="uid://duq0vqkbyxyk0"]
 
 [ext_resource type="Shader" path="res://spotlight/wobble_unshaded.gdshader" id="1_xjfxu"]
 [ext_resource type="Script" path="res://spotlight/player.gd" id="2_olupy"]
@@ -7,9 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://dr53hxfhn6a0v" path="res://spotlight/bitrunner_escape_0.png" id="4_6swol"]
 [ext_resource type="Texture2D" uid="uid://dp4l41l7yt8gc" path="res://spotlight/bitrunner_escape_1.png" id="5_vx4mv"]
 [ext_resource type="Texture2D" uid="uid://cf4k02c1s7j0o" path="res://spotlight/bitrunner_escape_2.png" id="6_5h2rl"]
+[ext_resource type="Texture2D" uid="uid://g4f7dk4iwimb" path="res://spotlight/bitrunner_jump.png" id="6_g7in5"]
 [ext_resource type="Texture2D" uid="uid://cmc8iigbdjxt0" path="res://spotlight/bitrunner_escape_3.png" id="7_rnb34"]
-[ext_resource type="Texture2D" uid="uid://bdsfkglifwtan" path="res://spotlight/bitrunner_honk.png" id="8_hvaci"]
 [ext_resource type="AudioStream" uid="uid://b0rcfi5o8gma3" path="res://spotlight/honk.ogg" id="9_x75lq"]
+[ext_resource type="Texture2D" uid="uid://bq02ikwy1o6td" path="res://spotlight/bitrunner_walk_1.png" id="11_8u0wi"]
+[ext_resource type="Texture2D" uid="uid://csgrrmoh4gsm" path="res://spotlight/bitrunner_walk_2.png" id="12_sj75b"]
+[ext_resource type="Texture2D" uid="uid://deyh7x3ktb3bc" path="res://spotlight/face_neutral.png" id="12_tewy0"]
+[ext_resource type="Texture2D" uid="uid://q7bn6nk514m3" path="res://spotlight/face_happy.png" id="13_l41cf"]
+[ext_resource type="Texture2D" uid="uid://sd2stim76jfp" path="res://spotlight/face_honk.png" id="14_lofck"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c1wke"]
 shader = ExtResource("1_xjfxu")
@@ -35,11 +40,11 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_hvaci")
+"texture": ExtResource("6_g7in5")
 }],
-"loop": false,
-"name": &"honk",
-"speed": 6.0
+"loop": true,
+"name": &"jump",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -57,6 +62,56 @@ animations = [{
 "loop": false,
 "name": &"shrink",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_8u0wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5v3jq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_sj75b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5v3jq")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 30.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvp5c"]
+shader = ExtResource("3_wu6bu")
+shader_parameter/normal_offset = 1.7
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.4
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m316n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_tewy0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_l41cf")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_lofck")
+}],
+"loop": false,
+"name": &"honk",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kseue"]
@@ -96,7 +151,12 @@ script = ExtResource("2_olupy")
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_rdial")
 sprite_frames = SubResource("SpriteFrames_6llav")
-animation = &"shrink"
+animation = &"jump"
+offset = Vector2(0, -25)
+
+[node name="face" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_pvp5c")
+sprite_frames = SubResource("SpriteFrames_m316n")
 offset = Vector2(0, -25)
 
 [node name="shape" type="CollisionShape2D" parent="."]
@@ -127,3 +187,7 @@ shape = SubResource("CapsuleShape2D_jlpfn")
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_x75lq")
 volume_db = -5.0
+
+[node name="honk_timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true

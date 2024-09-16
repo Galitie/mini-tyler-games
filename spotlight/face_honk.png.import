@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdsfkglifwtan"
-path="res://.godot/imported/bitrunner_honk.png-9bdbbf9f04fee9120bd5f2439e987227.ctex"
+uid="uid://sd2stim76jfp"
+path="res://.godot/imported/face_honk.png-aaa72c7524a4b5dad55994630028196a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://spotlight/bitrunner_honk.png"
-dest_files=["res://.godot/imported/bitrunner_honk.png-9bdbbf9f04fee9120bd5f2439e987227.ctex"]
+source_file="res://spotlight/face_honk.png"
+dest_files=["res://.godot/imported/face_honk.png-aaa72c7524a4b5dad55994630028196a.ctex"]
 
 [params]
 

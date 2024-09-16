@@ -55,9 +55,9 @@ shader_parameter/y_div = 3.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tiwoy"]
 shader = ExtResource("1_43s6s")
-shader_parameter/normal_offset = 1.5
-shader_parameter/time_influence = 9.741
-shader_parameter/y_div = 3.2
+shader_parameter/normal_offset = 0.4
+shader_parameter/time_influence = 4.356
+shader_parameter/y_div = 1.9
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1htjc"]
 texture = ExtResource("1_jyyt5")
@@ -264,6 +264,7 @@ texture = ExtResource("1_jyyt5")
 2:2/0/physics_layer_7/linear_velocity = Vector2(0, 0)
 2:2/0/physics_layer_7/angular_velocity = 0.0
 3:2/0 = 0
+3:2/0/modulate = Color(1, 1, 1, 0.14902)
 3:2/0/material = SubResource("ShaderMaterial_tiwoy")
 3:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 3:2/0/physics_layer_0/angular_velocity = 0.0

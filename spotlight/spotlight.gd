@@ -44,6 +44,8 @@ func _physics_process(delta: float) -> void:
 func _got_key() -> void:
 	for door in get_tree().get_nodes_in_group("doors"):
 		door.Open()
+	for player in get_tree().get_nodes_in_group("players"):
+		player.has_key = true
 
 func _player_escaped() -> void:
 	escaped_players += 1
@@ -72,3 +74,4 @@ func ChangeMap(idx: int) -> void:
 	for player in get_tree().get_nodes_in_group("players"):
 		player.Spawn(player.global_position)
 		player.has_escaped = false
+		player.has_key = false

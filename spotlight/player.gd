@@ -7,12 +7,13 @@ signal escaped
 @export var controller_port: int = 0
 
 var move_speed: float = 200
+var jump_move_speed: float = 180
 var jump_impulse: float = -200
 var jump_held: bool = false
-const JUMP_FALLOFF: float = 0.7
-const MAX_JUMP_POWER = -9000
+const JUMP_FALLOFF: float = 0.67
+const MAX_JUMP_POWER = -4500
 var jump_power: float = MAX_JUMP_POWER
-var fall_speed: float = 2000
+var fall_speed: float = 1000
 const MAX_FALL_SPEED: float = 1000
 
 var in_blue: bool = false
@@ -21,6 +22,8 @@ var in_red: bool = false
 
 var has_key: bool = false
 var has_escaped: bool = false
+
+var is_honking: bool = false
 
 var spawn_position: Vector2
 var respawning: bool = false
@@ -35,6 +38,7 @@ func _ready() -> void:
 	$sprite.animation_finished.connect(_animation_finished)
 	$sonar_area.body_shape_entered.connect(_sonar_body_entered)
 	$sonar_area.body_shape_exited.connect(_sonar_body_exited)
+	$honk_timer.timeout.connect(_honk_timeout)
 	
 	collision_layer |= (1 << controller_port)
 	collision_mask &= ~(1 << controller_port)
@@ -90,7 +94,7 @@ func _physics_process(delta: float) -> void:
 
 		if Controller.IsControllerButtonJustPressed(debug_port, JOY_BUTTON_A) and is_on_floor():
 			velocity.y = jump_impulse
-			
+			Honk()
 			jump_held = true
 		
 		if controller_port == 0:
@@ -173,7 +177,11 @@ func _physics_process(delta: float) -> void:
 		var direction: Vector2 = Controller.GetLeftStick(debug_port)
 		if direction:
 			$sprite.flip_h = direction.x < 0
-			velocity.x = direction.x * move_speed
+			$face.flip_h = direction.x < 0
+			if !is_on_floor():
+				velocity.x = direction.x * jump_move_speed
+			else:
+				velocity.x = direction.x * move_speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
 			
@@ -192,10 +200,27 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_slide()
 		
+		if !is_on_floor():
+				$sprite.play("jump")
+		else:
+			if velocity.x != 0:
+				$sprite.play("walk", remap(velocity.x, 0, move_speed, 0, 1))
+			else:
+				$sprite.play("default")
+				
+		if is_honking:
+			$face.play("honk")
+		else:
+			if !has_key:
+				$face.play("default")
+			else:
+				$face.play("happy")
+		
 func Honk() -> void:
-	$sprite.play("honk")
 	$sfx.pitch_scale = base_pitch + randf_range(0.3, 0.6)
 	$sfx.play()
+	is_honking = true
+	$honk_timer.start()
 	
 func CollidedWithTerrain(motion: Vector2) -> bool:
 	var test_col = move_and_collide(motion, true, 0.001)
@@ -206,7 +231,6 @@ func CollidedWithTerrain(motion: Vector2) -> bool:
 
 func _body_area_entered(area: Area2D) -> void:
 	if area.owner is Key:
-		has_key = true
 		emit_signal("got_key")
 		area.owner.queue_free()
 	elif area.owner is Door:
@@ -218,6 +242,7 @@ func _body_area_entered(area: Area2D) -> void:
 		Shrink()
 		
 func Shrink() -> void:
+	$face.visible = false
 	$shape.set_deferred("disabled", true)
 	$sonar_area/shape.set_deferred("disabled", true)
 	$body/shape.set_deferred("disabled", true)
@@ -226,6 +251,7 @@ func Shrink() -> void:
 	light_tween.tween_property($sonar, "texture_scale", 0.0, 0.5).set_trans(Tween.TRANS_CUBIC)
 	
 func Spawn(spawn_pos: Vector2) -> void:
+	$face.visible = true
 	global_position = spawn_pos
 	spawn_position = global_position
 	var light_tween = get_tree().create_tween()
@@ -236,27 +262,22 @@ func Spawn(spawn_pos: Vector2) -> void:
 	$sprite.play("default")
 
 func _animation_finished() -> void:
-	if $sprite.animation == "honk":
-		$sprite.play("default")
-	elif $sprite.animation == "shrink":
+	if $sprite.animation == "shrink":
 		if respawning:
 			Spawn(spawn_position)
 			respawning = false
 			
+func _honk_timeout() -> void:
+	is_honking = false
+			
 func _sonar_body_entered(body_rid, _body, body_shape, _local_shape) -> void:
 	if _body is TileMap:
-		#var coords = _body.get_coords_for_body_rid(body_rid)
-		#var tile_data: TileData = _body.get_cell_tile_data(0, coords)
-		#tile_data.modulate = Color(1, 1, 1, 1)
 		var layer_bitmask = PhysicsServer2D.body_get_collision_layer(body_rid)
 		layer_bitmask |= (1 << 4)
 		PhysicsServer2D.body_set_collision_layer(body_rid, layer_bitmask)
 
 func _sonar_body_exited(body_rid, _body, body_shape, _local_shape) -> void:
 	if _body is TileMap:
-		#var coords = _body.get_coords_for_body_rid(body_rid)
-		#var tile_data: TileData = _body.get_cell_tile_data(0, coords)
-		#tile_data.modulate = Color(1, 1, 1, 0)
 		var layer_bitmask = PhysicsServer2D.body_get_collision_layer(body_rid)
 		layer_bitmask &= ~(1 << 4)
 		PhysicsServer2D.body_set_collision_layer(body_rid, layer_bitmask)

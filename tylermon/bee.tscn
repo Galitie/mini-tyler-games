@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cstdh5eti3m5d"]
+
+[ext_resource type="Texture2D" uid="uid://cppbsnb3e5ln5" path="res://tylermon/decorations/bee.png" id="1_d6edg"]
+[ext_resource type="Script" path="res://tylermon/bee.gd" id="2_ej0d0"]
+
+[sub_resource type="Animation" id="Animation_3qa8j"]
+resource_name = "hover"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jwmuv"]
+_data = {
+"hover": SubResource("Animation_3qa8j")
+}
+
+[node name="bee" type="Sprite2D"]
+texture = ExtResource("1_d6edg")
+script = ExtResource("2_ej0d0")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jwmuv")
+}

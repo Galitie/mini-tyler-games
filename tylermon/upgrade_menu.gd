@@ -35,6 +35,7 @@ var upgrade_position: int = 0
 
 signal upgraded
 signal upgrades_finished
+signal first_place
 
 func _ready():
 	get_mon()
@@ -337,20 +338,24 @@ func set_place():
 		add = "st"
 		place.set("theme_override_colors/font_color", Color('00cb00'))
 		%gamble.text = "🎲 Gramble"
+		first_place.emit(true)
 	if index_corrected == '2':
 		add = "nd"
 		place.set("theme_override_colors/font_color", Color('ffffff'))
 		%gamble.text = "🎲 Gramble"
+		first_place.emit(false)
 	if index_corrected == '3':
 		add = "rd"
 		place.set("theme_override_colors/font_color", Color('e90000'))
 		$anim_player.play("pulse")
 		%gamble.text = "🎲 Mon is extra lucky!"
+		first_place.emit(false)
 	if index_corrected == '4':
 		add = "th"
 		place.set("theme_override_colors/font_color", Color('e90000'))
 		$anim_player.play("pulse")
 		%gamble.text = "🎲 Mon is extra lucky!"
+		first_place.emit(false)
 	place.text = index_corrected + add + " place"
 
 

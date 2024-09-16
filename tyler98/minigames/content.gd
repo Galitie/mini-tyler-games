@@ -15,7 +15,6 @@ func _ready():
 		item.exhausted = true
 		get_parent().owner.get_node("particles").emitting = true
 		await get_parent().owner.get_node("particles").finished
-		item.exhausted = true
 
 func _process(_delta):
 	pass

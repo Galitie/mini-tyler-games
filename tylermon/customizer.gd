@@ -7,6 +7,7 @@ var player
 var upgrade_options: Array = ["name", "color"]
 var upgrade_position: int = 0
 var moved_stick: bool = false
+signal upgraded
 @onready var cursor = $cursor
 # List of all constant Godot colors with uppercase names
 const GODOT_COLORS = [
@@ -195,7 +196,8 @@ func _on_button_pressed(button_name):
 		"color":
 			var random_color = GODOT_COLORS.pick_random()
 			mon.custom_color = random_color
+
 		"name":
 			var random_name = NAME_OPTIONS.pick_random()
 			mon.change_name(random_name)
-			
+

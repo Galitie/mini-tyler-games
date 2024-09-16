@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://5lxqkuu1fqom"]
+[gd_scene load_steps=88 format=3 uid="uid://5lxqkuu1fqom"]
 
 [ext_resource type="Script" path="res://tylermon/mon.gd" id="1_vlprm"]
 [ext_resource type="Texture2D" uid="uid://bnm8cgpbfx5bk" path="res://tylermon/sprites/mon_base_hurt.png" id="2_2adcg"]
@@ -72,6 +72,7 @@
 [ext_resource type="Texture2D" uid="uid://b2eh1k6bq650q" path="res://tylermon/sprites/hair_move_1.png" id="70_twcos"]
 [ext_resource type="Texture2D" uid="uid://c0eux13d6v1at" path="res://tylermon/sprites/hair_special_0.png" id="71_dbgui"]
 [ext_resource type="Texture2D" uid="uid://detxqlg5eaf4d" path="res://tylermon/sprites/hair_special_1.png" id="72_iqwwm"]
+[ext_resource type="PackedScene" uid="uid://cstdh5eti3m5d" path="res://tylermon/bee.tscn" id="73_gh6y5"]
 [ext_resource type="Texture2D" uid="uid://cp2td67rj2pwd" path="res://tylermon/sprites/hair_special_actual0.png" id="73_jgy1t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fof1f"]
@@ -927,11 +928,9 @@ scale = Vector2(0.455069, 1.2)
 shape = SubResource("CircleShape2D_glbfy")
 disabled = true
 
-[node name="element" type="GPUParticles2D" parent="scalable_nodes"]
-position = Vector2(0, 48)
-emitting = false
-explosiveness = 0.04
-randomness = 0.03
+[node name="bee" parent="." instance=ExtResource("73_gh6y5")]
+visible = false
+position = Vector2(-20, -1)
 
 [node name="timer" type="Timer" parent="."]
 wait_time = 3.0
@@ -1009,7 +1008,7 @@ theme = ExtResource("38_5lyhm")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 14
 text = "This is a test!"
 horizontal_alignment = 1
 uppercase = true
@@ -1035,7 +1034,7 @@ theme = ExtResource("38_5lyhm")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 19
 text = "Brad"
 horizontal_alignment = 1
 uppercase = true

@@ -56,6 +56,7 @@ var state_weights = [
 @onready var damage_label = $damage_taken
 @onready var sprite = $scalable_nodes/sprite
 
+
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
 @onready var audio_player = $audio_player
@@ -63,6 +64,7 @@ var state_weights = [
 @onready var hat = $scalable_nodes/witch_hat
 @onready var glasses = $scalable_nodes/glasses
 @onready var hair = $scalable_nodes/hair
+@onready var bee = $bee
 
 var cursed_phrases = [
 	"fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", 
@@ -105,6 +107,7 @@ func _ready():
 	set_state(State.IDLE)
 	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
+	get_parent().get_parent().connect("first_place", first_place)
 	upgrade_pos = get_parent().get_parent().get_parent().position + Vector2(70, 50)
 	
 
@@ -400,11 +403,15 @@ func move_to_destination(delta):
 		hat.flip_h = false
 		glasses.flip_h = false
 		hair.flip_h = false
+		bee.flip_h = false
+		bee.offset.x = -20
 	else:
 		sprite.flip_h = true
 		hat.flip_h = true
 		glasses.flip_h = true
 		hair.flip_h = true
+		bee.flip_h = true
+		bee.offset.x = 20
 	if !timer.is_stopped():
 		position = position.move_toward(destination, speed * delta)
 
@@ -473,3 +480,10 @@ func pick_position():
 			return Vector2(0, 100)
 		3:
 			return Vector2(0, -100)
+
+
+func first_place(isfirstplace):
+	if isfirstplace:
+		bee.visible = true
+	else:
+		bee.visible = false

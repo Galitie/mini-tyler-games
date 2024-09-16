@@ -103,7 +103,7 @@ randomness = 0.1
 [node name="confetti2" type="GPUParticles2D" parent="."]
 position = Vector2(189, 505)
 emitting = false
-amount = 50
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_mmh01")
 texture = ExtResource("4_f44cw")
 lifetime = 4.0

@@ -13,6 +13,7 @@ func _ready():
 
 func check_goal_met():
 	if %output.text == str(goal_number):
+		get_tree().get_root().get_node("main").task_completed(id)
 		%output.text = ""
 		$audio.stream = load("res://tyler98/sfx/success.mp3")
 		$audio.play()
@@ -20,7 +21,6 @@ func check_goal_met():
 		particles.emitting = true
 		await particles.finished
 		await $audio.finished
-		get_tree().get_root().get_node("main").task_completed(id)
 		get_parent().owner.queue_free()
 	else:
 		%output.text = ""

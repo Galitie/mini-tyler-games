@@ -6,6 +6,7 @@ func _ready():
 	$label.text = item.content_string
 	
 	if item.audio != null:
+		get_tree().get_root().get_node("main").task_completed(item.task_id)
 		$audio.stream = item.audio
 		$audio.play()
 		await $audio.finished
@@ -14,7 +15,6 @@ func _ready():
 		item.exhausted = true
 		get_parent().owner.get_node("particles").emitting = true
 		await get_parent().owner.get_node("particles").finished
-		get_tree().get_root().get_node("main").task_completed(item.task_id)
 		item.exhausted = true
 
 func _process(_delta):

@@ -60,6 +60,7 @@ script = ExtResource("1_ou28i")
 anchors_preset = 0
 
 [node name="background" type="TextureRect" parent="tutorial"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("4_gny5s")

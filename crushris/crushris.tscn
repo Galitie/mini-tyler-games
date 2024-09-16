@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://crdnuxb7n0asg" path="res://crushris/riff.ogg" id="11_g20nl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avsa4"]
-size = Vector2(250, 25)
+size = Vector2(300, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bk25x"]
 size = Vector2(250, 25)
@@ -48,7 +48,6 @@ texture = ExtResource("1_k5tsg")
 
 [node name="arena_ceiling" type="StaticBody2D" parent="."]
 position = Vector2(0, -525)
-collision_layer = 8
 
 [node name="shape" type="CollisionShape2D" parent="arena_ceiling"]
 position = Vector2(640, 622.5)

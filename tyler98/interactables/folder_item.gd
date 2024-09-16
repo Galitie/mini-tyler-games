@@ -25,8 +25,8 @@ func _ready():
 
 func click(_arg, _pointer):
 	if desktop_wallpaper:
-		owner.add_to_counter()
 		get_tree().get_root().get_node("main").get_node("%main_screen").texture = content_image
+		owner.add_to_counter(item_name)
 
 	if !exhausted and !window_open and !desktop_wallpaper:
 		window_open = true
@@ -34,6 +34,5 @@ func click(_arg, _pointer):
 		var instance = popup_scene.instantiate()
 		add_child(instance)
 		instance.global_position = Vector2(640, 360)
-		owner.add_to_counter()
-
+		owner.add_to_counter(item_name)
 

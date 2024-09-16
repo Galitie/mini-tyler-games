@@ -10,7 +10,7 @@ func _process(_delta):
 	pass
 
 
-func add_to_counter():
+func add_to_counter(_item_name):
 	counter += 1
 	if counter == 1:
 		get_parent().owner.get_node("particles").emitting = true

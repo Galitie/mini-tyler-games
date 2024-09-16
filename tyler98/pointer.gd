@@ -68,11 +68,6 @@ func _physics_process(delta):
 		else:
 			sprite.play("default")
 	
-	#temp way to exit game
-	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_START):
-		await Globals.FadeIn()
-		Globals.GoToMainMenu()
-		return
 
 
 func _on_hover(_area):

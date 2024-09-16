@@ -34,9 +34,6 @@ func _physics_process(delta: float) -> void:
 		if Controller.IsControllerButtonPressed(controller_port, JOY_BUTTON_A):
 			velocity.y = remap(game_speed, 1, get_parent().get_parent().MAX_GAME_SPEED, JUMP_VELOCITY, JUMP_VELOCITY * 1.75)
 			jumping = true
-			
-	if Controller.IsControllerButtonJustPressed(controller_port, JOY_BUTTON_B):
-		print("test")
 	
 	var direction: float = Controller.GetLeftStick(controller_port).x
 	if direction:

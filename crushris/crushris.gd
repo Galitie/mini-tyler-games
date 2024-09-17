@@ -106,98 +106,98 @@ func _physics_process(delta) -> void:
 		
 	if game_over:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
-	
-	if death_row.size() != 0:
-		$camera.apply_shake()
-		var block_killer_timer_speed = remap(game_speed, 1, MAX_GAME_SPEED, 0.2, 1.4)
-		block_killer_timer += block_killer_timer_speed * delta
-		if block_killer_timer >= block_killer_timer_length:
-			var block: Block = death_row.pop_back()
-			if block != null:
-				block.kill()
-			block_killer_timer = 0
-	elif fall_blocks.size():
-		var still_falling: bool = false
-		for block in fall_blocks:
-			block.fall(TILE_SIZE, BOTTOM_LEFT_ROW_ORIGIN, delta)
-			if !block.grounded:
-				still_falling = true
-		if !still_falling:
-			fall_blocks.clear()
-			check_rows()
-	elif !game_over && active_piece == null && !game_paused:
-		spawn_piece()
-	
-	if active_piece && !game_paused:
-		active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
+	else:
+		if death_row.size() != 0:
+			$camera.apply_shake()
+			var block_killer_timer_speed = remap(game_speed, 1, MAX_GAME_SPEED, 0.2, 1.4)
+			block_killer_timer += block_killer_timer_speed * delta
+			if block_killer_timer >= block_killer_timer_length:
+				var block: Block = death_row.pop_back()
+				if block != null:
+					block.kill()
+				block_killer_timer = 0
+		elif fall_blocks.size():
+			var still_falling: bool = false
+			for block in fall_blocks:
+				block.fall(TILE_SIZE, BOTTOM_LEFT_ROW_ORIGIN, delta)
+				if !block.grounded:
+					still_falling = true
+			if !still_falling:
+				fall_blocks.clear()
+				check_rows()
+		elif !game_over && active_piece == null && !game_paused:
+			spawn_piece()
 		
-		if !game_over and !game_paused:
-			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_LEFT_SHOULDER):
-				active_piece.turn(-PI / 2)
-			if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
-				active_piece.turn(PI / 2)
+		if active_piece && !game_paused:
+			active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
 			
-			var left_stick = Controller.GetLeftStick(0)
-			if move_timer > 0:
-				move_timer -= 1 * delta
-			else:
-				move_timer = 0
-			if left_stick.x < -0.6 && move_timer == 0:
-				if active_piece.global_position.x == piece_destination.x:
-					if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
-						move_timer = move_timer_length
-						piece_destination.x = active_piece.position.x - TILE_SIZE
-			if left_stick.x > 0.6 && move_timer == 0:
-				if active_piece.global_position.x == piece_destination.x:
-					if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
-						move_timer = move_timer_length
-						piece_destination.x = active_piece.position.x + TILE_SIZE
-			if left_stick.y > 0.6:
-				PIECE_FALL_SPEED = 200
-			else:
-				PIECE_FALL_SPEED = 100
+			if !game_over and !game_paused:
+				if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_LEFT_SHOULDER):
+					active_piece.turn(-PI / 2)
+				if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
+					active_piece.turn(PI / 2)
 				
-		if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
-			active_piece.position.y += PIECE_FALL_SPEED * game_speed * delta
-			active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
-			snap_timer = 0
-		else:
-			active_piece.position.y = snap_piece_position(active_piece.position).y
-			active_piece.set_linear_velocity(Vector2.ZERO)
-			snap_timer += 1 * delta
-				
-		if snap_timer >= snap_timer_length:
-			active_piece.position = snap_piece_position(active_piece.position)
-			active_piece.is_active = false
-			
-			active_piece.set_collision_layer(WORLD_COLLISION_LAYER)
-			check_rows()
-			snap_timer = 0
-			if death_row.size() == 0:
-				for block in active_piece.get_children():
-					var col_result: KinematicCollision2D = KinematicCollision2D.new()
-					if block.test_move(block.global_transform, Vector2(0, -TILE_SIZE), col_result, 0.0):
-						if col_result && col_result.get_collider().name == "arena_ceiling":
-							game_over = true
-							active_piece = null
-							$players_win.visible = true
-							await get_tree().create_timer(5.0).timeout
-							Globals.crushtris_played = true
-							await Globals.FadeIn()
-							Globals.GoToMainMenu()
-							return
-				
-				if !game_over and !game_paused:
-					game_speed += GAME_SPEED_INCREMENT
-					current_ember_alpha = remap(game_speed, 1, MAX_GAME_SPEED, 0.13, 1.0)
-					$embers.modulate.a = current_ember_alpha
-					$music.volume_db = remap(game_speed, 1, MAX_GAME_SPEED, -15, 0)
-					if game_speed > MAX_GAME_SPEED:
-						game_speed = MAX_GAME_SPEED
+				var left_stick = Controller.GetLeftStick(0)
+				if move_timer > 0:
+					move_timer -= 1 * delta
+				else:
+					move_timer = 0
+				if left_stick.x < -0.6 && move_timer == 0:
+					if active_piece.global_position.x == piece_destination.x:
+						if !active_piece.check_contact(Vector2(-TILE_SIZE, 0)):
+							move_timer = move_timer_length
+							piece_destination.x = active_piece.position.x - TILE_SIZE
+				if left_stick.x > 0.6 && move_timer == 0:
+					if active_piece.global_position.x == piece_destination.x:
+						if !active_piece.check_contact(Vector2(TILE_SIZE, 0)):
+							move_timer = move_timer_length
+							piece_destination.x = active_piece.position.x + TILE_SIZE
+				if left_stick.y > 0.6:
+					PIECE_FALL_SPEED = 200
+				else:
+					PIECE_FALL_SPEED = 100
 					
-					spawn_piece()
+			if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
+				active_piece.position.y += PIECE_FALL_SPEED * game_speed * delta
+				active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
+				snap_timer = 0
 			else:
-				active_piece = null
+				active_piece.position.y = snap_piece_position(active_piece.position).y
+				active_piece.set_linear_velocity(Vector2.ZERO)
+				snap_timer += 1 * delta
+					
+			if snap_timer >= snap_timer_length:
+				active_piece.position = snap_piece_position(active_piece.position)
+				active_piece.is_active = false
+				
+				active_piece.set_collision_layer(WORLD_COLLISION_LAYER)
+				check_rows()
+				snap_timer = 0
+				if death_row.size() == 0:
+					for block in active_piece.get_children():
+						var col_result: KinematicCollision2D = KinematicCollision2D.new()
+						if block.test_move(block.global_transform, Vector2(0, -TILE_SIZE), col_result, 0.0):
+							if col_result && col_result.get_collider().name == "arena_ceiling":
+								game_over = true
+								active_piece = null
+								$players_win.visible = true
+								await get_tree().create_timer(5.0).timeout
+								Globals.crushtris_played = true
+								await Globals.FadeIn()
+								Globals.GoToMainMenu()
+								return
+					
+					if !game_over and !game_paused:
+						game_speed += GAME_SPEED_INCREMENT
+						current_ember_alpha = remap(game_speed, 1, MAX_GAME_SPEED, 0.13, 1.0)
+						$embers.modulate.a = current_ember_alpha
+						$music.volume_db = remap(game_speed, 1, MAX_GAME_SPEED, -15, 0)
+						if game_speed > MAX_GAME_SPEED:
+							game_speed = MAX_GAME_SPEED
+						
+						spawn_piece()
+				else:
+					active_piece = null
 				
 func snap_piece_position(pos: Vector2) -> Vector2:
 	var result: Vector2 = BOTTOM_LEFT_ROW_ORIGIN + Vector2(

@@ -30,6 +30,10 @@ func _ready() -> void:
 	boss_hp.size.x = float((float(hp) / float(MAX_HP)) * 77.0)
 	$anim_player.play("idle", -1.0, 1.5)
 	$engine_sfx.play()
+	get_viewport().get_camera_2d().zoom = Vector2(2, 2)
+	
+	var game_over = get_tree().root.get_node("/root/main/game/camera/ui/game_over")
+	game_over.boss_battle = true
 
 func _physics_process(delta: float) -> void:
 	boss_hp.size.x = move_toward(boss_hp.size.x, float((float(hp) / float(MAX_HP)) * 77.0), 20.0 * delta)
@@ -54,6 +58,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				grenade.direction = Vector2(0, 1)
 			grenade.global_position = $face.global_position + Vector2(0, 2) + (grenade.direction * 6)
+			grenade.speed = 100
 			map.add_child(grenade_instance)
 			await get_tree().create_timer(1.0).timeout
 			$hatch.play("default")

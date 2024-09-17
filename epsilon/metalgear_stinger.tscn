@@ -52,13 +52,13 @@ size = Vector2(24, 24)
 offsets = PackedFloat32Array(0, 0.516393, 1)
 colors = PackedColorArray(0.972549, 0.972549, 0.721569, 1, 0.533333, 0, 0, 1, 0.533333, 0, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_4nk2r"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_71b5c"]
 gradient = SubResource("Gradient_hjh0b")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_boyy7"]
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
-color_ramp = SubResource("GradientTexture1D_4nk2r")
+color_ramp = SubResource("GradientTexture1D_71b5c")
 
 [node name="metalgear_stinger" type="Area2D"]
 z_index = 4

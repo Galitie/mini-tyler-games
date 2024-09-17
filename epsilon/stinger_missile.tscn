@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dd51upknvqq3o"]
+[gd_scene load_steps=22 format=3 uid="uid://dd51upknvqq3o"]
 
 [ext_resource type="Script" path="res://epsilon/stinger_missile.gd" id="1_bgqw4"]
 [ext_resource type="Texture2D" uid="uid://uwn2keg0p0pm" path="res://epsilon/sprites/shadow.png" id="2_l6o41"]
@@ -13,12 +13,25 @@
 [ext_resource type="Texture2D" uid="uid://b4f44rpvjrnas" path="res://epsilon/sprites/stinger_up.png" id="11_w62x2"]
 [ext_resource type="Texture2D" uid="uid://cwkoth1uqqo57" path="res://epsilon/sprites/stinger_up_right.png" id="12_gwl0q"]
 [ext_resource type="AudioStream" uid="uid://c5gwk7o8jhtqp" path="res://epsilon/sound_effects/explosion.mp3" id="13_n6eaq"]
+[ext_resource type="Texture2D" uid="uid://cijtry40yb1ie" path="res://epsilon/sprites/metalgear_stinger_particle.png" id="14_vfhp2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxl17"]
 size = Vector2(4, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5nhi5"]
 size = Vector2(24, 24)
+
+[sub_resource type="Gradient" id="Gradient_fdx2b"]
+offsets = PackedFloat32Array(0, 0.516393, 1)
+colors = PackedColorArray(0.972549, 0.972549, 0.721569, 1, 0.533333, 0, 0, 1, 0.533333, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4nk2r"]
+gradient = SubResource("Gradient_fdx2b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_je4kc"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_4nk2r")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h1c3c"]
 animations = [{
@@ -133,6 +146,12 @@ shape = SubResource("RectangleShape2D_5nhi5")
 z_index = -2
 texture_filter = 1
 texture = ExtResource("2_l6o41")
+
+[node name="particles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -12)
+process_material = SubResource("ParticleProcessMaterial_je4kc")
+texture = ExtResource("14_vfhp2")
+lifetime = 0.7
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

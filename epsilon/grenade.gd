@@ -1,6 +1,6 @@
 extends Area2D
 
-var speed: float = 100.0
+var speed: float = 60.0
 var fall_speed: float = -3.6
 var y_offset: float = -13
 var throw_arc: float = 30

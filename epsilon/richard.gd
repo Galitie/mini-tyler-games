@@ -57,6 +57,7 @@ var vo_queue: Array = []
 var dead_line = preload("res://epsilon/vo/rich_dead.mp3")
 
 var can_speak: bool = false
+var can_place_mine: bool = true
 
 @onready var vo_text = map.get_parent().get_node("camera/ui/camera_space/text_container/text")
 
@@ -73,6 +74,9 @@ func _ready() -> void:
 	$sprite.animation_finished.connect(_animation_finished)
 	$timer.timeout.connect(_timeout)
 	$vo_timer.timeout.connect(_vo_timeout)
+	$mine_timer.timeout.connect(_mine_timeout)
+	
+	get_viewport().get_camera_2d().zoom = Vector2(3, 3)
 	
 func agent_setup() -> void:
 	# NOTE: HA HA SPAGHET
@@ -122,10 +126,13 @@ func _physics_process(delta: float) -> void:
 				$sprite.play("run" + "_" + direction, 1.3)
 				global_position += t_direction * run_speed * delta
 				
-				var mine_chance = rng.randi_range(0, 100)
-				if mine_chance > 99:
-					placing_mine = true
-					$sprite.play("place_mine", 2.0)
+				if can_place_mine:
+					var mine_chance = rng.randi_range(0, 100)
+					if mine_chance > 99:
+						placing_mine = true
+						$sprite.play("place_mine", 2.0)
+						can_place_mine = false
+						$mine_timer.start()
 			else:
 				$sprite.play("idle_d")
 				if $timer.is_stopped():
@@ -278,3 +285,6 @@ func _animation_finished() -> void:
 		await $sfx.finished
 		await get_tree().create_timer(3.0).timeout
 		get_tree().root.get_node("main").End()
+
+func _mine_timeout() -> void:
+	can_place_mine = true

@@ -3,12 +3,19 @@ extends VideoStreamPlayer
 @onready var game_over = preload("res://epsilon/backgrounds/game_over.ogv")
 @onready var continue_game = preload("res://epsilon/backgrounds/continue.ogv")
 @onready var starting_counter: int = random_vo.size()
-@onready var counter:int = 0
+@onready var counter: int = 0
+var boss_battle: bool = false
 
 var random_vo: Array = [
 	preload("res://epsilon/vo/game_over_1.mp3"),
 	preload("res://epsilon/vo/game_over_2.mp3"),
-	preload("res://epsilon/vo/game_over_3.mp3"), #TOO LOUD. Need to balance out all vo lines at 0 db
+	preload("res://epsilon/vo/game_over_3.mp3"),
+]
+
+var rich_vo: Array = [
+	preload("res://epsilon/vo/rich_game_over_1.mp3"),
+	preload("res://epsilon/vo/rich_game_over_2.mp3"),
+	preload("res://epsilon/vo/rich_game_over_3.mp3"),
 ]
 
 func GameOverDeath() -> void:
@@ -26,7 +33,10 @@ func GameOver() -> void:
 		counter += 1
 	else:
 		counter = 0
-	$vo.stream = random_vo[counter - 1]
+	if !boss_battle:
+		$vo.stream = random_vo[counter - 1]
+	else:
+		$vo.stream = rich_vo[counter - 1]
 	$vo.play()
 	await get_tree().create_timer(1.5).timeout
 	paused = true

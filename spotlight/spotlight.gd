@@ -31,15 +31,15 @@ func _physics_process(delta: float) -> void:
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
 		ChangeMap(map_idx)
 	
-	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
-		player_idx += 1
-		if player_idx > get_tree().get_nodes_in_group("players").size() - 1:
-			player_idx = 0
-		current_player.debug_port = -1
-		current_player = get_tree().get_nodes_in_group("players")[player_idx]
-		if !current_player.has_escaped:
-			current_player.Honk()
-		current_player.debug_port = 0
+	#if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_RIGHT_SHOULDER):
+		#player_idx += 1
+		#if player_idx > get_tree().get_nodes_in_group("players").size() - 1:
+			#player_idx = 0
+		#current_player.debug_port = -1
+		#current_player = get_tree().get_nodes_in_group("players")[player_idx]
+		#if !current_player.has_escaped:
+			#current_player.Honk()
+		#current_player.debug_port = 0
 		
 func _got_key() -> void:
 	for door in get_tree().get_nodes_in_group("doors"):

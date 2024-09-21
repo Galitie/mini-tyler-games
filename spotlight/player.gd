@@ -201,7 +201,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		
 		if !is_on_floor():
-				$sprite.play("jump")
+			$sprite.play("jump")
 		else:
 			if velocity.x != 0:
 				$sprite.play("walk", remap(velocity.x, 0, move_speed, 0, 1))

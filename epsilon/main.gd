@@ -61,10 +61,10 @@ func _ready():
 	await _codec_triggered("res://epsilon/codec_calls/2.txt", "", current_level_bg_color)
 
 func _physics_process(delta: float) -> void:
-	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
-		for snake in get_tree().get_nodes_in_group("snakes"):
-			if snake.controller_port != 0:
-				snake.hit(self, 9999)
+	#if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_BACK):
+		#for snake in get_tree().get_nodes_in_group("snakes"):
+			#if snake.controller_port != 0:
+				#snake.hit(self, 9999)
 	
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		if in_call:

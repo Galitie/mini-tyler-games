@@ -22,7 +22,7 @@ var moved_stick: bool = false
 @onready var str_button = $margin/hbox/buttons/hbox2/str
 @onready var int_button = $margin/hbox/buttons/hbox3/int
 @onready var gamble_button = $margin/hbox/buttons/hbox7/gamble
-@onready var upgrade_buttons = [hp_button, str_button, int_button, gamble_button]
+@onready var upgrade_buttons = [gamble_button, hp_button, str_button, int_button]
 
 
 var hp_desc = "+1 max health"
@@ -30,7 +30,7 @@ var str_desc = "Attacks do more damage"
 var int_desc = "Attack and block more often"
 var gamble_desc = "Gambling is fun!!!"
 
-var upgrade_options: Array = ["hp", "str", "int", "gamble"]
+var upgrade_options: Array = ["gamble","hp", "str", "int"]
 var upgrade_position: int = 0
 
 signal upgraded

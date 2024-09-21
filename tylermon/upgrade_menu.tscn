@@ -72,6 +72,26 @@ theme_override_font_sizes/font_size = 14
 text = "Add 3 points to stats"
 autowrap_mode = 2
 
+[node name="hbox7" type="HBoxContainer" parent="margin/hbox/buttons"]
+layout_mode = 2
+
+[node name="gamble" type="Button" parent="margin/hbox/buttons/hbox7"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_bottom = NodePath("../../hbox/hp")
+focus_mode = 0
+theme = ExtResource("2_obobf")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 0
+text = "🎲 Gramble"
+alignment = 0
+
+[node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]
+layout_mode = 2
+alignment = 1
+
 [node name="hbox" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
 
@@ -127,26 +147,6 @@ layout_mode = 2
 theme = ExtResource("2_obobf")
 text = "INT: 1"
 
-[node name="hbox7" type="HBoxContainer" parent="margin/hbox/buttons"]
-layout_mode = 2
-
-[node name="gamble" type="Button" parent="margin/hbox/buttons/hbox7"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_neighbor_bottom = NodePath("../../hbox/hp")
-focus_mode = 0
-theme = ExtResource("2_obobf")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 0
-text = "🎲 Gramble"
-alignment = 0
-
-[node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]
-layout_mode = 2
-alignment = 1
-
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
 
@@ -179,7 +179,7 @@ libraries = {
 "": SubResource("AnimationLibrary_u1gcg")
 }
 
+[connection signal="pressed" from="margin/hbox/buttons/hbox7/gamble" to="." method="_on_button_pressed" binds= ["gamble"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox/hp" to="." method="_on_button_pressed" binds= ["hp"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox2/str" to="." method="_on_button_pressed" binds= ["str"]]
 [connection signal="pressed" from="margin/hbox/buttons/hbox3/int" to="." method="_on_button_pressed" binds= ["int"]]
-[connection signal="pressed" from="margin/hbox/buttons/hbox7/gamble" to="." method="_on_button_pressed" binds= ["gamble"]]

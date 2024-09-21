@@ -191,7 +191,7 @@ func _physics_process(delta) -> void:
 						game_speed += GAME_SPEED_INCREMENT
 						current_ember_alpha = remap(game_speed, 1, MAX_GAME_SPEED, 0.13, 1.0)
 						$embers.modulate.a = current_ember_alpha
-						$music.volume_db = remap(game_speed, 1, MAX_GAME_SPEED, -15, 0)
+						$music.volume_db = remap(game_speed, 1, MAX_GAME_SPEED, -15, -7.5)
 						if game_speed > MAX_GAME_SPEED:
 							game_speed = MAX_GAME_SPEED
 						

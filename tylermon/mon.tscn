@@ -80,7 +80,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_fof1f"]
 
 [sub_resource type="Gradient" id="Gradient_ksdtw"]
-colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0.27451, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_goy1p"]
 gradient = SubResource("Gradient_ksdtw")
@@ -88,10 +88,12 @@ gradient = SubResource("Gradient_ksdtw")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_101g7"]
 resource_local_to_scene = true
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(0, 28, 0)
+emission_shape_offset = Vector3(0, 20, 0)
 emission_shape = 3
 emission_box_extents = Vector3(50, 0, 1)
 gravity = Vector3(0, 0, 0)
+scale_min = 1.25
+scale_max = 1.25
 color_ramp = SubResource("GradientTexture1D_goy1p")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6liv6"]
@@ -888,10 +890,11 @@ shape = SubResource("CircleShape2D_fof1f")
 
 [node name="trail" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
+z_index = -1
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_101g7")
 texture = ExtResource("2_laug1")
-lifetime = 3.0
+lifetime = 2.5
 
 [node name="scalable_nodes" type="Node2D" parent="."]
 scale = Vector2(0.75, 0.75)

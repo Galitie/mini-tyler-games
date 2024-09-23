@@ -13,8 +13,7 @@ var victory = load("res://tylermon/sfx/victory.mp3")
 
 @onready var audio_player = $audio
 @onready var upgrade_menu = $upgrade_ui
-@onready var countdown_label = $countdown_ui/margin/seperator/label
-@onready var countdown_nums = $countdown_ui/margin/seperator/countdown
+@onready var countdown_nums = %countdown
 @onready var round_timer = $round_timer
 @onready var transition_timer = $transition_timer
 @onready var command_ui = $command_ui
@@ -40,7 +39,7 @@ func _ready():
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
-	countdown_nums.text = "Customize Mon - press START when all players are ready!"
+	%description.text = "Customize Mon - press START when all players are ready!"
 
 
 func start_game():
@@ -50,8 +49,8 @@ func start_game():
 	for menus in customization_buttons:
 		menus.queue_free()
 	fight_time = true
-	countdown_label.text = "Round ends: "
-	$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
+	%description.text = ""
+	%round_num.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 	$upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0/mon1/customizer.set_process(false)
 	$upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1/mon2/customizer2.set_process(false)
 	$upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2/mon3/customizer3.set_process(false)
@@ -93,13 +92,13 @@ func _on_round_timer_timeout():
 			Globals.GoToMainMenu()
 			return
 		call_and_pause()
-		await show_transition("round_winners", winners, 10)
+		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		knocked_out_mons = 0
-		countdown_label.text = "Feed your mon 🍪's to make them stronger!"
-		round_timer.stop()
 		%countdown.text = ""
+		%description.text = "Feed your mon 🍪's to make them stronger!"
+		round_timer.stop()
 		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:
 		fight_time = true
@@ -108,11 +107,12 @@ func _on_round_timer_timeout():
 		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false
 		#command_ui.visible = true
 		call_and_switch_modes()
-		countdown_label.text = "Round ends:" 
+		%description.text = "" 
 		if current_round == max_rounds:
-			$round_ui/margin/seperator/label.text = "FINAL ROUND!!!!"
+			%round_num.set("theme_override_colors/font_color", Color("ff0000"))
+			%round_num.text = "FINAL ROUND!!!!"
 		else:
-			$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
+			%round_num.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 		round_timer.start(fight_length)
 
 

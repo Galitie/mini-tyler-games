@@ -75,7 +75,7 @@ func build_nodes(winners):
 		label_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label_name.set("theme_override_colors/font_color", Color("000000"))
-		label.text = "👑" + str(winner.wins) + " (" + " +" + str(winner.get_child(0).current_victory_points) + " awarded )"
+		label.text = "+👑" + str(winner.get_child(0).current_victory_points)
 		label_name.text = winner.get_child(0).mon_name
 		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		images.texture = sprite_frame.get_frame_texture("idle",0)
@@ -131,7 +131,7 @@ func build_losers_nodes(winners):
 		label_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label_name.set("theme_override_colors/font_color", Color("000000"))
-		label.text = "👑" + str(loser.wins) + " (" + "+" + str(loser.get_child(0).current_victory_points) + ")"
+		label.text = "+👑" + str(loser.get_child(0).current_victory_points)
 		label_name.text = loser.get_child(0).mon_name
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label_name.theme = load("res://tylermon/tylermon_theme.tres")

@@ -80,7 +80,7 @@ func build_nodes(winners):
 		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		images.texture = sprite_frame.get_frame_texture("idle",0)
 		image_mon.texture = sprite_frame.get_frame_texture("idle",0)
-		image_mon.modulate = winner.get_child(0).custom_color
+		image_mon.modulate = winner.get_child(0).mon_color
 		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		if winner.get_child(0).buff == true:
@@ -135,7 +135,7 @@ func build_losers_nodes(winners):
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label_name.theme = load("res://tylermon/tylermon_theme.tres")
 		image_mon.texture = sprite_frame.get_frame_texture("idle",0)
-		image_mon.modulate = loser.get_child(0).custom_color
+		image_mon.modulate = loser.get_child(0).mon_color
 		image_mon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		image_mon.custom_minimum_size = Vector2(100,100)
 		image_mon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT

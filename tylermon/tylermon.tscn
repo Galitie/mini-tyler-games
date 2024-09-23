@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="3_cssk0"]
 [ext_resource type="PackedScene" uid="uid://cyyxc3uqqve2m" path="res://tylermon/upgrade_menu.tscn" id="4_03my5"]
 [ext_resource type="Script" path="res://tylermon/player.gd" id="5_uxsio"]
-[ext_resource type="PackedScene" uid="uid://cb7lwc1cg6d5c" path="res://tylermon/command_menu.tscn" id="6_8kvd3"]
+[ext_resource type="PackedScene" path="res://tylermon/command_menu.tscn" id="6_8kvd3"]
 [ext_resource type="PackedScene" uid="uid://m7x0w3mg0g76" path="res://tylermon/customizer.tscn" id="6_ultvs"]
 [ext_resource type="PackedScene" uid="uid://io2r0wxux8x6" path="res://tylermon/transition_ui.tscn" id="7_4dfmu"]
 [ext_resource type="AudioStream" uid="uid://blwekvip8521k" path="res://tylermon/sfx/music.mp3" id="11_suxut"]
@@ -129,7 +129,6 @@ script = ExtResource("5_uxsio")
 
 [node name="mon1" parent="upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0" instance=ExtResource("2_yelk2")]
 position = Vector2(479, 256)
-custom_color = Color(1, 0.584314, 0.227451, 1)
 mon_name = "Jerry"
 
 [node name="customizer" parent="upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu/player0/mon1" groups=["customizer"] instance=ExtResource("6_ultvs")]
@@ -160,7 +159,6 @@ controller_port = 1
 
 [node name="mon2" parent="upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1" instance=ExtResource("2_yelk2")]
 position = Vector2(821, 256)
-custom_color = Color(0.788235, 0.372549, 0.964706, 1)
 mon_name = "Patrick"
 
 [node name="customizer2" parent="upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2/player1/mon2" groups=["customizer"] instance=ExtResource("6_ultvs")]
@@ -191,7 +189,6 @@ controller_port = 3
 
 [node name="mon4" parent="upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4/player3" instance=ExtResource("2_yelk2")]
 position = Vector2(827, 523)
-custom_color = Color(1, 1, 1, 1)
 mon_name = "Albert"
 
 [node name="customizer4" parent="upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4/player3/mon4" groups=["customizer"] instance=ExtResource("6_ultvs")]
@@ -223,7 +220,6 @@ controller_port = 2
 
 [node name="mon3" parent="upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2" instance=ExtResource("2_yelk2")]
 position = Vector2(475, 523)
-custom_color = Color(0.0862745, 0.701961, 0.666667, 1)
 mon_name = "Chad"
 
 [node name="customizer3" parent="upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3/player2/mon3" groups=["customizer"] instance=ExtResource("6_ultvs")]

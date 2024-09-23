@@ -18,7 +18,6 @@ var buff : bool = false
 var tank : bool = false
 
 
-@export var custom_color : Color
 @export var mon_name : String
 
 signal knocked_out
@@ -60,6 +59,8 @@ var state_weights = [
 @onready var anim_player = $modulate_anim
 @onready var damage_anim_player = $damage_anim
 @onready var audio_player = $audio_player
+@onready var mon_color = Color.WHITE
+@onready var mon_trail_color = %trail.process_material
 
 @onready var hat = $scalable_nodes/witch_hat
 @onready var glasses = $scalable_nodes/glasses
@@ -105,19 +106,17 @@ func _ready():
 	$name.text = mon_name
 	phrase.text = ""
 	set_state(State.IDLE)
-	sprite.modulate = custom_color
 	get_parent().get_parent().connect("upgraded", upgrade_react)
 	get_parent().get_parent().connect("first_place", first_place)
 	upgrade_pos = get_parent().get_parent().get_parent().position + Vector2(70, 50)
-	
+	mon_trail_color.color = mon_color
 
 func _physics_process(delta):
 	if health <= 0 and current_state != State.KNOCKED_OUT:
 		set_state(State.KNOCKED_OUT)
 	move_and_slide()
 	update_state(current_state, delta)
-	if !anim_player.is_playing():
-		sprite.modulate = custom_color
+
 
 func change_name(new_name):
 	mon_name = new_name
@@ -328,6 +327,7 @@ func _on_hurt_box_area_entered(area):
 	velocity = Vector2()
 	play_audio(hurt_sounds)
 	anim_player.play("hurt")
+	_on_modulate_anim_animation_finished("hurt")
 	play_anims("hurt")
 	if health <= roundi(max_health * .25):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
@@ -487,3 +487,7 @@ func first_place(isfirstplace):
 		bee.visible = true
 	else:
 		bee.visible = false
+
+
+func _on_modulate_anim_animation_finished(hurt):
+	%sprite.material.set_shader_parameter("modulate", mon_color)

@@ -195,7 +195,9 @@ func _on_button_pressed(button_name):
 	match button_name:
 		"color":
 			var random_color = GODOT_COLORS.pick_random()
-			mon.custom_color = random_color
+			mon.get_node("%sprite").material.set_shader_parameter("modulate", random_color)
+			mon.mon_color = random_color
+			mon.mon_trail_color.color = random_color
 
 		"name":
 			var random_name = NAME_OPTIONS.pick_random()

@@ -49,18 +49,18 @@ func _physics_process(_delta):
 		if !moved_stick:
 			if vertical_input > 0:
 				upgrade_position += 1
-				cursor.position.y += 35
+				cursor.position.y += 38
 				moved_stick = true
 			elif vertical_input < 0:
 				upgrade_position -= 1
-				cursor.position.y -= 35
+				cursor.position.y -= 38
 				moved_stick = true
 		if upgrade_position >= upgrade_options.size():
 			upgrade_position = 0
-			cursor.position.y = 50
+			cursor.position.y = 58
 		elif upgrade_position < 0:
 			upgrade_position = upgrade_options.size() - 1
-			cursor.position.y = 155
+			cursor.position.y = 173
 		if moved_stick:
 			_on_mouse_entered(upgrade_options[upgrade_position])
 		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):

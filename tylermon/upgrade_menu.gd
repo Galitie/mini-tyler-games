@@ -113,14 +113,14 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			mon.max_health += 1
 			emit_signal("upgraded", "good")
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			if mon.max_health >= 15 && mon.tank == false:
 				mon.tank = true
-				mon.get_node("scalable_nodes").scale += Vector2(.25, .25)
+				mon.get_node("%scalable_nodes").scale += Vector2(.25, .25)
 				mon.get_node("collision").scale += Vector2(.25, .25)
+				mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + .25)
 				description.text = "BIG BOIIIIIIIIIII"
 		"str":
 			points_to_spend -= 1
@@ -181,10 +181,9 @@ func gamble():
 			description.text = "Mon is sluggish!"
 			emit_signal("upgraded", "bad")
 		2:
-			mon.get_node("scalable_nodes").scale -= Vector2(.20, .20)
-			mon.get_node("collision").scale -= Vector2(.20, .20)
-			mon.mon_trail.scale_min -= .20
-			mon.mon_trail.scale_max -= .20
+			mon.get_node("%scalable_nodes").scale -= Vector2(.15, .15)
+			mon.get_node("collision").scale -= Vector2(.15, .15)
+			mon.get_node("%trail").process_material.set("scale_max", mon.get_node("%trail").process_material.get("scale_max") - .15)
 			description.text = "Mon has shrunk!"
 			emit_signal("upgraded", "bad")
 		3:
@@ -225,8 +224,9 @@ func gamble():
 		description.text = "Pretty smart for a dummy"
 	if mon.max_health >= 15 && mon.tank == false:
 		mon.tank = true
-		mon.get_node("scalable_nodes").scale += Vector2(.25, .25)
+		mon.get_node("%scalable_nodes").scale += Vector2(.25, .25)
 		mon.get_node("collision").scale += Vector2(.25, .25)
+		mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + .25)
 		description.text = "BIG BOIIIIIIIIIII"
 
 
@@ -240,10 +240,9 @@ func increase_random_stats(stats:int, alter_by:int):
 	if stats == 1:
 		if random_stat == 1:
 			mon.max_health += (alter_by + 1)
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			update_description(alter_by, "hp", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -256,10 +255,9 @@ func increase_random_stats(stats:int, alter_by:int):
 		var stat2
 		if random_stat == 1:
 			mon.max_health += (alter_by + 1)
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			stat = "hp"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -269,10 +267,9 @@ func increase_random_stats(stats:int, alter_by:int):
 			stat = "int"
 		if random_stat2 == 1:
 			mon.max_health += (alter_by + 1)
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			stat2 = "hp"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -287,10 +284,9 @@ func increase_random_stats(stats:int, alter_by:int):
 		var stat3
 		if random_stat == 1:
 			mon.max_health += alter_by + 1
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			stat = "hp"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -300,10 +296,9 @@ func increase_random_stats(stats:int, alter_by:int):
 			stat = "int"
 		if random_stat2 == 1:
 			mon.max_health += alter_by + 1
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			stat2 = "hp"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -313,10 +308,9 @@ func increase_random_stats(stats:int, alter_by:int):
 			stat2 = "int"
 		if random_stat3 == 1:
 			mon.max_health += alter_by + 1
-			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
+			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
-			mon.mon_trail.scale_min += scale_amount
-			mon.mon_trail.scale_max += scale_amount
+			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
 			stat3 = "hp"
 		if random_stat3 == 2:
 			mon.strength += alter_by
@@ -349,7 +343,6 @@ func set_place():
 	remove_duplicates.reverse()
 	var index = remove_duplicates.find(player.wins)
 	var index_corrected = index + 1
-	var add
 	player.current_place = index_corrected
 	index_corrected = str(index_corrected)
 	if index_corrected == '1':

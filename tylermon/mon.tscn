@@ -897,6 +897,7 @@ texture = ExtResource("2_laug1")
 lifetime = 2.5
 
 [node name="scalable_nodes" type="Node2D" parent="."]
+unique_name_in_owner = true
 scale = Vector2(0.75, 0.75)
 
 [node name="sprite" type="AnimatedSprite2D" parent="scalable_nodes"]

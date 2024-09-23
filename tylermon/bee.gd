@@ -5,7 +5,3 @@ extends Sprite2D
 func _ready():
 	$anim.play("hover")
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

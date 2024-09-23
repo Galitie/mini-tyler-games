@@ -187,6 +187,7 @@ func set_state(state):
 			velocity = Vector2()
 		
 		State.KNOCKED_OUT:
+			%trail.emitting = false
 			_on_block_timer_timeout()
 			_on_attack_timer_timeout()
 			hurt_box.get_child(0).disabled = true
@@ -360,6 +361,7 @@ func chance_to_say_phrase(_array, chance : int):
 func switch_round_modes(fight_time):
 	if fight_time:
 		timer.start(.5)
+		%trail.emitting = true
 		z_index = default_z_index
 		position = fight_pos
 		hp_bar.visible = true
@@ -376,6 +378,7 @@ func switch_round_modes(fight_time):
 		health_label.text = str(max_health)
 		timer.paused = false
 	else:
+		%trail.emitting = false
 		get_node("collision").disabled = true
 		set_state(State.IDLE)
 		timer.stop()

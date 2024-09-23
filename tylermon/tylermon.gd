@@ -93,7 +93,7 @@ func _on_round_timer_timeout():
 			Globals.GoToMainMenu()
 			return
 		call_and_pause()
-		await show_transition("round_winners", winners, 5)
+		await show_transition("round_winners", winners, 10)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
 		knocked_out_mons = 0
@@ -109,7 +109,10 @@ func _on_round_timer_timeout():
 		#command_ui.visible = true
 		call_and_switch_modes()
 		countdown_label.text = "Round ends:" 
-		$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
+		if current_round == max_rounds:
+			$round_ui/margin/seperator/label.text = "FINAL ROUND!!!!"
+		else:
+			$round_ui/margin/seperator/label.text = "Round: " + str(current_round) + "/" + str(max_rounds)
 		round_timer.start(fight_length)
 
 
@@ -131,22 +134,33 @@ func get_end_of_round_winner():
 	for mon in mons:
 		if mon.health == highest_health_mon.health:
 			var player = mon.get_parent()
-			player.wins += 5
 			winners.append(player)
-	
+
+	for player in winners:
+		match winners.size():
+			1:
+				player.wins += 5
+				player.get_child(0).current_victory_points = 5
+			2:
+				player.wins += 3
+				player.get_child(0).current_victory_points = 3
+			3:
+				player.wins += 2
+				player.get_child(0).current_victory_points = 2
+			4:
+				player.wins += 1
+				player.get_child(0).current_victory_points = 1
+			
 	var players = get_tree().get_nodes_in_group("player")
-	
 	var losers = []
-	
 	for player in players:
 		if !winners.has(player):
 			losers.append(player)
 	
 	for loser in losers:
-		if winners.size() == 3:
-			loser.wins += 3
-		if winners.size() == 2:
-			loser.wins += 2
+		if loser.get_child(0).current_state != loser.get_child(0).State.KNOCKED_OUT:
+			loser.get_child(0).check_how_many_other_mons_knocked_out()
+		loser.wins += loser.get_child(0).current_victory_points
 	
 	return winners
 

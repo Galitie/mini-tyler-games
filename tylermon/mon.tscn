@@ -811,6 +811,9 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 radius = 5.76907
 
+[sub_resource type="Animation" id="Animation_nsi27"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_lk8iw"]
 resource_name = "damage_amount"
 tracks/0/type = "value"
@@ -862,9 +865,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_han7l"]
 resource_name = "thought"
 length = 0.5
-
-[sub_resource type="Animation" id="Animation_nsi27"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ejfqx"]
 _data = {

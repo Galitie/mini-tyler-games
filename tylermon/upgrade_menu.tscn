@@ -149,6 +149,7 @@ text = "INT: 1"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="place_num" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2
@@ -158,7 +159,7 @@ text = "1st place"
 [node name="label2" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_obobf")
-text = "- 👑"
+text = "👑"
 
 [node name="vp" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
 unique_name_in_owner = true

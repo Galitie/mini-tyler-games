@@ -361,7 +361,7 @@ func set_place():
 		$anim_player.play("pulse")
 		%gamble.text = "🎲 Mon is extra lucky!"
 		first_place.emit(false)
-	place.text = index_corrected + add + " place"
+	place.text = index_corrected + add + " place - "
 
 
 func array_unique(array: Array) -> Array:

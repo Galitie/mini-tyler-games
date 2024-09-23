@@ -16,6 +16,7 @@ var cursed : bool = false
 var smart : bool = false
 var buff : bool = false
 var tank : bool = false
+var current_victory_points = 0
 
 
 @export var mon_name : String
@@ -199,9 +200,7 @@ func set_state(state):
 			hp_bar.value = health
 			hp_bar.visible = false
 			velocity = Vector2()
-			var victory_points = check_how_many_other_mons_knocked_out()
-			var player = get_parent()
-			player.wins += victory_points
+			current_victory_points = check_how_many_other_mons_knocked_out()
 			$dead_anim_timer.start(.60)
 			$knockout_timer.start(1.25)
 

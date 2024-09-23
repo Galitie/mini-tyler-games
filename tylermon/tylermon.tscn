@@ -17,7 +17,7 @@ scale = Vector2(0.998899, 1.00798)
 script = ExtResource("1_66guv")
 fight_length = 60
 upgrade_length = 60
-max_rounds = 1
+max_rounds = 10
 
 [node name="Arena" parent="." instance=ExtResource("2_mlfq2")]
 z_index = -2

@@ -15,8 +15,6 @@ var moved_stick: bool = false
 @onready var str_stat = $margin/hbox/buttons/hbox2/stat2
 @onready var int_stat = $margin/hbox/buttons/hbox3/stat3
 @onready var description = $margin/hbox/buttons/description
-@onready var place = $margin/hbox/buttons/HBoxContainer/place_num
-@onready var vp = $margin/hbox/buttons/HBoxContainer/vp
 
 @onready var hp_button = $margin/hbox/buttons/hbox/hp
 @onready var str_button = $margin/hbox/buttons/hbox2/str
@@ -85,7 +83,6 @@ func _physics_process(_delta):
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
-		%vp.text = str(player.wins)
 	
 	if upgrade_time && !place_set:
 		set_place()
@@ -340,28 +337,19 @@ func set_place():
 	player.current_place = index_corrected
 	index_corrected = str(index_corrected)
 	if index_corrected == '1':
-		add = "st"
-		place.set("theme_override_colors/font_color", Color('00cb00'))
 		%gamble.text = "🎲 Gramble"
 		first_place.emit(true)
 	if index_corrected == '2':
-		add = "nd"
-		place.set("theme_override_colors/font_color", Color('ffffff'))
 		%gamble.text = "🎲 Gramble"
 		first_place.emit(false)
 	if index_corrected == '3':
-		add = "rd"
-		place.set("theme_override_colors/font_color", Color('e90000'))
 		$anim_player.play("pulse")
 		%gamble.text = "🎲 Mon is extra lucky!"
 		first_place.emit(false)
 	if index_corrected == '4':
-		add = "th"
-		place.set("theme_override_colors/font_color", Color('e90000'))
 		$anim_player.play("pulse")
 		%gamble.text = "🎲 Mon is extra lucky!"
 		first_place.emit(false)
-	place.text = index_corrected + add + " place - "
 
 
 func array_unique(array: Array) -> Array:

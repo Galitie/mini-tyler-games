@@ -147,26 +147,6 @@ layout_mode = 2
 theme = ExtResource("2_obobf")
 text = "INT: 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="margin/hbox/buttons"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="place_num" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_obobf")
-text = "1st place"
-
-[node name="label2" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_obobf")
-text = "👑"
-
-[node name="vp" type="Label" parent="margin/hbox/buttons/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("2_obobf")
-text = "0"
-
 [node name="cursor" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = -45.0

@@ -40,10 +40,11 @@ func _ready():
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
 	%description.text = "Customize Mon - press START when all players are ready!"
-
+	
 
 func start_game():
 	start_menu_time = false
+	%bottom_ui.set_place()
 	for mon in mons:
 		mon.hp_bar.visible = true
 	for menus in customization_buttons:
@@ -85,6 +86,7 @@ func _on_round_timer_timeout():
 		var winners = get_end_of_round_winner()
 		audio_player.stream = victory
 		audio_player.play()
+		%bottom_ui.set_place()
 		var game_end = await check_for_game_end()
 		if game_end:
 			Globals.tylermon_played = true

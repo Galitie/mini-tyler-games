@@ -115,6 +115,8 @@ func _on_button_pressed(button_name):
 			emit_signal("upgraded", "good")
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			if mon.max_health >= 15 && mon.tank == false:
 				mon.tank = true
 				mon.get_node("scalable_nodes").scale += Vector2(.25, .25)
@@ -181,6 +183,8 @@ func gamble():
 		2:
 			mon.get_node("scalable_nodes").scale -= Vector2(.20, .20)
 			mon.get_node("collision").scale -= Vector2(.20, .20)
+			mon.mon_trail.scale_min -= .20
+			mon.mon_trail.scale_max -= .20
 			description.text = "Mon has shrunk!"
 			emit_signal("upgraded", "bad")
 		3:
@@ -238,6 +242,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += (alter_by + 1)
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			update_description(alter_by, "hp", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -252,6 +258,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += (alter_by + 1)
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			stat = "hp"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -263,6 +271,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += (alter_by + 1)
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			stat2 = "hp"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -279,6 +289,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += alter_by + 1
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			stat = "hp"
 		if random_stat == 2:
 			mon.strength += alter_by
@@ -290,6 +302,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += alter_by + 1
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			stat2 = "hp"
 		if random_stat2 == 2:
 			mon.strength += alter_by
@@ -301,6 +315,8 @@ func increase_random_stats(stats:int, alter_by:int):
 			mon.max_health += alter_by + 1
 			mon.get_node("scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
+			mon.mon_trail.scale_min += scale_amount
+			mon.mon_trail.scale_max += scale_amount
 			stat3 = "hp"
 		if random_stat3 == 2:
 			mon.strength += alter_by

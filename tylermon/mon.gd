@@ -61,7 +61,7 @@ var state_weights = [
 @onready var damage_anim_player = $damage_anim
 @onready var audio_player = $audio_player
 @onready var mon_color = Color.WHITE
-@onready var mon_trail_color = %trail.process_material
+@onready var mon_trail = %trail.process_material
 
 @onready var hat = $scalable_nodes/witch_hat
 @onready var glasses = $scalable_nodes/glasses
@@ -110,7 +110,7 @@ func _ready():
 	get_parent().get_parent().connect("upgraded", upgrade_react)
 	get_parent().get_parent().connect("first_place", first_place)
 	upgrade_pos = get_parent().get_parent().get_parent().position + Vector2(70, 50)
-	mon_trail_color.color = mon_color
+	mon_trail.color = mon_color
 
 func _physics_process(delta):
 	if health <= 0 and current_state != State.KNOCKED_OUT:

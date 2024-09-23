@@ -161,11 +161,40 @@ func get_end_of_round_winner():
 	
 	for loser in losers:
 		if loser.get_child(0).current_state != loser.get_child(0).State.KNOCKED_OUT:
-			loser.get_child(0).check_how_many_other_mons_knocked_out()
+			var bonus_points = loser.get_child(0).check_how_many_other_mons_knocked_out()
+			loser.get_child(0).current_victory_points += bonus_points
 		loser.wins += loser.get_child(0).current_victory_points
+
+
+	##check if no losers are knocked out
+	#var no_losers_knocked_out : bool = true
+	#for loser in losers:
+		#if loser.get_child(0).current_state == loser.get_child(0).State.KNOCKED_OUT:
+			#no_losers_knocked_out = false
+	#
+	## if no loser are knocked out, sort by highest health
+	#if no_losers_knocked_out:
+		#var sorted_losers = []
+		#var counter = losers.size()
+		#for loser in losers:
+			#sorted_losers.append([loser, int(loser.get_child(0).health)])
+		#sorted_losers.sort_custom(sort_descending) # [loser_player, mon_health] high to low
+		#for loser in sorted_losers:
+			#loser[0].get_child(0).current_victory_points += counter
+			#counter -= 1
+			#loser[0].wins += loser[0].get_child(0).current_victory_points
+	#else:
+		#for loser in losers:
+			#if loser.get_child(0).current_state != loser.get_child(0).State.KNOCKED_OUT:
+				#loser.get_child(0).current_victory_points = loser.get_child(0).check_how_many_other_mons_knocked_out()
+			#loser.wins += loser.get_child(0).current_victory_points
 	
 	return winners
 
+func sort_descending(a, b):
+	if a[1] > b[1]:
+		return true
+	return false
 
 func check_for_game_end() -> bool:
 	if current_round == max_rounds:

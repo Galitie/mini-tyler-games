@@ -360,6 +360,7 @@ func chance_to_say_phrase(_array, chance : int):
 
 func switch_round_modes(fight_time):
 	if fight_time:
+		current_victory_points = 0
 		timer.start(.5)
 		%trail.emitting = true
 		z_index = default_z_index

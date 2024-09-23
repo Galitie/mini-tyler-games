@@ -25,7 +25,7 @@ func update_winners(winners):
 		%title_text.text = "🎉 ROUND WINNER 🎉"
 	else:
 		%title_text.text = "🎉 ROUND WINNERS 🎉"
-	build_nodes(winners)
+	build_nodes(winners, false)
 	sm_left_confetti.emitting = true
 	sm_right_confetti.emitting = true
 
@@ -56,10 +56,11 @@ func show_final_winners(winners):
 		%title_text.text = "✨🏆 GAME WINNER 🏆✨"
 	else:
 		%title_text.text = "✨🏆 GAME WINNERS 🏆✨"
-	build_nodes(winners)
+	build_nodes(winners, true)
 
 
-func build_nodes(winners):
+func build_nodes(winners, end_of_game):
+	
 	var container = get_node("center_container/vbox/winners")
 	for winner in winners:
 		var images = TextureRect.new()
@@ -75,7 +76,10 @@ func build_nodes(winners):
 		label_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label_name.set("theme_override_colors/font_color", Color("000000"))
-		label.text = "+👑" + str(winner.get_child(0).current_victory_points)
+		if !end_of_game:
+			label.text = "+👑" + str(winner.get_child(0).current_victory_points)
+		else:
+			label.text = "👑" + str(winner.wins)
 		label_name.text = winner.get_child(0).mon_name
 		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		images.texture = sprite_frame.get_frame_texture("idle",0)
@@ -133,7 +137,10 @@ func build_losers_nodes(winners):
 		label_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label_name.set("theme_override_colors/font_color", Color("000000"))
-		label.text = "+👑" + str(loser.get_child(0).current_victory_points)
+		if !end_of_game:
+			label.text = "+👑" + str(loser.get_child(0).current_victory_points)
+		else:
+			label.text = "👑" + str(loser.wins)
 		label_name.text = loser.get_child(0).mon_name
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label_name.theme = load("res://tylermon/tylermon_theme.tres")

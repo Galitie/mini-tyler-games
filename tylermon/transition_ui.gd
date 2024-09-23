@@ -113,6 +113,8 @@ func build_losers_nodes(winners):
 			losers.append(player)
 	
 	var container = get_node("center_container/vbox/losers")
+	losers.sort_custom((func(a, b): return a.get_child(0).current_victory_points > b.get_child(0).current_victory_points))
+	
 	for loser in losers:
 		var images = TextureRect.new()
 		var label = Label.new()
@@ -170,3 +172,7 @@ func build_losers_nodes(winners):
 		vbox.set("theme_override_constants/separation", 5)
 		container.add_child(vbox)	
 
+func sort_descending(a, b):
+	if a[1] > b[1]:
+		return true
+	return false

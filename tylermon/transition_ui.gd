@@ -84,7 +84,7 @@ func build_nodes(winners):
 		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-		if winner.get_child(0).buff == true:
+		if winner.get_child(0).buff == true && winner.get_child(0).cursed == false:
 			var sprite_hair = winner.get_child(0).get_node("scalable_nodes").get_child(2).get_sprite_frames()
 			image_hair.texture = sprite_hair.get_frame_texture("idle",0)
 			images.add_child(image_hair)
@@ -145,7 +145,7 @@ func build_losers_nodes(winners):
 		images.add_child(image_mon)
 		var vbox = VBoxContainer.new()
 		vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-		if loser.get_child(0).buff == true:
+		if loser.get_child(0).buff == true && loser.get_child(0).cursed == false:
 			var sprite_hair = loser.get_child(0).get_node("scalable_nodes").get_child(2).get_sprite_frames()
 			image_hair.texture = sprite_hair.get_frame_texture("idle",0)
 			image_hair.expand_mode = TextureRect.EXPAND_IGNORE_SIZE

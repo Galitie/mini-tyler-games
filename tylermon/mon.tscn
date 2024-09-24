@@ -905,9 +905,8 @@ unique_name_in_owner = true
 material = SubResource("ShaderMaterial_6liv6")
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_scvj0")
-animation = &"idle"
+animation = &"hurt"
 autoplay = "idle"
-frame_progress = 0.859317
 
 [node name="glasses" type="AnimatedSprite2D" parent="scalable_nodes"]
 visible = false

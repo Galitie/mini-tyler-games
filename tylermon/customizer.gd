@@ -1,155 +1,135 @@
 extends Control
 
 @onready var player_label = $margin/vbox/vbox2/Label
+@onready var cursor = $cursor
 @export var player_name : String
+
 var mon
 var player
 var upgrade_options: Array = ["name", "color"]
 var upgrade_position: int = 0
 var moved_stick: bool = false
+var name_position = 0
+var color_position = 0
+
 signal upgraded
-@onready var cursor = $cursor
-# List of all constant Godot colors with uppercase names
+
+
 const GODOT_COLORS = [
+	#Blues and Cyans
 	Color.ALICE_BLUE,
+	Color.AZURE,
+	Color.SKY_BLUE,
+	Color.DODGER_BLUE,
+	Color.LIGHT_SKY_BLUE,
+	Color.STEEL_BLUE,
+	Color.CADET_BLUE,
+	Color.CYAN,
+	Color.LIGHT_CYAN,
+	Color.TURQUOISE,
+	Color.MEDIUM_TURQUOISE,
+	Color.DARK_TURQUOISE,
 	Color.AQUA,
 	Color.AQUAMARINE,
-	Color.AZURE,
-	Color.BEIGE,
-	Color.BISQUE,
-	Color.BLANCHED_ALMOND,
-	Color.BLUE,
-	Color.BLUE_VIOLET,
-	Color.BROWN,
-	Color.CADET_BLUE,
-	Color.CHARTREUSE,
-	Color.CHOCOLATE,
-	Color.CORAL,
-	Color.CORNFLOWER_BLUE,
-	Color.CORNSILK,
-	Color.CRIMSON,
-	Color.CYAN,
-	Color.DARK_BLUE,
-	Color.DARK_CYAN,
-	Color.DARK_GRAY,
-	Color.DARK_GREEN,
-	Color.DARK_KHAKI,
-	Color.DARK_MAGENTA,
-	Color.DARK_OLIVE_GREEN,
-	Color.DARK_ORANGE,
-	Color.DARK_ORCHID,
-	Color.DARK_RED,
-	Color.DARK_SALMON,
-	Color.DARK_SEA_GREEN,
-	Color.DARK_SLATE_BLUE,
-	Color.DARK_SLATE_GRAY,
-	Color.DARK_TURQUOISE,
-	Color.DARK_VIOLET,
-	Color.DEEP_PINK,
-	Color.DEEP_SKY_BLUE,
-	Color.DIM_GRAY,
-	Color.DODGER_BLUE,
-	Color.FIREBRICK,
-	Color.FOREST_GREEN,
-	Color.FUCHSIA,
-	Color.GAINSBORO,
-	Color.GOLD,
-	Color.GRAY,
-	Color.GREEN,
-	Color.GREEN_YELLOW,
-	Color.HOT_PINK,
-	Color.INDIAN_RED,
-	Color.INDIGO,
-	Color.IVORY,
-	Color.KHAKI,
-	Color.LAVENDER,
-	Color.LAVENDER_BLUSH,
+	Color.PALE_TURQUOISE,
+	#Greens
 	Color.LAWN_GREEN,
-	Color.LEMON_CHIFFON,
-	Color.LIGHT_BLUE,
-	Color.LIGHT_CORAL,
-	Color.LIGHT_CYAN,
-	Color.LIGHT_GRAY,
 	Color.LIGHT_GREEN,
-	Color.LIGHT_PINK,
-	Color.LIGHT_SALMON,
-	Color.LIGHT_SEA_GREEN,
-	Color.LIGHT_SKY_BLUE,
-	Color.LIGHT_SLATE_GRAY,
-	Color.LIGHT_STEEL_BLUE,
-	Color.LIGHT_YELLOW,
+	Color.GREEN,
 	Color.LIME,
 	Color.LIME_GREEN,
-	Color.LINEN,
-	Color.MAGENTA,
-	Color.MAROON,
-	Color.MEDIUM_AQUAMARINE,
-	Color.MEDIUM_BLUE,
-	Color.MEDIUM_ORCHID,
-	Color.MEDIUM_PURPLE,
+	Color.GREEN_YELLOW,
 	Color.MEDIUM_SEA_GREEN,
-	Color.MEDIUM_SLATE_BLUE,
-	Color.MEDIUM_SPRING_GREEN,
-	Color.MEDIUM_TURQUOISE,
-	Color.MEDIUM_VIOLET_RED,
-	Color.MIDNIGHT_BLUE,
-	Color.MINT_CREAM,
-	Color.MISTY_ROSE,
-	Color.MOCCASIN,
-	Color.OLD_LACE,
+	Color.DARK_GREEN,
+	Color.FOREST_GREEN,
+	Color.DARK_OLIVE_GREEN,
 	Color.OLIVE,
 	Color.OLIVE_DRAB,
+	Color.SEA_GREEN,
+	Color.PALE_GREEN,
+	Color.DARK_SEA_GREEN,
+	Color.MEDIUM_SPRING_GREEN,
+	Color.CHARTREUSE,
+	#Yellows and Beiges
+	Color.LEMON_CHIFFON,
+	Color.WHEAT,
+	Color.BEIGE,
+	Color.KHAKI,
+	Color.THISTLE,
+	Color.LIGHT_YELLOW,
+	Color.GOLD,
+	Color.DARK_KHAKI,
+	Color.CORNSILK,
+	Color.MOCCASIN,
+	Color.OLD_LACE,
+	Color.PAPAYA_WHIP,
+	Color.LAVENDER_BLUSH,
+	Color.LINEN,
+	#Oranges
 	Color.ORANGE,
 	Color.ORANGE_RED,
-	Color.ORCHID,
-	Color.PALE_GREEN,
-	Color.PALE_TURQUOISE,
-	Color.PALE_VIOLET_RED,
-	Color.PAPAYA_WHIP,
-	Color.PEACH_PUFF,
-	Color.PERU,
-	Color.PINK,
-	Color.PLUM,
-	Color.POWDER_BLUE,
-	Color.PURPLE,
-	Color.REBECCA_PURPLE,
-	Color.RED,
-	Color.ROSY_BROWN,
-	Color.ROYAL_BLUE,
-	Color.SADDLE_BROWN,
-	Color.SALMON,
-	Color.SANDY_BROWN,
-	Color.SEA_GREEN,
-	Color.SIENNA,
-	Color.SILVER,
-	Color.SKY_BLUE,
-	Color.SLATE_BLUE,
-	Color.SLATE_GRAY,
-	Color.SNOW,
-	Color.SPRING_GREEN,
-	Color.STEEL_BLUE,
-	Color.TAN,
-	Color.TEAL,
-	Color.THISTLE,
+	Color.DARK_ORANGE,
 	Color.TOMATO,
-	Color.TURQUOISE,
+	Color.CORAL,
+	Color.SALMON,
+	Color.LIGHT_SALMON,
+	Color.SANDY_BROWN,
+	Color.PEACH_PUFF,
+	Color.CHOCOLATE,
+	#Reds and Pinks
+	Color.RED,
+	Color.CRIMSON,
+	Color.FIREBRICK,
+	Color.DARK_RED,
+	Color.DEEP_PINK,
+	Color.HOT_PINK,
+	Color.PINK,
+	Color.MEDIUM_VIOLET_RED,
+	Color.INDIAN_RED,
+	Color.LIGHT_PINK,
+	Color.ROSY_BROWN,
+	Color.PALE_VIOLET_RED,
+	Color.MISTY_ROSE,
+	#Purples
+	Color.FUCHSIA,
+	Color.MAROON,
+	Color.PURPLE,
 	Color.VIOLET,
-	Color.WHEAT,
+	Color.INDIGO,
+	Color.BLUE_VIOLET,
+	Color.DARK_VIOLET,
+	Color.MEDIUM_PURPLE,
+	Color.MEDIUM_ORCHID,
+	Color.DARK_ORCHID,
+	Color.LAVENDER,
+	Color.REBECCA_PURPLE,
+	#Grays and Neutrals
+	Color.GRAY,
+	Color.DIM_GRAY,
+	Color.LIGHT_GRAY,
+	Color.LIGHT_SLATE_GRAY,
+	Color.SLATE_GRAY,
+	Color.DARK_GRAY,
+	Color.SILVER,
 	Color.WHITE,
-	Color.YELLOW,
-	Color.YELLOW_GREEN
-]
+	Color.SNOW,
+	Color.GAINSBORO,
+	#Browns
+	Color.BROWN,
+	Color.SIENNA,
+	Color.SADDLE_BROWN,
+	Color.DARK_SALMON,
+	Color.MEDIUM_AQUAMARINE,
+];
+
 const NAME_OPTIONS = [
-  "Chad", "Jerry", "Bob", "Ron", "Gary", "Larry", "Bill", "Frank", "Ted", "Tom",
-  "Rick", "Jim", "Steve", "Wayne", "Doug", "Randy", "Dale", "Kurt", "Greg", "Ken",
-  "Bruce", "Chuck", "Roy", "Stan", "Jeff", "Don", "Glen", "Earl", "Al", "Walt",
-  "Keith", "Mark", "Dan", "Fred", "Paul", "Jack", "George", "Marty", "Dave", "Carl",
-  "Cliff", "Rod", "Tim", "Joe", "Vince", "Mike", "Terry", "Dennis", "Howard", "Lenny",
-  "Art", "Phil", "Scott", "Warren", "Dean", "Ralph", "Ed", "Lee", "Pat", "Ben",
-  "Barry", "Sam", "Russ", "Gene", "Harold", "Daryl", "Kenny", "Allan", "Curt", "Norm",
-  "Clyde", "Ernie", "Harvey", "Mel", "Lloyd", "Mitch", "Rex", "Clay", "Clint", "Hal",
-  "Bert", "Wes", "Glenn", "Len", "Lewis", "Neil", "Otis", "Denny", "Hank", "Murray",
-  "Stu", "Ray", "Edgar", "Bruce", "Floyd", "Gordon", "Les", "Ronnie", "Dwight", "Herb"
+	"Al", "Art", "Barry", "Bert", "Bill", "Bob", "Bruce", "Carl", "Chuck",
+	"Cliff", "Clint", "Clay", "Curt", "Dale", "Dan", "Daryl", "Dean", "Dennis",  "Denny", "Doug",
+	"Dwight", "Earl", "Ed", "Edgar", "Ernie", "Floyd", "Frank",  "Gary", "Gene", "Glenn", "Glen",
+	"Gordon", "Greg", "Hal", "Harold", "Harvey",  "Hank", "Howard", "Jim", "Joe", "Jerry", "Jeff",
+	"Ken", "Keith", "Kenny",  "Larry", "Lenny", "Les", "Lewis", "Marty", "Mark", "Mel", "Mitch",
+	"Mike",  "Norm", "Neil", "Otis", "Paul", "Pat", "Randy", "Ray", "Ron", "Ronnie",  "Roy", "Russ",
+	"Rex", "Scott", "Stan", "Steve", "Stu", "Ted", "Terry", "Tim", "Vince", "Wayne", "Walt", "Warren", "Wes"
 ]
 
 signal change_name
@@ -162,7 +142,8 @@ func _ready():
 
 func _physics_process(_delta):
 	var vertical_input: float = round(Controller.GetLeftStick(player.controller_port).y)
-	if !vertical_input:
+	var horizontal_input: float = round(Controller.GetLeftStick(player.controller_port).x)
+	if !vertical_input and !horizontal_input:
 		moved_stick = false
 	if !moved_stick:
 		if vertical_input > 0:
@@ -173,14 +154,20 @@ func _physics_process(_delta):
 			upgrade_position -= 1
 			cursor.position.y -= 35
 			moved_stick = true
+		if horizontal_input > 0:
+			moved_stick = true
+			_on_button_pressed(upgrade_options[upgrade_position], horizontal_input)
+		elif horizontal_input < 0:
+			moved_stick = true
+			_on_button_pressed(upgrade_options[upgrade_position], horizontal_input)
 	if upgrade_position >= upgrade_options.size():
 		upgrade_position = 0
 		cursor.position.y = 23
 	elif upgrade_position < 0:
 		upgrade_position = upgrade_options.size() - 1
 		cursor.position.y = 54
-	if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
-		_on_button_pressed(upgrade_options[upgrade_position])
+
+		
 
 
 func get_mon():
@@ -191,15 +178,30 @@ func get_player():
 	player = mon.get_parent()
 
 
-func _on_button_pressed(button_name):
+func _on_button_pressed(button_name, direction):
+	
 	match button_name:
 		"color":
-			var random_color = GODOT_COLORS.pick_random()
-			mon.get_node("%sprite").material.set_shader_parameter("modulate", random_color)
-			mon.mon_color = random_color
-			mon.mon_trail.color = random_color
+			if direction > 0:
+				color_position += 1
+			if direction < 0:
+				color_position -= 1
+			if color_position > GODOT_COLORS.size() - 1:
+				color_position = 0
+			if color_position < 0:
+				color_position = GODOT_COLORS.size() - 1
+			mon.get_node("%sprite").material.set_shader_parameter("modulate", GODOT_COLORS[color_position])
+			mon.mon_color = GODOT_COLORS[color_position]
+			mon.mon_trail.color = GODOT_COLORS[color_position]
 
 		"name":
-			var random_name = NAME_OPTIONS.pick_random()
-			mon.change_name(random_name)
+			if direction > 0:
+				name_position += 1
+			if direction < 0:
+				name_position -= 1
+			if name_position > NAME_OPTIONS.size() - 1:
+				name_position = 0
+			if color_position < 0:
+				name_position = NAME_OPTIONS.size() - 1
+			mon.change_name(NAME_OPTIONS[name_position])
 

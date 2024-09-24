@@ -51,6 +51,14 @@ offset_top = 21.0
 offset_right = -5.0
 offset_bottom = 61.0
 texture = ExtResource("3_yeq46")
+flip_h = true
+
+[node name="cursor2" type="TextureRect" parent="cursor"]
+layout_mode = 0
+offset_left = 198.0
+offset_right = 238.0
+offset_bottom = 40.0
+texture = ExtResource("3_yeq46")
 
 [connection signal="pressed" from="margin/vbox/name" to="." method="_on_button_pressed" binds= [&"color"]]
 [connection signal="pressed" from="margin/vbox/color" to="." method="_on_button_pressed" binds= [&"color"]]

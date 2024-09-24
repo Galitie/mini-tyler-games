@@ -81,6 +81,7 @@ func time_left():
 
 func _on_round_timer_timeout():
 	if fight_time:
+		call_and_pause()
 		fight_time = false
 		upgrades_counter = 0
 		var winners = get_end_of_round_winner()
@@ -93,7 +94,6 @@ func _on_round_timer_timeout():
 			await Globals.FadeIn()
 			Globals.GoToMainMenu()
 			return
-		call_and_pause()
 		await show_transition("round_winners", winners, 5)
 		call_and_switch_modes()
 		upgrade_menu.visible = true
@@ -198,6 +198,7 @@ func sort_descending(a, b):
 
 func check_for_game_end() -> bool:
 	if current_round == max_rounds:
+		call_and_pause()
 		var winning_players = []
 		var highest_wins
 		var players = get_tree().get_nodes_in_group("player")
@@ -209,7 +210,6 @@ func check_for_game_end() -> bool:
 		for player in players:
 			if player.wins == highest_wins:
 				winning_players.append(player)
-		call_and_pause()
 		await show_transition("final_winner", winning_players, 15)
 		return true
 	return false

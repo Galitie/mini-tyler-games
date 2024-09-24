@@ -181,6 +181,7 @@ func set_state(state):
 			attack_timer.start(.2)
 		
 		State.IDLE:
+			timer.paused = false
 			audio_player.stop()
 			chance_to_say_phrase(cursed_phrases, 4)
 			play_anims("idle")
@@ -239,7 +240,7 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			play_audio(block_sound)
 			velocity = Vector2()
-			block_timer.start(2)
+			block_timer.start(1.75)
 			play_anims("block")
 			timer.paused = true
 			z_index = default_z_index + 1
@@ -331,6 +332,7 @@ func _on_hurt_box_area_entered(area):
 	play_anims("hurt")
 	if health <= roundi(max_health * .25):
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(1, 0.337, 0.333)
+	
 
 
 func damage(mon, modifier: float, effect):
@@ -396,8 +398,11 @@ func switch_round_modes(fight_time):
 
 func pause():
 	velocity = Vector2()
-	_on_attack_timer_timeout()
-	timer.stop()
+	if current_state != State.KNOCKED_OUT:
+		%attack_timer.stop()
+		_on_attack_timer_timeout()
+		timer.stop()
+		set_state(State.IDLE)
 
 
 func move_to_destination(delta):
@@ -415,8 +420,11 @@ func move_to_destination(delta):
 		hair.flip_h = true
 		bee.flip_h = true
 		bee.offset.x = 20
-	if !timer.is_stopped():
+	if !timer.is_stopped() && %sprite.get_animation() != "hurt" && position.distance_to(destination) > 10:
 		position = position.move_toward(destination, speed * delta)
+	else:
+		sprite.play("idle")
+		velocity = Vector2(0,0)
 
 
 func _on_attack_timer_timeout():
@@ -437,8 +445,10 @@ func _on_block_timer_timeout():
 
 
 func _on_charge_timer_timeout():
-	if current_state == State.IDLE or current_state == State.KNOCKED_OUT:
+	if current_state == State.KNOCKED_OUT:
 		return
+	if current_state != State.CHARGE_UP:
+		set_state(State.IDLE)
 	else:
 		set_state(State.SPECIAL_ATTACK)
 
@@ -493,4 +503,7 @@ func first_place(isfirstplace):
 
 
 func _on_modulate_anim_animation_finished(hurt):
+	velocity = Vector2(0,0)
 	%sprite.material.set_shader_parameter("modulate", mon_color)
+	if current_state == State.CHARGE_UP && health > 0:
+		set_state(State.IDLE)

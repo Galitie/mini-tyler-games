@@ -240,7 +240,7 @@ func set_state(state):
 			chance_to_say_phrase(cursed_phrases, 4)
 			play_audio(block_sound)
 			velocity = Vector2()
-			block_timer.start(2)
+			block_timer.start(1.75)
 			play_anims("block")
 			timer.paused = true
 			z_index = default_z_index + 1
@@ -398,7 +398,11 @@ func switch_round_modes(fight_time):
 
 func pause():
 	velocity = Vector2()
-	timer.stop()
+	if current_state != State.KNOCKED_OUT:
+		%attack_timer.stop()
+		_on_attack_timer_timeout()
+		timer.stop()
+		set_state(State.IDLE)
 
 
 func move_to_destination(delta):

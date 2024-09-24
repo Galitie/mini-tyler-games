@@ -64,8 +64,6 @@ func _ready() -> void:
 	
 	add_to_group("snakes")
 	add_to_group("entities")
-	$help_area.area_entered.connect(_help_entered)
-	$help_area.area_exited.connect(_help_exited)
 	sprite.animation_finished.connect(_animation_finished)
 	$punch_area.area_entered.connect(_area_entered_punch)
 	$help.visible = false
@@ -111,6 +109,12 @@ func _physics_process(delta: float) -> void:
 			is_hit = false
 			hit_timer = 0.0
 			sprite.material.set_shader_parameter("is_hit", false)
+	
+	snake_to_be_helped = null
+	var help_areas = $help_area.get_overlapping_areas()
+	for help_area in help_areas:
+		snake_to_be_helped = help_area.get_parent()
+		break
 	
 	match state:
 		SnakeState.IDLE:
@@ -261,6 +265,9 @@ func _physics_process(delta: float) -> void:
 		SnakeState.PUNCH:
 			velocity = Vector2.ZERO
 		SnakeState.HELPING:
+			if snake_to_be_helped == null:
+				state = SnakeState.IDLE
+				return
 			sprite.play("helping")
 			velocity = Vector2.ZERO
 			snake_to_be_helped.BeingHelped(delta)
@@ -404,14 +411,12 @@ func _animation_finished():
 func _area_entered_punch(area: Area2D) -> void:
 	var entity = area.get_parent()
 	if entity != self && entity.is_in_group("entities"):
-		entity.hit(self, PUNCH_DAMAGE)
+		if entity is Enemy:
+			if !entity.on_alert:
+				entity.hit(self, 50)
+			else:
+				entity.hit(self, PUNCH_DAMAGE)
+		else:
+			entity.hit(self, PUNCH_DAMAGE)
 		$punch_area.set_deferred("monitoring", false)
 		$punch_area/punch_collider.position = Vector2.ZERO
-
-func _help_entered(area: Area2D) -> void:
-	snake_to_be_helped = area.get_parent()
-
-func _help_exited(area: Area2D) -> void:
-	if state == SnakeState.HELPING:
-		state = SnakeState.IDLE
-	snake_to_be_helped = null

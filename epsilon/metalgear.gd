@@ -30,7 +30,10 @@ func _ready() -> void:
 	boss_hp.size.x = float((float(hp) / float(MAX_HP)) * 77.0)
 	$anim_player.play("idle", -1.0, 1.5)
 	$engine_sfx.play()
-	get_viewport().get_camera_2d().zoom = Vector2(2, 2)
+	
+	await get_tree().create_timer(2.0).timeout
+	var zoom_tween = create_tween()
+	zoom_tween.tween_property(get_viewport().get_camera_2d(), "zoom", Vector2(2, 2), 1.0).set_trans(Tween.TRANS_QUAD)
 	
 	var game_over = get_tree().root.get_node("/root/main/game/camera/ui/game_over")
 	game_over.boss_battle = true

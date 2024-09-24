@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj2hpavsiee73"]
+[gd_scene load_steps=8 format=3 uid="uid://bj2hpavsiee73"]
 
 [ext_resource type="TileSet" uid="uid://ijsa15cpma82" path="res://spotlight/tileset.tres" id="2_0pj6u"]
 [ext_resource type="Texture2D" uid="uid://cl7vg80ce87pj" path="res://spotlight/bitrunner.png" id="3_khy06"]
 [ext_resource type="PackedScene" uid="uid://bnpeuksmkcfpm" path="res://spotlight/door.tscn" id="4_fi7m3"]
 [ext_resource type="PackedScene" uid="uid://cef6rakbjvngu" path="res://spotlight/key.tscn" id="5_g1e12"]
+[ext_resource type="Shader" path="res://spotlight/wobble.gdshader" id="5_wwh1k"]
+[ext_resource type="Texture2D" uid="uid://dot2taeepkyci" path="res://spotlight/tutorial.png" id="6_l88d3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhvo8"]
+shader = ExtResource("5_wwh1k")
+shader_parameter/normal_offset = 1.4
+shader_parameter/time_influence = 8.753
+shader_parameter/y_div = 9.4
 
 [node name="map" type="TileMap"]
 z_index = -1
@@ -44,3 +52,10 @@ position = Vector2(1118, 472)
 [node name="key" parent="." instance=ExtResource("5_g1e12")]
 position = Vector2(111, 348)
 dimension = 1
+
+[node name="tutorial" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+material = SubResource("ShaderMaterial_vhvo8")
+position = Vector2(352, 318)
+texture = ExtResource("6_l88d3")

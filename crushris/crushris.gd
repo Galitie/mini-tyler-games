@@ -58,7 +58,7 @@ var fall_blocks: Array = []
 
 var game_over: bool = false
 var game_paused: bool = true
-var player_max_lives: int = 5
+var player_max_lives: int = 99
 var player_current_lives: int = player_max_lives
 var players_killed: int = 0
 
@@ -68,6 +68,7 @@ var zoom_weight: float = 5
 var player_scene = preload("res://crushris/rockman.tscn")
 
 var game_speed: float = 1.0
+var piece_post_game_speed: float = 1.0
 const GAME_SPEED_INCREMENT = 0.05
 const MAX_GAME_SPEED: float = 2.0
 
@@ -129,7 +130,7 @@ func _physics_process(delta) -> void:
 			spawn_piece()
 		
 		if active_piece && !game_paused:
-			active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * delta)
+			active_piece.position.x = move_toward(active_piece.position.x, piece_destination.x, PIECE_HORIZONTAL_SPEED * piece_post_game_speed * delta)
 			
 			if !game_over and !game_paused:
 				if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_LEFT_SHOULDER):
@@ -158,7 +159,7 @@ func _physics_process(delta) -> void:
 					PIECE_FALL_SPEED = 100
 					
 			if !active_piece.check_contact(Vector2(0, PIECE_FALL_SPEED * delta)):
-				active_piece.position.y += PIECE_FALL_SPEED * game_speed * delta
+				active_piece.position.y += PIECE_FALL_SPEED * piece_post_game_speed * game_speed * delta
 				active_piece.set_linear_velocity(Vector2(0, PIECE_FALL_SPEED))
 				snap_timer = 0
 			else:
@@ -192,6 +193,10 @@ func _physics_process(delta) -> void:
 						current_ember_alpha = remap(game_speed, 1, MAX_GAME_SPEED, 0.13, 1.0)
 						$embers.modulate.a = current_ember_alpha
 						if game_speed > MAX_GAME_SPEED:
+							piece_post_game_speed += 0.1
+							$music.pitch_scale += 0.05
+							if $music.pitch_scale > 2.0:
+								$music.pitch_scale = 2.0
 							game_speed = MAX_GAME_SPEED
 						
 						spawn_piece()

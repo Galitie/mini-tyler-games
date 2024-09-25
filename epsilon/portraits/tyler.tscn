@@ -19,6 +19,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_hkd55")
+}],
+"loop": true,
+"name": &"fart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("1_l1uxx")
 }, {
 "duration": 1.0,
@@ -32,5 +40,4 @@ animations = [{
 [node name="Tyler" type="AnimatedSprite2D"]
 modulate = Color(1.25, 1.25, 1.25, 1)
 sprite_frames = SubResource("SpriteFrames_fu7yx")
-animation = &"talking"
 centered = false

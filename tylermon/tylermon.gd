@@ -99,7 +99,7 @@ func _on_round_timer_timeout():
 		upgrade_menu.visible = true
 		knocked_out_mons = 0
 		%countdown.text = ""
-		%description.text = "Feed your mon 🍪's to make them stronger!"
+		%description.text = "Feed your mon 🍪s to make them stronger!"
 		round_timer.stop()
 		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:

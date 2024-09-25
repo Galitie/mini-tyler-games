@@ -14,14 +14,10 @@ func add_to_counter(item_name):
 	match item_name:
 		"SxS":
 			get_tree().get_root().get_node("main").get_node("%prawn").item1 = true
-			print("one")
 		"snake":
 			get_tree().get_root().get_node("main").get_node("%prawn").item2 = true
-			print("two")
 		"Mmm":
 			get_tree().get_root().get_node("main").get_node("%prawn").item3 = true
-			print("three")
 		"Xxx":
 			get_tree().get_root().get_node("main").get_node("%prawn").item4 = true
-			print("four")
 

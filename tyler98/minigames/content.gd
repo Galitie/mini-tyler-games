@@ -6,10 +6,10 @@ func _ready():
 	$label.text = item.content_string
 	
 	if item.audio != null:
-		get_tree().get_root().get_node("main").task_completed(item.task_id)
 		$audio.stream = item.audio
 		$audio.play()
 		await $audio.finished
+		get_tree().get_root().get_node("main").task_completed(item.task_id)
 		$audio.stream = load("res://tyler98/sfx/success.mp3")
 		$audio.play()
 		item.exhausted = true

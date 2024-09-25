@@ -17,6 +17,12 @@ var exhausted: bool = false
 var window_open: bool = false
 var drag_offset
 
+var item1 = false
+var item2 = false
+var item3 = false
+var item4 = false
+var completed = false
+
 func _ready():
 	$sprite.texture = sprite
 	$area/shape.shape.radius = area_radius
@@ -25,6 +31,11 @@ func _ready():
 	get_tree().get_root().get_node("main").enable_desktop_areas.connect(_enable_desktop_areas)
 	get_tree().get_root().get_node("main").disable_desktop_areas.connect(_disable_desktop_areas)
 
+func physics_process(delta):
+	if item1 && item2 && item3 && item4:
+		if !completed:
+			get_parent().get_parent().task_completed(task_id)
+			completed = true
 
 func click(_arg, pointer):
 	if !exhausted and !window_open and window_scene != null:

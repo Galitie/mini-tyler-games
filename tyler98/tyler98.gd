@@ -12,6 +12,12 @@ signal enable_start_screen
 signal disable_start_screen
 
 var task_counter = 0
+
+var item1 = false
+var item2 = false
+var item3 = false
+var item4 = false
+var completed = false
 # mini_games must also queue free themselves if they are to be deleted by the main game
 # right now I have a workaround that loops through all of areas/windows backwards lol
 
@@ -144,5 +150,8 @@ func check_for_gameover():
 		await $audio.finished
 		drop_priority_window()
 		$bluescreen.visible = true
-		gameover = true
 		Globals.tyler98_played = true
+
+
+func _on_end_game_timer_timeout():
+	gameover = true

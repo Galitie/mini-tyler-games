@@ -100,6 +100,11 @@ const NAME_OPTIONS = [
 	"Rex", "Scott", "Stan", "Steve", "Stu", "Ted", "Terry", "Tim", "Vince", "Wayne", "Walt", "Warren", "Wes"
 ]
 
+var delay_stick_frames: int = 0
+const DELAY_STICK_FRAMES_MAX: int = 20
+var hold_stick_frames: int = 0
+const HOLD_STICK_FRAMES_MAX: int = 5
+
 signal change_name
 
 func _ready():
@@ -113,7 +118,18 @@ func _physics_process(_delta):
 	var horizontal_input: float = round(Controller.GetLeftStick(player.controller_port).x)
 	if !vertical_input and !horizontal_input:
 		moved_stick = false
-	if !moved_stick:
+		hold_stick_frames = 0
+		delay_stick_frames = 0
+	else:
+		delay_stick_frames += 1
+		if delay_stick_frames > DELAY_STICK_FRAMES_MAX:
+			delay_stick_frames = DELAY_STICK_FRAMES_MAX
+	if delay_stick_frames == DELAY_STICK_FRAMES_MAX:
+		hold_stick_frames += 1
+		if hold_stick_frames > HOLD_STICK_FRAMES_MAX:
+			hold_stick_frames = HOLD_STICK_FRAMES_MAX
+	if !moved_stick || hold_stick_frames == HOLD_STICK_FRAMES_MAX:
+		hold_stick_frames = 0
 		if vertical_input > 0:
 			upgrade_position += 1
 			cursor.position.y += 35

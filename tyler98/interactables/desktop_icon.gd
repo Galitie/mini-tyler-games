@@ -31,10 +31,10 @@ func _ready():
 	get_tree().get_root().get_node("main").enable_desktop_areas.connect(_enable_desktop_areas)
 	get_tree().get_root().get_node("main").disable_desktop_areas.connect(_disable_desktop_areas)
 
-func physics_process(delta):
+func _physics_process(delta):
 	if item1 && item2 && item3 && item4:
 		if !completed:
-			get_parent().get_parent().task_completed(task_id)
+			exhausted = true
 			completed = true
 
 func click(_arg, pointer):

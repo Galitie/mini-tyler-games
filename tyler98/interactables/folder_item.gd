@@ -27,6 +27,7 @@ func click(_arg, _pointer):
 	if desktop_wallpaper:
 		get_tree().get_root().get_node("main").get_node("%main_screen").texture = content_image
 		owner.add_to_counter(item_name)
+		print("hello?")
 
 	if !exhausted and !window_open and !desktop_wallpaper:
 		window_open = true

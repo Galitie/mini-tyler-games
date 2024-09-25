@@ -79,7 +79,7 @@ func _physics_process(_delta):
 		if points_to_spend == 1:
 			%points.text = "Cookies left: 🍪"
 		if points_to_spend == 0:
-			%points.text = "All 🍪 eaten - please wait!"
+			%points.text = "All 🍪s eaten - please wait!"
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
@@ -101,6 +101,7 @@ func switch_upgrade_time(fight_time):
 		upgrade_time = false
 		place_set = false
 	else:
+		description.text = "Gambling is fun!!!"
 		upgrade_time = true
 		points_to_spend = 3
 		for button in upgrade_buttons:
@@ -144,6 +145,7 @@ func _on_button_pressed(button_name):
 
 	if points_to_spend == 0:
 		$anim_player.stop()
+		description.text = ""
 		for button in upgrade_buttons:
 			button.disabled = true
 		emit_signal("upgrades_finished")	

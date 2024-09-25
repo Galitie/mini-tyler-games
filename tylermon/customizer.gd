@@ -17,7 +17,6 @@ signal upgraded
 
 const GODOT_COLORS = [
 	#Blues and Cyans
-	Color.ALICE_BLUE,
 	Color.AZURE,
 	Color.SKY_BLUE,
 	Color.DODGER_BLUE,
@@ -25,17 +24,10 @@ const GODOT_COLORS = [
 	Color.STEEL_BLUE,
 	Color.CADET_BLUE,
 	Color.CYAN,
-	Color.LIGHT_CYAN,
-	Color.TURQUOISE,
-	Color.MEDIUM_TURQUOISE,
 	Color.DARK_TURQUOISE,
-	Color.AQUA,
-	Color.AQUAMARINE,
-	Color.PALE_TURQUOISE,
 	#Greens
 	Color.LAWN_GREEN,
 	Color.LIGHT_GREEN,
-	Color.GREEN,
 	Color.LIME,
 	Color.LIME_GREEN,
 	Color.GREEN_YELLOW,
@@ -46,35 +38,18 @@ const GODOT_COLORS = [
 	Color.OLIVE,
 	Color.OLIVE_DRAB,
 	Color.SEA_GREEN,
-	Color.PALE_GREEN,
 	Color.DARK_SEA_GREEN,
 	Color.MEDIUM_SPRING_GREEN,
 	Color.CHARTREUSE,
 	#Yellows and Beiges
-	Color.LEMON_CHIFFON,
-	Color.WHEAT,
-	Color.BEIGE,
-	Color.KHAKI,
-	Color.THISTLE,
 	Color.LIGHT_YELLOW,
 	Color.GOLD,
-	Color.DARK_KHAKI,
-	Color.CORNSILK,
-	Color.MOCCASIN,
-	Color.OLD_LACE,
-	Color.PAPAYA_WHIP,
 	Color.LAVENDER_BLUSH,
-	Color.LINEN,
 	#Oranges
 	Color.ORANGE,
 	Color.ORANGE_RED,
 	Color.DARK_ORANGE,
 	Color.TOMATO,
-	Color.CORAL,
-	Color.SALMON,
-	Color.LIGHT_SALMON,
-	Color.SANDY_BROWN,
-	Color.PEACH_PUFF,
 	Color.CHOCOLATE,
 	#Reds and Pinks
 	Color.RED,
@@ -83,13 +58,11 @@ const GODOT_COLORS = [
 	Color.DARK_RED,
 	Color.DEEP_PINK,
 	Color.HOT_PINK,
-	Color.PINK,
 	Color.MEDIUM_VIOLET_RED,
 	Color.INDIAN_RED,
 	Color.LIGHT_PINK,
 	Color.ROSY_BROWN,
 	Color.PALE_VIOLET_RED,
-	Color.MISTY_ROSE,
 	#Purples
 	Color.FUCHSIA,
 	Color.MAROON,
@@ -101,19 +74,14 @@ const GODOT_COLORS = [
 	Color.MEDIUM_PURPLE,
 	Color.MEDIUM_ORCHID,
 	Color.DARK_ORCHID,
-	Color.LAVENDER,
 	Color.REBECCA_PURPLE,
 	#Grays and Neutrals
-	Color.GRAY,
 	Color.DIM_GRAY,
 	Color.LIGHT_GRAY,
 	Color.LIGHT_SLATE_GRAY,
 	Color.SLATE_GRAY,
 	Color.DARK_GRAY,
 	Color.SILVER,
-	Color.WHITE,
-	Color.SNOW,
-	Color.GAINSBORO,
 	#Browns
 	Color.BROWN,
 	Color.SIENNA,
@@ -154,7 +122,7 @@ func _physics_process(_delta):
 			upgrade_position -= 1
 			cursor.position.y -= 35
 			moved_stick = true
-		if horizontal_input > 0:
+		elif horizontal_input > 0:
 			moved_stick = true
 			_on_button_pressed(upgrade_options[upgrade_position], horizontal_input)
 		elif horizontal_input < 0:
@@ -166,8 +134,6 @@ func _physics_process(_delta):
 	elif upgrade_position < 0:
 		upgrade_position = upgrade_options.size() - 1
 		cursor.position.y = 54
-
-		
 
 
 func get_mon():

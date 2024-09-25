@@ -151,7 +151,7 @@ func check_for_gameover():
 		drop_priority_window()
 		$bluescreen.visible = true
 		Globals.tyler98_played = true
-
+		$end_game_timer.start()
 
 func _on_end_game_timer_timeout():
 	gameover = true

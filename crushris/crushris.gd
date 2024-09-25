@@ -58,7 +58,7 @@ var fall_blocks: Array = []
 
 var game_over: bool = false
 var game_paused: bool = true
-var player_max_lives: int = 99
+var player_max_lives: int = 5
 var player_current_lives: int = player_max_lives
 var players_killed: int = 0
 
@@ -193,7 +193,7 @@ func _physics_process(delta) -> void:
 						current_ember_alpha = remap(game_speed, 1, MAX_GAME_SPEED, 0.13, 1.0)
 						$embers.modulate.a = current_ember_alpha
 						if game_speed > MAX_GAME_SPEED:
-							piece_post_game_speed += 0.1
+							piece_post_game_speed += 0.05
 							$music.pitch_scale += 0.05
 							if $music.pitch_scale > 2.0:
 								$music.pitch_scale = 2.0

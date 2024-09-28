@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://twdo85k8rieu"]
+[gd_scene load_steps=18 format=3 uid="uid://twdo85k8rieu"]
 
 [ext_resource type="Script" path="res://crushris/crushris.gd" id="1_a2yik"]
 [ext_resource type="Texture2D" uid="uid://djypjxomt4dk3" path="res://crushris/arena.png" id="1_k5tsg"]
@@ -23,6 +23,27 @@ size = Vector2(25, 500)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxyqn"]
 size = Vector2(25, 500)
+
+[sub_resource type="Animation" id="Animation_vp25e"]
+resource_name = "fade_in_text"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("start:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 1.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kn8s6"]
+_data = {
+"fade_in_text": SubResource("Animation_vp25e")
+}
 
 [node name="crushris" type="Node2D"]
 script = ExtResource("1_a2yik")
@@ -165,6 +186,7 @@ text = "3"
 horizontal_alignment = 1
 
 [node name="start" type="Label" parent="."]
+top_level = true
 offset_left = 446.0
 offset_top = 300.0
 offset_right = 834.0
@@ -195,6 +217,11 @@ volume_db = -15.0
 
 [node name="revive_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_g20nl")
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kn8s6")
+}
 
 [connection signal="timeout" from="countdown_timer" to="." method="_on_countdown_timer_timeout"]
 [connection signal="finished" from="music" to="." method="_on_music_finished"]

@@ -107,6 +107,20 @@ func _physics_process(delta) -> void:
 		
 	if game_over:
 		camera.zoom = camera.zoom.lerp(Vector2(2, 2), zoom_weight * delta)
+		$start.position = Vector2(446, 420)
+		$start.text = "Ⓐ to play again \n START to exit"
+		$start.visible = true
+		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
+			Globals.crushtris_played = true
+			await Globals.FadeIn()
+			Globals.GoToMainMenu()
+			return
+		if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A):
+			Globals.crushtris_played = true
+			await Globals.FadeIn()
+			Globals.FadeOut()
+			get_tree().change_scene_to_file("res://crushris/crushris.tscn")
+			return
 	else:
 		if death_row.size() != 0:
 			$camera.apply_shake()
@@ -182,11 +196,7 @@ func _physics_process(delta) -> void:
 								game_over = true
 								active_piece = null
 								$players_win.visible = true
-								await get_tree().create_timer(5.0).timeout
-								Globals.crushtris_played = true
-								await Globals.FadeIn()
-								Globals.GoToMainMenu()
-								return
+								
 					
 					if !game_over and !game_paused:
 						game_speed += GAME_SPEED_INCREMENT
@@ -265,10 +275,6 @@ func _on_player_killed(rockman) -> void:
 	if player_current_lives <= 0 && $players.get_children().size() == 0:
 		game_over = true
 		$blocks_win.visible = true
-		await get_tree().create_timer(5.0).timeout
-		Globals.crushtris_played = true
-		await Globals.FadeIn()
-		Globals.GoToMainMenu()
 
 func start_game() -> void:
 	$countdown_timer.start()

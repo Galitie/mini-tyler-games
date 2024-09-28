@@ -12,7 +12,7 @@ func _ready():
 
 
 func check_goal_met():
-	if %output.text == str(goal_number):
+	if %output.text == str(goal_number) || %output.text == str(goal_number).reverse() && str(goal_number) == "8008135" :
 		get_tree().get_root().get_node("main").task_completed(id)
 		%output.text = ""
 		$audio.stream = load("res://tyler98/sfx/success.mp3")

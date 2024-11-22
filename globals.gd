@@ -2,11 +2,11 @@ extends Node
 
 @onready var anim_player = $AnimationPlayer
 
-var fullscreen: bool = true
+var fullscreen: bool = false
 
 var intro_played: bool = false
 
-var metalgear_unlocked: bool = false
+var metalgear_unlocked: bool = true
 
 var crushtris_played: bool = false
 var tylermon_played: bool = false
@@ -38,7 +38,7 @@ func GoToMainMenu() -> void:
 func ToggleFullscreen() -> void:
 	if fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
+		#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_HIDDEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)
+		#DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_VISIBLE)

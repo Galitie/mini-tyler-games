@@ -7,7 +7,7 @@ var started: bool = false
 func _ready():
 	anim_player.play("pulse")
 	
-func _process(delta):
+func _physics_process(delta):
 	if !started && Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		started = true
 		anim_player.play("fade_out", -1, 0.5)

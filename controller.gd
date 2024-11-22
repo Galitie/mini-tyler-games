@@ -90,6 +90,7 @@ func UpdateControllerState(device_id: int) -> void:
 		var left_stick_x: int = int(Input.is_key_pressed(KEY_RIGHT)) - int(Input.is_key_pressed(KEY_LEFT))
 		var left_stick_y: int = int(Input.is_key_pressed(KEY_DOWN)) - int(Input.is_key_pressed(KEY_UP))
 		gamepad.left_stick = Vector2(left_stick_x, left_stick_y)
+		gamepad.right_trigger = Input.is_key_pressed(KEY_D)
 	
 	for i in range(gamepad.button_states.size()):
 		if !gamepad.keyboard_controlled:

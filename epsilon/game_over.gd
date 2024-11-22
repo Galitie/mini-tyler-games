@@ -8,14 +8,6 @@ var boss_battle: bool = false
 
 var random_vo: Array = [
 	preload("res://epsilon/vo/game_over_1.mp3"),
-	preload("res://epsilon/vo/game_over_2.mp3"),
-	preload("res://epsilon/vo/game_over_3.mp3"),
-]
-
-var rich_vo: Array = [
-	preload("res://epsilon/vo/rich_game_over_1.mp3"),
-	preload("res://epsilon/vo/rich_game_over_2.mp3"),
-	preload("res://epsilon/vo/rich_game_over_3.mp3"),
 ]
 
 func GameOverDeath() -> void:
@@ -33,10 +25,8 @@ func GameOver() -> void:
 		counter += 1
 	else:
 		counter = 0
-	if !boss_battle:
-		$vo.stream = random_vo[counter - 1]
-	else:
-		$vo.stream = rich_vo[counter - 1]
+		
+	$vo.stream = random_vo[counter - 1]
 	$vo.play()
 	await get_tree().create_timer(1.5).timeout
 	paused = true

@@ -334,7 +334,7 @@ func hit(emitter, damage: int) -> void:
 				if snake.state != SnakeState.DEAD:
 					alive_snakes.append(snake)
 			if alive_snakes.size() > 1:
-				$sfx.stream = died_sfx.pick_random()
+				$sfx.stream = died_sfx[1]
 				$sfx.play()
 			sprite.play("fall" + "_" + direction)
 			$body.set_deferred("monitorable", false)

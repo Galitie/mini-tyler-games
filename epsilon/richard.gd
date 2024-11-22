@@ -44,7 +44,6 @@ var voicelines: Array = [
 	preload("res://epsilon/vo/rich_hurtme.mp3"),
 	preload("res://epsilon/vo/rich_kuwabara.mp3"),
 	preload("res://epsilon/vo/rich_love.mp3"),
-	preload("res://epsilon/vo/rich_memorycard.mp3"),
 	preload("res://epsilon/vo/rich_pain.mp3"),
 	preload("res://epsilon/vo/rich_prettygood.mp3"),
 	preload("res://epsilon/vo/rich_punch.mp3"),
@@ -244,24 +243,16 @@ func _vo_timeout() -> void:
 			await $sfx.finished
 			vo_text.text = ""
 		7:
-			vo_text.text = "[center]Ah...I can see into your mind![/center]"
-			await get_tree().create_timer(4.3).timeout
-			vo_text.text = "[center]So you like to play DARK SOULS?[/center]"
-			await get_tree().create_timer(3.2).timeout
-			vo_text.text = "[center]...What a shit game![/center]"
-			await $sfx.finished
-			vo_text.text = ""
-		8:
 			vo_text.text = "[center]...I've been waiting for this pain![/center]"
 			await $sfx.finished
 			vo_text.text = ""
-		9:
+		8:
 			vo_text.text = "[center]Hah![/center]"
 			await get_tree().create_timer(0.75).timeout
 			vo_text.text = "[center]You're pretty good![/center]"
 			await $sfx.finished
 			vo_text.text = ""
-		10:
+		9:
 			vo_text.text = "[center]That's it![/center]"
 			await get_tree().create_timer(1.4).timeout
 			vo_text.text = "[center]I remember.[/center]"

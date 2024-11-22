@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drgwwv7xjxepe"]
+[gd_scene load_steps=9 format=3 uid="uid://drgwwv7xjxepe"]
 
 [ext_resource type="Texture2D" uid="uid://cjyfeo28eggvv" path="res://epsilon/sprites/blockout.png" id="1_cmis3"]
 [ext_resource type="Texture2D" uid="uid://djqxe7tifgwym" path="res://epsilon/sprites/test.png" id="2_e3kd8"]
@@ -334,9 +334,6 @@ sources/0 = SubResource("TileSetAtlasSource_cy74d")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52tjy"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfyfa"]
-size = Vector2(32, 32)
-
 [node name="hallway" type="TileMap"]
 texture_filter = 1
 tile_set = SubResource("TileSet_leymn")
@@ -377,15 +374,3 @@ bg_color = Color(0.592157, 0.54902, 0.501961, 1)
 
 [node name="collider" type="CollisionShape2D" parent="triggers/next_level_trigger"]
 shape = SubResource("RectangleShape2D_52tjy")
-
-[node name="codec_trigger" type="Area2D" parent="triggers"]
-position = Vector2(0, -224)
-collision_layer = 0
-monitoring = false
-monitorable = false
-script = ExtResource("6_whkvc")
-type = 1
-path = "res://epsilon/codec_calls/5.txt"
-
-[node name="collider" type="CollisionShape2D" parent="triggers/codec_trigger"]
-shape = SubResource("RectangleShape2D_gfyfa")

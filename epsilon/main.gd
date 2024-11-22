@@ -231,11 +231,4 @@ func End() -> void:
 	can_pause = false
 	await ui_anim.animation_finished
 	$music.stop()
-	await codec.play_file("res://epsilon/codec_calls/6.txt")
-	$game/camera/ui/game_over.stream = load("res://epsilon/backgrounds/ending_video.ogv")
-	$game/camera/ui/game_over.play()
-	await $game/camera/ui/game_over.finished
-	Globals.metalgear_played = true
-	Globals.get_node("fade").color = Color(0, 0, 0, 1)
-	await get_tree().create_timer(2.0).timeout
-	Globals.GoToMainMenu()
+	get_tree().change_scene_to_file("res://epsilon/start_menu.tscn")

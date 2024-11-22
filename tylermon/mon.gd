@@ -69,12 +69,13 @@ var state_weights = [
 @onready var bee = $bee
 
 var cursed_phrases = [
-	"fuck", "shit", "Fuckin' Fuck", "asshole", "Get fucked", "fuck you", 
-	"fuck this", "fuck tyler", "Bastards", "Motherfucker", "jesus christ", "dickheads", 
-	"pigfuckers", "cocksuckers", "kitchen garbage", "shit guzzlers", "wankers", "ass clowns", 
-	"dumb shits", "fucking hell", "fuuuck", "douche pickle", "shittertons", "dingle berries", 
-	"dipshits", "shmucks"
-	]
+	"fudge", "shoot", "freakin' flip", "meanie head", "get rekt", "forget you", 
+	"forget this", "rascals", "big meanie", "jeepers creepers", 
+	"troublemakers", "silly gooses", "stinkers", "garbage munchers", 
+	"troublemakers", "goofballs", "clumsy clowns", "darn it all", "oh nooo", 
+	"picklehead", "sillytons", "nuggets", "snickleberries", "dingle dorks", 
+	"tricksters"
+];
 
 var happy_sounds = [
 	"res://tylermon/sfx/happy_0.wav", "res://tylermon/sfx/happy_01.wav",
@@ -362,6 +363,7 @@ func chance_to_say_phrase(_array, chance : int):
 
 func switch_round_modes(fight_time):
 	if fight_time:
+		velocity = Vector2(0,0)
 		current_victory_points = 0
 		timer.start(.5)
 		%trail.emitting = true
@@ -392,7 +394,7 @@ func switch_round_modes(fight_time):
 		hp_bar.max_value = max_health
 		hp_bar.value = max_health
 		hp_bar.get_theme_stylebox("fill").bg_color = Color(0, 0.727, 0.147)
-		velocity = Vector2()
+		velocity = Vector2(0,0)
 		position = upgrade_pos
 
 

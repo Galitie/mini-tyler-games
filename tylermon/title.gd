@@ -9,8 +9,9 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START) and tutorial:
+		get_tree().change_scene_to_file(game_scene)
 	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START) and !tutorial:
 		%title_screen.visible = false
 		tutorial = true
-	if Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_A) and tutorial:
-		get_tree().change_scene_to_file(game_scene)
+

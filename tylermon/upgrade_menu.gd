@@ -145,7 +145,6 @@ func _on_button_pressed(button_name):
 
 	if points_to_spend == 0:
 		$anim_player.stop()
-		description.text = ""
 		for button in upgrade_buttons:
 			button.disabled = true
 		emit_signal("upgrades_finished")	
@@ -164,7 +163,21 @@ func gamble():
 		random_num += player.current_place
 
 	match random_num:
-		0 or 1:
+		0:
+			if mon.cursed == false:
+				mon.cursed = true
+				mon.hat.visible = true
+				mon.hair.visible = false
+				description.text = "Mon is CURSED"
+				emit_signal("upgraded", "bad")
+			else:
+				mon.cursed = false
+				description.text = "Mon has been un-cursed"
+				mon.hat.visible = false
+				if mon.buff == true:
+					mon.hair.visible = true
+				emit_signal("upgraded", "bad")
+		1:			
 			if mon.cursed == false:
 				mon.cursed = true
 				mon.hat.visible = true
@@ -349,10 +362,10 @@ func set_place():
 	player.current_place = index_corrected
 	index_corrected = str(index_corrected)
 	if index_corrected == '1':
-		%gamble.text = "🎲 Gramble"
+		%gamble.text = "🎲 Gamble"
 		first_place.emit(true)
 	if index_corrected == '2':
-		%gamble.text = "🎲 Gramble"
+		%gamble.text = "🎲 Gamble"
 		first_place.emit(false)
 	if index_corrected == '3':
 		$anim_player.play("pulse")

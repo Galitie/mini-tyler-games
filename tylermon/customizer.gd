@@ -167,29 +167,39 @@ func get_player():
 
 
 func _on_button_pressed(button_name, direction):
-	
 	match button_name:
 		"color":
-			if direction > 0:
-				color_position += 1
-			if direction < 0:
-				color_position -= 1
-			if color_position > GODOT_COLORS.size() - 1:
-				color_position = 0
-			if color_position < 0:
-				color_position = GODOT_COLORS.size() - 1
-			mon.get_node("%sprite").material.set_shader_parameter("modulate", GODOT_COLORS[color_position])
-			mon.mon_color = GODOT_COLORS[color_position]
-			mon.mon_trail.color = GODOT_COLORS[color_position]
+			if direction == 0:
+				var random_color = GODOT_COLORS.pick_random()
+				mon.get_node("%sprite").material.set_shader_parameter("modulate", random_color)
+				mon.mon_color = random_color
+				mon.mon_trail.color = random_color
+			else:
+				if direction > 0:
+					color_position += 1
+				if direction < 0:
+					color_position -= 1
+				if color_position > GODOT_COLORS.size() - 1:
+					color_position = 0
+				if color_position < 0:
+					color_position = GODOT_COLORS.size() - 1
+				mon.get_node("%sprite").material.set_shader_parameter("modulate", GODOT_COLORS[color_position])
+				mon.mon_color = GODOT_COLORS[color_position]
+				mon.mon_trail.color = GODOT_COLORS[color_position]
 
 		"name":
-			if direction > 0:
-				name_position += 1
-			if direction < 0:
-				name_position -= 1
-			if name_position > NAME_OPTIONS.size() - 1:
-				name_position = 0
-			if color_position < 0:
-				name_position = NAME_OPTIONS.size() - 1
-			mon.change_name(NAME_OPTIONS[name_position])
+			if direction == 0:
+				mon.change_name(NAME_OPTIONS.pick_random())
+			else: 
+				if direction > 0:
+					name_position += 1
+				if direction < 0:
+					name_position -= 1
+				if name_position > NAME_OPTIONS.size() - 1:
+					name_position = 0
+				if color_position < 0:
+					name_position = NAME_OPTIONS.size() - 1
+				mon.change_name(NAME_OPTIONS[name_position])
+			
+
 

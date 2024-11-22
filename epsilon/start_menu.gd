@@ -8,7 +8,7 @@ func _ready():
 	anim_player.play("pulse")
 	
 func _process(delta):
-	if !started && Input.is_action_just_pressed("start"):
+	if !started && Controller.IsControllerButtonJustPressed(0, JOY_BUTTON_START):
 		started = true
 		anim_player.play("fade_out", -1, 0.5)
 		$sfx.play()

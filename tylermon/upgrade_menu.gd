@@ -164,7 +164,7 @@ func gamble():
 		random_num += player.current_place
 
 	match random_num:
-		0:
+		0 or 1:
 			if mon.cursed == false:
 				mon.cursed = true
 				mon.hat.visible = true
@@ -178,43 +178,44 @@ func gamble():
 				if mon.buff == true:
 					mon.hair.visible = true
 				emit_signal("upgraded", "bad")
-		1:
+		2:
 			mon.speed -= 25
 			description.text = "Mon is sluggish!"
 			emit_signal("upgraded", "bad")
-		2:
+		3:
 			mon.get_node("%scalable_nodes").scale -= Vector2(.15, .15)
 			mon.get_node("collision").scale -= Vector2(.15, .15)
 			mon.get_node("%trail").process_material.set("scale_max", mon.get_node("%trail").process_material.get("scale_max") - .15)
 			description.text = "Mon has shrunk!"
 			emit_signal("upgraded", "bad")
-		3:
-			mon.speed += 25
-			description.text = "Mon is speedier!"
-			emit_signal("upgraded", "bad")
 		4:
+			mon.speed += 25
+			description.text = "Mon moves faster!"
+			emit_signal("upgraded", "bad")
+		5:
+			increase_random_stats(1,1)
+			emit_signal("upgraded", "good")
+		6:
 			if mon.max_think_time <= 1.5:
 				increase_random_stats(1,1)
 				emit_signal("upgraded", "good")
 			else:
 				mon.max_think_time -= .5
-				description.text = "Mon has ADHD"
+				description.text = "Mon is more ADHD"
 				emit_signal("upgraded", "good")
-		5:
-			increase_random_stats(1,1)
-			emit_signal("upgraded", "good")
-		6:
+		7:
 			increase_random_stats(2,1)
 			emit_signal("upgraded", "good")
-		7:
+		8:
 			increase_random_stats(1,2)
 			emit_signal("upgraded", "good")
-		8:
+		9:
 			increase_random_stats(3,1)
 			emit_signal("upgraded", "good")
 		_:
 			increase_random_stats(1,3)
 			emit_signal("upgraded", "good")
+			
 	if mon.strength >= 10 && mon.buff == false:
 		mon.buff = true
 		if mon.cursed == false:

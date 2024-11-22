@@ -2,6 +2,8 @@ extends Control
 
 @onready var player_label = $margin/vbox/vbox2/Label
 @onready var cursor = $cursor
+@onready var cursor_texture = load("res://tylermon/sprites/cursor.png")
+@onready var cursor_pressed_texture = load("res://tylermon/sprites/cursor_clicked.png")
 @export var player_name : String
 
 var mon
@@ -120,6 +122,8 @@ func _physics_process(_delta):
 		moved_stick = false
 		hold_stick_frames = 0
 		delay_stick_frames = 0
+		$cursor.texture = cursor_texture
+		$cursor/cursor2.texture = cursor_texture
 	else:
 		delay_stick_frames += 1
 		if delay_stick_frames > DELAY_STICK_FRAMES_MAX:
@@ -139,9 +143,11 @@ func _physics_process(_delta):
 			cursor.position.y -= 35
 			moved_stick = true
 		elif horizontal_input > 0:
+			$cursor/cursor2.texture = cursor_pressed_texture
 			moved_stick = true
 			_on_button_pressed(upgrade_options[upgrade_position], horizontal_input)
 		elif horizontal_input < 0:
+			$cursor.texture = cursor_pressed_texture
 			moved_stick = true
 			_on_button_pressed(upgrade_options[upgrade_position], horizontal_input)
 	if upgrade_position >= upgrade_options.size():

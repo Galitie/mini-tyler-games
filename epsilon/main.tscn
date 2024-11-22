@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cr6sljq0rnw0e"]
+[gd_scene load_steps=15 format=3 uid="uid://cr6sljq0rnw0e"]
 
 [ext_resource type="Script" path="res://epsilon/main.gd" id="1_xhkvj"]
 [ext_resource type="Script" path="res://epsilon/camera.gd" id="2_rlmm8"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bscbpc4wnnyj1" path="res://epsilon/sprites/boss_lifebar.png" id="6_c4feg"]
 [ext_resource type="PackedScene" uid="uid://mx8f7uy0hbdp" path="res://epsilon/game_over.tscn" id="6_rlaxr"]
 [ext_resource type="FontFile" uid="uid://bk14ysvkf67au" path="res://epsilon/Dosis-Regular.ttf" id="7_fsrsp"]
-[ext_resource type="PackedScene" uid="uid://c3a0d3vikmu6u" path="res://epsilon/snake.tscn" id="7_ubn78"]
 
 [sub_resource type="Animation" id="Animation_kow5m"]
 length = 0.001
@@ -130,6 +129,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="badge" parent="game/camera/ui/camera_space" instance=ExtResource("3_xwyk4")]
+visible = false
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -138,6 +138,7 @@ offset_bottom = 30.0
 scale = Vector2(3, 3)
 
 [node name="badge2" parent="game/camera/ui/camera_space" instance=ExtResource("3_xwyk4")]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -150,6 +151,7 @@ grow_horizontal = 0
 scale = Vector2(3, 3)
 
 [node name="badge3" parent="game/camera/ui/camera_space" instance=ExtResource("3_xwyk4")]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -162,6 +164,7 @@ grow_vertical = 0
 scale = Vector2(3, 3)
 
 [node name="badge4" parent="game/camera/ui/camera_space" instance=ExtResource("3_xwyk4")]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -300,20 +303,6 @@ process_mode = 3
 scale = Vector2(2, 2)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="game/camera"]
-
-[node name="snake" parent="game" instance=ExtResource("7_ubn78")]
-
-[node name="snake2" parent="game" instance=ExtResource("7_ubn78")]
-controller_port = 1
-player_color = Color(1, 0, 0, 1)
-
-[node name="snake3" parent="game" instance=ExtResource("7_ubn78")]
-controller_port = 2
-player_color = Color(1, 1, 0, 1)
-
-[node name="snake4" parent="game" instance=ExtResource("7_ubn78")]
-controller_port = 3
-player_color = Color(0.847059, 0, 0.792157, 1)
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 volume_db = -15.0

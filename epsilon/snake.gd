@@ -60,13 +60,15 @@ var oob_timer: float = 0.0
 var oob_timer_length: float = 3.0
 
 func _ready() -> void:
-	sprite.material.set_shader_parameter("new", player_color)
-	
 	add_to_group("snakes")
 	add_to_group("entities")
 	sprite.animation_finished.connect(_animation_finished)
 	$punch_area.area_entered.connect(_area_entered_punch)
 	$help.visible = false
+	
+func SetColor(color: Color) -> void:
+	player_color = color
+	sprite.material.set_shader_parameter("new", player_color)
 	
 func Reset(_revive: bool) -> void:
 	state = SnakeState.IDLE

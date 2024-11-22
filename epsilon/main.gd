@@ -37,14 +37,28 @@ var current_level_bg_color = Color("102830")
 
 var music_playback_pos: float = 0
 
+var num_players: int = 1
+var snake_scene = load("res://epsilon/snake.tscn")
+var player_colors = [
+	Color("6868d8"),
+	Color("ff0000"),
+	Color("ffff00"),
+	Color("d800ca")
+]
+
 func _ready():
 	Controller.process_mode = Node.PROCESS_MODE_ALWAYS
 	RenderingServer.set_default_clear_color(current_level_bg_color)
 	
 	var snakes = get_tree().get_nodes_in_group("snakes")
-	for i in range(snakes.size()):
-		snakes[i].badge = $game/camera/ui/camera_space.get_child(i)
-		snakes[i].dead.connect(_on_snake_death)
+	for i in range(num_players):
+		var snake: Snake = snake_scene.instantiate()
+		add_child(snake)
+		snake.SetColor(player_colors[i])
+		snake.controller_port = i
+		snake.badge = $game/camera/ui/camera_space.get_child(i)
+		snake.badge.visible = true
+		snake.dead.connect(_on_snake_death)
 	
 	#await LoadLevel(current_level_path, "res://epsilon/music/duel.mp3", 0.0, current_level_bg_color)
 	

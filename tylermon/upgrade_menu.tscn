@@ -85,7 +85,7 @@ focus_mode = 0
 theme = ExtResource("2_obobf")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 0
-text = "🎲 Gramble"
+text = "🎲 Gamble"
 alignment = 0
 
 [node name="hbox6" type="HBoxContainer" parent="margin/hbox/buttons/hbox7"]
@@ -102,7 +102,7 @@ focus_neighbor_top = NodePath("../../hbox7/gamble")
 focus_neighbor_bottom = NodePath("../../hbox2/str")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "❤️ Get chonky"
+text = "❤️ Get chonkier"
 alignment = 0
 
 [node name="stat1" type="Label" parent="margin/hbox/buttons/hbox"]
@@ -122,7 +122,7 @@ focus_neighbor_top = NodePath("../../hbox/hp")
 focus_neighbor_bottom = NodePath("../../hbox3/int")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "💪 Workout + be sad"
+text = "💪 Workout"
 alignment = 0
 
 [node name="stat2" type="Label" parent="margin/hbox/buttons/hbox2"]
@@ -139,7 +139,7 @@ size_flags_horizontal = 2
 focus_neighbor_top = NodePath("../../hbox2/str")
 focus_mode = 0
 theme = ExtResource("2_obobf")
-text = "🧠 Practice reading"
+text = "🧠 Get smarter"
 alignment = 0
 
 [node name="stat3" type="Label" parent="margin/hbox/buttons/hbox3"]

@@ -39,7 +39,7 @@ func _ready():
 	for upgrade in upgrade_menus:
 		upgrade.connect("upgrades_finished", end_upgrades_early)
 	get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = false	
-	%description.text = "Customize Mon - press START when all players are ready!"
+	%description.text = "Customize Mon - press START/ENTER when all players are ready!"
 	
 
 func start_game():
@@ -162,7 +162,7 @@ func get_end_of_round_winner():
 	for loser in losers:
 		if loser.get_child(0).current_state != loser.get_child(0).State.KNOCKED_OUT:
 			var bonus_points = loser.get_child(0).check_how_many_other_mons_knocked_out()
-			loser.get_child(0).current_victory_points += bonus_points
+			loser.get_child(0).current_victory_points += bonus_points + 1
 		loser.wins += loser.get_child(0).current_victory_points
 
 

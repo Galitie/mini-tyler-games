@@ -1,10 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c17xu7f8tvrfk"]
+[gd_scene load_steps=10 format=3 uid="uid://c17xu7f8tvrfk"]
 
 [ext_resource type="Texture2D" uid="uid://48cwj3wacki4" path="res://tylermon/background/title_screen.png" id="1_nkvg6"]
 [ext_resource type="Script" path="res://tylermon/title.gd" id="1_ou28i"]
 [ext_resource type="Texture2D" uid="uid://bu84eaqcbween" path="res://tylermon/background/press_start.png" id="2_uawli"]
-[ext_resource type="Texture2D" uid="uid://dp2ay7t1w3rs7" path="res://tylermon/background/tutorial.png" id="3_5mr6b"]
-[ext_resource type="Texture2D" uid="uid://dc1sb5yuj20gh" path="res://tylermon/background/battle.png" id="4_gny5s"]
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="6_j78y3"]
 [ext_resource type="FontFile" uid="uid://csg2ib3ns86mg" path="res://tylermon/PoetsenOne-Regular.ttf" id="7_ku0yt"]
 
@@ -57,33 +55,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ou28i")
-
-[node name="tutorial" type="Control" parent="."]
-anchors_preset = 0
-
-[node name="background" type="TextureRect" parent="tutorial"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("4_gny5s")
-
-[node name="tutorial" type="TextureRect" parent="tutorial"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_5mr6b")
-
-[node name="press_enter" type="Label" parent="tutorial"]
-offset_left = 896.0
-offset_top = 619.0
-offset_right = 1052.0
-offset_bottom = 658.0
-theme = ExtResource("6_j78y3")
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("7_ku0yt")
-theme_override_font_sizes/font_size = 32
-text = "(or ENTER)"
 
 [node name="title_screen" type="Node2D" parent="."]
 unique_name_in_owner = true

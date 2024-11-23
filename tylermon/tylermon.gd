@@ -16,7 +16,6 @@ var victory = load("res://tylermon/sfx/victory.mp3")
 @onready var countdown_nums = %countdown
 @onready var round_timer = $round_timer
 @onready var transition_timer = $transition_timer
-@onready var command_ui = $command_ui
 @onready var customization_buttons = get_tree().get_nodes_in_group("customizer")
 @onready var mons = get_tree().get_nodes_in_group("mons")
 @onready var upgrade_menus = get_tree().get_nodes_in_group("upgrade_menus")
@@ -45,6 +44,7 @@ func _ready():
 func start_game():
 	start_menu_time = false
 	%bottom_ui.set_place()
+	%bottom_ui.visible = true
 	for mon in mons:
 		mon.hp_bar.visible = true
 	for menus in customization_buttons:
@@ -99,7 +99,7 @@ func _on_round_timer_timeout():
 		upgrade_menu.visible = true
 		knocked_out_mons = 0
 		%countdown.text = ""
-		%description.text = "Feed your mon 🍪s to make them stronger!"
+		%description.text = "Feed your mon cookies to make them stronger!"
 		round_timer.stop()
 		get_tree().get_root().get_child(2).get_node("Arena").get_node("backgrounds").get_node("margin").get_node("upgrade").visible = true
 	else:

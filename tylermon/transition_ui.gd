@@ -3,6 +3,7 @@ extends MarginContainer
 @onready var large_confetti = $confetti
 @onready var sm_left_confetti = $confetti2
 @onready var sm_right_confetti = $confetti3
+@onready var emoji_font = load("res://tylermon/NotoColorEmoji-Regular.ttf")
 
 
 var end_of_game = false
@@ -22,9 +23,9 @@ func update_winners(winners):
 	if winners.size() == 0:
 		%title_text.text = "NO WINNERS THIS ROUND"
 	if winners.size() == 1:
-		%title_text.text = "🎉 ROUND WINNER 🎉"
+		%title_text.text = "ROUND WINNER"
 	else:
-		%title_text.text = "🎉 ROUND WINNERS 🎉"
+		%title_text.text = "ROUND WINNERS"
 	build_nodes(winners, false)
 	sm_left_confetti.emitting = true
 	sm_right_confetti.emitting = true
@@ -53,9 +54,9 @@ func show_final_winners(winners):
 	sm_left_confetti.emitting = true
 	sm_right_confetti.emitting = true
 	if winners.size() == 1:
-		%title_text.text = "✨🏆 GAME WINNER 🏆✨"
+		%title_text.text = "GAME WINNER"
 	else:
-		%title_text.text = "✨🏆 GAME WINNERS 🏆✨"
+		%title_text.text = "GAME WINNERS"
 	build_nodes(winners, true)
 
 
@@ -65,6 +66,8 @@ func build_nodes(winners, end_of_game):
 	for winner in winners:
 		var images = TextureRect.new()
 		var label = Label.new()
+		var hbox = HBoxContainer.new()
+		var emoji_label = Label.new()
 		var label_name = Label.new()
 		var image_mon = TextureRect.new()
 		var image_hat = TextureRect.new()
@@ -72,15 +75,20 @@ func build_nodes(winners, end_of_game):
 		var image_hair = TextureRect.new()
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label_name.theme = load("res://tylermon/tylermon_theme.tres")
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label_name.set("theme_override_colors/font_color", Color("000000"))
+		emoji_label.theme = load("res://tylermon/tylermon_theme.tres")
+		emoji_label.set("theme_override_fonts/font", emoji_font)
+		hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 		if !end_of_game:
-			label.text = "+👑" + str(winner.get_child(0).current_victory_points)
+			label.text = "+" + str(winner.get_child(0).current_victory_points)
 		else:
-			label.text = "👑" + str(winner.wins)
+			label.text = str(winner.wins)
+		emoji_label.text = "👑"
 		label_name.text = winner.get_child(0).mon_name
+		hbox.add_child(emoji_label)
+		hbox.add_child(label)
 		var sprite_frame = winner.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		images.texture = sprite_frame.get_frame_texture("idle",0)
 		image_mon.texture = sprite_frame.get_frame_texture("idle",0)
@@ -102,7 +110,7 @@ func build_nodes(winners, end_of_game):
 			images.add_child(image_glasses)
 		vbox.add_child(images)
 		vbox.add_child(label_name)
-		vbox.add_child(label)
+		vbox.add_child(hbox)
 		vbox.set("theme_override_constants/separation", 5)
 		container.add_child(vbox)
 	build_losers_nodes(winners)
@@ -129,18 +137,25 @@ func build_losers_nodes(winners):
 		var image_hair = TextureRect.new()
 		var sprite_frame = loser.get_child(0).get_node("scalable_nodes").get_child(0).get_sprite_frames()
 		var texture = sprite_frame.get_frame_texture("idle",0)
+		var hbox = HBoxContainer.new()
+		var emoji_label = Label.new()
 		images.texture = texture
 		images.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		images.custom_minimum_size = Vector2(100,100)
 		images.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		label.set("theme_override_colors/font_color", Color("000000"))
 		label_name.set("theme_override_colors/font_color", Color("000000"))
+		emoji_label.theme = load("res://tylermon/tylermon_theme.tres")
+		emoji_label.set("theme_override_fonts/font", emoji_font)
+		hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 		if !end_of_game:
-			label.text = "+👑" + str(loser.get_child(0).current_victory_points)
+			label.text = "+" + str(loser.get_child(0).current_victory_points)
 		else:
-			label.text = "👑" + str(loser.wins)
+			label.text = str(loser.wins)
+		emoji_label.text = "👑"
+		hbox.add_child(emoji_label)
+		hbox.add_child(label)
 		label_name.text = loser.get_child(0).mon_name
 		label.theme = load("res://tylermon/tylermon_theme.tres")
 		label_name.theme = load("res://tylermon/tylermon_theme.tres")
@@ -175,7 +190,7 @@ func build_losers_nodes(winners):
 			images.add_child(image_glasses)
 		vbox.add_child(images)
 		vbox.add_child(label_name)
-		vbox.add_child(label)
+		vbox.add_child(hbox)
 		vbox.set("theme_override_constants/separation", 5)
 		container.add_child(vbox)	
 

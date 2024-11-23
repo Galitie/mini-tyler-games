@@ -6,8 +6,8 @@
 [ext_resource type="Theme" uid="uid://mej1pqgdqmna" path="res://tylermon/tylermon_theme.tres" id="3_cssk0"]
 [ext_resource type="PackedScene" uid="uid://cyyxc3uqqve2m" path="res://tylermon/upgrade_menu.tscn" id="4_03my5"]
 [ext_resource type="Script" path="res://tylermon/place.gd" id="4_luqjg"]
+[ext_resource type="FontFile" uid="uid://babcwwlpom5a8" path="res://tylermon/NotoColorEmoji-Regular.ttf" id="5_1jq11"]
 [ext_resource type="Script" path="res://tylermon/player.gd" id="5_uxsio"]
-[ext_resource type="PackedScene" uid="uid://cb7lwc1cg6d5c" path="res://tylermon/command_menu.tscn" id="6_8kvd3"]
 [ext_resource type="PackedScene" uid="uid://m7x0w3mg0g76" path="res://tylermon/customizer.tscn" id="6_ultvs"]
 [ext_resource type="PackedScene" uid="uid://io2r0wxux8x6" path="res://tylermon/transition_ui.tscn" id="7_4dfmu"]
 [ext_resource type="AudioStream" uid="uid://blwekvip8521k" path="res://tylermon/sfx/music.mp3" id="11_suxut"]
@@ -79,6 +79,7 @@ grow_vertical = 0
 
 [node name="bottom_ui" type="HBoxContainer" parent="screen_ui/margin_bottom"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 70
 alignment = 1
@@ -95,6 +96,11 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 24
 
+[node name="emoji" type="Label" parent="screen_ui/margin_bottom/bottom_ui/firstplace"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_1jq11")
+text = "👑"
+
 [node name="secondplace" type="HBoxContainer" parent="screen_ui/margin_bottom/bottom_ui"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -105,6 +111,11 @@ theme = ExtResource("3_cssk0")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 24
+
+[node name="emoji" type="Label" parent="screen_ui/margin_bottom/bottom_ui/secondplace"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_1jq11")
+text = "👑"
 
 [node name="thirdplace" type="HBoxContainer" parent="screen_ui/margin_bottom/bottom_ui"]
 unique_name_in_owner = true
@@ -117,6 +128,11 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 24
 
+[node name="emoji" type="Label" parent="screen_ui/margin_bottom/bottom_ui/thirdplace"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_1jq11")
+text = "👑"
+
 [node name="fourthplace" type="HBoxContainer" parent="screen_ui/margin_bottom/bottom_ui"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -127,6 +143,11 @@ theme = ExtResource("3_cssk0")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 24
+
+[node name="emoji" type="Label" parent="screen_ui/margin_bottom/bottom_ui/fourthplace"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_1jq11")
+text = "👑"
 
 [node name="upgrade_ui" type="Control" parent="."]
 visible = false
@@ -162,9 +183,9 @@ position = Vector2(356.481, 127.504)
 [node name="upgrade_menu" parent="upgrade_ui/margin/GridContainer/upgrade_pos" instance=ExtResource("4_03my5")]
 unique_name_in_owner = true
 offset_left = -356.481
-offset_top = -127.504
+offset_top = -136.433
 offset_right = 223.519
-offset_bottom = 492.496
+offset_bottom = 483.567
 
 [node name="player0" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_pos/upgrade_menu" groups=["player"]]
 script = ExtResource("5_uxsio")
@@ -180,9 +201,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.0
+offset_left = -95.0
 offset_top = -146.0
-offset_right = -72.0
+offset_right = -95.0
 offset_bottom = -146.0
 player_name = "Player 1"
 
@@ -191,9 +212,9 @@ position = Vector2(986.174, 127.504)
 
 [node name="upgrade_menu2" parent="upgrade_ui/margin/GridContainer/upgrade_pos2" instance=ExtResource("4_03my5")]
 offset_left = -346.174
-offset_top = -127.504
+offset_top = -136.433
 offset_right = 173.826
-offset_bottom = 492.496
+offset_bottom = 483.567
 
 [node name="player1" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_pos2/upgrade_menu2" groups=["player"]]
 script = ExtResource("5_uxsio")
@@ -208,9 +229,9 @@ visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = -72.0
+offset_left = -95.0
 offset_top = -146.0
-offset_right = -72.0
+offset_right = -95.0
 offset_bottom = -146.0
 grow_horizontal = 1
 grow_vertical = 1
@@ -221,9 +242,9 @@ position = Vector2(986.174, 467.788)
 
 [node name="upgrade_menu4" parent="upgrade_ui/margin/GridContainer/upgrade_pos3" instance=ExtResource("4_03my5")]
 offset_left = -346.174
-offset_top = -127.788
+offset_top = -136.717
 offset_right = 173.826
-offset_bottom = 152.212
+offset_bottom = 143.283
 
 [node name="player3" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_pos3/upgrade_menu4" groups=["player"]]
 script = ExtResource("5_uxsio")
@@ -240,9 +261,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.0
+offset_left = -95.0
 offset_top = -146.0
-offset_right = -72.0
+offset_right = -95.0
 offset_bottom = -146.0
 size_flags_horizontal = 4
 player_name = "Player 4"
@@ -252,9 +273,9 @@ position = Vector2(377.504, 459.852)
 
 [node name="upgrade_menu3" parent="upgrade_ui/margin/GridContainer/upgrade_pos4" instance=ExtResource("4_03my5")]
 offset_left = -377.504
-offset_top = -119.852
+offset_top = -128.781
 offset_right = 142.496
-offset_bottom = 160.148
+offset_bottom = 151.219
 
 [node name="player2" type="Node" parent="upgrade_ui/margin/GridContainer/upgrade_pos4/upgrade_menu3" groups=["player"]]
 script = ExtResource("5_uxsio")
@@ -271,36 +292,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.0
+offset_left = -95.0
 offset_top = -146.0
-offset_right = -72.0
+offset_right = -95.0
 offset_bottom = -146.0
 player_name = "Player 3"
-
-[node name="command_ui" type="Control" parent="."]
-visible = false
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-
-[node name="margin" type="MarginContainer" parent="command_ui"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="hbox" parent="command_ui/margin" instance=ExtResource("6_8kvd3")]
-layout_mode = 2
-vertical = true
 
 [node name="transition_ui" type="Control" parent="."]
 visible = false

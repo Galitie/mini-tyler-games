@@ -11,15 +11,15 @@ var place_set: bool = false
 @onready var cursor = $cursor
 var moved_stick: bool = false
 
-@onready var hp_stat = $margin/hbox/buttons/hbox/stat1
-@onready var str_stat = $margin/hbox/buttons/hbox2/stat2
-@onready var int_stat = $margin/hbox/buttons/hbox3/stat3
-@onready var description = $margin/hbox/buttons/description
+@onready var hp_stat = $margin/vbox/hbox/buttons/stats/hp_container/stat1
+@onready var str_stat = $margin/vbox/hbox/buttons/stats/str_container/stat2
+@onready var int_stat = $margin/vbox/hbox/buttons/stats/int_container/stat3
+@onready var description = $margin/vbox/hbox/buttons/description
 
-@onready var hp_button = $margin/hbox/buttons/hbox/hp
-@onready var str_button = $margin/hbox/buttons/hbox2/str
-@onready var int_button = $margin/hbox/buttons/hbox3/int
-@onready var gamble_button = $margin/hbox/buttons/hbox7/gamble
+@onready var hp_button = $margin/vbox/hbox/buttons/hbox/hp
+@onready var str_button = $margin/vbox/hbox/buttons/hbox2/str
+@onready var int_button = $margin/vbox/hbox/buttons/hbox3/int
+@onready var gamble_button = $margin/vbox/hbox/buttons/hbox7/gamble
 @onready var upgrade_buttons = [gamble_button, hp_button, str_button, int_button]
 
 
@@ -30,6 +30,7 @@ var gamble_desc = "Gambling is fun!!!"
 
 var upgrade_options: Array = ["gamble","hp", "str", "int"]
 var upgrade_position: int = 0
+var set_cursor_to_invisible: bool = false
 
 signal upgraded
 signal upgrades_finished
@@ -38,11 +39,17 @@ signal first_place
 func _ready():
 	get_mon()
 	get_player()
+	var check_for_joy_pad = Input.get_connected_joypads()
+	if check_for_joy_pad == []:
+		cursor.visible = false
+		set_cursor_to_invisible = true
+		
 
 
 func _physics_process(_delta):
 	if points_to_spend > 0:
-		cursor.visible = true
+		if !set_cursor_to_invisible:
+			cursor.visible = true
 		var vertical_input: float = round(Controller.GetLeftStick(player.controller_port).y)
 		if !vertical_input:
 			moved_stick = false
@@ -57,10 +64,10 @@ func _physics_process(_delta):
 				moved_stick = true
 		if upgrade_position >= upgrade_options.size():
 			upgrade_position = 0
-			cursor.position.y = 58
+			cursor.position.y = 50
 		elif upgrade_position < 0:
 			upgrade_position = upgrade_options.size() - 1
-			cursor.position.y = 173
+			cursor.position.y = 165
 		if moved_stick:
 			_on_mouse_entered(upgrade_options[upgrade_position])
 		if Controller.IsControllerButtonJustPressed(player.controller_port, JOY_BUTTON_A):
@@ -69,17 +76,22 @@ func _physics_process(_delta):
 		cursor.visible = false
 	
 	if upgrade_time:
-		hp_stat.text = "HP: " + str(mon.max_health)
-		str_stat.text = "STR: " + str(mon.strength)
-		int_stat.text = "INT: " + str(mon.intelligence)
+		hp_stat.text = str(mon.max_health)
+		str_stat.text = str(mon.strength)
+		int_stat.text = str(mon.intelligence)
 		if points_to_spend == 3:
-			%points.text = "Cookies left: 🍪🍪🍪"
+			%text.text = "Cookies left:"
+			%points.text = "🍪🍪🍪"
 		if points_to_spend == 2:
-			%points.text = "Cookies left: 🍪🍪"
+			%text.text = "Cookies left:"
+			%points.text = "🍪🍪"
 		if points_to_spend == 1:
-			%points.text = "Cookies left: 🍪"
+			%text.text = "Cookies left:"
+			%points.text = "🍪"
 		if points_to_spend == 0:
-			%points.text = "All 🍪s eaten - please wait!"
+			%points.text = ""
+			%text.text = "All cookies eaten! Please wait..."
+			
 		mon.hp_bar.value = mon.max_health
 		mon.health_label.text = str(mon.max_health)
 		mon.max_health_label.text = str(mon.max_health)
@@ -117,6 +129,7 @@ func _on_button_pressed(button_name):
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
+			description.text = "Gained +1 HEALTH POINT"
 			if mon.max_health >= 15 && mon.tank == false:
 				mon.tank = true
 				mon.get_node("%scalable_nodes").scale += Vector2(.25, .25)
@@ -127,6 +140,7 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			mon.strength += 1
 			emit_signal("upgraded", "good")
+			description.text = "Gained +1 STRENGTH"
 			if mon.strength >= 10 && mon.buff == false:
 				mon.buff = true
 				if mon.cursed == false:
@@ -135,6 +149,7 @@ func _on_button_pressed(button_name):
 			points_to_spend -= 1
 			mon.intelligence += 1
 			emit_signal("upgraded", "good")
+			description.text = "Gained +1 INTELLIGENCE"
 			if mon.intelligence >= 10 && mon.smart == false:
 				mon.smart = true
 				mon.glasses.visible = true
@@ -255,85 +270,85 @@ func increase_random_stats(stats:int, alter_by:int):
 	var random_stat3 = possible_stats.pick_random()
 	if stats == 1:
 		if random_stat == 1:
-			mon.max_health += (alter_by + 1)
+			mon.max_health += alter_by
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
-			update_description(alter_by, "hp", null, null)
+			update_description(alter_by, "HP", null, null)
 		if random_stat == 2:
 			mon.strength += alter_by
-			update_description(alter_by, "str", null, null)
+			update_description(alter_by, "STR", null, null)
 		if random_stat == 3:
 			mon.intelligence += alter_by
-			update_description(alter_by, "int", null, null)
+			update_description(alter_by, "INT", null, null)
 	elif stats == 2:
 		var stat
 		var stat2
 		if random_stat == 1:
-			mon.max_health += (alter_by + 1)
+			mon.max_health += alter_by
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
-			stat = "hp"
+			stat = "HP"
 		if random_stat == 2:
 			mon.strength += alter_by
-			stat = "str"
+			stat = "STR"
 		if random_stat == 3:
 			mon.intelligence += alter_by
-			stat = "int"
+			stat = "INT"
 		if random_stat2 == 1:
-			mon.max_health += (alter_by + 1)
+			mon.max_health += alter_by
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
-			stat2 = "hp"
+			stat2 = "HP"
 		if random_stat2 == 2:
 			mon.strength += alter_by
-			stat2 = "str"
+			stat2 = "STR"
 		if random_stat2 == 3:
 			mon.intelligence += alter_by
-			stat2 = "int"
+			stat2 = "INT"
 		update_description(alter_by, stat, stat2, null)
 	elif stats == 3:
 		var stat
 		var stat2
 		var stat3
 		if random_stat == 1:
-			mon.max_health += alter_by + 1
+			mon.max_health += alter_by
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
-			stat = "hp"
+			stat = "HP"
 		if random_stat == 2:
 			mon.strength += alter_by
-			stat = "str"
+			stat = "STR"
 		if random_stat == 3:
 			mon.intelligence += alter_by
-			stat = "int"
+			stat = "INT"
 		if random_stat2 == 1:
-			mon.max_health += alter_by + 1
+			mon.max_health += alter_by
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
-			stat2 = "hp"
+			stat2 = "HP"
 		if random_stat2 == 2:
 			mon.strength += alter_by
-			stat2 = "str"
+			stat2 = "STR"
 		if random_stat2 == 3:
 			mon.intelligence += alter_by
-			stat2 = "int"
+			stat2 = "INT"
 		if random_stat3 == 1:
-			mon.max_health += alter_by + 1
+			mon.max_health += alter_by
 			mon.get_node("%scalable_nodes").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("collision").scale += Vector2(scale_amount, scale_amount)
 			mon.get_node("%trail").process_material.set("scale_min", mon.get_node("%trail").process_material.get("scale_min") + scale_amount)
-			stat3 = "hp"
+			stat3 = "HP"
 		if random_stat3 == 2:
 			mon.strength += alter_by
-			stat3 = "str"
+			stat3 = "STR"
 		if random_stat3 == 3:
 			mon.intelligence += alter_by
-			stat3 = "int"
+			stat3 = "INT"
 		update_description(alter_by, stat, stat2, stat3)
 
 
@@ -362,18 +377,18 @@ func set_place():
 	player.current_place = index_corrected
 	index_corrected = str(index_corrected)
 	if index_corrected == '1':
-		%gamble.text = "🎲 Gamble"
+		%gamble.text = "Gamble"
 		first_place.emit(true)
 	if index_corrected == '2':
-		%gamble.text = "🎲 Gamble"
+		%gamble.text = "Gamble"
 		first_place.emit(false)
 	if index_corrected == '3':
 		$anim_player.play("pulse")
-		%gamble.text = "🎲 Mon is extra lucky!"
+		%gamble.text = "Mon is extra lucky!"
 		first_place.emit(false)
 	if index_corrected == '4':
 		$anim_player.play("pulse")
-		%gamble.text = "🎲 Mon is extra lucky!"
+		%gamble.text = "Mon is extra lucky!"
 		first_place.emit(false)
 
 

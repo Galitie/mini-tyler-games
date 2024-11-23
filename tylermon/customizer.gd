@@ -110,6 +110,9 @@ const HOLD_STICK_FRAMES_MAX: int = 5
 signal change_name
 
 func _ready():
+	var check_for_joy_pad = Input.get_connected_joypads()
+	if check_for_joy_pad == []:
+		$cursor.visible = false
 	player_label.text = player_name
 	get_mon()
 	get_player()	

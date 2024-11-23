@@ -15,10 +15,10 @@ func set_place():
 	%secondplace.get_child(0).set("theme_override_colors/font_color", sorted_array[1][2].get_child(0).mon_color)
 	%thirdplace.get_child(0).set("theme_override_colors/font_color", sorted_array[2][2].get_child(0).mon_color)
 	%fourthplace.get_child(0).set("theme_override_colors/font_color", sorted_array[3][2].get_child(0).mon_color)
-	%firstplace.get_child(0).text = sorted_array[0][0] + " - 👑" + str(sorted_array[0][1])
-	%secondplace.get_child(0).text = sorted_array[1][0] + " - 👑" + str(sorted_array[1][1])
-	%thirdplace.get_child(0).text = sorted_array[2][0] + " - 👑" + str(sorted_array[2][1])
-	%fourthplace.get_child(0).text = sorted_array[3][0] + " - 👑" + str(sorted_array[3][1])
+	%firstplace.get_child(0).text = sorted_array[0][0] + " - " + str(sorted_array[0][1])
+	%secondplace.get_child(0).text = sorted_array[1][0] + " - " + str(sorted_array[1][1])
+	%thirdplace.get_child(0).text = sorted_array[2][0] + " - " + str(sorted_array[2][1])
+	%fourthplace.get_child(0).text = sorted_array[3][0]  + " - " + str(sorted_array[3][1])
 	
 
 func sort_descending(a, b):

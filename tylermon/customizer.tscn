@@ -29,20 +29,21 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_ehhrm")
 text = "Player #"
+horizontal_alignment = 1
 
 [node name="name" type="Button" parent="margin/vbox"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("1_ehhrm")
-text = "✏️ Change name"
-alignment = 0
+text = "Change Name"
 
 [node name="color" type="Button" parent="margin/vbox"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("1_ehhrm")
-text = "🎨 Change color"
-alignment = 0
+text = "Change Color"
 
 [node name="cursor" type="TextureRect" parent="."]
 layout_mode = 0
@@ -55,8 +56,8 @@ flip_h = true
 
 [node name="cursor2" type="TextureRect" parent="cursor"]
 layout_mode = 0
-offset_left = 198.0
-offset_right = 238.0
+offset_left = 250.0
+offset_right = 290.0
 offset_bottom = 40.0
 texture = ExtResource("3_yeq46")
 

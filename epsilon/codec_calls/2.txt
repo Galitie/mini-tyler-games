@@ -34,9 +34,9 @@ end
 port add otacon snake
 msg right talking inside "Otacon, I've made it inside the building."
 msg left talking great_job "Great job, Snake."
-msg left talking left_stick "You can move around with the left analog stick (ARROW KEYS)."
-msg left talking a_button "Your CQC techniques are bound to the A button (Z KEY)."
-msg left talking x_and_b_button "You can fire your pistol with the X button (C KEY), and throw a grenade with the B button (X KEY)."
-msg left talking y_button "Lastly, your stinger missiles are equipped to the Y button (V KEY)."
-msg left talking right_bumper "Oh, and one more thing. You can hide in a cardboard box if you hold the right bumper (D KEY)."
+msg left talking left_stick "You can move around with the left analog stick (arrow keys)."
+msg left talking a_button "Your CQC techniques are bound to the A button (Z key)."
+msg left talking x_and_b_button "You can fire your pistol with the X button (C key), and throw a grenade with the B button (X key)."
+msg left talking y_button "Lastly, your stinger missiles are equipped to the Y button (V key)."
+msg left talking right_bumper "Oh, and one more thing. You can hide in a cardboard box if you hold the right bumper (D key)."
 port remove otacon snake

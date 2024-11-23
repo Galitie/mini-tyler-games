@@ -109,6 +109,7 @@ stream = ExtResource("2_u0wln")
 autoplay = true
 expand = true
 loop = true
+buffering_msec = 1000
 
 [node name="press_start_text" type="Sprite2D" parent="."]
 position = Vector2(634, 560)
